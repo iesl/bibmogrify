@@ -1,0 +1,184 @@
+@ARTICLE{Marquis2002,
+  author = {Marquis, Emmanuelle A. and Dunand, David C.},
+  title = {Model for creep threshold stress in precipitation-strengthened alloys with coherent particles},
+  journal = {Scripta Materialia},
+  year = {2002},
+  volume = {47},
+  number = {8},
+  pages = {503--508},
+  abstract = {The general climb model for creep threshold
+    stress for dislocations interacting with incoherent particles is
+    modified for the case of coherent precipitates, by taking into account
+    elastic interactions between matrix dislocations and particles due to
+    particle/matrix stiffness and lattice mismatches. The model is in
+    qualitative agreement with experimental data for the Al-Sc system.},
+  url = {http://www.sciencedirect.com/science/article/B6TY2-46JYK44-8/2/9bfddbbdd9ed8972b2d5379d405d0c70},
+}
+
+@ARTICLE{Fuller2002,
+  author = {Fuller, Christian B. and Krause, Alber R. and Dunand, David C. and Seidman, David N.},
+  title = {Microstructure and Mechanical Properties of a 5754 Aluminum Alloy Modified by Sc and Zr Additions},
+  journal = {Materials Science and Engineering A},
+  year = {2002},
+  volume = {338},
+  number = {1-2},
+  pages = {8--16},
+  abstract = {The effects of various heat treatments upon the microstructure and
+    mechanical properties of a rolled 5754 aluminum alloy modified with
+    0.23~wt.\% Sc and 0.22 wt.\% Zr were investigated. Grain size, as well as
+    precipitate size, type, and morphology were observed by optical and
+    transmission electron microscopies. Two populations of the Al3Sc1-xZrx phase 
+    were present: (i) large incoherent precipitates formed during solidification 
+    and hot-rolling; and (ii) fine coherent precipitates formed from secondary
+    precipitation, which improved alloy strength, as shown by hardness, tensile,
+    and fatigue measurements. Aging, however, also produced two types of
+    grain-boundary precipitates, Al6Mn and [beta]-Al3Mg2, which contributed to
+    poorer fatigue behavior and reduced ductility.},
+  url = {http://www.sciencedirect.com/science/article/B6TXD-455VMMY-4/2/92819ffba0320835fd51f28293113015},
+}
+
+@ARTICLE{Rosler1990,
+  author = {R{\"{o}}sler, J. and Arzt, E.},
+  title = {A New Model-Based Creep Equation for Dispersion Strengthened Materials},
+  journal = {Acta Metallurgica et Materialia},
+  year = {1990},
+  volume = {38},
+  number = {4},
+  pages = {671--683},
+}
+
+@INBOOK{Hirsch1969,
+  chapter = {Plastic deformation of two-phase alloys containing small nondeformable particles},
+  pages = {189--216},
+  title = {The physics and strength of plasticity},
+  publisher = {MIT Press},
+  year = {1969},
+  editor = {A. Argon},
+  author = {Hirsch, P.B. and Humphreys, F.J.},
+  address = {Cambridge, MA},
+  abstract = {The mechanism of plastic deformation of two-phase
+    alloys containing small nondeformable particles in a ductile matrix is
+    discussed. The effect of cross-slip on the Orowan bypass mechanism is
+    considered; the experimentally observed microstructure and its variation
+    with alloy composition is interpreted in terms of the cross-slip
+    mechanism. The factors controlling the yield stress of the undeformed
+    material, and the flow stress of the work-hardened crystals, are
+    reviewed. Work hardening for small strains is considered to be due to the
+    interaction between screw dislocations and prismatic loops with the primary
+    Burgers vector to form helices. A theory is developed applicable to
+    very small strains. Possible mechanisms to account for the strong
+    recovery effect reported for copper-base alloys at and above room
+    temperature are considered. Above about 100 degrees C the density of
+    loops and the work-hardening rates are very small. This effect is
+    interpreted in terms of a pipe-diffusion mechanism. [Book Chapter]},
+  journal = {Strength and plasticity, Physics of},
+  url = {http://www.sciencedirect.com/science/article/B6WS6-4043HVS-13R/2/fd076fbbdf3d0b5e4e2edd19cbe2f709},
+}
+
+@INBOOK{Arntz1997,
+  author = {Arntz, WE
+    and Gutt, J.
+    and Klages, M.},
+  editor = {Battaglia, B.
+    and Valencia, J.
+    and Walton, DWH},
+  chapter = {Antarctic marine biodiversity: an overview},
+  title = {Antarctic Communities: Species, Structure and Survival},
+  year = {1997},
+  publisher = {Cambridge University Press (UK)},
+  address = {Cambridge},
+  pages = {3--14},
+  keywords = {Species diversity},
+  keywords = {Antarctic zone},
+  keywords = {Community composition},
+  keywords = {Taxonomy},
+  keywords = {Geographical distribution},
+  abstract = {The unique Antarctic marine environment, its evolutionary history,
+    its biotic peculiarities and its (hitherto) comparatively low degree of human
+    impact make a biodiversity approach and a comparison with other areas
+    particularly worth while. Current knowledge seems to indicate that there is no
+    common pattern for species richness in the various Antarctic subsystems (e.g.
+    pelagic/benthic, shallow/deep) or for different taxonomic groups. Some
+    assemblages appear to be fairly rich in species, others consist of only a few,
+    and the same pattern applies to the various taxa at a higher taxonomic level.
+    The Antarctic marine ecosystem as a whole seems to have a lower percentage of
+    species known to date in most higher taxa than would be expected from its share
+    of the area of the world’s oceans. However, comparison with other marine
+    ecosystems is difficult because of differences in area, environment, sampling
+    and processing, and taxonomic knowledge. Comparison with the Arctic Ocean
+    indicates that species numbers of most groups are much higher in Antarctic
+    waters, but many more comparable data are needed to judge whether this also
+    holds generally true for diversity, and whether large-scale latitudinal
+    gradients exist for more than a few groups. Few authors have calculated
+    diversity and evenness indices, and these, too, are often of very limited
+    comparability. High species numbers do not necessarily imply high values of
+    diversity and evenness.},
+  isbn = {0-521-48033-7},
+}
+
+@INBOOK{Arrigo2003,
+  author = {Arrigo, KR},
+  editor = {Thomas, DN and Dieckmann, GS},
+  chapter = {Primary production in sea ice},
+  title = {Sea ice - an introduction to its physics, chemistry, biology and geology},
+  year = {2003},
+  publisher = {Blackwell Science Ltd},
+  address = {Oxford},
+  pages = {143--183},
+  keywords = {Sea Ice},
+  isbn = {0-632-05808-0},
+}
+  
+@BOOK{Mura1969,
+  editor = {Mura, T.},
+  title = {Mathematical Theory of Dislocations},
+  booktitle = {Mathematical Theory of Dislocations},
+  publisher = {ASME},
+  address = {New York},
+  year = {1969},
+} 
+
+@BOOK{Massalski1990,
+  title = {Binary Alloy Phase Diagrams},
+  publisher = {ASM International},
+  year = {1990},
+  author = {Massalski, T. B. and Okamoto, H. and Subramanian, P. R. and Kacprzak, L.},
+  address = {Materials Park},
+}
+
+@BOOK{Dyakonov1954,
+  author = {Dyakonov, AM},
+  title = {Ophiuroids of the USSR seas},
+  series = {Keys to the Fauna of the USSR},
+  year = {1954},
+  publisher = {Zoological Institute of the Academy of Sciences of the USSR},
+  address = {Moscow},
+  volume = {55},
+  keywords = {echinoderms},
+  keywords = {ophiuroids},
+}
+
+@PHDTHESIS{Fuller2003a,
+  author = {Fuller, Christian B.},
+  title = {Temporal Evolution of the Microstructures of Al(Sc,Zr) Alloys and Their Influences on Mechanical Properties},
+  school = {Northwestern University},
+  year = {2003},
+}
+
+@INPROCEEDINGS{Steffens2006,
+  author = {Steffens, M.
+    and Granskog, M.A.
+    and Kaartokallio, H.
+    and Kuosa, H.
+    and Luodekari, K.
+    and Papadimitriou, S.
+    and Thomas, D.N.},
+  title = {Spatial variation of biogeochemical properties of landfast sea ice in the Gulf of Bothnia, Baltic Sea},
+  booktitle = {Proceedings of the International Symposium on Sea Ice, Dunedin (New Zealand), 5-9 Dec 2005},
+  year = {2006},
+  volume = {44},
+  series = {Annals of Glaciology},
+  pages = {80--87},
+  publisher = {International Glaciological Society},
+  address = {Cambridge},
+}

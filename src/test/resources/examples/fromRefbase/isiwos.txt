@@ -1,0 +1,259 @@
+FN ISI Export Format
+VR 1.0
+PT J
+AU Voss, R
+   Clemmesen, C
+   Baumann, H
+   Hinrichsen, HH
+TI Baltic sprat larvae: coupling food availability, larval condition and
+   survival
+SO MARINE ECOLOGY-PROGRESS SERIES
+LA English
+DT Article
+DE Baltic Sea; sprat larvae; condition; food availability; mortality;
+   hydrodynamic modelling
+ID COD GADUS-MORHUA; RNA-DNA RATIO; RNA/DNA RATIOS; NORTH-SEA; RECRUITMENT
+   SUCCESS; FISH LARVAE; GROWTH-RATE; LIFE STAGES; STOCK; FIELD
+AB Eggs and larvae of Baltic sprat Sprattus sprattus L. were collected
+   during 14 cruises covering the spawning season in 2002 in Bornholm
+   Basin. Main egg and larval production was in April, with a second small
+   peak in June 2002. The in situ larval abundance was corrected for
+   transport processes by hydrodynamic model runs. Corrected larval
+   abundance estimates were compared to initial larval production to
+   derive an index of larval mortality. This index suggested a much higher
+   survival of summer-over spring-born sprat larvae, with pronounced
+   differences in survival for larvae > 11 mm. Independent evidence for
+   this survival pattern was gained by measured RNA:DNA ratios in sprat
+   larvae hatched from April to July 2002 and was linked to temporal
+   variability in potential prey abundance. We found higher mean but less
+   variable RNA:DNA ratios in spring- than in summer-born larvae,
+   indicating a strong selection for fast growth in April and May but a
+   less selective environment in June and July. Zooplankton data revealed
+   high naupliar concentrations of Acartia spp. (a key dietary component
+   of sprat) in April and May, but very low concentrations of larger prey
+   items such as copepodites or adults. In contrast, abundance of larger
+   prey increased considerably in June and July. The results suggest that
+   larger sprat (> 11 mm) in April and May 2002 may have been food limited
+   and, therefore, had lower rates of survival, supporting the underlying
+   hypothesis of size-specific, temporally limited 'windows of survival'
+   linked to the availability of suitable prey.
+C1 Univ Kiel, Leibniz Inst Marine Sci, D-24105 Kiel, Germany.
+   Univ Hamburg, Inst Hydrobiol & Fisheries, D-22767 Hamburg, Germany.
+RP Voss, R, Univ Kiel, Leibniz Inst Marine Sci, Dusternbrooker Weg 20,
+   D-24105 Kiel, Germany.
+EM rvoss@ifm-geomar.de
+NR 67
+TC 0
+PU INTER-RESEARCH
+PI OLDENDORF LUHE
+PA NORDBUNTE 23, D-21385 OLDENDORF LUHE, GERMANY
+SN 0171-8630
+J9 MAR ECOL-PROGR SER
+JI Mar. Ecol.-Prog. Ser.
+PY 2006
+VL 308
+BP 243
+EP 254
+PG 12
+SC Ecology; Marine & Freshwater Biology
+GA 023QO
+UT ISI:000236141500020
+ER
+
+PT J
+AU Koster, FW
+   Mollmann, C
+   Hinrichsen, HH
+   Wieland, K
+   Tomkiewicz, J
+   Kraus, G
+   Voss, R
+   Makarchouk, A
+   MacKenzie, BR
+   St John, MA
+   Schnack, D
+   Rohlf, N
+   Linkowski, T
+   Beyer, JE
+TI Baltic cod recruitment - the impact of climate variability on key
+   processes
+SO ICES JOURNAL OF MARINE SCIENCE
+LA English
+DT Article
+DE eastern Baltic cod; egg survival; hydrography; larval prey
+   availability; predation; recruitment
+ID GADUS-MORHUA L.; SPRAT SPRATTUS-SPRATTUS; YOLK-SAC LARVAE;
+   VERTICAL-DISTRIBUTION; ENVIRONMENTAL VARIABILITY; TROPHODYNAMIC
+   CONTROL; SPAWNING STOCK; BORNHOLM BASIN; EGG-PRODUCTION; LIFE STAGES
+AB Large-scale climatic conditions prevailing over the central Baltic Sea
+   resulted in declining salinity and oxygen concentrations in spawning
+   areas of the eastern Baltic cod stock. These changes in hydrography
+   reduced the reproductive success and, combined with high fishing
+   pressure, caused a decline of the stock to the lowest level on record
+   in the early 1990s. The present Study aims at disentangling the
+   interactions between reproductive effort and hydrographic forcing
+   leading to variable recruitment. Based on identified key processes,
+   stock dynamics is explained Using updated environmental and life
+   stage-specific abundance and production time-series. Declining
+   salinities and oxygen concentrations caused high egg mortalities and
+   indirectly increased egg predation by clupeid fish. Low recruitment,
+   despite enhanced hydrographic conditions for egg survival in the
+   mid-1990s, was due to food limitation for larvae, caused by the decline
+   in the abundance of the copepod Pseudocalanus sp. The case of the
+   eastern Baltic cod stock exemplifies the multitude effects climatic
+   variability may have oil a fish stock and underscores the importance of
+   knowledge of these processes for understanding stock dynamics. (c) 2005
+   International Council for the Exploration of the Sea. Published by
+   Elsevier Ltd. All rights reserved.
+C1 Danish Inst Fisheries & Marine Res, DK-2920 Charlottenlund, Denmark.
+   Univ Kiel, Leibniz Inst Marine Sci, D-24105 Kiel, Germany.
+   Greenland Inst Nat Resources, DK-3900 Nuuk, Greenland.
+   Latvian Fisheries Res Agcy, LV-1007 Riga, Latvia.
+   Univ Hamburg, Inst Hydrobiol & Fisheries Sci, D-22767 Hamburg, Germany.
+   Sea Fisheries Res Inst, Gdynia, Poland.
+RP Koster, FW, Danish Inst Fisheries & Marine Res, DK-2920 Charlottenlund,
+   Denmark.
+EM fwk@difres.dk
+NR 60
+TC 0
+PU ACADEMIC PRESS LTD ELSEVIER SCIENCE LTD
+PI LONDON
+PA 24-28 OVAL RD, LONDON NW1 7DX, ENGLAND
+SN 1054-3139
+J9 ICES J MAR SCI
+JI ICES J. Mar. Sci.
+PD OCT
+PY 2005
+VL 62
+IS 7
+BP 1408
+EP 1425
+PG 18
+SC Fisheries; Marine & Freshwater Biology; Oceanography
+GA 989FW
+UT ISI:000233659300021
+ER
+
+PT J
+AU Hinrichsen, HH
+   Kraus, G
+   Voss, R
+   Stepputtis, D
+   Baumann, H
+TI The general distribution pattern and mixing probability of Baltic sprat
+   juvenile populations
+SO JOURNAL OF MARINE SYSTEMS
+LA English
+DT Article
+DE hydrodynamic modeling; advective mixing; hydroacoustics; sprat nursery
+   grounds; spatial overlap analysis
+ID EARLY-LIFE STAGES; NORTH-SEA; COD; CIRCULATION; HADDOCK; LARVAE; MODEL
+AB Transport of Baltic sprat Sprattus sprattus L. larvae spawned on
+   different spawning grounds was investigated by detailed drift model
+   simulations for the years 1979-2002. Modeling approaches with and
+   without diurnal vertical migration were applied. We used recently
+   collected data on spawning location, vertical distribution and the
+   timing of spawning as input to a particle tracking model. Results of
+   this modeling study enabled the identification of potential nursery
+   grounds for sprat originating from different spawning grounds. On
+   average, westerly winds are prevailing over the Baltic Sea. This leads
+   to on average higher abundance of juvenile sprat along the southern and
+   the eastern coast lines of the Baltic. The horizontal distribution of
+   simulated larval or 0-group sprat is consistent with the observed
+   distribution of 0-group sprat obtained from the hydroacoustic field
+   surveys.
+   In addition, this analysis identifies the potential for advective
+   mixing between juveniles originating from different spawning sites or
+   from the same spawning site throughout the spawning season. High
+   spatial overlap was found between Arkona-and Bornholm Basin larvae
+   hatched at the beginning of the spawning season. Mixing probability of
+   sprat juveniles between Arkona-and Gotland Basin as well as between
+   Bornholm- and Gotland Basin were on relatively low levels. (c) 2005
+   Elsevier B.V. All rights reserved.
+C1 Leibniz Inst Marine Sci, D-24105 Kiel, Germany.
+   Inst Hydrobiol & Fisheries Sci, Hamburg, Germany.
+RP Hinrichsen, HH, Leibniz Inst Marine Sci, Dusternbrooker Weg 20, D-24105
+   Kiel, Germany.
+EM hhinrichsen@ifm-geomar.de
+NR 31
+TC 1
+PU ELSEVIER SCIENCE BV
+PI AMSTERDAM
+PA PO BOX 211, 1000 AE AMSTERDAM, NETHERLANDS
+SN 0924-7963
+J9 J MARINE SYST
+JI J. Mar. Syst.
+PD OCT
+PY 2005
+VL 58
+IS 1-2
+SI Sp. Iss. 1
+BP 52
+EP 66
+PG 15
+SC Geosciences, Multidisciplinary; Marine & Freshwater Biology;
+   Oceanography
+GA 984QU
+UT ISI:000233320200004
+ER
+
+PT J
+AU Hinrichsen, HH
+   Schmidt, JO
+   Petereit, C
+   Mollmann, C
+TI Survival probability of Baltic larval cod in relation to spatial
+   overlap patterns with their prey obtained from drift model studies
+SO ICES JOURNAL OF MARINE SCIENCE
+LA English
+DT Article
+DE Baltic cod; Baltic Sea; drift model; spatial overlap
+ID EARLY-LIFE STAGES; BORNHOLM BASIN; VERTICAL-DISTRIBUTION; WIND-DRIVEN;
+   SEA; VARIABILITY; RECRUITMENT; CIRCULATION; DYNAMICS; FISH
+AB Temporal mismatch between the occurrence of larvae and their prey
+   potentially affects the spatial overlap and thus the contact rates
+   between predator and prey. This might have important consequences for
+   growth and survival. We performed a case study investigating the
+   influence of circulation patterns on the overlap of Baltic cod larvae
+   with their prey. A three-dimensional hydrodynamic model was used to
+   analyse spatio-temporally resolved drift patterns of larval Baltic cod.
+   A coefficient of overlap between modelled larval and idealized prey
+   distributions indicated the probability of predator-prey overlap,
+   dependent on the hatching time of cod larvae. By performing model runs
+   for the years 1979-1998 investigated the intra- and interannual
+   variability of potential spatial overlap between predator and prey.
+   Assuming uniform prey distributions, we generally found the overlap to
+   have decreased since the mid-1980s, but with the highest variability
+   during the 1990s. Seasonally, predator-prey overlap on the Baltic cod
+   spawning grounds was highest in summer and lowest at the end of the cod
+   spawning season. Horizontally variable prey distributions generally
+   resulted in decreased overlap coefficients. Finally, we related
+   variations in overlap patterns to the variability of Baltic cod
+   recruitment success. (c) 2005 International Council for the Exploration
+   of the Sea. Published by Elsevier Ltd. All rights reserved.
+C1 Leibniz Inst Marine Sci, D-24105 Kiel, Germany.
+   Danish Inst Fisheries & Marine Res, DK-2920 Charlottenlund, Denmark.
+RP Hinrichsen, HH, Leibniz Inst Marine Sci, Dusternbrooker Weg 20, D-24105
+   Kiel, Germany.
+EM hhinrichsen@ifm.uni-kiel.de
+NR 32
+TC 0
+PU ACADEMIC PRESS LTD ELSEVIER SCIENCE LTD
+PI LONDON
+PA 24-28 OVAL RD, LONDON NW1 7DX, ENGLAND
+SN 1054-3139
+J9 ICES J MAR SCI
+JI ICES J. Mar. Sci.
+PD AUG
+PY 2005
+VL 62
+IS 5
+BP 878
+EP 885
+PG 8
+SC Fisheries; Marine & Freshwater Biology; Oceanography
+GA 952JD
+UT ISI:000230998900005
+ER
+
+EF 

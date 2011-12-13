@@ -1,0 +1,293 @@
+Record 1 of 4
+
+DN: Database Name
+    Oceanic Abstracts
+TI: Title
+    Sources of uncertainty in ichthyoplankton surveys: modeling the
+    influence of wind forcing and survey strategy on abundance estimates
+AU: Author
+    Voss, R; Hinrichsen, H-H
+AF: Affiliation
+    Institute of Marine Sciences Kiel, Duesternbrooker Weg 20, D-24105,
+    Kiel, Germany, [mailto:rvoss@ifm.uni-kiel.de]
+SO: Source
+    Journal of Marine Systems [J. Mar. Syst.]. Vol. 43, no. 3-4, pp.
+    87-103. Dec 2003.
+IS: ISSN
+    0924-7963
+DE: Descriptors
+    Ichthyoplankton surveys; Fish larvae; Marine fish; Physical
+    oceanography; Hydrographic surveys; Fishery surveys; Atmospheric
+    forcing; Ocean-atmosphere system; Gadus morhua; ANE, Baltic Sea,
+    Bornholm Basin
+AB: Abstract
+    A three-dimensional physical oceanographic model was used to simulate
+    the temporal evolution of ichthyoplankton distributions in the
+    Bornholm Basin, Baltic Sea. The Bornholm Basin is one of the major
+    spawning grounds for cod (Gadus morhua callarias L.) and sprat
+    (Sprattus sprattus balticus S.) in the Baltic Sea with a large number
+    of historic survey data as well as material from ongoing
+    investigations being available. The aim of the present study was to
+    investigate the quantitative influence of different factors on
+    abundance estimates of early life stages (eggs and larvae) of cod and
+    sprat. Influences under consideration were advective losses,
+    uncertainty due to non-sufficient spatial sampling resolution (e.g.
+    number of stations) and effects of the sampling strategy (e.g.
+    sequence of stations). The numerical simulations were performed for
+    two time periods with contrasting meteorological forcing conditions.
+    Errors in abundance estimates were highest at high wind speeds and
+    when the organisms showed a patchy distribution. Advective losses were
+    highest for the shallowest distributed life stages (cod and sprat
+    larvae). Under strong west-wind conditions, losses due to transport
+    out of the surveyed area reached up to >10% after 2 days. Different
+    sampling strategies had no impact on overall accuracy. Errors due to
+    sampling resolution amounted to 2-26% for the standard grid of 45
+    stations. The results suggest that wind forcing might serve as a first
+    rough approximation for the reliability of historic abundance
+    estimates.
+PB: Publisher
+    Elsevier Science B.V., P.O. Box 211 Amsterdam 1000 AE Netherlands,
+    [mailto:nlinfo-f@elsevier.nl], [URL:http://www.elsevier.nl/]
+DO: DOI
+    10.1016/j.jmarsys.2003.05.001
+LA: Language
+    English
+SL: Summary Language
+    English
+PY: Publication Year
+    2003
+PT: Publication Type
+    Journal Article
+ID: Identifiers
+    Atlantic cod
+ER: Environmental Regime
+    Marine; Brackish
+CL: Classification
+    O 1070 Ecology/Community Studies
+UD: Update
+    200404
+SF: Subfile
+    Oceanic Abstracts; Meteorological & Geoastrophysical Abstracts
+AN: Accession Number
+    5785762
+JP: Journal Pages
+    87-103
+JV: Journal Volume
+    43
+JI: Journal Issue
+    3-4
+
+Record 2 of 4
+
+DN: Database Name
+    ASFA: Aquatic Sciences and Fisheries Abstracts
+TI: Title
+    The marine copepod, Pseudocalanus elongatus, as a mediator between
+    climate variability and fisheries in the Central Baltic Sea
+AU: Author
+    Moellmann, C; Kornilovs, G; Fetter, M; Koester, F; Hinrichsen, H
+AF: Affiliation
+    Institute of Marine Sciences, Duesternbrooker Weg 20, D-24105 Kiel,
+    Germany Danish Institute for Fisheries Research, Charlottenlund
+    Castle, DK-2920 Charlottenlund, Denmark, [mailto:cmo@dfu.min.dk]
+SO: Source
+    Fisheries Oceanography [Fish. Oceanogr.]. Vol. 12, no. 4-5, pp.
+    360-368. Sep 2003.
+IS: ISSN
+    1054-6006
+DE: Descriptors
+    Marine fish; Commercial species; Clupeoid fisheries; Fishery biology;
+    Body conditions; Diets; Food availability; Marine crustaceans;
+    Population dynamics; Biomass; Environmental effects; Ocean-atmosphere
+    system; Atmospheric forcing; Atmospheric precipitations; Alkalinity;
+    Fishery oceanography; Clupea harengus; Pseudocalanus elongatus; ANE,
+    Baltic Sea
+AB: Abstract
+    Pseudocalanus elongatus is a key species in the pelagic zone of the
+    deep basins of the Central Baltic Sea. The copepod serves as a major
+    food organism for larval as well as for adult, pelagic planktivorous
+    fish. Large interannual fluctuations in the standing stock of P.
+    elongatus have been attributed to significant changes in the
+    hydrographic environment over the last two decades. In particular, the
+    decreasing salinity in the Baltic deep basins, a result of a change in
+    atmospheric forcing leading to an increase in rainfall since the 1980s
+    and of a lack of pulses of saline water intrusions from the North Sea,
+    was found to affect reproduction and maturation of the copepod. In
+    parallel, dramatic changes in the weight-at-age of herring, one of the
+    most important commercial fishes of the Baltic Sea, have been observed
+    since the late 1980s. Using time-series on herring stomach contents,
+    as well as length and weight, we provide evidence for a chain of
+    events relating variability in climate, salinity and P. elongatus
+    abundance to changes in diet and condition of herring in the Central
+    Baltic Sea.
+PB: Publisher
+    Blackwell Science Ltd
+DO: DOI
+    10.1046/j.1365-2419.2003.00257.x
+LA: Language
+    English
+SL: Summary Language
+    English
+PY: Publication Year
+    2003
+PT: Publication Type
+    Journal Article
+ID: Identifiers
+    Atlantic herring
+ER: Environmental Regime
+    Brackish
+TR: Input Center, ASFA
+    CS0402424
+CL: Classification
+    Q1 01567 Fishery oceanography and limnology; O 1070 Ecology/Community
+    Studies; Q1 01422 Environmental effects; O 5020 Fisheries and Fishery
+    Biology
+UD: Update
+    200402
+SF: Subfile
+    Oceanic Abstracts; ASFA 1: Biological Sciences & Living Resources
+AN: Accession Number
+    5730148
+
+Record 3 of 4
+
+DN: Database Name
+    ASFA: Aquatic Sciences and Fisheries Abstracts
+TI: Title
+    Dependency of larval fish survival on retention/dispersion in food
+    limited environments: the Baltic Sea as a case study
+AU: Author
+    Hinrichsen, H; Lehmann, A; Moellmann, C; Schmidt, J
+AF: Affiliation
+    Institute of Marine Sciences, Duesternbrooker Weg 20, D-24105 Kiel,
+    Germany, [mailto:hhinrichsen@ifm.uni-kiel.de]
+SO: Source
+    Fisheries Oceanography [Fish. Oceanogr.]. Vol. 12, no. 4-5, pp.
+    425-433. Sep 2003.
+IS: ISSN
+    1054-6006
+DE: Descriptors
+    Marine fish; Commercial species; Gadoid fisheries; Fish larvae;
+    Survival; Food availability; Marine crustaceans; Coastal waters;
+    Ecological distribution; Residence time; Biological drift; Dispersion;
+    Spawning grounds; Environmental factors; Ocean circulation;
+    Atmospheric circulation; Atmospheric forcing; Fishery oceanography;
+    Hydraulic models; Suspended particulate matter; Analytical techniques;
+    Gadus morhua; Pseudocalanus elongatus; ANE, Baltic Sea
+AB: Abstract
+    A three-dimensional hydrodynamic model has been used to analyse
+    temporally and spatially resolved circulation patterns in the Baltic
+    Sea with special emphasis on drifting particles representing larval
+    fish. The main purpose of this study was (i) to investigate potential
+    drift patterns of larval fish, (ii) to identify its intra- and
+    inter-annual variability for time periods based on the timing of
+    spawning and (iii) to analyse its seasonal and spatial variability in
+    dependence of the atmospheric forcing conditions. For the time period
+    1979-1998 temporally and spatially resolved simulated flow fields were
+    used to describe the potential drift from the centre of main
+    reproductive effort of Baltic cod (Gadus morhua). The results of the
+    model runs demonstrate a general change in circulation pattern from
+    retention during a first decade (1979-1988) to dispersion in the
+    following decade (1989-1998). This increase in dispersion was related
+    to an increase in the variability of the local wind forcing conditions
+    over the Baltic. The more frequent occurrence of dispersion in spring
+    of the recent decade was accompanied by a strong decay in biomass of
+    one of the main larval fish feeding component in the central basin,
+    the calanoid copepod Pseudocalanus elongatus. Larger dispersion of
+    this prey organism may have affected the spatial overlap and thus the
+    contact rates between predator and prey. Hence, this may have resulted
+    in a food limitation for early life stages of Baltic cod and
+    potentially contributed to the pronounced shift in cod peak spawning
+    time from spring to late summer. Early life stages of cod originating
+    from late spawning fish, benefited from a stronger dispersion in late
+    summer and autumn, into shallow coastal areas with higher calanoid
+    abundance.
+PB: Publisher
+    Blackwell Science Ltd
+DO: DOI
+    10.1046/j.1365-2419.2003.00246.x
+LA: Language
+    English
+SL: Summary Language
+    English
+PY: Publication Year
+    2003
+PT: Publication Type
+    Journal Article
+ID: Identifiers
+    Larval retention; Atlantic cod
+ER: Environmental Regime
+    Brackish
+TR: Input Center, ASFA
+    CS0402430
+CL: Classification
+    Q1 01567 Fishery oceanography and limnology; O 1070 Ecology/Community
+    Studies
+UD: Update
+    200402
+SF: Subfile
+    Oceanic Abstracts; ASFA 1: Biological Sciences & Living Resources
+AN: Accession Number
+    5730154
+
+Record 4 of 4
+
+DN: Database Name
+    ASFA: Aquatic Sciences and Fisheries Abstracts
+TI: Title
+    Specific gravity and vertical distribution of sprat eggs in the Baltic
+    Sea
+AU: Author
+    Nissling, A; Mueller, A; Hinrichsen, H-H
+SO: Source
+    Journal of Fish Biology [J. Fish Biol.]. Vol. 63, no. 2, pp. 280-299.
+    Aug 2003.
+IS: ISSN
+    0022-1112
+DE: Descriptors
+    Specific gravity; Distribution records; Marine fish; Vertical
+    distribution; Fish eggs; Spawning seasons; Biological development;
+    Eggs; Sprattus sprattus; ANE, Baltic Sea; Baltic Sea
+AB: Abstract
+    During peak spawning of sprat Sprattus sprattus in the Baltic Sea in
+    May-June egg specific gravity averaged plus or minus s.d. 1 times
+    00858 plus or minus 0 times 00116 g cm super(-3) but was significantly
+    higher in the beginning and significantly lower towards the end of the
+    spawning season. A close relationship was found between egg diameter
+    and egg specific gravity (r super(2) = 0 times 71). This relationship,
+    however, changed during the spawning season indicating that some other
+    factor was involved causing the decrease in specific gravity during
+    the spawning period. The vertical egg distribution changed during the
+    spawning season: eggs were distributed mainly in the deep layers early
+    in the season, occurred in and above the permanent halocline during
+    peak spawning, and above the halocline towards the end of the spawning
+    season. Consequently, poor oxygen conditions in the deep layers and
+    low temperatures in layers between the halocline and the developing
+    thermocline may affect egg development. Thus, opportunities for egg
+    development vary over the spawning season and among spawning areas,
+    and depending on frequency of saline water inflows into the Baltic Sea
+    and severity of winters, between years.
+LA: Language
+    English
+SL: Summary Language
+    English
+PY: Publication Year
+    2003
+PT: Publication Type
+    Journal Article
+ID: Identifiers
+    Sprat
+ER: Environmental Regime
+    Marine
+TR: Input Center, ASFA
+    CS0405344
+CL: Classification
+    Q1 01342 Geographical distribution; O 1050 Vertebrates, Urochordates
+    and Cephalochordates; D 04668 Fish
+UD: Update
+    200403
+SF: Subfile
+    ASFA 1: Biological Sciences & Living Resources; Oceanic Abstracts;
+    Ecology Abstracts
+AN: Accession Number
+    5751477

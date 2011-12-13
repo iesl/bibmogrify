@@ -1,0 +1,249 @@
+START_RECORD
+FIELD Copyright:Copyright (C) 2007 ACS on SciFinder (R))
+FIELD Database:CAPLUS
+FIELD Title:Quantum kinetic theory of phonon-assisted carrier transitions in nitride-based quantum-dot systems.
+FIELD Accession Number:AN 2005:1064768
+FIELD Abstract:A microscopic theory for the interaction of carriers with LO phonons is used to study the ultrafast carrier dynamics in nitride-based semiconductor quantum dots.  It is shown that the efficiency of scattering processes is directly linked to quasi-particle renormalizations.  The electronic states of the interacting system are strongly modified by the combined influence of quantum confinement and polar coupling.  Inherent electrostatic fields, typical for InGaN/GaN quantum dots, do not limit the fast scattering channels. [on SciFinder (R)]
+FIELD Author:Seebeck, J.; Nielsen, T. R.; Gartner, P.; Jahnke, F..
+FIELD Chemical Abstracts Number(CAN):CAN 144:96589
+FIELD Section Code:73-1
+FIELD Section Title:Optical, Electron, and Mass Spectroscopy and Other Related Properties
+FIELD CA Section Cross-references:76
+FIELD Corporate Source:Institute for Theoretical Physics,University of Bremen,Bremen,Germany.
+FIELD URL:
+FIELD Document Type:Preprint
+FIELD CODEN:LNCMFR
+FIELD Internat.Standard Doc. Number:
+FIELD Journal Title:Los Alamos National Laboratory, Preprint Archive, Condensed Matter
+FIELD Language:written in English.
+FIELD Volume:
+FIELD Issue:
+FIELD Page:1-4, arXiv:cond-mat/0509692
+FIELD Publication Year:2005
+FIELD Publication Date:
+FIELD Index Terms:Electronic state; LO phonon    (electronic states of interacting system strongly modified by combined influence of quantum confinement and polar coupling); Electric current carriers; Kinetic theory; Quantum dot devices; Spectral function; Wave function    (quantum kinetic theory of phonon-assisted carrier transitions in nitride-based quantum-dot systems)
+FIELD Index Terms(2):
+FIELD CAS Registry Numbers:25617-97-4 (Gallium nitride); 120994-23-2 (Indium gallium nitride) Role: DEV (Device component use), PEP (Physical, engineering or chemical process), PRP (Properties), PYP (Physical process), PROC (Process), USES (Uses)    (quantum kinetic theory of phonon-assisted carrier transitions in nitride-based quantum-dot systems)
+FIELD Supplementary Terms:quantum dot phonon assisted carrier transition kinetic theory
+FIELD PCT Designated States:
+FIELD PCT Reg. Des. States:
+FIELD Reg.Pat.Tr.Des.States:
+FIELD Main IPC:
+FIELD IPC:
+FIELD Secondary IPC:
+FIELD Additional IPC:
+FIELD Index IPC:
+FIELD Inventor Name:
+FIELD National Patent Classification:
+FIELD Patent Application Country:
+FIELD Patent Application Date:
+FIELD Patent Application Number:
+FIELD Patent Assignee:
+FIELD Patent Country:
+FIELD Patent Kind Code:
+FIELD Patent Number:
+FIELD Priority Application Country:
+FIELD Priority Application Number:
+FIELD Priority Application Date:
+FIELD Citations:1) Nakamura, S; The blue laser diode 2000|2) Cho, Y; Appl Phys Lett 2002, 81, 4934|3) Kalliakos, S; J Appl Phys 2004, 96, 180|4) Bernardini, F; Phys Rev B 1998, 57, R9427|5) Benisty, H; Phys Rev B 1995, 51, 13281|6) Inoshita, T; Phys Rev B 1997, 56, R4355|7) Verzelen, O; Phys stat sol (a) 2002, 190, 213|8) Seebeck, J; Phys Rev B 2005, 71, 125327|9) Ranjan, V; Phys Rev B 2003, 68, 115305|10) Bagga, A; Phys Rev B 2003, 68, 155331|11) Fonoberov, V; J Appl Phys 2003, 94, 7178|12) Andreev, A; Phys Rev B 2000, 62, 15851|13) Nielsen, T; Phys Rev B 2004, 69, 235314|14) Nielsen, T; cond-mat/0507084 2005|15) Kral, K; Phys Rev B 1998, 57, R2061|16) Haug, H; Quantum Kinetics in Transport & Optics of Semiconductors, 1 edition 1996
+END_RECORD
+
+START_RECORD
+FIELD Copyright:Copyright (C) 2007 ACS on SciFinder (R))
+FIELD Database:CAPLUS
+FIELD Title:Photon-Modulated Wettability Changes on Spiropyran-Coated Surfaces.
+FIELD Accession Number:AN 2002:661530
+FIELD Abstract:A coating of photoresponsive spiropyran mols. covalently bound to a glass surface along with a mixt. of organosilanes to control the surface environment was prepd.  The relatively nonpolar spiropyran can be reversibly switched to a polar, zwitterionic merocyanine isomer that has a much larger dipole moment by UV light, and back again by visible light.  The contact angle was 11 Deg-14 Deg lower for dry, spiropyran-coated surfaces after irradn. with UV than that for dry, spiropyran-coated surfaces after irradn. with visible light.  The light-induced changes obsd. in the surface energy were correlated to the switching of the surface-bound spiropyran mol. between polar and nonpolar forms by means of fluorescence spectroscopy and epifluorescence microscopy.  Water in capillary tubes coated with the photosensitive layer was obsd. to rise when the wavelength of incident light was switched from visible to UV.  The UV-induced rise was of the order of 2.8 mm for a 500 mm diam. capillary.  This microfluidic actuation of water in an enclosed capillary or microchannel using light is termed \"photocapillarity\".  Contact angle hysteresis prevented the water from flowing back down the capillary when the light was switched from UV back to visible. [on SciFinder (R)]
+FIELD Author:Rosario, Rohit; Gust, Devens; Hayes, Mark; Jahnke, Frank; Springer, Joseph; Garcia, Antonio A.
+FIELD Chemical Abstracts Number(CAN):CAN 137:330973
+FIELD Section Code:74-1
+FIELD Section Title:Radiation Chemistry, Photochemistry, and Photographic and Other Reprographic Processes
+FIELD CA Section Cross-references:66
+FIELD Corporate Source:Department of Chemical and Materials Engineering,Arizona State University,Tempe,AZ,USA.
+FIELD URL:
+FIELD Document Type:Journal
+FIELD CODEN:LANGD5
+FIELD Internat.Standard Doc. Number:0743-7463
+FIELD Journal Title:Langmuir
+FIELD Language:written in English.
+FIELD Volume:18
+FIELD Issue:21
+FIELD Page:8062-8069
+FIELD Publication Year:2002
+FIELD Publication Date:
+FIELD Index Terms:Cyclization    (photocyclization; photon-modulated wettability changes on spiropyran-coated surfaces); Isomerization    (photoisomerization; photon-modulated wettability changes on spiropyran-coated surfaces); Fluorescence; Wettability    (photon-modulated wettability changes on spiropyran-coated surfaces); Capillarity; Contact angle    (photon-modulated wettability changes on spiropyran-coated surfaces in relation to)
+FIELD Index Terms(2):
+FIELD CAS Registry Numbers:919-30-2 ((3-Aminopropyl)triethoxysilane); 1892-57-5 (1-Ethyl-3-(3-(dimethylamino)propyl)carbodiimide); 58479-61-1 (tert-Butyldiphenylchlorosilane) Role: CPS (Chemical process), PEP (Physical, engineering or chemical process), RCT (Reactant), PROC (Process), RACT (Reactant or reagent)    (in prepn. of modified glass having covalently bound photoresponsive spiropyran deriv.); 285115-57-3P Role: PRP (Properties), RCT (Reactant), SPN (Synthetic preparation), PREP (Preparation), RACT (Reactant or reagent)    (in prepn. of photoresponsive spiropyran deriv.); 97-51-8 (5-Nitrosalicylaldehyde); 538-75-0 (Dicyclohexylcarbodiimide) Role: RCT (Reactant), RACT (Reactant or reagent)    (in prepn. of photoresponsive spiropyran deriv.); 285115-56-2P Role: CPS (Chemical process), PEP (Physical, engineering or chemical process), PRP (Properties), RCT (Reactant), SPN (Synthetic preparation), PREP (Preparation), PROC (Process), RACT (Reactant or reagent)    (photon-modulated wettability changes on spiropyran-coated surfaces); 473463-25-1P Role: PRP (Properties), SPN (Synthetic preparation), PREP (Preparation)    (photon-modulated wettability changes on spiropyran-coated surfaces); 473463-27-3 Role: CPS (Chemical process), FMU (Formation, unclassified), PEP (Physical, engineering or chemical process), PRP (Properties), FORM (Formation, nonpreparative), PROC (Process)    (photon-modulated wettability changes on spiropyran-coated surfaces in relation to)
+FIELD Supplementary Terms:light modulated wettability change spiropyran coated surface photoisomerization
+FIELD PCT Designated States:
+FIELD PCT Reg. Des. States:
+FIELD Reg.Pat.Tr.Des.States:
+FIELD Main IPC:
+FIELD IPC:
+FIELD Secondary IPC:
+FIELD Additional IPC:
+FIELD Index IPC:
+FIELD Inventor Name:
+FIELD National Patent Classification:
+FIELD Patent Application Country:
+FIELD Patent Application Date:
+FIELD Patent Application Number:
+FIELD Patent Assignee:
+FIELD Patent Country:
+FIELD Patent Kind Code:
+FIELD Patent Number:
+FIELD Priority Application Country:
+FIELD Priority Application Number:
+FIELD Priority Application Date:
+FIELD Citations:1) Hayes, M; Anal Chem 2001, 73, 5896|2) Golubovic, N; SPIE Conf Microfluidic Dev Sys 1998, 3515, 86|3) Rossier, J; Electrophoresis 1999, 20, 727|4) Luginbuhl, P; Sens Actuator B: Chem 2000, 63, 167|5) Bernard, A; Anal Chem 2001, 73, 8|6) Regnier, F; Trends Biotechnol 1999, 17, 101|7) Wilkinson, M; Med Dev Technol 2000, 11, 34|8) Chakraborty, I; Sens Actuator A: Phys 2000, 83, 188|9) Jensen, K; Chem Eng Sci 2001, 56, 293|10) Tegrotenhuis, W; Sep Sci Technol 1999, 36, 951|11) Koch, M; Sens Actuator A: Phys 1999, 74, 207|12) Lee, H; Electrochem Commun 1999, 1, 190|13) Digilov, R; Langmuir 2000, 16, 6719|14) Janocha, B; Langmuir 2000, 16, 3349|15) Vallet, M; Eur Phys J B 1999, 11, 583|16) Welters, W; Langmuir 1998, 14, 1535|17) Prins, M; Science 2001, 291, 277|18) Schneemilch, M; Langmuir 2000, 16, 2924|19) Liang, L; J Appl Polym Sci 1999, 72, 1|20) Liang, L; J Membr Sci 2000, 177, 97|21) Yakushiji, T; Langmuir 1998, 14, 4657|22) Moller, G; Langmuir 1998, 14, 4955|23) Abbott, S; Langmuir 1999, 15, 8923|24) Pieroni, O; Photochem Photobiol 1986, 44, 785|25) Garcia, A; J Phys Chem A 2000, 104, 6103|26) Smets, G; Pure Appl Chem 1972, 30, 1|27) Ichimura, K; Science 2000, 288, 1624|28) Ishihara, K; J Polym Sci:Polym Chem Ed 1983, 21, 1551|29) Oh, S; Chem Lett 1999, 4, 349|30) Siewierski, L; Langmuir 1996, 12, 5838|31) Hayashida, S; Polym J 1986, 18, 227|32) Lee, S; J Chem Soc 2000, 122, 5395|33) Uchiyama, K; Fresenius' J Anal Chem 2001, 371, 209|34) Vo-Dinh, T; Anal Chem 1999, 71, 358|35) Maims, C; Sens Actuator B: Chem 2001, 77, 671|36) Ishihara, K; J Appl Polym Sci 1982, 27, 239|37) Irie, M; Makromol Chem, Rapid Commun 1987, 8, 569|38) Galvin, J; Supramol Sci 1998, 5, 89|39) Katz, E; J Electroanal Chem 1995, 382, 25|40) Doron, A; Langmuir 1997, 13, 1783|41) Shin, J; Langmuir 1999, 15, 4404|42) Bertelson, R; Photochromism, Chapter 3 1971|43) Fujimaki, M; Langmuir 1998, 14, 4495|44) Tagaya, H; Micropor Mesopor Mater 1998, 21, 395|45) Hori, T; Appl Surf Sci 1997, 121/122, 530|46) Gaspers, P; Langmuir 1994, 10, 2699|47) Hayes, M; Anal Chem 1999, 71, 3793|48) Scott, R; Silica Gel and Bonded Phases-Their Production, Properties and Use in LC 1993|49) Petri, D; Langmuir 1999, 15, 4520|50) Vrancken, K; Colloids Surf, A 1995, 98, 235|51) Moon, J; Langmuir 1996, 12, 4621|52) Plueddemann, E; Silane coupling agents, 2nd ed 1991|53) Impens, N; Micropor Mesopor Mater 1999, 28, 217|54) Crass, J; Biosens Bioelectron 1999, 14, 683|55) Dettre, R; Contact angle, wettability and adhesion 1963, 136|56) Johnson, R; Contact angle, wettability and adhesion 1963, 112|57) Li, D; Colloid Polym Sci 1992, 270, 498|58) Fadeev, A; Langmuir 1999, 15, 3759|59) Lam, C; Colloids Surf, A 2001, 189, 265
+END_RECORD
+
+START_RECORD
+FIELD Copyright:Copyright (C) 2007 ACS on SciFinder (R))
+FIELD Database:CAPLUS
+FIELD Title:Nonequilibrium many-body effects in semiconductor microlasers.
+FIELD Accession Number:AN 1995:432898
+FIELD Abstract:The improved semiconductor manufg. capabilities make it possible to produce tiny semiconductor lasers with micrometer cavity dimensions.  Ideally, these microlasers are the optical analogy of micromasers, which allow experimentalists to study many aspects of quantum cavity electrodynamics.  The authors review, with 29 refs., the quantum mech. theory of semiconductor microlasers.  The authors analyze the coupled system of carriers and photons under laser conditions applying a microscopic theory that describes the spectral interplay of stimulated and spontaneous emission and the cavity loss.  The nonequil. dynamics of the carrier system is modelled by a Boltzmann equation which includes carrier-photon, carrier-carrier and carrier-phonon scattering.  The authors numerically evaluate the theory to analyze the microlaser switch-on dynamics, development of lasing out of spontaneous emission, dynamic and stationary nonequil. carrier distributions, carrier heating through pumping and lasing, and the effects resulting from the increased coupling efficiency of the spontaneous emission into the laser mode. [on SciFinder (R)]
+FIELD Author:Koch, S. W.; Jahnke, F..
+FIELD Chemical Abstracts Number(CAN):CAN 122:250563
+FIELD Section Code:73-0
+FIELD Section Title:Optical, Electron, and Mass Spectroscopy and Other Related Properties
+FIELD CA Section Cross-references:65, 76
+FIELD Corporate Source:Zentrum Materialwissenschaften,Philipps Universitaet,Marburg,Germany.
+FIELD URL:
+FIELD Document Type:Journal; General Review
+FIELD CODEN:FSTKA2
+FIELD Internat.Standard Doc. Number:0430-3393
+FIELD Journal Title:Festkoerperprobleme
+FIELD Language:written in English.
+FIELD Volume:34
+FIELD Issue:
+FIELD Page:259-74
+FIELD Publication Year:1995
+FIELD Publication Date:
+FIELD Index Terms:Lasers    (micro; nonequil. many-body effects in semiconductor microlasers); Electric current carriers; Phonon; Photon; Semiconductor materials    (nonequil. many-body effects in semiconductor microlasers)
+FIELD Index Terms(2):
+FIELD CAS Registry Numbers:
+FIELD Supplementary Terms:nonequilibrium many body semiconductor microlaser review
+FIELD PCT Designated States:
+FIELD PCT Reg. Des. States:
+FIELD Reg.Pat.Tr.Des.States:
+FIELD Main IPC:
+FIELD IPC:
+FIELD Secondary IPC:
+FIELD Additional IPC:
+FIELD Index IPC:
+FIELD Inventor Name:
+FIELD National Patent Classification:
+FIELD Patent Application Country:
+FIELD Patent Application Date:
+FIELD Patent Application Number:
+FIELD Patent Assignee:
+FIELD Patent Country:
+FIELD Patent Kind Code:
+FIELD Patent Number:
+FIELD Priority Application Country:
+FIELD Priority Application Number:
+FIELD Priority Application Date:
+FIELD Citations:
+END_RECORD
+
+START_RECORD
+FIELD Copyright:Copyright (C) 2007 ACS on SciFinder (R))
+FIELD Database:CAPLUS
+FIELD Title:Ion-exchange equilibria and diffusion in engineered backfill.
+FIELD Accession Number:AN 1985:549309
+FIELD Abstract:The design and operation are discussed of a unique radial-flow diffusion cell to det. ion migration rates in backfill material under realistic repository conditions.  New exptl. results were reported for diffusion of CsCl in a background of NaCl into compacted bentonite and bentonite/quartz mixts.  Representation of the measured diffusion rates by the traditional, homogeneous porous-medium model significantly underestimates Cs penetration distances into the backfill.  Surface diffusion is suggested as an addnl. mechanism by which cations transport in swollen montmorillonite; the surface diffusion coeffs. for Cs is .apprx.10-7 cm2/s.  An electrostatic site-binding model was developed for ion-exchange equil. on montmorillonite clay.  The effects of pH, ionic strength, and specific adsorption were evaluated and compared favorably to new, exptl. exchange isotherms measured on disaggregated clay.  The electrostatic site-binding model permits a prediction of the influence of backfill compaction on Kd values.  For strongly adsorbing cations, compactions has little effect.  However, anions exhibit significant Donnan exclusion with clay compaction. [on SciFinder (R)]
+FIELD Author:Soudek, A.; Jahnke, F. M.; Radke, C. J.
+FIELD Chemical Abstracts Number(CAN):CAN 103:149309
+FIELD Section Code:71-11
+FIELD Section Title:Nuclear Technology
+FIELD CA Section Cross-references:53
+FIELD Corporate Source:Chem. Eng. Dep.,Univ. California,Berkeley,CA,USA.
+FIELD URL:
+FIELD Document Type:Report
+FIELD CODEN:USNNDD
+FIELD Internat.Standard Doc. Number:0270-6482
+FIELD Journal Title:U. S. Nucl. Regul. Comm., [Rep.] NUREG/CP
+FIELD Language:written in English.
+FIELD Volume:
+FIELD Issue:NUREG/CP-0052, NRC Nucl. Waste Geochem. '83
+FIELD Page:172-203
+FIELD Publication Year:1984
+FIELD Publication Date:
+FIELD Index Terms:Bentonite Role: PRP (Properties)    (ion migration in radioactive waste repository backfill material from); Diffusion    (of cesium chloride, in bentonite); Geological formations    (radioactive waste repository, ion migration in backfill material for); Radioactive wastes    (repository for, ion migration in backfill material for)
+FIELD Index Terms(2):
+FIELD CAS Registry Numbers:7647-17-8 Role: PEP (Physical, engineering or chemical process), PROC (Process)    (diffusion of, in bentonite, in presence of sodium chloride); 14808-60-7 Role: PRP (Properties)    (radioelement migration in bentonite and); 7647-14-5 Role: PRP (Properties)    (radioelement migration in bentonite and quartz in presence of)
+FIELD Supplementary Terms:ion migration waste repository backfill; cesium chloride diffusion bentonite; radioactive waste repository backfill diffusion
+FIELD PCT Designated States:
+FIELD PCT Reg. Des. States:
+FIELD Reg.Pat.Tr.Des.States:
+FIELD Main IPC:
+FIELD IPC:
+FIELD Secondary IPC:
+FIELD Additional IPC:
+FIELD Index IPC:
+FIELD Inventor Name:
+FIELD National Patent Classification:
+FIELD Patent Application Country:
+FIELD Patent Application Date:
+FIELD Patent Application Number:
+FIELD Patent Assignee:
+FIELD Patent Country:
+FIELD Patent Kind Code:
+FIELD Patent Number:
+FIELD Priority Application Country:
+FIELD Priority Application Number:
+FIELD Priority Application Date:
+FIELD Citations:
+END_RECORD
+
+START_RECORD
+FIELD Copyright:Copyright (C) 2007 ACS on SciFinder (R))
+FIELD Database:CAPLUS
+FIELD Title:Clinical and bacteriological investigations on Entamastyl-dried cows.
+FIELD Accession Number:AN 1972:108057
+FIELD Abstract:Entamastyl (composed of erythromycin (I) [114-07-8], framycetin, and diaphenylsulfone (II) [80-08-0], 1:1.5:100) was introduced into the udders of black and white cows producing 3-12 l. milk/day, 6-7 weeks before calving.  Drying up of milk production was obtained in all cases, without udder damage.  The no. of cows with chronic, clin. undetectable streptococcal infection of the udder mucosa was reduced 3-4-fold by the antibiotic.  Similarly, the no. of cows or udder sections obviously infected with possible mastitis organisms was reduced 5-6-fold. [on SciFinder (R)]
+FIELD Author:Jahnke, F.; Wupper, O.; Reuss, U.
+FIELD Chemical Abstracts Number(CAN):CAN 76:108057
+FIELD Section Code:1
+FIELD Section Title:Pharmacodynamics
+FIELD CA Section Cross-references:
+FIELD Corporate Source:Tiergesundheitsamt,Landwirtschaftskammer Weser-Ems,Oldenburg,Fed. Rep. Ger.
+FIELD URL:
+FIELD Document Type:Journal
+FIELD CODEN:TIEUA7
+FIELD Internat.Standard Doc. Number:0371-7542
+FIELD Journal Title:Tieraerztliche Umschau
+FIELD Language:written in German.
+FIELD Volume:26
+FIELD Issue:10
+FIELD Page:486-8
+FIELD Publication Year:1971
+FIELD Publication Date:
+FIELD Index Terms:Mastitis    (Entamastyl effect on, in lactation inhibition, for parturition); Lactation    (inhibition of, by Entamastyl, for parturition, in cattle); Cattle    (lactation inhibition, by Entamastyl, for parturition)
+FIELD Index Terms(2):
+FIELD CAS Registry Numbers:
+FIELD Supplementary Terms:milk cow drying Entamastyl; dairy cow mastitis antibiotic; Streptococcus cow antibiotic
+FIELD PCT Designated States:
+FIELD PCT Reg. Des. States:
+FIELD Reg.Pat.Tr.Des.States:
+FIELD Main IPC:
+FIELD IPC:
+FIELD Secondary IPC:
+FIELD Additional IPC:
+FIELD Index IPC:
+FIELD Inventor Name:
+FIELD National Patent Classification:
+FIELD Patent Application Country:
+FIELD Patent Application Date:
+FIELD Patent Application Number:
+FIELD Patent Assignee:
+FIELD Patent Country:
+FIELD Patent Kind Code:
+FIELD Patent Number:
+FIELD Priority Application Country:
+FIELD Priority Application Number:
+FIELD Priority Application Date:
+FIELD Citations:
+END_RECORD

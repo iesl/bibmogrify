@@ -1,0 +1,662 @@
+<?xml version="1.0"?>
+<!DOCTYPE PubmedArticleSet PUBLIC "-//NLM//DTD PubMedArticle, 1st January 2007//EN" "http://www.ncbi.nlm.nih.gov/entrez/query/DTD/pubmed_070101.dtd">
+<PubmedArticleSet>
+<PubmedArticle>
+    <MedlineCitation Owner="NLM" Status="MEDLINE">
+        <PMID>16905428</PMID>
+        <DateCreated>
+            <Year>2006</Year>
+            <Month>08</Month>
+            <Day>14</Day>
+        </DateCreated>
+        <DateCompleted>
+            <Year>2006</Year>
+            <Month>11</Month>
+            <Day>02</Day>
+        </DateCompleted>
+        <DateRevised>
+            <Year>2006</Year>
+            <Month>11</Month>
+            <Day>15</Day>
+        </DateRevised>
+        <Article PubModel="Print">
+            <Journal>
+                <ISSN IssnType="Print">0065-2881</ISSN>
+                <JournalIssue CitedMedium="Print">
+                    <Volume>51</Volume>
+                    <PubDate>
+                        <Year>2006</Year>
+                    </PubDate>
+                </JournalIssue>
+                <Title>Advances in marine biology</Title>
+                <ISOAbbreviation>Adv. Mar. Biol.</ISOAbbreviation>
+            </Journal>
+            <ArticleTitle>Crustacea in Arctic and Antarctic sea ice: distribution, diet and life history strategies.</ArticleTitle>
+            <Pagination>
+                <MedlinePgn>197-315</MedlinePgn>
+            </Pagination>
+            <Abstract>
+                <AbstractText>This review concerns crustaceans that associate with sea ice. Particular emphasis is placed on comparing and contrasting the Arctic and Antarctic sea ice habitats, and the subsequent influence of these environments on the life history strategies of the crustacean fauna. Sea ice is the dominant feature of both polar marine ecosystems, playing a central role in physical processes and providing an essential habitat for organisms ranging in size from viruses to whales. Similarities between the Arctic and Antarctic marine ecosystems include variable cover of sea ice over an annual cycle, a light regimen that can extend from months of total darkness to months of continuous light and a pronounced seasonality in primary production. Although there are many similarities, there are also major differences between the two regions: The Antarctic experiences greater seasonal change in its sea ice extent, much of the ice is over very deep water and more than 80% breaks out each year. In contrast, Arctic sea ice often covers comparatively shallow water, doubles in its extent on an annual cycle and the ice may persist for several decades. Crustaceans, particularly copepods and amphipods, are abundant in the sea ice zone at both poles, either living within the brine channel system of the ice-crystal matrix or inhabiting the ice-water interface. Many species associate with ice for only a part of their life cycle, while others appear entirely dependent upon it for reproduction and development. Although similarities exist between the two faunas, many differences are emerging. Most notable are the much higher abundance and biomass of Antarctic copepods, the dominance of the Antarctic sea ice copepod fauna by calanoids, the high euphausiid biomass in Southern Ocean waters and the lack of any species that appear fully dependent on the ice. In the Arctic, the ice-associated fauna is dominated by amphipods. Calanoid copepods are not tightly associated with the ice, while harpacticoids and cyclopoids are abundant. Euphausiids are nearly absent from the high Arctic. Life history strategies are variable, although reproductive cycles and life spans are generally longer than those for temperate congeners. Species at both poles tend to be opportunistic feeders and periods of diapause or other reductions in metabolic expenditure are not uncommon.</AbstractText>
+            </Abstract>
+            <Affiliation>School of Zoology, University of Tasmania, Hobart, Tasmania, Australia.</Affiliation>
+            <AuthorList CompleteYN="Y">
+                <Author ValidYN="Y">
+                    <LastName>Arndt</LastName>
+                    <ForeName>Carolin E</ForeName>
+                    <Initials>CE</Initials>
+                </Author>
+                <Author ValidYN="Y">
+                    <LastName>Swadling</LastName>
+                    <ForeName>Kerrie M</ForeName>
+                    <Initials>KM</Initials>
+                </Author>
+            </AuthorList>
+            <Language>eng</Language>
+            <PublicationTypeList>
+                <PublicationType>Comparative Study </PublicationType>
+                <PublicationType>Journal Article</PublicationType>
+                <PublicationType>Research Support, Non-U.S. Gov't </PublicationType>
+            </PublicationTypeList>
+        </Article>
+        <MedlineJournalInfo>
+            <Country>United States</Country>
+            <MedlineTA>Adv Mar Biol</MedlineTA>
+            <NlmUniqueID>0370431</NlmUniqueID>
+        </MedlineJournalInfo>
+        <CitationSubset>IM</CitationSubset>
+        <MeshHeadingList>
+            <MeshHeading>
+                <DescriptorName MajorTopicYN="N">Animals</DescriptorName>
+            </MeshHeading>
+            <MeshHeading>
+                <DescriptorName MajorTopicYN="N">Antarctic Regions</DescriptorName>
+            </MeshHeading>
+            <MeshHeading>
+                <DescriptorName MajorTopicYN="N">Arctic Regions</DescriptorName>
+            </MeshHeading>
+            <MeshHeading>
+                <DescriptorName MajorTopicYN="N">Behavior, Animal</DescriptorName>
+                <QualifierName MajorTopicYN="N">physiology</QualifierName>
+            </MeshHeading>
+            <MeshHeading>
+                <DescriptorName MajorTopicYN="N">Biodiversity</DescriptorName>
+            </MeshHeading>
+            <MeshHeading>
+                <DescriptorName MajorTopicYN="N">Biomass</DescriptorName>
+            </MeshHeading>
+            <MeshHeading>
+                <DescriptorName MajorTopicYN="N">Crustacea</DescriptorName>
+                <QualifierName MajorTopicYN="Y">classification</QualifierName>
+                <QualifierName MajorTopicYN="Y">physiology</QualifierName>
+            </MeshHeading>
+            <MeshHeading>
+                <DescriptorName MajorTopicYN="N">Demography</DescriptorName>
+            </MeshHeading>
+            <MeshHeading>
+                <DescriptorName MajorTopicYN="N">Diet</DescriptorName>
+                <QualifierName MajorTopicYN="N">veterinary</QualifierName>
+            </MeshHeading>
+            <MeshHeading>
+                <DescriptorName MajorTopicYN="Y">Environment</DescriptorName>
+            </MeshHeading>
+            <MeshHeading>
+                <DescriptorName MajorTopicYN="Y">Ice</DescriptorName>
+            </MeshHeading>
+            <MeshHeading>
+                <DescriptorName MajorTopicYN="N">Oceans and Seas</DescriptorName>
+            </MeshHeading>
+            <MeshHeading>
+                <DescriptorName MajorTopicYN="N">Reproduction</DescriptorName>
+                <QualifierName MajorTopicYN="N">physiology</QualifierName>
+            </MeshHeading>
+            <MeshHeading>
+                <DescriptorName MajorTopicYN="N">Seawater</DescriptorName>
+            </MeshHeading>
+        </MeshHeadingList>
+    </MedlineCitation>
+    <PubmedData>
+        <History>
+            <PubMedPubDate PubStatus="pubmed">
+                <Year>2006</Year>
+                <Month>8</Month>
+                <Day>15</Day>
+                <Hour>9</Hour>
+                <Minute>0</Minute>
+            </PubMedPubDate>
+            <PubMedPubDate PubStatus="medline">
+                <Year>2006</Year>
+                <Month>11</Month>
+                <Day>3</Day>
+                <Hour>9</Hour>
+                <Minute>0</Minute>
+            </PubMedPubDate>
+        </History>
+        <PublicationStatus>ppublish</PublicationStatus>
+        <ArticleIdList>
+            <ArticleId IdType="pii">S0065-2881(06)51004-1</ArticleId>
+            <ArticleId IdType="doi">10.1016/S0065-2881(06)51004-1</ArticleId>
+            <ArticleId IdType="pubmed">16905428</ArticleId>
+        </ArticleIdList>
+    </PubmedData>
+</PubmedArticle>
+
+
+<PubmedArticle>
+    <MedlineCitation Owner="NLM" Status="PubMed-not-MEDLINE">
+        <PMID>16351846</PMID>
+        <DateCreated>
+            <Year>2005</Year>
+            <Month>12</Month>
+            <Day>14</Day>
+        </DateCreated>
+        <DateCompleted>
+            <Year>2006</Year>
+            <Month>01</Month>
+            <Day>23</Day>
+        </DateCompleted>
+        <Article PubModel="Print">
+            <Journal>
+                <ISSN IssnType="Print">0944-2006</ISSN>
+                <JournalIssue CitedMedium="Print">
+                    <Volume>104</Volume>
+                    <Issue>3-4</Issue>
+                    <PubDate>
+                        <Year>2001</Year>
+                    </PubDate>
+                </JournalIssue>
+                <Title>Zoology (Jena, Germany)</Title>
+                <ISOAbbreviation>Zoology (Jena)</ISOAbbreviation>
+            </Journal>
+            <ArticleTitle>Seasonal adaptations and the role of lipids in oceanic zooplankton.</ArticleTitle>
+            <Pagination>
+                <MedlinePgn>313-26</MedlinePgn>
+            </Pagination>
+            <Abstract>
+                <AbstractText>Oceanic zooplankton species exhibit quite diverse life history traits. A major driving force determining their life strategies is the seasonal variability in food supply, which is most pronounced in polar oceans where fluctuations in primary production are extreme. Seasonal adaptations are closely related to the trophic level of zooplankters, with strongest pressures occurring on herbivorous organisms. The dominant grazers, calanoid copepods and krill (Euphausiacea), have developed fascinating solutions for successful overwintering at higher latitudes. They usually exhibit a very efficient storage and utilization of energy reserves to reduce the effect of a highly seasonal primary production. The predominant larger Calanus species from the Arctic and Calanoides acutus from the Antarctic biosynthesize large amounts of high-energy wax esters with long-chain monounsaturated fatty acids and alcohols (20:1 and 22:1 isomers) as major components. They survive the dark season at depth in a stage of dormancy called diapause. In contrast, the Antarctic Calanus propinquus, a winter-active species, synthesizes primarily triacylglycerols, which are dominated by long-chain monounsaturated fatty acids with 22 carbon atoms (2 isomers) and yield even higher calorific contents. The omnivorous and carnivorous species, which are less subjected to seasonal food shortage, usually do not exhibit such an elaborate lipid biosynthesis. Herbivores usually do not utilize much of their enormous lipid reserves for overwintering, but channel this energy towards reproductive processes in late winter/early spring. Timing of reproduction is critical especially at high latitudes due to the short production period, and lipid reserves ensure early spawning independent of external resources. These energetic adaptations (dormancy, lipid storage) are supplemented by other life strategies such as extensive vertical migrations, change in the mode of life, and trophic flexibility.</AbstractText>
+            </Abstract>
+            <Affiliation>Marine Zoology, University of Bremen, Germany. whagen@uni-bremen.de</Affiliation>
+            <AuthorList CompleteYN="Y">
+                <Author ValidYN="Y">
+                    <LastName>Hagen</LastName>
+                    <ForeName>W</ForeName>
+                    <Initials>W</Initials>
+                </Author>
+                <Author ValidYN="Y">
+                    <LastName>Auel</LastName>
+                    <ForeName>H</ForeName>
+                    <Initials>H</Initials>
+                </Author>
+            </AuthorList>
+            <Language>eng</Language>
+            <PublicationTypeList>
+                <PublicationType>Journal Article</PublicationType>
+            </PublicationTypeList>
+        </Article>
+        <MedlineJournalInfo>
+            <Country>Germany</Country>
+            <MedlineTA>Zoology (Jena)</MedlineTA>
+            <NlmUniqueID>9435608</NlmUniqueID>
+        </MedlineJournalInfo>
+    </MedlineCitation>
+    <PubmedData>
+        <History>
+            <PubMedPubDate PubStatus="pubmed">
+                <Year>2005</Year>
+                <Month>12</Month>
+                <Day>15</Day>
+                <Hour>9</Hour>
+                <Minute>0</Minute>
+            </PubMedPubDate>
+            <PubMedPubDate PubStatus="medline">
+                <Year>2005</Year>
+                <Month>12</Month>
+                <Day>15</Day>
+                <Hour>9</Hour>
+                <Minute>1</Minute>
+            </PubMedPubDate>
+        </History>
+        <PublicationStatus>ppublish</PublicationStatus>
+        <ArticleIdList>
+            <ArticleId IdType="pii">S0944-2006(04)70036-7</ArticleId>
+            <ArticleId IdType="doi">10.1078/0944-2006-00037</ArticleId>
+            <ArticleId IdType="pubmed">16351846</ArticleId>
+        </ArticleIdList>
+    </PubmedData>
+</PubmedArticle>
+
+
+<PubmedArticle>
+    <MedlineCitation Owner="NLM" Status="MEDLINE">
+        <PMID>12171649</PMID>
+        <DateCreated>
+            <Year>2002</Year>
+            <Month>08</Month>
+            <Day>12</Day>
+        </DateCreated>
+        <DateCompleted>
+            <Year>2003</Year>
+            <Month>02</Month>
+            <Day>27</Day>
+        </DateCompleted>
+        <DateRevised>
+            <Year>2006</Year>
+            <Month>11</Month>
+            <Day>15</Day>
+        </DateRevised>
+        <Article PubModel="Print">
+            <Journal>
+                <ISSN IssnType="Print">0962-8436</ISSN>
+                <JournalIssue CitedMedium="Print">
+                    <Volume>357</Volume>
+                    <Issue>1423</Issue>
+                    <PubDate>
+                        <Year>2002</Year>
+                        <Month>Jul</Month>
+                        <Day>29</Day>
+                    </PubDate>
+                </JournalIssue>
+                <Title>Philosophical transactions of the Royal Society of London. Series B, Biological sciences</Title>
+                <ISOAbbreviation>Philos. Trans. R. Soc. Lond., B, Biol. Sci.</ISOAbbreviation>
+            </Journal>
+            <ArticleTitle>Survival mechanisms in Antarctic lakes.</ArticleTitle>
+            <Pagination>
+                <MedlinePgn>863-9</MedlinePgn>
+            </Pagination>
+            <Abstract>
+                <AbstractText>In Antarctic lakes, organisms are confronted by continuous low temperatures as well as a poor light climate and nutrient limitation. Such extreme environments support truncated food webs with no fish, few metazoans and a dominance of microbial plankton. The key to success lies in entering the short Antarctic summer with actively growing populations. In many cases, the most successful organisms continue to function throughout the year. The few crustacean zooplankton remain active in the winter months, surviving on endogenous energy reserves and, in some cases, continuing development. Among the Protozoa, mixotrophy is an important nutritional strategy. In the extreme lakes of the McMurdo Dry Valleys, planktonic cryptophytes are forced to sustain a mixotrophic strategy and cannot survive by photosynthesis alone. The dependence on ingesting bacteria varies seasonally and with depth in the water column. In the Vestfold Hills, Pyramimonas, which dominates the plankton of some of the saline lakes, also resorts to mixotrophy, but does become entirely photosynthetic at mid-summer. Mixotrophic ciliates are also common and the entirely photosynthetic ciliate Mesodinium rubrum has a widespread distribution in the saline lakes of the Vestfold Hills, where it attains high concentrations. Bacteria continue to grow all year, showing cycles that appear to be related to the availability of dissolved organic carbon. In saline lakes, bacteria experience sub-zero temperatures for long periods of the year and have developed biochemical adaptations that include anti-freeze proteins, changes in the concentrations of polyunsaturated fatty acids in their membranes and suites of low-temperature enzymes.</AbstractText>
+            </Abstract>
+            <Affiliation>School of Life and Environmental Sciences, University of Nottingham, University Park, Nottingham, NG7 2RD, UK. j.laybourn-parry@nottingham.ac.uk</Affiliation>
+            <AuthorList CompleteYN="Y">
+                <Author ValidYN="Y">
+                    <LastName>Laybourn-Parry</LastName>
+                    <ForeName>Johanna</ForeName>
+                    <Initials>J</Initials>
+                </Author>
+            </AuthorList>
+            <Language>eng</Language>
+            <PublicationTypeList>
+                <PublicationType>Journal Article</PublicationType>
+                <PublicationType>Research Support, Non-U.S. Gov't </PublicationType>
+                <PublicationType>Review</PublicationType>
+            </PublicationTypeList>
+        </Article>
+        <MedlineJournalInfo>
+            <Country>England</Country>
+            <MedlineTA>Philos Trans R Soc Lond B Biol Sci</MedlineTA>
+            <NlmUniqueID>7503623</NlmUniqueID>
+        </MedlineJournalInfo>
+        <CitationSubset>IM</CitationSubset>
+        <MeshHeadingList>
+            <MeshHeading>
+                <DescriptorName MajorTopicYN="Y">Acclimatization</DescriptorName>
+            </MeshHeading>
+            <MeshHeading>
+                <DescriptorName MajorTopicYN="N">Animals</DescriptorName>
+            </MeshHeading>
+            <MeshHeading>
+                <DescriptorName MajorTopicYN="N">Antarctic Regions</DescriptorName>
+            </MeshHeading>
+            <MeshHeading>
+                <DescriptorName MajorTopicYN="N">Bacteria</DescriptorName>
+                <QualifierName MajorTopicYN="Y">metabolism</QualifierName>
+            </MeshHeading>
+            <MeshHeading>
+                <DescriptorName MajorTopicYN="Y">Cold Climate</DescriptorName>
+            </MeshHeading>
+            <MeshHeading>
+                <DescriptorName MajorTopicYN="N">Fresh Water</DescriptorName>
+                <QualifierName MajorTopicYN="Y">microbiology</QualifierName>
+                <QualifierName MajorTopicYN="Y">parasitology</QualifierName>
+            </MeshHeading>
+            <MeshHeading>
+                <DescriptorName MajorTopicYN="N">Photosynthesis</DescriptorName>
+            </MeshHeading>
+            <MeshHeading>
+                <DescriptorName MajorTopicYN="N">Survival Rate</DescriptorName>
+            </MeshHeading>
+            <MeshHeading>
+                <DescriptorName MajorTopicYN="N">Zooplankton</DescriptorName>
+                <QualifierName MajorTopicYN="N">metabolism</QualifierName>
+                <QualifierName MajorTopicYN="Y">physiology</QualifierName>
+            </MeshHeading>
+        </MeshHeadingList>
+        <NumberOfReferences>63</NumberOfReferences>
+    </MedlineCitation>
+    <PubmedData>
+        <History>
+            <PubMedPubDate PubStatus="pubmed">
+                <Year>2002</Year>
+                <Month>8</Month>
+                <Day>13</Day>
+                <Hour>10</Hour>
+                <Minute>0</Minute>
+            </PubMedPubDate>
+            <PubMedPubDate PubStatus="medline">
+                <Year>2003</Year>
+                <Month>2</Month>
+                <Day>28</Day>
+                <Hour>4</Hour>
+                <Minute>0</Minute>
+            </PubMedPubDate>
+        </History>
+        <PublicationStatus>ppublish</PublicationStatus>
+        <ArticleIdList>
+            <ArticleId IdType="pubmed">12171649</ArticleId>
+            <ArticleId IdType="doi">10.1098/rstb.2002.1075</ArticleId>
+        </ArticleIdList>
+    </PubmedData>
+</PubmedArticle>
+
+
+<PubmedArticle>
+    <MedlineCitation Owner="NLM" Status="MEDLINE">
+        <PMID>12154613</PMID>
+        <DateCreated>
+            <Year>2002</Year>
+            <Month>08</Month>
+            <Day>05</Day>
+        </DateCreated>
+        <DateCompleted>
+            <Year>2002</Year>
+            <Month>11</Month>
+            <Day>14</Day>
+        </DateCompleted>
+        <DateRevised>
+            <Year>2006</Year>
+            <Month>11</Month>
+            <Day>15</Day>
+        </DateRevised>
+        <Article PubModel="Print">
+            <Journal>
+                <ISSN IssnType="Print">0065-2881</ISSN>
+                <JournalIssue CitedMedium="Print">
+                    <Volume>43</Volume>
+                    <PubDate>
+                        <Year>2002</Year>
+                    </PubDate>
+                </JournalIssue>
+                <Title>Advances in marine biology</Title>
+                <ISOAbbreviation>Adv. Mar. Biol.</ISOAbbreviation>
+            </Journal>
+            <ArticleTitle>Ecology of southern ocean pack ice.</ArticleTitle>
+            <Pagination>
+                <MedlinePgn>171-276</MedlinePgn>
+            </Pagination>
+            <Abstract>
+                <AbstractText>Around Antarctica the annual five-fold growth and decay of sea ice is the most prominent physical process and has a profound impact on marine life there. In winter the pack ice canopy extends to cover almost 20 million square kilometres--some 8% of the southern hemisphere and an area larger than the Antarctic continent itself (13.2 million square kilometres)--and is one of the largest, most dynamic ecosystems on earth. Biological activity is associated with all physical components of the sea-ice system: the sea-ice surface; the internal sea-ice matrix and brine channel system; the underside of sea ice and the waters in the vicinity of sea ice that are modified by the presence of sea ice. Microbial and microalgal communities proliferate on and within sea ice and are grazed by a wide range of proto- and macrozooplankton that inhabit the sea ice in large concentrations. Grazing organisms also exploit biogenic material released from the sea ice at ice break-up or melt. Although rates of primary production in the underlying water column are often low because of shading by sea-ice cover, sea ice itself forms a substratum that provides standing stocks of bacteria, algae and grazers significantly higher than those in ice-free areas. Decay of sea ice in summer releases particulate and dissolved organic matter to the water column, playing a major role in biogeochemical cycling as well as seeding water column phytoplankton blooms. Numerous zooplankton species graze sea-ice algae, benefiting additionally because the overlying sea-ice ceiling provides a refuge from surface predators. Sea ice is an important nursery habitat for Antarctic krill, the pivotal species in the Southern Ocean marine ecosystem. Some deep-water fish migrate to shallow depths beneath sea ice to exploit the elevated concentrations of some zooplankton there. The increased secondary production associated with pack ice and the sea-ice edge is exploited by many higher predators, with seals, seabirds and whales aggregating there. As a result, much of the Southern Ocean pelagic whaling was concentrated at the edge of the marginal ice zone. The extent and duration of sea ice fluctuate periodically under the influence of global climatic phenomena including the El Niño Southern Oscillation. Life cycles of some associated species may reflect this periodicity. With evidence for climatic warming in some regions of Antarctica, there is concern that ecosystem change may be induced by changes in sea-ice extent. The relative abundance of krill and salps appears to change interannually with sea-ice extent, and in warm years, when salps proliferate, krill are scarce and dependent predators suffer severely. Further research on the Southern Ocean sea-ice system is required, not only to further our basic understanding of the ecology, but also to provide ecosystem managers with the information necessary for the development of strategies in response to short- and medium-term environmental changes in Antarctica. Technological advances are delivering new sampling platforms such as autonomous underwater vehicles that are improving vastly our ability to sample the Antarctic under sea-ice environment. Data from such platforms will enhance greatly our understanding of the globally important Southern Ocean sea-ice ecosystem.</AbstractText>
+            </Abstract>
+            <Affiliation>Gatty Marine Laboratory, School of Biology, University of St Andrews, Fife, KY16 8LB, UK. andrew.brierley@st-andrews.ac.uk</Affiliation>
+            <AuthorList CompleteYN="Y">
+                <Author ValidYN="Y">
+                    <LastName>Brierley</LastName>
+                    <ForeName>Andrew S</ForeName>
+                    <Initials>AS</Initials>
+                </Author>
+                <Author ValidYN="Y">
+                    <LastName>Thomas</LastName>
+                    <ForeName>David N</ForeName>
+                    <Initials>DN</Initials>
+                </Author>
+            </AuthorList>
+            <Language>eng</Language>
+            <PublicationTypeList>
+                <PublicationType>Journal Article</PublicationType>
+                <PublicationType>Research Support, Non-U.S. Gov't </PublicationType>
+                <PublicationType>Review</PublicationType>
+            </PublicationTypeList>
+        </Article>
+        <MedlineJournalInfo>
+            <Country>United States</Country>
+            <MedlineTA>Adv Mar Biol</MedlineTA>
+            <NlmUniqueID>0370431</NlmUniqueID>
+        </MedlineJournalInfo>
+        <CitationSubset>IM</CitationSubset>
+        <MeshHeadingList>
+            <MeshHeading>
+                <DescriptorName MajorTopicYN="N">Animals</DescriptorName>
+            </MeshHeading>
+            <MeshHeading>
+                <DescriptorName MajorTopicYN="N">Antarctic Regions</DescriptorName>
+            </MeshHeading>
+            <MeshHeading>
+                <DescriptorName MajorTopicYN="N">Birds</DescriptorName>
+            </MeshHeading>
+            <MeshHeading>
+                <DescriptorName MajorTopicYN="N">Crustacea</DescriptorName>
+            </MeshHeading>
+            <MeshHeading>
+                <DescriptorName MajorTopicYN="N">Ecology</DescriptorName>
+            </MeshHeading>
+            <MeshHeading>
+                <DescriptorName MajorTopicYN="Y">Ecosystem</DescriptorName>
+            </MeshHeading>
+            <MeshHeading>
+                <DescriptorName MajorTopicYN="N">Environment</DescriptorName>
+            </MeshHeading>
+            <MeshHeading>
+                <DescriptorName MajorTopicYN="N">Fishes</DescriptorName>
+            </MeshHeading>
+            <MeshHeading>
+                <DescriptorName MajorTopicYN="Y">Ice</DescriptorName>
+            </MeshHeading>
+            <MeshHeading>
+                <DescriptorName MajorTopicYN="Y">Marine Biology</DescriptorName>
+            </MeshHeading>
+            <MeshHeading>
+                <DescriptorName MajorTopicYN="N">Oceans and Seas</DescriptorName>
+            </MeshHeading>
+            <MeshHeading>
+                <DescriptorName MajorTopicYN="N">Phytoplankton</DescriptorName>
+            </MeshHeading>
+            <MeshHeading>
+                <DescriptorName MajorTopicYN="N">Population Dynamics</DescriptorName>
+            </MeshHeading>
+            <MeshHeading>
+                <DescriptorName MajorTopicYN="N">Seasons</DescriptorName>
+            </MeshHeading>
+            <MeshHeading>
+                <DescriptorName MajorTopicYN="Y">Seawater</DescriptorName>
+            </MeshHeading>
+            <MeshHeading>
+                <DescriptorName MajorTopicYN="N">Water Microbiology</DescriptorName>
+            </MeshHeading>
+            <MeshHeading>
+                <DescriptorName MajorTopicYN="N">Whales</DescriptorName>
+            </MeshHeading>
+        </MeshHeadingList>
+        <NumberOfReferences>327</NumberOfReferences>
+    </MedlineCitation>
+    <PubmedData>
+        <History>
+            <PubMedPubDate PubStatus="pubmed">
+                <Year>2002</Year>
+                <Month>8</Month>
+                <Day>6</Day>
+                <Hour>10</Hour>
+                <Minute>0</Minute>
+            </PubMedPubDate>
+            <PubMedPubDate PubStatus="medline">
+                <Year>2002</Year>
+                <Month>11</Month>
+                <Day>26</Day>
+                <Hour>4</Hour>
+                <Minute>0</Minute>
+            </PubMedPubDate>
+        </History>
+        <PublicationStatus>ppublish</PublicationStatus>
+        <ArticleIdList>
+            <ArticleId IdType="pubmed">12154613</ArticleId>
+        </ArticleIdList>
+    </PubmedData>
+</PubmedArticle>
+
+
+<PubmedArticle>
+    <MedlineCitation Owner="NLM" Status="MEDLINE">
+        <PMID>9037040</PMID>
+        <DateCreated>
+            <Year>1997</Year>
+            <Month>03</Month>
+            <Day>27</Day>
+        </DateCreated>
+        <DateCompleted>
+            <Year>1997</Year>
+            <Month>03</Month>
+            <Day>27</Day>
+        </DateCompleted>
+        <DateRevised>
+            <Year>2006</Year>
+            <Month>11</Month>
+            <Day>15</Day>
+        </DateRevised>
+        <Article PubModel="Print">
+            <Journal>
+                <ISSN IssnType="Print">0027-8424</ISSN>
+                <JournalIssue CitedMedium="Print">
+                    <Volume>94</Volume>
+                    <Issue>4</Issue>
+                    <PubDate>
+                        <Year>1997</Year>
+                        <Month>Feb</Month>
+                        <Day>18</Day>
+                    </PubDate>
+                </JournalIssue>
+                <Title>Proceedings of the National Academy of Sciences of the United States of America</Title>
+                <ISOAbbreviation>Proc. Natl. Acad. Sci. U.S.A.</ISOAbbreviation>
+            </Journal>
+            <ArticleTitle>Solar UVB-induced DNA damage and photoenzymatic DNA repair in antarctic zooplankton.</ArticleTitle>
+            <Pagination>
+                <MedlinePgn>1258-63</MedlinePgn>
+            </Pagination>
+            <Abstract>
+                <AbstractText>The detrimental effects of elevated intensities of mid-UV radiation (UVB), a result of stratospheric ozone depletion during the austral spring, on the primary producers of the Antarctic marine ecosystem have been well documented. Here we report that natural populations of Antarctic zooplankton also sustain significant DNA damage [measured as cyclobutane pyrimidine dimers (CPDs)] during periods of increased UVB flux. This is the first direct evidence that increased solar UVB may result in damage to marine organisms other than primary producers in Antarctica. The extent of DNA damage in pelagic icefish eggs correlated with daily incident UVB irradiance, reflecting the difference between acquisition and repair of CPDs. Patterns of DNA damage in fish larvae did not correlate with daily UVB flux, possibly due to different depth distributions and/or different capacities for DNA repair. Clearance of CPDs by Antarctic fish and krill was mediated primarily by the photoenzymatic repair system. Although repair rates were large for all species evaluated, they were apparently inadequate to prevent the transient accumulation of substantial CPD burdens. The capacity for DNA repair in Antarctic organisms was highest in those species whose early life history stages occupy the water column during periods of ozone depletion (austral spring) and lowest in fish species whose eggs and larvae are abundant during winter. Although the potential reduction in fitness of Antarctic zooplankton resulting from DNA damage is unknown, we suggest that increased solar UV may reduce recruitment and adversely affect trophic transfer of productivity by affecting heterotrophic species as well as primary producers.</AbstractText>
+            </Abstract>
+            <Affiliation>Department of Biology, Northeastern University, Boston, MA 02115, USA.</Affiliation>
+            <AuthorList CompleteYN="Y">
+                <Author ValidYN="Y">
+                    <LastName>Malloy</LastName>
+                    <ForeName>K D</ForeName>
+                    <Initials>KD</Initials>
+                </Author>
+                <Author ValidYN="Y">
+                    <LastName>Holman</LastName>
+                    <ForeName>M A</ForeName>
+                    <Initials>MA</Initials>
+                </Author>
+                <Author ValidYN="Y">
+                    <LastName>Mitchell</LastName>
+                    <ForeName>D</ForeName>
+                    <Initials>D</Initials>
+                </Author>
+                <Author ValidYN="Y">
+                    <LastName>Detrich</LastName>
+                    <ForeName>H W</ForeName>
+                    <Initials>HW</Initials>
+                    <Suffix>3rd</Suffix>
+                </Author>
+            </AuthorList>
+            <Language>eng</Language>
+            <PublicationTypeList>
+                <PublicationType>Journal Article</PublicationType>
+                <PublicationType>Research Support, Non-U.S. Gov't </PublicationType>
+                <PublicationType>Research Support, U.S. Gov't, Non-P.H.S. </PublicationType>
+            </PublicationTypeList>
+        </Article>
+        <MedlineJournalInfo>
+            <Country>UNITED STATES</Country>
+            <MedlineTA>Proc Natl Acad Sci U S A</MedlineTA>
+            <NlmUniqueID>7505876</NlmUniqueID>
+        </MedlineJournalInfo>
+        <ChemicalList>
+            <Chemical>
+                <RegistryNumber>0</RegistryNumber>
+                <NameOfSubstance>Pyrimidine Dimers</NameOfSubstance>
+            </Chemical>
+            <Chemical>
+                <RegistryNumber>10028-15-6</RegistryNumber>
+                <NameOfSubstance>Ozone</NameOfSubstance>
+            </Chemical>
+            <Chemical>
+                <RegistryNumber>EC 4.1.99.3</RegistryNumber>
+                <NameOfSubstance>Deoxyribodipyrimidine Photo-Lyase</NameOfSubstance>
+            </Chemical>
+        </ChemicalList>
+        <CitationSubset>IM</CitationSubset>
+        <MeshHeadingList>
+            <MeshHeading>
+                <DescriptorName MajorTopicYN="N">Animals</DescriptorName>
+            </MeshHeading>
+            <MeshHeading>
+                <DescriptorName MajorTopicYN="N">Antarctic Regions</DescriptorName>
+            </MeshHeading>
+            <MeshHeading>
+                <DescriptorName MajorTopicYN="Y">Atmosphere</DescriptorName>
+            </MeshHeading>
+            <MeshHeading>
+                <DescriptorName MajorTopicYN="Y">DNA Damage</DescriptorName>
+            </MeshHeading>
+            <MeshHeading>
+                <DescriptorName MajorTopicYN="Y">DNA Repair</DescriptorName>
+            </MeshHeading>
+            <MeshHeading>
+                <DescriptorName MajorTopicYN="N">Deoxyribodipyrimidine Photo-Lyase</DescriptorName>
+                <QualifierName MajorTopicYN="N">metabolism</QualifierName>
+            </MeshHeading>
+            <MeshHeading>
+                <DescriptorName MajorTopicYN="N">Fishes</DescriptorName>
+            </MeshHeading>
+            <MeshHeading>
+                <DescriptorName MajorTopicYN="N">Marine Biology</DescriptorName>
+            </MeshHeading>
+            <MeshHeading>
+                <DescriptorName MajorTopicYN="N">Ovum</DescriptorName>
+                <QualifierName MajorTopicYN="N">radiation effects</QualifierName>
+            </MeshHeading>
+            <MeshHeading>
+                <DescriptorName MajorTopicYN="Y">Ozone</DescriptorName>
+            </MeshHeading>
+            <MeshHeading>
+                <DescriptorName MajorTopicYN="N">Pyrimidine Dimers</DescriptorName>
+                <QualifierName MajorTopicYN="N">analysis</QualifierName>
+            </MeshHeading>
+            <MeshHeading>
+                <DescriptorName MajorTopicYN="N">Seasons</DescriptorName>
+            </MeshHeading>
+            <MeshHeading>
+                <DescriptorName MajorTopicYN="N">Temperature</DescriptorName>
+            </MeshHeading>
+            <MeshHeading>
+                <DescriptorName MajorTopicYN="N">Ultraviolet Rays</DescriptorName>
+                <QualifierName MajorTopicYN="Y">adverse effects</QualifierName>
+            </MeshHeading>
+            <MeshHeading>
+                <DescriptorName MajorTopicYN="N">Zooplankton</DescriptorName>
+                <QualifierName MajorTopicYN="N">enzymology</QualifierName>
+                <QualifierName MajorTopicYN="Y">radiation effects</QualifierName>
+            </MeshHeading>
+        </MeshHeadingList>
+    </MedlineCitation>
+    <PubmedData>
+        <History>
+            <PubMedPubDate PubStatus="pubmed">
+                <Year>1997</Year>
+                <Month>2</Month>
+                <Day>18</Day>
+            </PubMedPubDate>
+            <PubMedPubDate PubStatus="medline">
+                <Year>2001</Year>
+                <Month>3</Month>
+                <Day>28</Day>
+                <Hour>10</Hour>
+                <Minute>1</Minute>
+            </PubMedPubDate>
+        </History>
+        <PublicationStatus>ppublish</PublicationStatus>
+        <ArticleIdList>
+            <ArticleId IdType="pubmed">9037040</ArticleId>
+        </ArticleIdList>
+    </PubmedData>
+</PubmedArticle>
+
+
+</PubmedArticleSet>

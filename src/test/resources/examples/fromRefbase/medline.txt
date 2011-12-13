@@ -1,0 +1,383 @@
+PMID- 16905428
+OWN - NLM
+STAT- MEDLINE
+DA  - 20060814
+DCOM- 20061102
+LR  - 20061115
+PUBM- Print
+IS  - 0065-2881 (Print)
+VI  - 51
+DP  - 2006
+TI  - Crustacea in Arctic and Antarctic sea ice: distribution, diet and life
+      history strategies.
+PG  - 197-315
+AB  - This review concerns crustaceans that associate with sea ice. Particular
+      emphasis is placed on comparing and contrasting the Arctic and Antarctic
+      sea ice habitats, and the subsequent influence of these environments on
+      the life history strategies of the crustacean fauna. Sea ice is the
+      dominant feature of both polar marine ecosystems, playing a central role
+      in physical processes and providing an essential habitat for organisms
+      ranging in size from viruses to whales. Similarities between the Arctic
+      and Antarctic marine ecosystems include variable cover of sea ice over an
+      annual cycle, a light regimen that can extend from months of total
+      darkness to months of continuous light and a pronounced seasonality in
+      primary production. Although there are many similarities, there are also
+      major differences between the two regions: The Antarctic experiences
+      greater seasonal change in its sea ice extent, much of the ice is over
+      very deep water and more than 80% breaks out each year. In contrast,
+      Arctic sea ice often covers comparatively shallow water, doubles in its
+      extent on an annual cycle and the ice may persist for several decades.
+      Crustaceans, particularly copepods and amphipods, are abundant in the sea
+      ice zone at both poles, either living within the brine channel system of
+      the ice-crystal matrix or inhabiting the ice-water interface. Many species
+      associate with ice for only a part of their life cycle, while others
+      appear entirely dependent upon it for reproduction and development.
+      Although similarities exist between the two faunas, many differences are
+      emerging. Most notable are the much higher abundance and biomass of
+      Antarctic copepods, the dominance of the Antarctic sea ice copepod fauna
+      by calanoids, the high euphausiid biomass in Southern Ocean waters and the
+      lack of any species that appear fully dependent on the ice. In the Arctic,
+      the ice-associated fauna is dominated by amphipods. Calanoid copepods are
+      not tightly associated with the ice, while harpacticoids and cyclopoids
+      are abundant. Euphausiids are nearly absent from the high Arctic. Life
+      history strategies are variable, although reproductive cycles and life
+      spans are generally longer than those for temperate congeners. Species at
+      both poles tend to be opportunistic feeders and periods of diapause or
+      other reductions in metabolic expenditure are not uncommon.
+AD  - School of Zoology, University of Tasmania, Hobart, Tasmania, Australia.
+FAU - Arndt, Carolin E
+AU  - Arndt CE
+FAU - Swadling, Kerrie M
+AU  - Swadling KM
+LA  - eng
+PT  - Comparative Study 
+PT  - Research Support, Non-U.S. Gov't 
+PT  - Journal Article
+PL  - United States
+TA  - Adv Mar Biol
+JT  - Advances in marine biology
+JID - 0370431
+SB  - IM
+MH  - Animals
+MH  - Antarctic Regions
+MH  - Arctic Regions
+MH  - Behavior, Animal/physiology
+MH  - Biodiversity
+MH  - Biomass
+MH  - Crustacea/*classification/*physiology
+MH  - Demography
+MH  - Diet/veterinary
+MH  - *Environment
+MH  - *Ice
+MH  - Oceans and Seas
+MH  - Reproduction/physiology
+MH  - Seawater
+EDAT- 2006/08/15 09:00
+MHDA- 2006/11/03 09:00
+AID - S0065-2881(06)51004-1 [pii]
+AID - 10.1016/S0065-2881(06)51004-1 [doi]
+PST - ppublish
+SO  - Adv Mar Biol. 2006;51:197-315.
+
+PMID- 16351846
+OWN - NLM
+STAT- PubMed-not-MEDLINE
+DA  - 20051214
+DCOM- 20060123
+PUBM- Print
+IS  - 0944-2006 (Print)
+VI  - 104
+IP  - 3-4
+DP  - 2001
+TI  - Seasonal adaptations and the role of lipids in oceanic zooplankton.
+PG  - 313-26
+AB  - Oceanic zooplankton species exhibit quite diverse life history traits. A
+      major driving force determining their life strategies is the seasonal
+      variability in food supply, which is most pronounced in polar oceans where
+      fluctuations in primary production are extreme. Seasonal adaptations are
+      closely related to the trophic level of zooplankters, with strongest
+      pressures occurring on herbivorous organisms. The dominant grazers,
+      calanoid copepods and krill (Euphausiacea), have developed fascinating
+      solutions for successful overwintering at higher latitudes. They usually
+      exhibit a very efficient storage and utilization of energy reserves to
+      reduce the effect of a highly seasonal primary production. The predominant
+      larger Calanus species from the Arctic and Calanoides acutus from the
+      Antarctic biosynthesize large amounts of high-energy wax esters with
+      long-chain monounsaturated fatty acids and alcohols (20:1 and 22:1
+      isomers) as major components. They survive the dark season at depth in a
+      stage of dormancy called diapause. In contrast, the Antarctic Calanus
+      propinquus, a winter-active species, synthesizes primarily
+      triacylglycerols, which are dominated by long-chain monounsaturated fatty
+      acids with 22 carbon atoms (2 isomers) and yield even higher calorific
+      contents. The omnivorous and carnivorous species, which are less subjected
+      to seasonal food shortage, usually do not exhibit such an elaborate lipid
+      biosynthesis. Herbivores usually do not utilize much of their enormous
+      lipid reserves for overwintering, but channel this energy towards
+      reproductive processes in late winter/early spring. Timing of reproduction
+      is critical especially at high latitudes due to the short production
+      period, and lipid reserves ensure early spawning independent of external
+      resources. These energetic adaptations (dormancy, lipid storage) are
+      supplemented by other life strategies such as extensive vertical
+      migrations, change in the mode of life, and trophic flexibility.
+AD  - Marine Zoology, University of Bremen, Germany. whagen@uni-bremen.de
+FAU - Hagen, W
+AU  - Hagen W
+FAU - Auel, H
+AU  - Auel H
+LA  - eng
+PT  - Journal Article
+PL  - Germany
+TA  - Zoology (Jena)
+JT  - Zoology (Jena, Germany)
+JID - 9435608
+EDAT- 2005/12/15 09:00
+MHDA- 2005/12/15 09:01
+AID - S0944-2006(04)70036-7 [pii]
+AID - 10.1078/0944-2006-00037 [doi]
+PST - ppublish
+SO  - Zoology (Jena). 2001;104(3-4):313-26.
+
+PMID- 12171649
+OWN - NLM
+STAT- MEDLINE
+DA  - 20020812
+DCOM- 20030227
+LR  - 20061115
+PUBM- Print
+IS  - 0962-8436 (Print)
+VI  - 357
+IP  - 1423
+DP  - 2002 Jul 29
+TI  - Survival mechanisms in Antarctic lakes.
+PG  - 863-9
+AB  - In Antarctic lakes, organisms are confronted by continuous low
+      temperatures as well as a poor light climate and nutrient limitation. Such
+      extreme environments support truncated food webs with no fish, few
+      metazoans and a dominance of microbial plankton. The key to success lies
+      in entering the short Antarctic summer with actively growing populations.
+      In many cases, the most successful organisms continue to function
+      throughout the year. The few crustacean zooplankton remain active in the
+      winter months, surviving on endogenous energy reserves and, in some cases,
+      continuing development. Among the Protozoa, mixotrophy is an important
+      nutritional strategy. In the extreme lakes of the McMurdo Dry Valleys,
+      planktonic cryptophytes are forced to sustain a mixotrophic strategy and
+      cannot survive by photosynthesis alone. The dependence on ingesting
+      bacteria varies seasonally and with depth in the water column. In the
+      Vestfold Hills, Pyramimonas, which dominates the plankton of some of the
+      saline lakes, also resorts to mixotrophy, but does become entirely
+      photosynthetic at mid-summer. Mixotrophic ciliates are also common and the
+      entirely photosynthetic ciliate Mesodinium rubrum has a widespread
+      distribution in the saline lakes of the Vestfold Hills, where it attains
+      high concentrations. Bacteria continue to grow all year, showing cycles
+      that appear to be related to the availability of dissolved organic carbon.
+      In saline lakes, bacteria experience sub-zero temperatures for long
+      periods of the year and have developed biochemical adaptations that
+      include anti-freeze proteins, changes in the concentrations of
+      polyunsaturated fatty acids in their membranes and suites of
+      low-temperature enzymes.
+AD  - School of Life and Environmental Sciences, University of Nottingham,
+      University Park, Nottingham, NG7 2RD, UK.
+      j.laybourn-parry@nottingham.ac.uk
+FAU - Laybourn-Parry, Johanna
+AU  - Laybourn-Parry J
+LA  - eng
+PT  - Journal Article
+PT  - Research Support, Non-U.S. Gov't 
+PT  - Review
+PL  - England
+TA  - Philos Trans R Soc Lond B Biol Sci
+JT  - Philosophical transactions of the Royal Society of London. Series B,
+      Biological sciences
+JID - 7503623
+SB  - IM
+MH  - *Acclimatization
+MH  - Animals
+MH  - Antarctic Regions
+MH  - Bacteria/*metabolism
+MH  - *Cold Climate
+MH  - Fresh Water/*microbiology/*parasitology
+MH  - Photosynthesis
+MH  - Survival Rate
+MH  - Zooplankton/metabolism/*physiology
+RF  - 63
+EDAT- 2002/08/13 10:00
+MHDA- 2003/02/28 04:00
+AID - 10.1098/rstb.2002.1075 [doi]
+PST - ppublish
+SO  - Philos Trans R Soc Lond B Biol Sci. 2002 Jul 29;357(1423):863-9.
+
+PMID- 12154613
+OWN - NLM
+STAT- MEDLINE
+DA  - 20020805
+DCOM- 20021114
+LR  - 20061115
+PUBM- Print
+IS  - 0065-2881 (Print)
+VI  - 43
+DP  - 2002
+TI  - Ecology of southern ocean pack ice.
+PG  - 171-276
+AB  - Around Antarctica the annual five-fold growth and decay of sea ice is the
+      most prominent physical process and has a profound impact on marine life
+      there. In winter the pack ice canopy extends to cover almost 20 million
+      square kilometres--some 8% of the southern hemisphere and an area larger
+      than the Antarctic continent itself (13.2 million square kilometres)--and
+      is one of the largest, most dynamic ecosystems on earth. Biological
+      activity is associated with all physical components of the sea-ice system:
+      the sea-ice surface; the internal sea-ice matrix and brine channel system;
+      the underside of sea ice and the waters in the vicinity of sea ice that
+      are modified by the presence of sea ice. Microbial and microalgal
+      communities proliferate on and within sea ice and are grazed by a wide
+      range of proto- and macrozooplankton that inhabit the sea ice in large
+      concentrations. Grazing organisms also exploit biogenic material released
+      from the sea ice at ice break-up or melt. Although rates of primary
+      production in the underlying water column are often low because of shading
+      by sea-ice cover, sea ice itself forms a substratum that provides standing
+      stocks of bacteria, algae and grazers significantly higher than those in
+      ice-free areas. Decay of sea ice in summer releases particulate and
+      dissolved organic matter to the water column, playing a major role in
+      biogeochemical cycling as well as seeding water column phytoplankton
+      blooms. Numerous zooplankton species graze sea-ice algae, benefiting
+      additionally because the overlying sea-ice ceiling provides a refuge from
+      surface predators. Sea ice is an important nursery habitat for Antarctic
+      krill, the pivotal species in the Southern Ocean marine ecosystem. Some
+      deep-water fish migrate to shallow depths beneath sea ice to exploit the
+      elevated concentrations of some zooplankton there. The increased secondary
+      production associated with pack ice and the sea-ice edge is exploited by
+      many higher predators, with seals, seabirds and whales aggregating there.
+      As a result, much of the Southern Ocean pelagic whaling was concentrated
+      at the edge of the marginal ice zone. The extent and duration of sea ice
+      fluctuate periodically under the influence of global climatic phenomena
+      including the El Nino Southern Oscillation. Life cycles of some associated
+      species may reflect this periodicity. With evidence for climatic warming
+      in some regions of Antarctica, there is concern that ecosystem change may
+      be induced by changes in sea-ice extent. The relative abundance of krill
+      and salps appears to change interannually with sea-ice extent, and in warm
+      years, when salps proliferate, krill are scarce and dependent predators
+      suffer severely. Further research on the Southern Ocean sea-ice system is
+      required, not only to further our basic understanding of the ecology, but
+      also to provide ecosystem managers with the information necessary for the
+      development of strategies in response to short- and medium-term
+      environmental changes in Antarctica. Technological advances are delivering
+      new sampling platforms such as autonomous underwater vehicles that are
+      improving vastly our ability to sample the Antarctic under sea-ice
+      environment. Data from such platforms will enhance greatly our
+      understanding of the globally important Southern Ocean sea-ice ecosystem.
+AD  - Gatty Marine Laboratory, School of Biology, University of St Andrews,
+      Fife, KY16 8LB, UK. andrew.brierley@st-andrews.ac.uk
+FAU - Brierley, Andrew S
+AU  - Brierley AS
+FAU - Thomas, David N
+AU  - Thomas DN
+LA  - eng
+PT  - Journal Article
+PT  - Research Support, Non-U.S. Gov't 
+PT  - Review
+PL  - United States
+TA  - Adv Mar Biol
+JT  - Advances in marine biology
+JID - 0370431
+SB  - IM
+MH  - Animals
+MH  - Antarctic Regions
+MH  - Birds
+MH  - Crustacea
+MH  - Ecology
+MH  - *Ecosystem
+MH  - Environment
+MH  - Fishes
+MH  - *Ice
+MH  - *Marine Biology
+MH  - Oceans and Seas
+MH  - Phytoplankton
+MH  - Population Dynamics
+MH  - Seasons
+MH  - *Seawater
+MH  - Water Microbiology
+MH  - Whales
+RF  - 327
+EDAT- 2002/08/06 10:00
+MHDA- 2002/11/26 04:00
+PST - ppublish
+SO  - Adv Mar Biol. 2002;43:171-276.
+
+PMID- 9037040
+OWN - NLM
+STAT- MEDLINE
+DA  - 19970327
+DCOM- 19970327
+LR  - 20061115
+PUBM- Print
+IS  - 0027-8424 (Print)
+VI  - 94
+IP  - 4
+DP  - 1997 Feb 18
+TI  - Solar UVB-induced DNA damage and photoenzymatic DNA repair in antarctic
+      zooplankton.
+PG  - 1258-63
+AB  - The detrimental effects of elevated intensities of mid-UV radiation (UVB),
+      a result of stratospheric ozone depletion during the austral spring, on
+      the primary producers of the Antarctic marine ecosystem have been well
+      documented. Here we report that natural populations of Antarctic
+      zooplankton also sustain significant DNA damage [measured as cyclobutane
+      pyrimidine dimers (CPDs)] during periods of increased UVB flux. This is
+      the first direct evidence that increased solar UVB may result in damage to
+      marine organisms other than primary producers in Antarctica. The extent of
+      DNA damage in pelagic icefish eggs correlated with daily incident UVB
+      irradiance, reflecting the difference between acquisition and repair of
+      CPDs. Patterns of DNA damage in fish larvae did not correlate with daily
+      UVB flux, possibly due to different depth distributions and/or different
+      capacities for DNA repair. Clearance of CPDs by Antarctic fish and krill
+      was mediated primarily by the photoenzymatic repair system. Although
+      repair rates were large for all species evaluated, they were apparently
+      inadequate to prevent the transient accumulation of substantial CPD
+      burdens. The capacity for DNA repair in Antarctic organisms was highest in
+      those species whose early life history stages occupy the water column
+      during periods of ozone depletion (austral spring) and lowest in fish
+      species whose eggs and larvae are abundant during winter. Although the
+      potential reduction in fitness of Antarctic zooplankton resulting from DNA
+      damage is unknown, we suggest that increased solar UV may reduce
+      recruitment and adversely affect trophic transfer of productivity by
+      affecting heterotrophic species as well as primary producers.
+AD  - Department of Biology, Northeastern University, Boston, MA 02115, USA.
+FAU - Malloy, K D
+AU  - Malloy KD
+FAU - Holman, M A
+AU  - Holman MA
+FAU - Mitchell, D
+AU  - Mitchell D
+FAU - Detrich, H W 3rd
+AU  - Detrich HW 3rd
+LA  - eng
+PT  - Research Support, Non-U.S. Gov't 
+PT  - Research Support, U.S. Gov't, Non-P.H.S. 
+PT  - Journal Article
+PL  - UNITED STATES
+TA  - Proc Natl Acad Sci U S A
+JT  - Proceedings of the National Academy of Sciences of the United States of
+      America
+JID - 7505876
+RN  - 0 (Pyrimidine Dimers)
+RN  - 10028-15-6 (Ozone)
+RN  - EC 4.1.99.3 (Deoxyribodipyrimidine Photo-Lyase)
+SB  - IM
+MH  - Animals
+MH  - Antarctic Regions
+MH  - *Atmosphere
+MH  - *DNA Damage
+MH  - *DNA Repair
+MH  - Deoxyribodipyrimidine Photo-Lyase/metabolism
+MH  - Fishes
+MH  - Marine Biology
+MH  - Ovum/radiation effects
+MH  - *Ozone
+MH  - Pyrimidine Dimers/analysis
+MH  - Seasons
+MH  - Temperature
+MH  - Ultraviolet Rays/*adverse effects
+MH  - Zooplankton/enzymology/*radiation effects
+EDAT- 1997/02/18
+MHDA- 2001/03/28 10:01
+PST - ppublish
+SO  - Proc Natl Acad Sci U S A. 1997 Feb 18;94(4):1258-63.
