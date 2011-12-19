@@ -30,8 +30,14 @@ trait CitationMention
   val refMarker: Option[String] = None // within-document ID
   }
 
+trait Keyword
+  {
+  val authority: KeywordAuthority
+  val word: String
+  }
+
 // don't model hierarchical keywords, just leave them slash-delimited in the string
-case class Keyword(authority: KeywordAuthority, word: String)
+case class BasicKeyword(override val authority: KeywordAuthority, override val word: String) extends Keyword
 
 
 sealed class DocType
@@ -39,12 +45,16 @@ case object JournalArticle extends DocType
 case object Journal extends DocType
 case object ProceedingsArticle extends DocType
 case object Proceedings extends DocType
+case object CollectionArticle extends DocType
+case object CollectionOfArticles extends DocType
 case object BookChapter extends DocType
 case object Book extends DocType
 case object TechnicalReport extends DocType
 case object Patent extends DocType
-case object Thesis extends DocType
+case object PhdThesis extends DocType
+case object MastersThesis extends DocType
 case object Grant extends DocType
+case object WwwArticle extends DocType
 
 sealed class Language
 
@@ -58,6 +68,8 @@ trait Identifier
   def qualifiedValue = authority.shortName + ":" + value
   }
 
+case class BasicIdentifier(override val authority: IdentifierAuthority, override val value: String) extends Identifier
+
 trait Location
   {
   // are there other kinds of locations?  e.g., call numbers
@@ -65,20 +77,20 @@ trait Location
   val hashes: Seq[Hash]
   }
 
+case class BasicLocation(override val url: URL, override val hashes: Seq[Hash]) extends Location
+
 trait Hash
   {
   val hashType: HashType
   val hashValue: String
   }
 
+case class BasicHash(override val hashType: HashType, override val hashValue: String) extends Hash
+
 sealed class HashType
-
 case object CRC32 extends HashType
-
 case object SHA1 extends HashType
-
 case object SHA256 extends HashType
-
 case object MD5 extends HashType
 
 
@@ -87,24 +99,29 @@ trait ContainmentInfo
   val container: CitationMention
   val series: Option[String]
   val volume: Option[String]
-  val number: Option[Int] // journal number, or chapter number
+  val number: Option[String] // journal number, or chapter number.  Not necessarily integer?
   val pages: Option[PageRange]
   }
 
+case class BasicContainmentInfo(override val container: CitationMention, override val series: Option[String], override val volume: Option[String], override val number: Option[String],
+                                override val pages: Option[PageRange]) extends ContainmentInfo
+
 trait PageRange
 
-trait NormalPageRange
+trait NormalPageRange extends PageRange
   {
   val start: Int
   val end: Option[Int]
   }
 
+case class BasicNormalPageRange(override val start: Int, override val end: Option[Int]) extends NormalPageRange
 
-trait StringPageRange
+trait StringPageRange extends PageRange
   {
-  val start: Int
-  val end: Option[Int]
+  val start: String
+  val end: Option[String]
   }
+case class BasicStringPageRange(override val start: String, override val end: Option[String]) extends StringPageRange
 
 /**
  * Enumeration of types of events that may occur in the lifecycle of a document.
@@ -122,12 +139,13 @@ case object Begin extends EventType(10)
 // for grants, patents
 case object End extends EventType(0)
 
-// for grants, patents
 trait CitationEvent
   {
   val eventType: EventType
   val date: Option[PartialDate] // possibly we know that a given event type occurred but we don't know when
   }
+
+case class BasicCitationEvent(override val date: Option[PartialDate], override val eventType: EventType) extends CitationEvent
 
 trait PartialDate extends Ordered[PartialDate]
   {
@@ -172,6 +190,8 @@ trait PartialDate extends Ordered[PartialDate]
     }
   }
 
+case class BasicPartialDate(override val year: Option[Int], override val month: Option[Int], override val day: Option[Int]) extends PartialDate
+
 trait GrantInfo
   {
   //val institution: Option[Institution] // no point in recording the grant without this?
@@ -180,6 +200,7 @@ trait GrantInfo
   val grantees: Seq[AuthorInRole] // could also have a GrantRecipient role?
   }
 
+case class BasicGrantInfo(override val grant: CitationMention, override val grantees: Seq[AuthorInRole]) extends GrantInfo
 
 /*
 	altAuthorlist(61),  // maybe authors??

@@ -2,19 +2,29 @@ package edu.umass.cs.iesl.bibmogrify
 
 
 import model.CitationMention
-import reader.DBLPReader
+import reader.{IEEEReader, PatentST36Reader, WosXMLReader, DBLPReader}
 import tools.nsc.io.JFile
 import writer.{MalletAbstractWriter, MalletFullWriter, OneLineWriter, BibJSONWriter}
 import java.io._
-import io.Source
+import scala.tools.cmd._
+import program.Simple
 
 
 object BibMogrify
   {
 
+  private val tokensUsage = "Usage: bibmogrify [options] <path1 path2 ...>\n\nOptions:"
+  private val tokensUnary = List("verbose" -> "be more verbose")
+  private val tokensBinary = List("in" -> "input format (dblp, wosxml, st36, ieee)", "out" -> "input format (json, oneline, mallet, malletfull)")
+  private val tokensInfo = Spec.Info("bibmogrify", tokensUsage, "edu.umass.cs.iesl.bibmogrify.BibMogrify")
+  private lazy val TokensSpec = Simple(tokensInfo, tokensUnary, tokensBinary, null)
+
   def main(args: Array[String])
     {
-    new BibMogrify().run(args)
+    if (args.isEmpty)
+      return println(TokensSpec.helpMsg)
+    val cl: CommandLine = (TokensSpec instance args).parsed
+    new BibMogrify().run(cl)
     }
 
   def usage()
@@ -22,7 +32,7 @@ object BibMogrify
     println("Usage: bibmogrify filename")
     }
 
-  val readers: Map[String, CitationStreamReader] = Map("dblp" -> DBLPReader)
+  val readers: Map[String, CitationStreamReader] = Map("dblp" -> DBLPReader, "wosxml" -> WosXMLReader, "st36" -> PatentST36Reader, "ieee" -> IEEEReader)
 
   val writers: Map[String, CitationStreamWriter] = Map("json" -> BibJSONWriter, "oneline" -> OneLineWriter, "mallet" -> MalletAbstractWriter, "malletfull" -> MalletFullWriter)
   }
@@ -35,32 +45,27 @@ class BibMogrify
     DBLPReader
     }
 
-  def run(args: Array[String])
+
+  def run(cl: CommandLine)
     {
 
-    // todo usage message, command line validation
-
-    // really quick & dirty command line parse
-    val infilename = args(0)
-
-    //val file = new JFile(infilename)
-
-    val inFileParser = BibMogrify.readers(args(1))
-    val outFileWriter = BibMogrify.writers(args(2))
+    // todo CAKE the plugins?
+    val infilenames = cl.residualArgs
+    val inFileParser = BibMogrify.readers(cl.getOrElse("--in", throw new BibMogrifyException("--in option is required")))
+    val outFileWriter = BibMogrify.writers(cl.getOrElse("--out", throw new BibMogrifyException("--out option is required")))
 
     //  val inFileParser = inferFileType(file)
-    //  val outFileWriter = BibJSONWriter
+    val sources = infilenames.map(new FileInputStream(_))
+    val cm: TraversableOnce[CitationMention] = sources.flatMap(inFileParser(_))
 
-    val reader = Source.fromFile(infilename).bufferedReader()
-    val cm: Seq[CitationMention] = inFileParser(reader)
-
-
-    outFileWriter(cm,  new BufferedWriter(new OutputStreamWriter(scala.Console.out)))
-    println("wtf")
+    val writer: BufferedWriter = new BufferedWriter(new OutputStreamWriter(scala.Console.out))
+    outFileWriter(cm, writer)
+    writer.close()
     }
   }
 
 
-trait CitationStreamReader extends ((Reader) => Seq[CitationMention])
+trait CitationStreamReader extends ((InputStream) => TraversableOnce[CitationMention])
 
-trait CitationStreamWriter extends ((Seq[CitationMention], BufferedWriter) => Unit)
+//trait CitationStreamProcessor extends ((Source, (CitationMention) => Unit) => Unit)
+trait CitationStreamWriter extends ((TraversableOnce[CitationMention], BufferedWriter) => Unit)

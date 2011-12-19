@@ -5,25 +5,32 @@ import net.liftweb.json.JsonAST._
 import net.liftweb.json.Extraction._
 import net.liftweb.json.Printer._
 import edu.umass.cs.iesl.bibmogrify.CitationStreamWriter
-import java.io.{BufferedWriter, OutputStreamWriter}
+import java.io.BufferedWriter
+import collection.immutable.Map
+import java.lang.String
+import collection.TraversableOnce
 
-object BibJSONWriter extends CitationStreamWriter {
-  def apply(cms: Seq[CitationMention], out: BufferedWriter) {
+object BibJSONWriter extends CitationStreamWriter
+  {
+  def apply(cms: TraversableOnce[CitationMention], out: BufferedWriter)
+    {
 
-    val json = for (cm <- cms) yield {
-
-        Map("citationmention" -> List(
-          Some(("title" -> cm.title)),
-          cm.abstractText.map("abstract" -> _),
-          Some("authors" -> (cm.authors map {
-            a => Map(
-              ("name" -> a.person.name)
-                    )
-          }))).flatten.toMap)
-
-    }
+    val json = for (cm <- cms) yield
+      {
+      val m: Map[String, Object] = List(Some(("title" -> cm.title)), cm.abstractText.map("abstract" -> _), cm.dates.head.date.get.year.map("year" -> _.toString), Some("authors" -> (cm.authors map
+                                                                                                                                                                                     {
+                                                                                                                                                                                     a => Map(("name"
+                                                                                                                                                                                               ->
+                                                                                                                                                                                               a.person
+                                                                                                                                                                                               .name))
+                                                                                                                                                                                     }))).flatten.toMap
+      //"citationmention" -> m
+      m
+      }
     val formats = net.liftweb.json.DefaultFormats
-    out.write(pretty(render(decompose(json)(formats))))
-
+    val j = Map("citations" -> json.toList)
+    val d: _root_.net.liftweb.json.JValue = decompose(j)(formats)
+    val pr: String = pretty(render(d))
+    out.write(pr)
+    }
   }
-}

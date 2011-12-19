@@ -6,7 +6,6 @@ import java.net.URL
 // anyway, and split author names don't really help with that.  Thu only other thing it might be good for is sort order.  So identifying the last name for that purpose could conceivably be useful.
 // But there's just no use case I can think of that requires knowing someone's first name, or pedigree, etc.
 // OK: these might be needed for styling, e.g. converting names to initials.
-
 /*case class Person(firstNameInitial: Option[Char] = None, // used only for J. Harrison Ford
                   firstName: Option[String] = None, // preferred name goes here too, e.g. Harrison
                   middleName: Option[String] = None, // often just middle initial // combine as "givenNames"?
@@ -73,13 +72,22 @@ import java.net.URL
   def fullName = firstName.map(_ + " " + middleName.map(_ + " ").getOrElse("")).getOrElse(givenInitials.map(_ + " ").getOrElse("")) + lastName
   }
 */
+trait Person
+  {
+  val name: Option[String]
+  val address: Option[Address]
+  val email: Option[String]
+  val phone: Option[String]
+  val affiliations: Seq[Institution]
+  val homepages: Seq[URL]
+  }
 
-case class Person(name: Option[String] = None, //
-                  address: Option[Address] = None, //
-                  email: Option[String] = None, //
-                  phone: Option[String] = None, //
-                  affiliations: Seq[Institution] = Nil, //
-                  homepages: Seq[URL] = Nil)
+case class BasicPerson(name: Option[String] = None, //
+                       address: Option[Address] = None, //
+                       email: Option[String] = None, //
+                       phone: Option[String] = None, //
+                       affiliations: Seq[Institution] = Nil, //
+                       homepages: Seq[URL] = Nil) extends Person
 
 case class AuthorInRole(person: Person, roles: Seq[AuthorRole])
 
@@ -117,10 +125,15 @@ trait Institution
   val parent: Institution
   }
 
+case class BasicInstitution(override val name: String, override val address: Option[Address], override val phone: Option[String], override val email: Option[String], override val homepages: Seq[URL],
+                            override val parent: Institution) extends Institution
+
 trait IdentifierAuthority
   {
   val shortName: String // for prefixing the ID to establish uniqueness in some string context, e.g. "pubmed:838387"
   }
+
+case class BasicIdentifierAuthority(override val shortName: String) extends IdentifierAuthority
 
 trait InstitutionIdentifierAuthority extends IdentifierAuthority with Institution
 
@@ -137,3 +150,5 @@ trait Address
   val city: String
   val country: Country
   }
+
+case class BasicAddress(override val streetLines: Seq[String], override val city: String, override val country: Country) extends Address
