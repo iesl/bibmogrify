@@ -1,0 +1,75 @@
+<publication>
+    <title><![CDATA[Acta Sesamae]]></title>
+    <normtitle><![CDATA[Acta Sesamae]]></normtitle>
+    <publicationinfo>
+        <publicationtype>Periodical</publicationtype>
+        <publicationsubtype>IEEE Magazine</publicationsubtype>
+        <pubstatus>Active</pubstatus>
+        <issn mediatype="Paper">0278-0097</issn>
+        <pubsponsor>
+            <society>IEEE Society on Social Implications of Technology</society>
+        </pubsponsor>
+        <copyright>
+            <year>1988</year>
+            <holder><![CDATA[IEEE]]></holder>
+        </copyright>
+        <notegroup>
+            <note><![CDATA[]]></note>
+        </notegroup>
+        <amsid>44</amsid>
+        <coden></coden>
+    </publicationinfo>
+    <volume>
+        <title></title>
+        <subtitle></subtitle>
+        <titleabbrev></titleabbrev>
+        <volumeinfo>
+            <year>2004</year>
+            <volumenum>23</volumenum>
+            <idamsid></idamsid>
+            <volumestatus>Active</volumestatus>
+            <notegroup>
+                <note></note>
+            </notegroup>
+            <mediatype>Electronic</mediatype>
+            <numissues>4</numissues>
+            <issue>
+                <issuenum>3</issuenum>
+                <issuepart></issuepart>
+                <amsid>29516</amsid>
+                <numpages></numpages>
+                <shelfnum></shelfnum>
+                <totalarticles>22</totalarticles>
+                <inspecarticles></inspecarticles>
+                <specialissue></specialissue>
+            </issue>
+            <date datetype="OriginalPub">
+                <year></year>
+                <month></month>
+                <day></day>
+            </date>
+        </volumeinfo>
+
+        <article>
+            <title><![CDATA[Effects of excessive cookie consumption in garbage-can-dwelling shagbeasts]]></title>
+            <articleinfo>
+                <articleseqnum>0</articleseqnum>
+                <articledoi>10.1109/MTAS.2004.1337888</articledoi>
+                <abstract abstracttype="Standard"><![CDATA[ Domestication of the blue shagbeast, a ferocious predator in the wild, can lead to an obsessive and unhealthy reliance on baked goods for caloric intake.
+                    Garbage-can-dwelling shagbeasts consuming cookies rapidly expanded to the point that they could not be extracted from the cans.]]></abstract>
+                <authorgroup>
+                    <author>
+                        <normname>Frog, K.T.</normname>
+                        <nonnormname></nonnormname>
+                        <authorrefid>1</authorrefid>
+                        <firstname>Kermit T.</firstname>
+                        <surname>Frog</surname>
+                    </author>
+                </authorgroup>
+                <filename docpartition="5" filetype="MainPDF">01337888.pdf</filename>
+                <artpagenums startpage="28" endpage="33, 41"></artpagenums>
+                <pubsnumber pubidtype="DOI"><![CDATA[10.1109/MTAS.2004.1337888]]></pubsnumber>
+            </articleinfo>
+        </article>
+    </volume>
+</publication>

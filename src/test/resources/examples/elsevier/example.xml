@@ -1,0 +1,156 @@
+<doc:document xmlns:doc="http://www.elsevier.com/xml/document/schema">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+        <rdf:Description rdf:about="http://dx.doi.org/10.1016/S0094-5765(01)00216-8">
+            <dc:format xmlns:dc="http://purl.org/dc/elements/1.1/">application/xml</dc:format>
+            <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Effects of excessive cookie consumption in garbage-can-dwelling shagbeasts
+            </dc:title>
+            <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">
+                <rdf:Seq>
+                    <rdf:li>Kermit T. Frog</rdf:li>
+                    <rdf:li>Oscar T. Grouch</rdf:li>
+                </rdf:Seq>
+            </dc:creator>
+            <dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">Acta Sesamae 50 (2002) 641-651.
+                doi:10.1016/S0094-5765(01)00216-8
+            </dc:description>
+            <prism:aggregationType xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/">journal
+            </prism:aggregationType>
+            <prism:publicationName xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/">Acta Sesamae
+            </prism:publicationName>
+            <prism:copyright xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/">Copyright © unknown. Published
+                by Elsevier Ltd on behalf of IAA
+            </prism:copyright>
+            <dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">Elsevier Ltd</dc:publisher>
+            <prism:issn xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/">0094-5765</prism:issn>
+            <prism:volume xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/">50</prism:volume>
+            <prism:number xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/">10</prism:number>
+            <prism:coverDisplayDate xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/">2002</prism:coverDisplayDate>
+            <prism:coverDate xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/">2002</prism:coverDate>
+            <prism:pageRange xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/">641-651</prism:pageRange>
+            <prism:startingPage xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/">641</prism:startingPage>
+            <prism:endingPage xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/">651</prism:endingPage>
+            <prism:doi xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/">10.1016/S0094-5765(01)00216-8</prism:doi>
+            <prism:url xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/">
+                http://dx.doi.org/10.1016/S0094-5765(01)00216-8
+            </prism:url>
+            <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">doi:10.1016/S0094-5765(01)00216-8</dc:identifier>
+        </rdf:Description>
+    </rdf:RDF>
+    <cja:converted-article version="4.5.2" docsubtype="fla" xml:lang="en"
+                           xmlns:cja="http://www.elsevier.com/xml/cja/schema">
+        <cja:item-info>
+            <cja:jid>AA</cja:jid>
+            <cja:aid>1649</cja:aid>
+            <ce:pii xmlns:ce="http://www.elsevier.com/xml/common/schema">S0094-5765(01)00216-8</ce:pii>
+            <ce:doi xmlns:ce="http://www.elsevier.com/xml/common/schema">10.1016/S0094-5765(01)00216-8</ce:doi>
+            <ce:copyright type="unknown" year="2002" xmlns:ce="http://www.elsevier.com/xml/common/schema"/>
+        </cja:item-info>
+        <cja:head>
+            <ce:title xmlns:ce="http://www.elsevier.com/xml/common/schema">Effects of excessive cookie consumption in garbage-can-dwelling shagbeasts</ce:title>
+            <ce:author-group xmlns:ce="http://www.elsevier.com/xml/common/schema">
+                <ce:author>
+                    <ce:initials>K.F.</ce:initials>
+                    <ce:given-name>Kermit T</ce:given-name>
+                    <ce:surname>Frog</ce:surname>
+                    <ce:cross-ref refid="AFF1">
+                        <ce:sup loc="post">a</ce:sup>
+                    </ce:cross-ref>
+                </ce:author>
+                <ce:author>
+                    <ce:initials>O.G.</ce:initials>
+                    <ce:given-name>Oscar T</ce:given-name>
+                    <ce:surname>Grouch</ce:surname>
+                    <ce:cross-ref refid="AFF2">
+                        <ce:sup loc="post">b</ce:sup>
+                    </ce:cross-ref>
+                </ce:author>
+                <ce:affiliation id="AFF1">
+                    <ce:label>a</ce:label>
+                    <ce:textfn>Institute of Pond Studies, Over the Rainbow</ce:textfn>
+                </ce:affiliation>
+                <ce:affiliation id="AFF2">
+                    <ce:label>b</ce:label>
+                    <ce:textfn>Grouching Laboratory, Athens, Greece
+                    </ce:textfn>
+                </ce:affiliation>
+            </ce:author-group>
+            <ce:date-received day="7" month="1" year="2000" xmlns:ce="http://www.elsevier.com/xml/common/schema"/>
+            <ce:date-revised day="8" month="12" year="2000" xmlns:ce="http://www.elsevier.com/xml/common/schema"/>
+            <ce:abstract class="author" xmlns:ce="http://www.elsevier.com/xml/common/schema">
+                <ce:section-title>Abstract</ce:section-title>
+                <ce:abstract-sec>
+                    <ce:simple-para view="all">Domestication of the blue shagbeast, a ferocious predator in the wild, can lead to an obsessive and unhealthy reliance on baked goods for caloric intake.
+                    </ce:simple-para>
+                    <ce:simple-para view="all">Studies were done during
+                        <cja:math altimg="si18.gif">30
+                            <ce:hsp sp="0.25"/>
+                            <cja:rm>days</cja:rm>
+                        </cja:math>
+                        pre HK period and
+                        <cja:math altimg="si19.gif">364
+                            <ce:hsp sp="0.25"/>
+                            <cja:rm>days</cja:rm>
+                        </cja:math>
+                        HK period. Thirty male shagbeasts aged
+                        <cja:math altimg="si20.gif">24.5±6.6
+                            <ce:hsp sp="0.25"/>
+                            <cja:rm>yr</cja:rm>
+                        </cja:math>
+                        were chosen as subjects. They were equally divided into three groups: housed in a large enclosed deciduous forest, and housed in garbage cans with and without access to baked goods.
+                    </ce:simple-para>
+                    <ce:simple-para view="all">Garbage-can-dwelling shagbeasts consuming cookies rapidly expanded to the point that they could not be extracted from the cans.
+                    </ce:simple-para>
+                </ce:abstract-sec>
+            </ce:abstract>
+        </cja:head>
+        <cja:tail>
+            <ce:bibliography view="all" xmlns:ce="http://www.elsevier.com/xml/common/schema">
+                <ce:section-title>References</ce:section-title>
+                <ce:bibliography-sec>
+                    <ce:bib-reference id="BIB1">
+                        <ce:label>[1]</ce:label>
+                        <ce:other-ref>
+                            <ce:textref>Federov, I. V., Vinogradov, V. N., Milov, Yu. I. and Grishanina, I. A.,
+                                Synthesis of tissue proteins in animals during hypodynamia.
+                                <ce:italic>Kosmicheskaya Biologiya</ce:italic>, 1967,
+                                <ce:bold>1</ce:bold>, 53–57.
+                            </ce:textref>
+                        </ce:other-ref>
+                    </ce:bib-reference>
+                    <ce:bib-reference id="BIB2">
+                        <ce:label>[2]</ce:label>
+                        <ce:other-ref>
+                            <ce:textref>Fedorov, I. V., Intensity of tissue autolysis in animals during hypodynamia.
+                                <ce:italic>Kosmicheskaya Biologiya</ce:italic>, 1971,
+                                <ce:bold>5</ce:bold>, 82–84.
+                            </ce:textref>
+                        </ce:other-ref>
+                    </ce:bib-reference>
+                    <ce:bib-reference id="BIB3">
+                        <ce:label>[3]</ce:label>
+                        <ce:other-ref>
+                            <ce:textref>Fedorov, I. V., Chernyy, A. V. and Fedorov, A. I., Synthesis and catabolism of
+                                tissue proteins during hypodynamia and resumption of muscular activity.
+                                <ce:italic>Fiziologieheskii Zhurnal</ce:italic>
+                                USSR, 1977,
+                                <ce:bold>63</ce:bold>, 1128–1133.
+                            </ce:textref>
+                        </ce:other-ref>
+                    </ce:bib-reference>
+                    <ce:bib-reference id="BIB4">
+                        <ce:label>[4]</ce:label>
+                        <ce:other-ref>
+                            <ce:textref>Zorbas, Y. G., Verentsov, G. E. and Federenko, Y. F., Renal excretion of end
+                                products of protein metabolism in urine of trained subjects during restricti
+                                on of muscular activity.
+                                <ce:italic>Panminerva Medica</ce:italic>, 1995,
+                                <ce:bold>37</ce:bold>, 109–114.
+                            </ce:textref>
+                        </ce:other-ref>
+                    </ce:bib-reference>
+                </ce:bibliography-sec>
+            </ce:bibliography>
+        </cja:tail>
+    </cja:converted-article>
+</doc:document>
+
