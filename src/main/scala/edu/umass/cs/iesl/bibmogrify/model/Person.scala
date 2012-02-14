@@ -74,20 +74,21 @@ import java.net.URL
 */
 trait Person
   {
-  val name: Option[String]
-  val address: Option[Address]
-  val email: Option[String]
-  val phone: Option[String]
-  val affiliations: Seq[Institution]
-  val homepages: Seq[URL]
+  val name: Option[String] = None
+  val address: Option[Address]= None
+  val email: Option[String]= None
+  val phone: Option[String]= None
+  val affiliations: Seq[Institution]= Nil
+  val homepages: Seq[URL]= Nil
   }
 
-case class BasicPerson(name: Option[String] = None, //
+/*
+case class BasicPerson(override val name: Option[String] = None, //
                        address: Option[Address] = None, //
                        email: Option[String] = None, //
                        phone: Option[String] = None, //
                        affiliations: Seq[Institution] = Nil, //
-                       homepages: Seq[URL] = Nil) extends Person
+                       homepages: Seq[URL] = Nil) extends Person*/
 
 case class AuthorInRole(person: Person, roles: Seq[AuthorRole])
 
@@ -122,18 +123,26 @@ trait Institution
   val phone: Option[String]
   val email: Option[String]
   val homepages: Seq[URL]
-  val parent: Institution
+  val parent: Option[Institution]
   }
 
 case class BasicInstitution(override val name: String, override val address: Option[Address], override val phone: Option[String], override val email: Option[String], override val homepages: Seq[URL],
-                            override val parent: Institution) extends Institution
+                            override val parent: Option[Institution]) extends Institution
 
-trait IdentifierAuthority
+trait IdentifierAuthority extends Institution
   {
   val shortName: String // for prefixing the ID to establish uniqueness in some string context, e.g. "pubmed:838387"
   }
 
 case class BasicIdentifierAuthority(override val shortName: String) extends IdentifierAuthority
+  {
+  val address = None
+  val email = None
+  val homepages = Nil
+  val name = shortName
+  val parent = None
+  val phone = None
+  }
 
 trait InstitutionIdentifierAuthority extends IdentifierAuthority with Institution
 
@@ -143,6 +152,19 @@ trait InstitutionIdentifierAuthority extends IdentifierAuthority with Institutio
 trait LocationIdentifierAuthority extends IdentifierAuthority with Location
 
 trait KeywordAuthority extends Institution
+  {
+  val shortName: String // for prefixing the ID to establish uniqueness in some string context, e.g. "pubmed:838387"
+  }
+
+case class BasicKeywordAuthority(override val shortName: String) extends KeywordAuthority
+  {
+  val address = None
+  val email = None
+  val homepages = Nil
+  val name = shortName
+  val parent = None
+  val phone = None
+  }
 
 trait Address
   {

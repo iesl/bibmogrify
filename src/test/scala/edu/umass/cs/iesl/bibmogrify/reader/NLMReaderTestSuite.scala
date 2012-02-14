@@ -5,11 +5,11 @@ import edu.umass.cs.iesl.bibmogrify.model.Published
 import com.weiglewilczek.slf4s.Logging
 
 
-class DBLPReaderTestSuite extends FunSuite with BeforeAndAfter with Logging
+class NLMReaderTestSuite extends FunSuite with BeforeAndAfter with Logging
   {
-  val file = getClass.getResource("/examples/dblp/dblp.xml")
+  val file = getClass.getResource("/examples/nlm/test.nxml")
 
-  val citationList = DBLPReader(file)
+  val citationList = NLMReader(file)
   val c = citationList.toIterator.next()
 
   // todo: detailed tests of all fields
@@ -27,35 +27,42 @@ class DBLPReaderTestSuite extends FunSuite with BeforeAndAfter with Logging
      */
   test("Title is parsed")
   {
-  assert(c.title === Some("Further Normalization of the Data Base Relational Model."))
+  assert(c.title === Some("Regulation of dopamine transporter activity by carboxypeptidase E"))
   }
 
   test("Authors are parsed")
   {
-  assert(c.authors.size === 1)
+  assert(c.authors.size === 6)
   assert(c.authors.head.roles.isEmpty)
-  assert(c.authors.head.person.name  === Some("E. F. Codd"))
+  assert(c.authors.head.person.name === Some("Heping Zhang"))
   }
 
   test("Journal is parsed")
   {
   val cont = c.containedIn.get
-  assert(cont.container.title  === Some("IBM Research Report, San Jose, California"))
-  assert(cont.volume === Some("RJ909"))
+  assert(cont.container.title === Some("Molecular Brain"))
+  assert(cont.volume === Some("2"))
   }
 
   test("Partial date is parsed")
   {
   val ce = c.dates.head
   assert(ce.eventType === Published)
-  assert(ce.date.get.year === Some(1971))
-  assert(ce.date.get.month === Some(8))
+  assert(ce.date.get.year === Some(2009))
+  assert(ce.date.get.month === None)
   assert(ce.date.get.day === None)
+  }
+
+  test("Abstract is parsed")
+  {
+    val ce = c.abstractText
+    val ab = ce.get.replaceAll("\\s", " ").split(" ")
+    assert(ab.head === "Background")
+    assert(ab.last === "obesity.")
   }
 
   test("Every record has a title")
   {
-  val citationList = DBLPReader(file)
   for (c <- citationList)
     {
     assert(!c.title.isEmpty)

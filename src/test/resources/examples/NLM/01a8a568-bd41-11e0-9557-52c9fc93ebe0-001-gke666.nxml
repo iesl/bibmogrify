@@ -1,5 +1,868 @@
 <!DOCTYPE article PUBLIC "-//NLM//DTD Journal Archiving and Interchange DTD v2.1 20050630//EN" "archivearticle.dtd">
-<article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article"><front><journal-meta><journal-id journal-id-type="nlm-ta">Nucleic Acids Res</journal-id><journal-title>Nucleic Acids Research</journal-title><issn pub-type="ppub">0305-1048</issn><issn pub-type="epub">1362-4962</issn><publisher><publisher-name>Oxford University Press</publisher-name><publisher-loc>Oxford, UK</publisher-loc></publisher></journal-meta><article-meta><article-id pub-id-type="pmc">97611</article-id><article-id pub-id-type="publisher-id">gke666</article-id><article-id pub-id-type="pmid">11812844</article-id><article-categories><subj-group subj-group-type="heading"><subject>Article</subject></subj-group></article-categories><title-group><article-title>An efficient ligation reaction promoted by a Varkud Satellite ribozyme with extended 5&#x02032;- and 3&#x02032;-termini</article-title></title-group><contrib-group><contrib contrib-type="author"><name><surname>Jones</surname><given-names>Fatima D.</given-names></name><xref ref-type="aff" rid="N0x8cf80f8.0x8c209e0">1</xref></contrib><contrib contrib-type="author"><name><surname>Ryder</surname><given-names>Sean P.</given-names></name><xref ref-type="aff" rid="N0x8cf80f8.0x8c209e0">1</xref></contrib><contrib contrib-type="author"><name><surname>Strobel</surname><given-names>Scott A.</given-names></name><xref ref-type="aff" rid="N0x8cf80f8.0x8c209e0">1</xref><xref ref-type="aff" rid="N0x8cf80f8.0x8c209e0">2</xref><xref ref-type="author-notes" rid="N0x8cf80f8.0x8c209c0">a</xref></contrib></contrib-group><aff id="N0x8cf80f8.0x8c209e0"><label>1</label>Department of Molecular Biophysics and Biochemistry  and
- <label>2</label>Department of Chemistry, Yale University, New Haven, CT 06520-8114, USA</aff><author-notes><fn id="N0x8cf80f8.0x8c209c0"><label>a</label><p>To whom correspondence should be addressed at: Department of Molecular Biophysics and Biochemistry, Yale University, PO Box 208114, 260 Whitney Avenue, New Haven, CT 06520-8114, USA. Tel: &#x0002b;1 203 432 9772; Fax: &#x0002b;1 203 432 5767; Email: scott.strobel&#x00040;yale.edu Present address:Sean P. Ryder, Department of Molecular Biology, The Scripps Research Institute, La Jolla, CA, USA</p></fn></author-notes><pub-date pub-type="ppub"><day>15</day><month>12</month><year>2001</year></pub-date><volume>29</volume><issue>24</issue><fpage>5115</fpage><lpage>5120</lpage><ext-link ext-link-type="uri" xlink:href="http:&#x0002f;&#x0002f;www.nar.oupjournals.org&#x0002f;content&#x0002f;vol29&#x0002f;issue24&#x0002f;"/><history><date date-type="received"><day>20</day><month>7</month><year>2001</year></date><date date-type="rev-recd"><day>29</day><month>10</month><year>2001</year></date><date date-type="accepted"><day>29</day><month>10</month><year>2001</year></date></history><copyright-statement>Copyright &#x000a9; 2001 Oxford University Press</copyright-statement><copyright-year>2001</copyright-year><abstract><p>The <italic>Neurospora</italic> Varkud Satellite (VS) RNA is capable of promoting a reversible self-cleavage reaction important for its replication pathway. <italic>In vivo</italic> the VS RNA performs a <italic>cis</italic>-cleavage reaction to generate monomeric length transcripts that are subsequently ligated to produce circular VS RNA. The predominant form of VS RNA observed <italic>in vivo</italic> is the closed circular form, though minimal VS ribozyme self-cleavage constructs lack detectable ligation activity. MFOLD analysis of the entire VS RNA sequence revealed an extended region 5&#x02032; and 3&#x02032; of the minimal self-cleaving region that could anneal to form a complementary helix, which we have termed helix 7. In full-length VS RNA, this helix appears to span over 40 bp of sequence and brings the 5&#x02032;- and 3&#x02032;-ends of the RNA into proximity for the ligation reaction. Here we report a variant of the VS ribozyme with an extended 5&#x02032;- and 3&#x02032;-terminus capable of forming a truncated helix 7 that promotes the ligation reaction <italic>in vitro</italic>. Through mutation and selection of this RNA we have identified a ribozyme containing two point mutations in the truncated helix 7 that ligates with &#x0003e;70&#x00025; efficiency. These results show that an additional helical element absent in current VS ribozyme constructs is likely to be important for the ligation activity of VS RNA.</p></abstract></article-meta></front><body><sec><title>INTRODUCTION</title><p>The <italic>Neurospora</italic> Varkud Satellite (VS) RNA is an abundant non-coding RNA found in the mitochondria of certain natural isolates of the species <italic>Neurospora crassa</italic> (<xref ref-type="bibr" rid="gke666c1">1</xref>). <italic>In vivo</italic> VS RNA exists as a satellite RNA of the V plasmid, a large mitochondrial DNA that encodes a reverse transcriptase necessary for replication of the VS RNA (<xref ref-type="bibr" rid="gke666c2">2</xref>). The VS RNA contains a catalytic element capable of a reversible self-cleavage reaction. Like most small satellite RNA molecules, VS is thought to replicate by rolling circle replication (<xref ref-type="bibr" rid="gke666c3">3</xref>). Initially, VS RNA is synthesized as a multimeric transcript transcribed from the VS plasmid DNA. A site-specific cleavage event produces linear monomeric and some multimeric length transcripts that are ligated to produce circular VS RNA, the predominant form of VS observed <italic>in vivo</italic> (<xref ref-type="bibr" rid="gke666c4">4</xref>).</p><p>The VS ribozyme, encoded within the VS RNA, is a small catalytic motif that catalyzes a site-specific cleavage reaction generating products containing 2&#x02032;,3&#x02032;-cyclic phosphate and 5&#x02032;-OH termini (<xref ref-type="bibr" rid="gke666c4">4</xref>). The reaction is mechanistically similar to other small catalytic RNAs, including the hammerhead, hairpin and hepatitis delta virus ribozymes (<xref ref-type="bibr" rid="gke666c5">5</xref>). VS RNA itself is 881 nt in length, however, the minimal contiguous sequence required for self-cleavage consists of only 154 nt, a single nucleotide upstream and 153 nt downstream of the cleavage site (<xref ref-type="bibr" rid="gke666c6">6</xref>). The secondary structure of this minimal self-cleaving construct (clone G11), based on RNA folding programs and biochemical data, is arranged as a set of six helical elements (<xref ref-type="bibr" rid="gke666c7">7</xref>). A 3 bp long-range pseudoknot formed between the loops of helices 1 and 5 is also required for folding and activity of the RNA (<xref ref-type="bibr" rid="gke666c7">7</xref>). While clone G11 represents the minimal self-cleaving domain, it is not capable of the reverse (ligation) reaction <italic>in vitro</italic> (<xref ref-type="bibr" rid="gke666c8">8</xref>). Therefore, we reasoned that sequence elements essential for ligation may be absent from this construct. In an attempt to define elements necessary for ligation, the sequence at the 5&#x02032;- and 3&#x02032;-ends of the RNA were analyzed, revealing a long region of base pair complementarity. Based upon biochemical analysis of several ribozyme constructs we demonstrate that formation of this seventh helical element is critical for the ligation activity of the VS ribozyme.</p></sec><sec sec-type="materials|methods"><title>MATERIALS AND METHODS</title><sec><title>DNA templates and RNA synthesis</title><p>RNAs were synthesized <italic>in vitro</italic> by transcription of linearized plasmids with T7 RNA polymerase, purified by 8&#x00025; denaturing PAGE, and extracted by the crush-and-soak method at 4&#x000b0;C in 10 mM Tris&#x02013;HCl, 0.1 mM EDTA, 250 mM NaCl, pH 8.0. Transcripts were concentrated by ethanol precipitation and resuspended in an appropriate volume of TE (10 mM Tris&#x02013;HCl, 0.1 mM EDTA, pH 8.0). Transcription reactions contained 40 mM Tris&#x02013;HCl pH 8.0, 10 mM MgCl<sub>2</sub>, 2 mM spermidine, 5 mM DTT, 0.005&#x00025; Triton X-100 and 1 mM each NTP.</p><p>The pVS6 plasmid contains VS nucleotides 599&#x02013;791 (numbering based upon that of Saville and Collins; <xref ref-type="bibr" rid="gke666c4">4</xref>). VS6 RNA was prepared by transcription of <italic>Eco</italic>RI-cut pVS6. The pVSE plasmid also contains VS nucleotides 599&#x02013;791, with mutations A782U and U785C incorporated via site-directed mutagenesis. The VS6 clone contains some vector sequence at the 3&#x02032;-end, however, the VSE clone was designed with an <italic>Ear</italic>I restriction site at the 3&#x02032;-end that can be used to generate full-length VSE RNA. VSE RNA was prepared by transcription of pVSE cut with <italic>Ear</italic>I. The G11 plasmid contains VS nucleotides 617&#x02013;881 (<xref ref-type="bibr" rid="gke666c6">6</xref>). G11 RNA was prepared by transcription of G11 linearized with <italic>Ssp</italic>I. Substrate RNA, SUB13, was prepared by transcription from a G11-<italic>Ava</italic>I template, and 5&#x02032;-end-labeled as described below. SUB24 RNA was prepared by transcription of either <italic>Eco</italic>RI-cut pVS6 or <italic>Ava</italic>I-cut pVS6 (for 5&#x02032;-end-labeling). The compensatory substrate, SUB24M, was prepared by transcription of plasmid 5A linearized with <italic>Ava</italic>I (plasmid 5A contains VS nucleotides 599&#x02013;791, with mutations G604C, A605U and G606C). Transcription of pVS6-<italic>Eco</italic>RI followed by self-cleavage yielded the SUB24 substrate with a 2&#x02032;,3&#x02032;-cyclic phosphate terminus. Transcription of pVS6-<italic>Ava</italic>I, pG11-<italic>Ava</italic>I or p5A-<italic>Ava</italic>I yielded stem&#x02013;loop I substrates which could be 5&#x02032;-end-labeled and then cleaved by the VS <italic>trans</italic>-cleaving ribozyme to generate the oligonucleotide substrates (<xref ref-type="bibr" rid="gke666c9">9</xref>). Concentrations of unlabeled transcripts were determined by UV absorption assuming an extinction coefficient at 260 nm of 2.2 &#x000d7; 10<sup>6</sup> for VS6 or VSE RNA, and 2.6 &#x000d7; 10<sup>5</sup> for substrate RNAs.</p><p>The <italic>Ava</italic>I substrate RNA was 5&#x02032;-end-labeled using T4 polynucleotide kinase (T4 PNK) and &#x0005b;&#x003b3;-<sup>32</sup>P&#x0005d;ATP. After labeling the RNA at 37&#x000b0;C for 45 min, the kinase was heat inactivated at 70&#x000b0;C for 20 min. The <sup>32</sup>P-5&#x02032;-end-labeled <italic>Ava</italic>I RNA was then cleaved with VS <italic>trans</italic>-cleaving ribozyme at 30&#x000b0;C for 1 h to generate the 2&#x02032;,3&#x02032;-cyclic phosphate end. Products were resolved on a 20&#x00025; native polyacrylamide gel, visualized by autoradiography and eluted by the crush-and-soak method at 4&#x000b0;C in 10 mM Tris&#x02013;HCl and 0.1 mM EDTA. This procedure enabled efficient 5&#x02032;-end-labeling of the substrate RNA while avoiding the 3&#x02032;-phosphatase activity of T4 PNK.</p></sec><sec><title>Ligation reactions</title><p>Ligation reactions were performed at 30&#x000b0;C in 50 mM Tris&#x02013;HCl pH 8.0, 10 mM MgCl<sub>2</sub>, 25 mM KCl and 2 mM spermidine. The ribozyme (0.5 &#x000b5;M) was preincubated at 50&#x000b0;C for 30 min and slow cooled, followed by an additional 10 min incubation at 30&#x000b0;C. Ligation reactions were initiated by addition of a pre-warmed solution of labeled substrate RNA and incubated at 30&#x000b0;C. The reaction was quenched by addition of 2 vol formamide loading buffer. Products were resolved by denaturing gel electrophoresis and visualized by autoradiography. For characterization of VSE and mutant RNAs, ligation reactions were performed as described using 0.5 &#x000b5;M ribozyme and trace amounts of labeled substrate (&#x0223c;10 nM). Aliquots were removed at various times and quenched in 2 vol formamide loading buffer, and reaction products were resolved by denaturing gel electrophoresis. The amounts of radioactivity in the substrate and product bands were quantitated using a Molecular Dynamics PhosphorImager and ImageQuant software. Data were plotted and analyzed using KaleidaGraph software. Initial rates were determined based on a linear fit of the data.</p></sec><sec><title>Pool construction and selection assay</title><p>The initial randomized pool was constructed from two degenerate oligonucleotides, VS-3D and VS-5D, and their complements, VS-3 and VS-5, respectively, which span the full length of the VS6 ribozyme sequence. The pool was designed to give a degeneracy level of 7.5&#x00025;, yielding an expected mutation rate of 12&#x02013;14 mutations per molecule. The oligonucleotides were purified by 8&#x00025; denaturing PAGE, extracted by the crush-and-soak method, concentrated with ethanol and resuspended in an appropriate volume of TE. Degenerate oligonucleotides, VS-3D and VS-5D, were annealed at 90&#x000b0;C to their complements, VS-3 and VS-5, respectively, and slow cooled to room temperature. The double-stranded templates, each comprising the 5&#x02032;- and 3&#x02032;-ends of the pool, were then digested with <italic>Bsa</italic>I and ligated with T4 DNA ligase at 16&#x000b0;C to give full-length Pool 0 DNA. Pool 0 DNA was engineered with a T7 RNA polymerase promoter at the 5&#x02032;-end and a primer binding site (PBS 1B) at the 3&#x02032;-end. Pool 0 RNA was transcribed <italic>in vitro</italic> using T7 RNA polymerase and self-cleavage products purified by 8&#x00025; denaturing PAGE. The RNA was extracted by the crush-and-soak method at 4&#x000b0;C, concentrated by ethanol precipitation and resuspended in an appropriate volume of TE.</p><p>Ligation reactions were conducted as described above. The initial round of selection contained 1.0 &#x000b5;M Pool 0 RNA (&#x0223c;10<sup>12</sup> molecules) and a 2 &#x000b5;M solution of labeled and unlabeled SUB24 RNA, although in subsequent rounds the amount of substrate RNA was dropped to 0.5 &#x000b5;M. Ligated RNA was purified by 8&#x00025; denaturing PAGE, visualized by autoradiography and extracted by the crush-and-soak method. The RNA was concentrated by ethanol precipitation, resuspended in an appropriate volume of TE and reverse transcribed using AMV reverse transcriptase (AMV-RT) with primer SLX1B, d(CGTGCGGATCCCTCTTCG), complementary to the 3&#x02032;-end of the RNA. The AMV-RT was then heat inactivated at 90&#x000b0;C for 5 min and the reaction products PCR amplified using primers SLX1B and SLX3A, d(GCAAGCTTATTAATACGACTCACTATAGGTAGTAGAGTGTCGCAATCTGCG), to regenerate the pool (Fig. <xref ref-type="fig" rid="gke666f2">2</xref>). RNA was prepared as described for Pool 0 RNA. The protocol was repeated for subsequent rounds of selection. The ligation efficiency of individual pools was determined using the ligation assay described above. Pool 3 DNA, representing the most active pool, was digested with <italic>Eco</italic>RI and <italic>Hin</italic>dIII and cloned into vector pUC19. RNA was prepared by <italic>in vitro</italic> transcription of plasmids linearized with <italic>Ear</italic>I. Self-cleavage products were purified by 8&#x00025; denaturing PAGE, eluted by the crush-and-soak method, ethanol precipitated and resuspended in TE. Individual clones were tested for ligation activity using the ligation assay described above and sequenced by dideoxy sequencing.</p></sec></sec><sec><title>RESULTS</title><p>The majority of VS RNA isolated <italic>in vivo</italic> is in the closed circular form, suggesting that the internal equilibrium of this RNA favors ligation over cleavage. The minimal self-cleaving VS ribozyme construct (G11) provides only a short 3 bp helix for substrate binding interactions and this may explain why it is unable to efficiently ligate a complementary oligonucleotide substrate. The fact that full-length VS RNA can perform the reverse (ligation) reaction to generate circular products suggests that this minimal self-cleaving ribozyme may lack essential elements required for ligation activity.</p><p>In an effort to identify sequence elements that may stabilize substrate&#x02013;ribozyme interactions and promote ligation activity <italic>in vitro</italic> we conducted an MFOLD analysis of the entire VS RNA sequence (<xref ref-type="bibr" rid="gke666c10">10</xref>). MFOLD (v.2.1) revealed an extended region of complementarity 5&#x02032; and 3&#x02032; to the minimal self-cleaving domain. This extended helix, termed helix 7, appears to extend over 40 bp of VS RNA sequence (Fig. <xref ref-type="fig" rid="gke666f1">1</xref>). The putative helix consists of a long region of complementarity between 5&#x02032; nucleotides G564&#x02013;A614 and 3&#x02032; nucleotides U774&#x02013;U828. The helix 7 extension includes a few short mispaired regions and several non-canonical G-U base pairs, but as many as 34 standard Watson&#x02013;Crick base pairs. These features appear to make helix 7 very stable, with a calculated <italic>T</italic><sub>m</sub> of 75&#x000b0;C (<xref ref-type="bibr" rid="gke666c10">10</xref>). We reasoned that this element may be important for ligation activity by aligning the substrate on the ribozyme and thus may play an important biological role.</p><p>To examine the potential contribution of this helix to VS ribozyme ligation activity several constructs were designed, each containing a truncated version of helix 7. One construct (VS6, Fig. <xref ref-type="fig" rid="gke666f1">1</xref>), which contained an 8 nt extension to the 3&#x02032;-end of the original VS ribozyme, was capable of ligating <italic>in trans</italic> a complementary oligonucleotide substrate (SUB24) that contained a 22 nt extension to the 5&#x02032;-end of the cleavage site. Ligation of VS6 to SUB24, however, proceeded with an efficiency of only 2&#x00025;. Gel shift analysis revealed that VS6 RNA bound the oligonucleotide substrate very poorly (&#x0003c;5&#x00025;; data not shown). Further analysis by native polyacrylamide gel electrophoresis revealed that VS6 adopted multiple folding conformations (data not shown). This suggested that the low level ligation activity of this RNA may have resulted from structural heterogeneity and that the 3&#x02032; extension necessary for substrate binding may have been inaccessible, thus inhibiting ligation.</p><p>In order to identify an RNA construct with a truncated helix 7 that contained a minimal number of mutations yet could fold more readily and ligate a complementary oligonucleotide substrate with greater efficiency, we employed the technique of <italic>in vitro</italic> selection. Similar methods have been adapted to isolate ribozymes from random sequence, as well as to define essential sequence elements of naturally occurring ribozymes (<xref ref-type="bibr" rid="gke666c11">11</xref>,<xref ref-type="bibr" rid="gke666c12">12</xref>).</p><p>A randomized pool of VS6 DNA was designed with a degeneracy level of 7.5&#x00025;, expected to yield an average mutation rate of 12&#x02013;14 mutations per molecule. The randomized pool was constructed from two degenerate oligonucleotides, VS-3D and VS-5D, comprising the 5&#x02032;- and 3&#x02032;-ends of the VS6 sequence. This enabled us to randomize the entire region of VS6 sequence (nucleotides 621&#x02013;791), with the exception of nucleotides 691&#x02013;694 in helix 5, which were used to anneal the respective oligonucleotides together during generation of the initial pool. A T7 RNA polymerase promoter was engineered at the 5&#x02032;-end of the sequence to facilitate <italic>in vitro</italic> transcription, as well as a selective primer binding site (PBS 1B) at the 3&#x02032;-end.</p><p>The selection and amplification scheme is outlined in Figure <xref ref-type="fig" rid="gke666f2">2</xref>. Active variants were selected based upon their ability to ligate <italic>in trans</italic> an oligonucleotide substrate (SUB24). The initial RNA pool (Pool 0) had a ligation efficiency of 0.1&#x00025;, however, after three rounds of selection the overall ligation efficiency of the RNA pool improved to 10&#x00025; (Table <xref ref-type="table" rid="gke666tb1">1</xref> and Fig. <xref ref-type="fig" rid="gke666f3">3</xref>). This corresponds to a 100-fold enhancement compared to the original Pool 0 RNA and a 5-fold enhancement compared to wild-type VS6 RNA. Several members of this pool were cloned and sequenced. Individual ligation efficiencies were determined based on the ability of the RNA to ligate 5&#x02032;-end-labeled SUB24 in 30 min at 30&#x000b0;C. Several active clones were identified, the two most active of which, S24 and S90, had ligation efficiencies of 32 and 18&#x00025; in 30 min, respectively (Fig. <xref ref-type="fig" rid="gke666f4">4</xref>). S24 and S90 both had a mutation at position G627 in helix 1B, mutations in the 3&#x02032;-segment of helix 7 and several unrelated mutations scattered throughout the RNA (Fig. <xref ref-type="fig" rid="gke666f4">4</xref>). Many other active selected RNAs also contained mutations in the 3&#x02032;-segment of helix 7, which suggested that these mutations may be contributing to the increased ligation efficiency of these constructs (Fig. <xref ref-type="fig" rid="gke666f4">4</xref>).</p><p>To determine which mutations were responsible for the improved VS ribozyme ligation activity, three additional RNA constructs were prepared containing mutations commonly observed among the active population. Although a G627 mutation was present in both variants S24 and S90, mutating G627 to C showed only a modest improvement in the total ligation activity (&#x0003c;4&#x00025;) compared to VS6. The G627U mutation had a reduced ligation efficiency of 1&#x00025;. To assess a potential role for mutations observed in helix 7, an additional construct, termed VSE, was created that contained the two helix 7 mutations, A782U and U785C, observed in the most active clone, S24. VSE RNA was able to ligate a complementary substrate (SUB24) with an efficiency of 30&#x00025; in 30 min, compared to 32&#x00025; for S24. Further characterization found that VSE RNA ligates with an efficiency exceeding 70&#x00025; in 4 h, with an initial rate constant of 1.6 min<sup>&#x02013;1</sup>. Ribozymes containing each of the single helix 7 mutations were also prepared. The U785C mutant (1A) had a maximal ligation efficiency of 35&#x00025; after 6 h, with an initial rate constant of 0.64 min<sup>&#x02013;1</sup> (Table <xref ref-type="table" rid="gke666tb2">2</xref>). The ligation efficiency of the A782U mutant (2B) did not exceed 10&#x00025; efficiency and had an initial rate constant of only 0.09 min<sup>&#x02013;1</sup> (Table <xref ref-type="table" rid="gke666tb2">2</xref>). Thus, while the majority of the improved ligation activity appears to derive from the U785C mutation, both mutations are required for optimal efficiency of the ribozyme.</p><p>The importance of helix 7 in VS RNA ligation activity was further examined by looking at the effect on ligation activity of RNA constructs that lacked either the 5&#x02032; or 3&#x02032; extension required to form helix 7. To this end we utilized the G11 RNA, i.e. the original VS ribozyme that lacks the 3&#x02032; extension of helix 7, and a shorter substrate (SUB13) which lacks the 5&#x02032; extension of helix 7. SUB13 contains only 4 nt of wild-type VS sequence and is capable of forming only a short 3 bp helix with the ribozyme. In the absence of either the 5&#x02032; or 3&#x02032; extension, ligation activity was reduced to &#x0003c;1&#x00025; efficiency, suggesting that neither the 3&#x02032; nor the 5&#x02032; extension alone are sufficient to confer ligation activity (Table <xref ref-type="table" rid="gke666tb3">3</xref>).</p><p>To investigate the importance of the alignment of helix 7 proposed in Figure <xref ref-type="fig" rid="gke666f1">1</xref>, we designed a ribozyme (3B, Fig. <xref ref-type="fig" rid="gke666f1">1</xref>) containing mutations in the 3&#x02032; extension of helix 7 expected to disrupt predicted base pairing interactions. The mutant ribozyme 3B ligates substrate SUB24 with reduced efficiency (&#x0003c;10&#x00025;), at a rate &#x0003e;20-fold slower than the initial rate of VSE (0.07 min<sup>&#x02013;1</sup>, Table <xref ref-type="table" rid="gke666tb2">2</xref>). However, if the compensatory mutations are made in the substrate (SUB24M, Fig. <xref ref-type="fig" rid="gke666f1">1</xref>) then the mutant ribozyme is capable of a ligation efficiency very close to that of the wild-type construct (40&#x00025;, initial rate 1.8 min<sup>&#x02013;1</sup>). This provides direct evidence for base pairing interactions between at least this segment of the helix 7 region.</p></sec><sec><title>DISCUSSION</title><p>We have described the identification and initial characterization of a putative helical element in the VS RNA secondary structure that appears to serve an important role in VS ligation activity. Helix 7 may play a biological role in VS RNA ligation activity by properly aligning the substrate on the ribozyme to facilitate ligation. Self-cleaving constructs lacking this helix were incapable of ligation activity (&#x0003c;1&#x00025;), although recent circular permutation constructs of VS RNA have provided alternative means to achieve ligation activity <italic>in vitro</italic> (<xref ref-type="bibr" rid="gke666c13">13</xref>). These circular permutated constructs, in which stem 1 is covalently linked to the 3&#x02032;-end of G11 RNA, exploit the fact that VS RNA exists <italic>in vivo</italic> as head-to-tail multimers to align the substrate and ribozyme in close proximity.</p><p>Based on MFOLD analysis helix 7 appears to span a significant amount of the total VS RNA sequence. The presence of this extended region of complementarity may contribute binding energy to stabilize substrate&#x02013;ribozyme interactions and maintain closed circular products <italic>in vivo</italic>. The VS6 ribozyme identified in this study contains only a truncated portion of the wild-type helix 7 and is capable of ligation activity. Through mutation and selection we have identified a highly efficient VS ligation construct with a significantly shorter helix than is likely present in the full-length VS RNA. VSE RNA contains only two mutations in the helix 7 region and ligates with an efficiency exceeding 70&#x00025;. These results suggest that the internal equilibrium of VSE ribozyme favors ligation over cleavage, as is the case for the VS RNA.</p><p>The two helix 7 mutations, A782U and U785C, could either play a role in promoting the properly folded RNA conformation or they may directly stabilize interactions with the substrate in order to promote greater ligation efficiency. Both mutations appear to be important for ligation activity, though the U785C mutation makes the greatest contribution. The U785C mutation converts a G-U base pair to a G-C base pair, which may contribute additional stability to the helix. It is unclear how the A782U mutation makes its modest contribution to the ligation activity of the RNA. These mutations do not increase ligation activity in the absence of their complementary sequence at the 5&#x02032;-end, demonstrating that the 3&#x02032; extension of helix 7 alone is not sufficient for ligation activity.</p><p>Based upon sequence alignments and chemical probing data we propose that helix 7 exists in equilibrium between two alternative conformations. In one conformation a weak helix 7 is formed that would exhibit poor substrate interactions (Fig. <xref ref-type="fig" rid="gke666f5">5</xref>, left). In the alternative conformation a stronger helix 7 is formed that would allow better substrate binding interactions and thus increased ligation activity (Fig. <xref ref-type="fig" rid="gke666f5">5</xref>, right). In switching between these two conformations, base pairing interactions in helix 2 are also disrupted (Fig. <xref ref-type="fig" rid="gke666f5">5</xref>, right). This is consistent with modification interference experiments that previously demonstrated that disruptions in helix 2, achieved through reaction of base functional groups with hydrazine or DEPC, enhanced self-cleavage activity of the ribozyme (<xref ref-type="bibr" rid="gke666c8">8</xref>). This region of secondary structure has been implicated as part of a VS attenuator structure evolved to affect the cleavage and ligation equilibrium of VS RNA and to promote the formation of closed circular products <italic>in vivo</italic> (<xref ref-type="bibr" rid="gke666c8">8</xref>). While the precise base pairs that are formed within helix 7 and disrupted in helix 2 remain to be determined, these results clearly demonstrate that RNA sequence to the 5&#x02032;- and 3&#x02032;-sides of the traditionally defined boundaries of the VS ribozyme are important for its RNA ligation activity.</p></sec></body><back><sec sec-type="display-objects"><title>Figures and Tables</title><fig id="gke666f1"><label>Figure 1</label><caption><p> Secondary structure of the VS6 clone predicted by MFOLD (v.2.1). The site of cleavage and ligation is indicated by an arrow. The RNA consists of seven helical regions (helices 1A&#x02013;7). Base paired regions in the ribozyme are indicated by horizontal and vertical lines, while base pairing interactions in helix 7 are shown. The VS6 ribozyme contains a truncated version of helix 7, however, in full-length VS RNA helix 7 may extend over 40 bp of sequence (boxed region). Wild-type sequence is denoted in upper case and vector sequence in lower case. The VSE ribozyme contains two helix 7 mutations, U785C and A782U (shaded circles), that are observed to enhance ligation activity. Mutations in ribozyme 3B and compensatory mutations in SUB24M (used to demonstrate the helix 7 specificity switch) are indicated. In addition to the mutations indicated, ribozyme 3B also contains the A782U mutation.</p></caption><graphic xlink:href="gke66601"/></fig><fig id="gke666f2"><label>Figure 2</label><caption><p>Schematic representation of the selection scheme. Randomized Pool 0 DNA was designed with a primer binding site (PBS 1B) at its 3&#x02032;-end and a T7 promoter at the 5&#x02032;-end. Unligated RNA from the randomized pool was incubated with an oligonucleotide substrate (SUB24) containing a 2&#x02032;,3&#x02032;-cyclic phosphate terminus. Active RNAs ligate the oligonucleotide substrate and become sequence tagged at their 5&#x02032;-end. Active variants were size selected from inactive variants by denaturing gel electrophoresis, reverse transcribed and PCR amplified with selective primers (SLX 1B and SLX 3A) to reintroduce the T7 promoter and regenerate the pool. The scheme was repeated for subsequent rounds of selection.</p></caption><graphic xlink:href="gke66602"/></fig><fig id="gke666f3"><label>Figure 3</label><caption><p> Ligation activity of RNA pools (Pools 0&#x02013;3) compared to wild-type VS6 RNA. Pool RNA was incubated with 5&#x02032;-end-labeled SUB24 at 30&#x000b0;C for 30 min under the conditions described in Materials and Methods. The ligation efficiency of the pool increased with each round of selection, as those sequences that promote ligation were selectively enriched.</p></caption><graphic xlink:href="gke66603"/></fig><fig id="gke666f4"><label>Figure 4</label><caption><p> Sequence alignment of the most active selected clones. Individual mutations are shown with respect to their location in the VS6 ribozyme. &#x02013;, deleted bases. Ligation activity (L.A.), reported after 30 min at 30&#x000b0;C, are shown to the right of the first row. Values do not reflect end points of reactions. The entire region of VS6 was randomized, with the exception of nucleotides 691&#x02013;694 in helix 5 (boxed region).</p></caption><graphic xlink:href="gke66604"/></fig><fig id="gke666f5"><label>Figure 5</label><caption><p> Potential conformational switch between helices 2 and 7. Helix 7 can exist in equilibrium between two possible conformations, a weak helix 7 (left) and a more stable helix 7 (right). Formation of a stable helix 7 results in disruption of base pairing interactions in helix 2. Disruption of these base pairs has been observed to enhance self-cleavage activity <italic>in vitro</italic>. Sites of modified bases in helix 2 observed to enhance self-cleavage of G11 RNA are indicated by ovals above the nucleotides.</p></caption><graphic xlink:href="gke66605"/></fig><table-wrap id="gke666tb1"><label>Table 1.</label><caption><title>Results of the <italic>in vitro</italic> selection assay</title></caption><table frame="hsides" rules="groups" border="1" width="85%"><colgroup><col/><col/></colgroup><thead valign="bottom"><tr valign="top"><th valign="top">RNA pool</th><th valign="top">Ligation activity (&#x00025;) after 30 min (SUB24)</th></tr></thead><tbody valign="top"><tr valign="top"><td valign="top">0</td><td valign="top">0.1</td></tr><tr valign="top"><td valign="top">1</td><td valign="top">1.4</td></tr><tr valign="top"><td valign="top">2</td><td valign="top">5.1</td></tr><tr valign="top"><td valign="top">3</td><td valign="top">10</td></tr></tbody></table></table-wrap><table-wrap id="gke666tb2"><label>Table 2.</label><caption><title>Comparison of initial rates and percentage ligation for the VSE ribozyme and ribozymes 1A, 2B and 3B</title></caption><table frame="hsides" rules="groups" border="1" width="85%"><colgroup><col/><col/><col/><col/><col/></colgroup><thead valign="bottom"><tr valign="top"><th valign="top">Ribozyme</th><th valign="top">Mutation(s)</th><th valign="top">Substrate</th><th valign="top">Initial rate (min<sup>&#x02013;1</sup>)</th><th valign="top">Ligation activity (&#x00025;) after 6 h</th></tr></thead><tbody valign="top"><tr valign="top"><td valign="top">VSE</td><td valign="top">A782U, U785C</td><td valign="top">SUB24</td><td valign="top">1.6</td><td valign="top">70</td></tr><tr valign="top"><td valign="top">1A</td><td valign="top">U785C</td><td valign="top">SUB24</td><td valign="top">0.64</td><td valign="top">35</td></tr><tr valign="top"><td valign="top">2B</td><td valign="top">A782U</td><td valign="top">SUB24</td><td valign="top">0.09</td><td valign="top">10</td></tr><tr valign="top"><td valign="top">3B</td><td valign="top">A782U, U785G, U786A, U787G</td><td valign="top">SUB24</td><td valign="top">0.07</td><td valign="top">10</td></tr><tr valign="top"><td valign="top">3B</td><td valign="top">A782U, U785G, U786A, U787G</td><td valign="top">SUB24M</td><td valign="top">1.8<sup>a</sup></td><td valign="top">40</td></tr></tbody></table><table-wrap-foot><fn><p><sup>a</sup>Initial rate of ligation of ribozyme 3B with SUB24M which restores helix 7 base pairing interactions; SUB24M, 5&#x02032;-ggUAGUA<bold>CUC</bold>UGUCGCAAUCUGCG.</p></fn></table-wrap-foot></table-wrap><table-wrap id="gke666tb3"><label>Table 3.</label><caption><title>Both the 5&#x02032;- and 3&#x02032;-extensions of helix 7 are required for ligation activity</title></caption><table frame="hsides" rules="groups" border="1" width="85%"><colgroup><col/><col/><col/></colgroup><thead valign="bottom"><tr valign="top"><th valign="top">Ribozyme</th><th valign="top">Ligation activity (&#x00025;) after 6 h<hr/></th><th valign="top">&#x000a0;<hr/></th></tr><tr valign="top"><th valign="top">&#x000a0;</th><th valign="top">SUB13</th><th valign="top">SUB24</th></tr></thead><tfoot valign="top"><tr valign="top"><th colspan="3" align="left" valign="top">SUB13, 5&#x02032;-gggaaagcuUGCG; SUB24, 5&#x02032;-ggUAGUAGAGUGUCGCAAUCUGCG; lower case letters denote vector sequence.</th></tr></tfoot><tbody valign="top"><tr valign="top"><td valign="top">G11</td><td valign="top">&#x0003c;1</td><td valign="top">&#x0003c;1</td></tr><tr valign="top"><td valign="top">VS6</td><td valign="top">&#x0003c;1</td><td valign="top">2</td></tr><tr valign="top"><td valign="top">VSE</td><td valign="top">&#x0003c;1</td><td valign="top">70</td></tr></tbody></table></table-wrap></sec><ack><sec><title>ACKNOWLEDGEMENTS</title><p>An NIH Individual Research Award to F.D.J and an NSF grant CHE 0100057 to S.A.S supported this work.</p></sec></ack><ref-list><title>REFERENCES</title><ref id="gke666c1"><label>1.</label><citation citation-type="journal"><name><surname>Griffiths</surname><given-names>A.J.F.</given-names></name> (1995) Natural plasmids of filamentous fungi. <source>Microbiol. Rev.</source>, <volume>59</volume>, <fpage>673</fpage>&#x02013;<lpage>685</lpage>.<pub-id pub-id-type="pmid">8531891</pub-id></citation></ref><ref id="gke666c2"><label>2.</label><citation citation-type="journal"><name><surname>Kennell</surname><given-names>J.C.</given-names></name>, Saville,B.J. and Collins,R.A. (1995) The VS catalytic RNA replicates by reverse transcription as a satellite of a retroplasmid. <source>Genes Dev.</source>, <volume>9</volume>, <fpage>294</fpage>&#x02013;<lpage>303</lpage>.<pub-id pub-id-type="pmid">7532606</pub-id></citation></ref><ref id="gke666c3"><label>3.</label><citation citation-type="journal"><name><surname>Symons</surname><given-names>R.H.</given-names></name> (1992) Small catalytic RNAs. <source>Annu. Rev. Biochem.</source>, <volume>61</volume>, <fpage>641</fpage>&#x02013;<lpage>671</lpage>.<pub-id pub-id-type="pmid">1497321</pub-id></citation></ref><ref id="gke666c4"><label>4.</label><citation citation-type="journal"><name><surname>Saville</surname><given-names>B.J.</given-names></name> and Collins,R.A. (1990) A site-specific self-cleavage reaction performed by a novel RNA in <italic>Neurospora</italic> mitochondria. <source>Cell</source>, <volume>61</volume>, <fpage>685</fpage>&#x02013;<lpage>696</lpage>.<pub-id pub-id-type="pmid">2160856</pub-id></citation></ref><ref id="gke666c5"><label>5.</label><citation citation-type="other"><name><surname>McKay</surname><given-names>D.B.</given-names></name> and Wedekind,J.E. (1999) Small ribozymes. In Gesteland,R.F., Cech,T.R. and Atkins,J.F. (eds), <italic>The RNA World</italic>. Cold Spring Harbor Laboratory Press, Cold Spring Harbor, NY, pp. 265&#x02013;286.</citation></ref><ref id="gke666c6"><label>6.</label><citation citation-type="journal"><name><surname>Guo</surname><given-names>H.C.</given-names></name>, De Abreu,D.M., Tillier,E.R., Saville,B.J., Olive,J.E. and Collins,R.A. (1993) Nucleotide sequence requirements for self-cleavage of <italic>Neurospora</italic> VS RNA. <source>J. Mol. Biol.</source>, <volume>232</volume>, <fpage>351</fpage>&#x02013;<lpage>361</lpage>.<pub-id pub-id-type="pmid">8345516</pub-id></citation></ref><ref id="gke666c7"><label>7.</label><citation citation-type="journal"><name><surname>Beattie</surname><given-names>T.L.</given-names></name>, Olive,J.E. and Collins,R.A. (1995) A secondary-structure model for the self-cleaving region of <italic>Neurospora</italic> VS RNA. <source>Proc. Natl Acad. Sci. USA</source>, <volume>92</volume>, <fpage>4686</fpage>&#x02013;<lpage>4690</lpage>.<pub-id pub-id-type="pmid">7753865</pub-id></citation></ref><ref id="gke666c8"><label>8.</label><citation citation-type="journal"><name><surname>Beattie</surname><given-names>T.L.</given-names></name> and Collins,R.A. (1997) Identification of functional domains in the self-cleaving <italic>Neurospora</italic> VS ribozyme using damage selection. <source>J. Mol. Biol.</source>, <volume>267</volume>, <fpage>830</fpage>&#x02013;<lpage>840</lpage>.<pub-id pub-id-type="pmid">9135115</pub-id></citation></ref><ref id="gke666c9"><label>9.</label><citation citation-type="journal"><name><surname>Guo</surname><given-names>H.C.T.</given-names></name> and Collins,R.A. (1995) Efficient trans-cleavage of a stem&#x02013;loop RNA substrate by a ribozyme derived from <italic>Neurospora</italic> VS RNA. <source>EMBO J.</source>, <volume>14</volume>, <fpage>368</fpage>&#x02013;<lpage>376</lpage>.<pub-id pub-id-type="pmid">7835347</pub-id></citation></ref><ref id="gke666c10"><label>10.</label><citation citation-type="other"><name><surname>Zuker</surname><given-names>M.</given-names></name>, Mathews,D.H. and Turner,D.H. (1999) Algorithms and thermodynamics for RNA secondary structure prediction: a practical guide. In Barciszewski,J. and Clark,B.F.C. (eds), <italic>RNA Biochemistry and Biotechnology</italic>. Kluwer Academic Publishers, The Netherlands, pp. <fpage>11</fpage>&#x02013;<lpage>43</lpage>.</citation></ref><ref id="gke666c11"><label>11.</label><citation citation-type="journal"><name><surname>Bartel</surname><given-names>D.P.</given-names></name> and Szostak,J.W. (1993) Isolation of new ribozymes from a large pool of random sequences. <source>Science</source>, <volume>261</volume>, <fpage>1411</fpage>&#x02013;<lpage>1417</lpage>.<pub-id pub-id-type="pmid">7690155</pub-id></citation></ref><ref id="gke666c12"><label>12.</label><citation citation-type="journal"><name><surname>Berzal-Herranz</surname><given-names>A.</given-names></name>, Joseph,S., Chowrira,B.M., Butcher,S.E. and Burke,J.M. (1993) Essential nucleotide sequences and secondary structure elements of the hairpin ribozyme. <source>EMBO J.</source>, <volume>2</volume>, <fpage>2567</fpage>&#x02013;<lpage>2574</lpage>.</citation></ref><ref id="gke666c13"><label>13.</label><citation citation-type="journal"><name><surname>Andersen</surname><given-names>A.A.</given-names></name> and Collins,R.A. (2000) Rearrangement of a stable RNA secondary structure during VS ribozyme catalysis. <source>Mol. Cell</source>, <volume>5</volume>, <fpage>469</fpage>&#x02013;<lpage>478</lpage>.<pub-id pub-id-type="pmid">10882132</pub-id></citation></ref></ref-list></back></article>
+<article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article">
+    <front>
+        <journal-meta>
+            <journal-id journal-id-type="nlm-ta">Nucleic Acids Res</journal-id>
+            <journal-title>Nucleic Acids Research</journal-title>
+            <issn pub-type="ppub">0305-1048</issn>
+            <issn pub-type="epub">1362-4962</issn>
+            <publisher>
+                <publisher-name>Oxford University Press</publisher-name>
+                <publisher-loc>Oxford, UK</publisher-loc>
+            </publisher>
+        </journal-meta>
+        <article-meta>
+            <article-id pub-id-type="pmc">97611</article-id>
+            <article-id pub-id-type="publisher-id">gke666</article-id>
+            <article-id pub-id-type="pmid">11812844</article-id>
+            <article-categories>
+                <subj-group subj-group-type="heading">
+                    <subject>Article</subject>
+                </subj-group>
+            </article-categories>
+            <title-group>
+                <article-title>An efficient ligation reaction promoted by a Varkud Satellite ribozyme with extended 5&#x02032;-
+                    and 3&#x02032;-termini
+                </article-title>
+            </title-group>
+            <contrib-group>
+                <contrib contrib-type="author">
+                    <name>
+                        <surname>Jones</surname>
+                        <given-names>Fatima D.</given-names>
+                    </name>
+                    <xref ref-type="aff" rid="N0x8cf80f8.0x8c209e0">1</xref>
+                </contrib>
+                <contrib contrib-type="author">
+                    <name>
+                        <surname>Ryder</surname>
+                        <given-names>Sean P.</given-names>
+                    </name>
+                    <xref ref-type="aff" rid="N0x8cf80f8.0x8c209e0">1</xref>
+                </contrib>
+                <contrib contrib-type="author">
+                    <name>
+                        <surname>Strobel</surname>
+                        <given-names>Scott A.</given-names>
+                    </name>
+                    <xref ref-type="aff" rid="N0x8cf80f8.0x8c209e0">1</xref>
+                    <xref ref-type="aff" rid="N0x8cf80f8.0x8c209e0">2</xref>
+                    <xref ref-type="author-notes" rid="N0x8cf80f8.0x8c209c0">a</xref>
+                </contrib>
+            </contrib-group>
+            <aff id="N0x8cf80f8.0x8c209e0"><label>1</label>Department of Molecular Biophysics and Biochemistry and
+                <label>2</label>Department of Chemistry, Yale University, New Haven, CT 06520-8114, USA
+            </aff>
+            <author-notes>
+                <fn id="N0x8cf80f8.0x8c209c0">
+                    <label>a</label>
+                    <p>To whom correspondence should be addressed at: Department of Molecular Biophysics and
+                        Biochemistry, Yale University, PO Box 208114, 260 Whitney Avenue, New Haven, CT 06520-8114, USA.
+                        Tel: &#x0002b;1 203 432 9772; Fax: &#x0002b;1 203 432 5767; Email: scott.strobel&#x00040;yale.edu
+                        Present address:Sean P. Ryder, Department of Molecular Biology, The Scripps Research Institute,
+                        La Jolla, CA, USA
+                    </p>
+                </fn>
+            </author-notes>
+            <pub-date pub-type="ppub">
+                <day>15</day>
+                <month>12</month>
+                <year>2001</year>
+            </pub-date>
+            <volume>29</volume>
+            <issue>24</issue>
+            <fpage>5115</fpage>
+            <lpage>5120</lpage>
+            <ext-link ext-link-type="uri"
+                      xlink:href="http:&#x0002f;&#x0002f;www.nar.oupjournals.org&#x0002f;content&#x0002f;vol29&#x0002f;issue24&#x0002f;"/>
+            <history>
+                <date date-type="received">
+                    <day>20</day>
+                    <month>7</month>
+                    <year>2001</year>
+                </date>
+                <date date-type="rev-recd">
+                    <day>29</day>
+                    <month>10</month>
+                    <year>2001</year>
+                </date>
+                <date date-type="accepted">
+                    <day>29</day>
+                    <month>10</month>
+                    <year>2001</year>
+                </date>
+            </history>
+            <copyright-statement>Copyright &#x000a9; 2001 Oxford University Press</copyright-statement>
+            <copyright-year>2001</copyright-year>
+            <abstract>
+                <p>The
+                    <italic>Neurospora</italic>
+                    Varkud Satellite (VS) RNA is capable of promoting a reversible self-cleavage reaction important for
+                    its replication pathway.
+                    <italic>In vivo</italic>
+                    the VS RNA performs a<italic>cis</italic>-cleavage reaction to generate monomeric length transcripts
+                    that are subsequently ligated to produce circular VS RNA. The predominant form of VS RNA observed
+                    <italic>in vivo</italic>
+                    is the closed circular form, though minimal VS ribozyme self-cleavage constructs lack detectable
+                    ligation activity. MFOLD analysis of the entire VS RNA sequence revealed an extended region 5&#x02032;
+                    and 3&#x02032; of the minimal self-cleaving region that could anneal to form a complementary helix,
+                    which we have termed helix 7. In full-length VS RNA, this helix appears to span over 40 bp of
+                    sequence and brings the 5&#x02032;- and 3&#x02032;-ends of the RNA into proximity for the ligation
+                    reaction. Here we report a variant of the VS ribozyme with an extended 5&#x02032;- and 3&#x02032;-terminus
+                    capable of forming a truncated helix 7 that promotes the ligation reaction<italic>in vitro</italic>.
+                    Through mutation and selection of this RNA we have identified a ribozyme containing two point
+                    mutations in the truncated helix 7 that ligates with &#x0003e;70&#x00025; efficiency. These results
+                    show that an additional helical element absent in current VS ribozyme constructs is likely to be
+                    important for the ligation activity of VS RNA.
+                </p>
+            </abstract>
+        </article-meta>
+    </front>
+    <body>
+        <sec>
+            <title>INTRODUCTION</title>
+            <p>The
+                <italic>Neurospora</italic>
+                Varkud Satellite (VS) RNA is an abundant non-coding RNA found in the mitochondria of certain natural
+                isolates of the species
+                <italic>Neurospora crassa</italic>
+                (<xref ref-type="bibr" rid="gke666c1">1</xref>).
+                <italic>In vivo</italic>
+                VS RNA exists as a satellite RNA of the V plasmid, a large mitochondrial DNA that encodes a reverse
+                transcriptase necessary for replication of the VS RNA (<xref ref-type="bibr" rid="gke666c2">2</xref>).
+                The VS RNA contains a catalytic element capable of a reversible self-cleavage reaction. Like most small
+                satellite RNA molecules, VS is thought to replicate by rolling circle replication (<xref ref-type="bibr"
+                                                                                                         rid="gke666c3">
+                    3</xref>). Initially, VS RNA is synthesized as a multimeric transcript transcribed from the VS
+                plasmid DNA. A site-specific cleavage event produces linear monomeric and some multimeric length
+                transcripts that are ligated to produce circular VS RNA, the predominant form of VS observed
+                <italic>in vivo</italic>
+                (<xref ref-type="bibr" rid="gke666c4">4</xref>).
+            </p>
+            <p>The VS ribozyme, encoded within the VS RNA, is a small catalytic motif that catalyzes a site-specific
+                cleavage reaction generating products containing 2&#x02032;,3&#x02032;-cyclic phosphate and 5&#x02032;-OH
+                termini (<xref ref-type="bibr" rid="gke666c4">4</xref>). The reaction is mechanistically similar to
+                other small catalytic RNAs, including the hammerhead, hairpin and hepatitis delta virus ribozymes (<xref
+                        ref-type="bibr" rid="gke666c5">5</xref>). VS RNA itself is 881 nt in length, however, the
+                minimal contiguous sequence required for self-cleavage consists of only 154 nt, a single nucleotide
+                upstream and 153 nt downstream of the cleavage site (<xref ref-type="bibr" rid="gke666c6">6</xref>). The
+                secondary structure of this minimal self-cleaving construct (clone G11), based on RNA folding programs
+                and biochemical data, is arranged as a set of six helical elements (<xref ref-type="bibr"
+                                                                                          rid="gke666c7">7</xref>). A 3
+                bp long-range pseudoknot formed between the loops of helices 1 and 5 is also required for folding and
+                activity of the RNA (<xref ref-type="bibr" rid="gke666c7">7</xref>). While clone G11 represents the
+                minimal self-cleaving domain, it is not capable of the reverse (ligation) reaction
+                <italic>in vitro</italic>
+                (<xref ref-type="bibr" rid="gke666c8">8</xref>). Therefore, we reasoned that sequence elements essential
+                for ligation may be absent from this construct. In an attempt to define elements necessary for ligation,
+                the sequence at the 5&#x02032;- and 3&#x02032;-ends of the RNA were analyzed, revealing a long region of
+                base pair complementarity. Based upon biochemical analysis of several ribozyme constructs we demonstrate
+                that formation of this seventh helical element is critical for the ligation activity of the VS ribozyme.
+            </p>
+        </sec>
+        <sec sec-type="materials|methods">
+            <title>MATERIALS AND METHODS</title>
+            <sec>
+                <title>DNA templates and RNA synthesis</title>
+                <p>RNAs were synthesized
+                    <italic>in vitro</italic>
+                    by transcription of linearized plasmids with T7 RNA polymerase, purified by 8&#x00025; denaturing
+                    PAGE, and extracted by the crush-and-soak method at 4&#x000b0;C in 10 mM Tris&#x02013;HCl, 0.1 mM
+                    EDTA, 250 mM NaCl, pH 8.0. Transcripts were concentrated by ethanol precipitation and resuspended in
+                    an appropriate volume of TE (10 mM Tris&#x02013;HCl, 0.1 mM EDTA, pH 8.0). Transcription reactions
+                    contained 40 mM Tris&#x02013;HCl pH 8.0, 10 mM MgCl<sub>2</sub>, 2 mM spermidine, 5 mM DTT, 0.005&#x00025;
+                    Triton X-100 and 1 mM each NTP.
+                </p>
+                <p>The pVS6 plasmid contains VS nucleotides 599&#x02013;791 (numbering based upon that of Saville and
+                    Collins;<xref ref-type="bibr" rid="gke666c4">4</xref>). VS6 RNA was prepared by transcription of
+                    <italic>Eco</italic>RI-cut pVS6. The pVSE plasmid also contains VS nucleotides 599&#x02013;791, with
+                    mutations A782U and U785C incorporated via site-directed mutagenesis. The VS6 clone contains some
+                    vector sequence at the 3&#x02032;-end, however, the VSE clone was designed with an<italic>
+                        Ear</italic>I restriction site at the 3&#x02032;-end that can be used to generate full-length
+                    VSE RNA. VSE RNA was prepared by transcription of pVSE cut with<italic>Ear</italic>I. The G11
+                    plasmid contains VS nucleotides 617&#x02013;881 (<xref ref-type="bibr" rid="gke666c6">6</xref>). G11
+                    RNA was prepared by transcription of G11 linearized with<italic>Ssp</italic>I. Substrate RNA, SUB13,
+                    was prepared by transcription from a G11-<italic>Ava</italic>I template, and 5&#x02032;-end-labeled
+                    as described below. SUB24 RNA was prepared by transcription of either<italic>Eco</italic>RI-cut pVS6
+                    or<italic>Ava</italic>I-cut pVS6 (for 5&#x02032;-end-labeling). The compensatory substrate, SUB24M,
+                    was prepared by transcription of plasmid 5A linearized with<italic>Ava</italic>I (plasmid 5A
+                    contains VS nucleotides 599&#x02013;791, with mutations G604C, A605U and G606C). Transcription of
+                    pVS6-<italic>Eco</italic>RI followed by self-cleavage yielded the SUB24 substrate with a 2&#x02032;,3&#x02032;-cyclic
+                    phosphate terminus. Transcription of pVS6-<italic>Ava</italic>I, pG11-<italic>Ava</italic>I or p5A-
+                    <italic>Ava</italic>I yielded stem&#x02013;loop I substrates which could be 5&#x02032;-end-labeled
+                    and then cleaved by the VS<italic>trans</italic>-cleaving ribozyme to generate the oligonucleotide
+                    substrates (<xref ref-type="bibr" rid="gke666c9">9</xref>). Concentrations of unlabeled transcripts
+                    were determined by UV absorption assuming an extinction coefficient at 260 nm of 2.2 &#x000d7; 10
+                    <sup>6</sup>
+                    for VS6 or VSE RNA, and 2.6 &#x000d7; 10
+                    <sup>5</sup>
+                    for substrate RNAs.
+                </p>
+                <p>The<italic>Ava</italic>I substrate RNA was 5&#x02032;-end-labeled using T4 polynucleotide kinase (T4
+                    PNK) and &#x0005b;&#x003b3;-<sup>32</sup>P&#x0005d;ATP. After labeling the RNA at 37&#x000b0;C for
+                    45 min, the kinase was heat inactivated at 70&#x000b0;C for 20 min. The<sup>32</sup>P-5&#x02032;-end-labeled
+                    <italic>Ava</italic>I RNA was then cleaved with VS<italic>trans</italic>-cleaving ribozyme at 30&#x000b0;C
+                    for 1 h to generate the 2&#x02032;,3&#x02032;-cyclic phosphate end. Products were resolved on a 20&#x00025;
+                    native polyacrylamide gel, visualized by autoradiography and eluted by the crush-and-soak method at
+                    4&#x000b0;C in 10 mM Tris&#x02013;HCl and 0.1 mM EDTA. This procedure enabled efficient 5&#x02032;-end-labeling
+                    of the substrate RNA while avoiding the 3&#x02032;-phosphatase activity of T4 PNK.
+                </p>
+            </sec>
+            <sec>
+                <title>Ligation reactions</title>
+                <p>Ligation reactions were performed at 30&#x000b0;C in 50 mM Tris&#x02013;HCl pH 8.0, 10 mM MgCl<sub>
+                    2</sub>, 25 mM KCl and 2 mM spermidine. The ribozyme (0.5 &#x000b5;M) was preincubated at 50&#x000b0;C
+                    for 30 min and slow cooled, followed by an additional 10 min incubation at 30&#x000b0;C. Ligation
+                    reactions were initiated by addition of a pre-warmed solution of labeled substrate RNA and incubated
+                    at 30&#x000b0;C. The reaction was quenched by addition of 2 vol formamide loading buffer. Products
+                    were resolved by denaturing gel electrophoresis and visualized by autoradiography. For
+                    characterization of VSE and mutant RNAs, ligation reactions were performed as described using 0.5
+                    &#x000b5;M ribozyme and trace amounts of labeled substrate (&#x0223c;10 nM). Aliquots were removed
+                    at various times and quenched in 2 vol formamide loading buffer, and reaction products were resolved
+                    by denaturing gel electrophoresis. The amounts of radioactivity in the substrate and product bands
+                    were quantitated using a Molecular Dynamics PhosphorImager and ImageQuant software. Data were
+                    plotted and analyzed using KaleidaGraph software. Initial rates were determined based on a linear
+                    fit of the data.
+                </p>
+            </sec>
+            <sec>
+                <title>Pool construction and selection assay</title>
+                <p>The initial randomized pool was constructed from two degenerate oligonucleotides, VS-3D and VS-5D,
+                    and their complements, VS-3 and VS-5, respectively, which span the full length of the VS6 ribozyme
+                    sequence. The pool was designed to give a degeneracy level of 7.5&#x00025;, yielding an expected
+                    mutation rate of 12&#x02013;14 mutations per molecule. The oligonucleotides were purified by 8&#x00025;
+                    denaturing PAGE, extracted by the crush-and-soak method, concentrated with ethanol and resuspended
+                    in an appropriate volume of TE. Degenerate oligonucleotides, VS-3D and VS-5D, were annealed at 90&#x000b0;C
+                    to their complements, VS-3 and VS-5, respectively, and slow cooled to room temperature. The
+                    double-stranded templates, each comprising the 5&#x02032;- and 3&#x02032;-ends of the pool, were
+                    then digested with<italic>Bsa</italic>I and ligated with T4 DNA ligase at 16&#x000b0;C to give
+                    full-length Pool 0 DNA. Pool 0 DNA was engineered with a T7 RNA polymerase promoter at the 5&#x02032;-end
+                    and a primer binding site (PBS 1B) at the 3&#x02032;-end. Pool 0 RNA was transcribed
+                    <italic>in vitro</italic>
+                    using T7 RNA polymerase and self-cleavage products purified by 8&#x00025; denaturing PAGE. The RNA
+                    was extracted by the crush-and-soak method at 4&#x000b0;C, concentrated by ethanol precipitation and
+                    resuspended in an appropriate volume of TE.
+                </p>
+                <p>Ligation reactions were conducted as described above. The initial round of selection contained 1.0
+                    &#x000b5;M Pool 0 RNA (&#x0223c;10
+                    <sup>12</sup>
+                    molecules) and a 2 &#x000b5;M solution of labeled and unlabeled SUB24 RNA, although in subsequent
+                    rounds the amount of substrate RNA was dropped to 0.5 &#x000b5;M. Ligated RNA was purified by 8&#x00025;
+                    denaturing PAGE, visualized by autoradiography and extracted by the crush-and-soak method. The RNA
+                    was concentrated by ethanol precipitation, resuspended in an appropriate volume of TE and reverse
+                    transcribed using AMV reverse transcriptase (AMV-RT) with primer SLX1B, d(CGTGCGGATCCCTCTTCG),
+                    complementary to the 3&#x02032;-end of the RNA. The AMV-RT was then heat inactivated at 90&#x000b0;C
+                    for 5 min and the reaction products PCR amplified using primers SLX1B and SLX3A,
+                    d(GCAAGCTTATTAATACGACTCACTATAGGTAGTAGAGTGTCGCAATCTGCG), to regenerate the pool (Fig.<xref
+                            ref-type="fig" rid="gke666f2">2</xref>). RNA was prepared as described for Pool 0 RNA. The
+                    protocol was repeated for subsequent rounds of selection. The ligation efficiency of individual
+                    pools was determined using the ligation assay described above. Pool 3 DNA, representing the most
+                    active pool, was digested with<italic>Eco</italic>RI and<italic>Hin</italic>dIII and cloned into
+                    vector pUC19. RNA was prepared by
+                    <italic>in vitro</italic>
+                    transcription of plasmids linearized with<italic>Ear</italic>I. Self-cleavage products were purified
+                    by 8&#x00025; denaturing PAGE, eluted by the crush-and-soak method, ethanol precipitated and
+                    resuspended in TE. Individual clones were tested for ligation activity using the ligation assay
+                    described above and sequenced by dideoxy sequencing.
+                </p>
+            </sec>
+        </sec>
+        <sec>
+            <title>RESULTS</title>
+            <p>The majority of VS RNA isolated
+                <italic>in vivo</italic>
+                is in the closed circular form, suggesting that the internal equilibrium of this RNA favors ligation
+                over cleavage. The minimal self-cleaving VS ribozyme construct (G11) provides only a short 3 bp helix
+                for substrate binding interactions and this may explain why it is unable to efficiently ligate a
+                complementary oligonucleotide substrate. The fact that full-length VS RNA can perform the reverse
+                (ligation) reaction to generate circular products suggests that this minimal self-cleaving ribozyme may
+                lack essential elements required for ligation activity.
+            </p>
+            <p>In an effort to identify sequence elements that may stabilize substrate&#x02013;ribozyme interactions and
+                promote ligation activity
+                <italic>in vitro</italic>
+                we conducted an MFOLD analysis of the entire VS RNA sequence (<xref ref-type="bibr" rid="gke666c10">
+                    10</xref>). MFOLD (v.2.1) revealed an extended region of complementarity 5&#x02032; and 3&#x02032;
+                to the minimal self-cleaving domain. This extended helix, termed helix 7, appears to extend over 40 bp
+                of VS RNA sequence (Fig.<xref ref-type="fig" rid="gke666f1">1</xref>). The putative helix consists of a
+                long region of complementarity between 5&#x02032; nucleotides G564&#x02013;A614 and 3&#x02032;
+                nucleotides U774&#x02013;U828. The helix 7 extension includes a few short mispaired regions and several
+                non-canonical G-U base pairs, but as many as 34 standard Watson&#x02013;Crick base pairs. These features
+                appear to make helix 7 very stable, with a calculated
+                <italic>T</italic>
+                <sub>m</sub>
+                of 75&#x000b0;C (<xref ref-type="bibr" rid="gke666c10">10</xref>). We reasoned that this element may be
+                important for ligation activity by aligning the substrate on the ribozyme and thus may play an important
+                biological role.
+            </p>
+            <p>To examine the potential contribution of this helix to VS ribozyme ligation activity several constructs
+                were designed, each containing a truncated version of helix 7. One construct (VS6, Fig.<xref
+                        ref-type="fig" rid="gke666f1">1</xref>), which contained an 8 nt extension to the 3&#x02032;-end
+                of the original VS ribozyme, was capable of ligating
+                <italic>in trans</italic>
+                a complementary oligonucleotide substrate (SUB24) that contained a 22 nt extension to the 5&#x02032;-end
+                of the cleavage site. Ligation of VS6 to SUB24, however, proceeded with an efficiency of only 2&#x00025;.
+                Gel shift analysis revealed that VS6 RNA bound the oligonucleotide substrate very poorly (&#x0003c;5&#x00025;;
+                data not shown). Further analysis by native polyacrylamide gel electrophoresis revealed that VS6 adopted
+                multiple folding conformations (data not shown). This suggested that the low level ligation activity of
+                this RNA may have resulted from structural heterogeneity and that the 3&#x02032; extension necessary for
+                substrate binding may have been inaccessible, thus inhibiting ligation.
+            </p>
+            <p>In order to identify an RNA construct with a truncated helix 7 that contained a minimal number of
+                mutations yet could fold more readily and ligate a complementary oligonucleotide substrate with greater
+                efficiency, we employed the technique of
+                <italic>in vitro</italic>
+                selection. Similar methods have been adapted to isolate ribozymes from random sequence, as well as to
+                define essential sequence elements of naturally occurring ribozymes (<xref ref-type="bibr"
+                                                                                           rid="gke666c11">11</xref>,
+                <xref ref-type="bibr" rid="gke666c12">12</xref>).
+            </p>
+            <p>A randomized pool of VS6 DNA was designed with a degeneracy level of 7.5&#x00025;, expected to yield an
+                average mutation rate of 12&#x02013;14 mutations per molecule. The randomized pool was constructed from
+                two degenerate oligonucleotides, VS-3D and VS-5D, comprising the 5&#x02032;- and 3&#x02032;-ends of the
+                VS6 sequence. This enabled us to randomize the entire region of VS6 sequence (nucleotides 621&#x02013;791),
+                with the exception of nucleotides 691&#x02013;694 in helix 5, which were used to anneal the respective
+                oligonucleotides together during generation of the initial pool. A T7 RNA polymerase promoter was
+                engineered at the 5&#x02032;-end of the sequence to facilitate
+                <italic>in vitro</italic>
+                transcription, as well as a selective primer binding site (PBS 1B) at the 3&#x02032;-end.
+            </p>
+            <p>The selection and amplification scheme is outlined in Figure<xref ref-type="fig" rid="gke666f2">2</xref>.
+                Active variants were selected based upon their ability to ligate
+                <italic>in trans</italic>
+                an oligonucleotide substrate (SUB24). The initial RNA pool (Pool 0) had a ligation efficiency of 0.1&#x00025;,
+                however, after three rounds of selection the overall ligation efficiency of the RNA pool improved to 10&#x00025;
+                (Table
+                <xref ref-type="table" rid="gke666tb1">1</xref>
+                and Fig.<xref ref-type="fig" rid="gke666f3">3</xref>). This corresponds to a 100-fold enhancement
+                compared to the original Pool 0 RNA and a 5-fold enhancement compared to wild-type VS6 RNA. Several
+                members of this pool were cloned and sequenced. Individual ligation efficiencies were determined based
+                on the ability of the RNA to ligate 5&#x02032;-end-labeled SUB24 in 30 min at 30&#x000b0;C. Several
+                active clones were identified, the two most active of which, S24 and S90, had ligation efficiencies of
+                32 and 18&#x00025; in 30 min, respectively (Fig.<xref ref-type="fig" rid="gke666f4">4</xref>). S24 and
+                S90 both had a mutation at position G627 in helix 1B, mutations in the 3&#x02032;-segment of helix 7 and
+                several unrelated mutations scattered throughout the RNA (Fig.<xref ref-type="fig" rid="gke666f4">
+                    4</xref>). Many other active selected RNAs also contained mutations in the 3&#x02032;-segment of
+                helix 7, which suggested that these mutations may be contributing to the increased ligation efficiency
+                of these constructs (Fig.<xref ref-type="fig" rid="gke666f4">4</xref>).
+            </p>
+            <p>To determine which mutations were responsible for the improved VS ribozyme ligation activity, three
+                additional RNA constructs were prepared containing mutations commonly observed among the active
+                population. Although a G627 mutation was present in both variants S24 and S90, mutating G627 to C showed
+                only a modest improvement in the total ligation activity (&#x0003c;4&#x00025;) compared to VS6. The
+                G627U mutation had a reduced ligation efficiency of 1&#x00025;. To assess a potential role for mutations
+                observed in helix 7, an additional construct, termed VSE, was created that contained the two helix 7
+                mutations, A782U and U785C, observed in the most active clone, S24. VSE RNA was able to ligate a
+                complementary substrate (SUB24) with an efficiency of 30&#x00025; in 30 min, compared to 32&#x00025; for
+                S24. Further characterization found that VSE RNA ligates with an efficiency exceeding 70&#x00025; in 4
+                h, with an initial rate constant of 1.6 min<sup>&#x02013;1</sup>. Ribozymes containing each of the
+                single helix 7 mutations were also prepared. The U785C mutant (1A) had a maximal ligation efficiency of
+                35&#x00025; after 6 h, with an initial rate constant of 0.64 min
+                <sup>&#x02013;1</sup>
+                (Table<xref ref-type="table" rid="gke666tb2">2</xref>). The ligation efficiency of the A782U mutant (2B)
+                did not exceed 10&#x00025; efficiency and had an initial rate constant of only 0.09 min
+                <sup>&#x02013;1</sup>
+                (Table<xref ref-type="table" rid="gke666tb2">2</xref>). Thus, while the majority of the improved
+                ligation activity appears to derive from the U785C mutation, both mutations are required for optimal
+                efficiency of the ribozyme.
+            </p>
+            <p>The importance of helix 7 in VS RNA ligation activity was further examined by looking at the effect on
+                ligation activity of RNA constructs that lacked either the 5&#x02032; or 3&#x02032; extension required
+                to form helix 7. To this end we utilized the G11 RNA, i.e. the original VS ribozyme that lacks the 3&#x02032;
+                extension of helix 7, and a shorter substrate (SUB13) which lacks the 5&#x02032; extension of helix 7.
+                SUB13 contains only 4 nt of wild-type VS sequence and is capable of forming only a short 3 bp helix with
+                the ribozyme. In the absence of either the 5&#x02032; or 3&#x02032; extension, ligation activity was
+                reduced to &#x0003c;1&#x00025; efficiency, suggesting that neither the 3&#x02032; nor the 5&#x02032;
+                extension alone are sufficient to confer ligation activity (Table<xref ref-type="table" rid="gke666tb3">
+                    3</xref>).
+            </p>
+            <p>To investigate the importance of the alignment of helix 7 proposed in Figure<xref ref-type="fig"
+                                                                                                 rid="gke666f1">1</xref>
+                , we designed a ribozyme (3B, Fig.<xref ref-type="fig" rid="gke666f1">1</xref>) containing mutations in
+                the 3&#x02032; extension of helix 7 expected to disrupt predicted base pairing interactions. The mutant
+                ribozyme 3B ligates substrate SUB24 with reduced efficiency (&#x0003c;10&#x00025;), at a rate &#x0003e;20-fold
+                slower than the initial rate of VSE (0.07 min<sup>&#x02013;1</sup>, Table<xref ref-type="table"
+                                                                                               rid="gke666tb2">2</xref>
+                ). However, if the compensatory mutations are made in the substrate (SUB24M, Fig.<xref ref-type="fig"
+                                                                                                       rid="gke666f1">
+                    1</xref>) then the mutant ribozyme is capable of a ligation efficiency very close to that of the
+                wild-type construct (40&#x00025;, initial rate 1.8 min<sup>&#x02013;1</sup>). This provides direct
+                evidence for base pairing interactions between at least this segment of the helix 7 region.
+            </p>
+        </sec>
+        <sec>
+            <title>DISCUSSION</title>
+            <p>We have described the identification and initial characterization of a putative helical element in the VS
+                RNA secondary structure that appears to serve an important role in VS ligation activity. Helix 7 may
+                play a biological role in VS RNA ligation activity by properly aligning the substrate on the ribozyme to
+                facilitate ligation. Self-cleaving constructs lacking this helix were incapable of ligation activity (&#x0003c;1&#x00025;),
+                although recent circular permutation constructs of VS RNA have provided alternative means to achieve
+                ligation activity
+                <italic>in vitro</italic>
+                (<xref ref-type="bibr" rid="gke666c13">13</xref>). These circular permutated constructs, in which stem 1
+                is covalently linked to the 3&#x02032;-end of G11 RNA, exploit the fact that VS RNA exists
+                <italic>in vivo</italic>
+                as head-to-tail multimers to align the substrate and ribozyme in close proximity.
+            </p>
+            <p>Based on MFOLD analysis helix 7 appears to span a significant amount of the total VS RNA sequence. The
+                presence of this extended region of complementarity may contribute binding energy to stabilize substrate&#x02013;ribozyme
+                interactions and maintain closed circular products<italic>in vivo</italic>. The VS6 ribozyme identified
+                in this study contains only a truncated portion of the wild-type helix 7 and is capable of ligation
+                activity. Through mutation and selection we have identified a highly efficient VS ligation construct
+                with a significantly shorter helix than is likely present in the full-length VS RNA. VSE RNA contains
+                only two mutations in the helix 7 region and ligates with an efficiency exceeding 70&#x00025;. These
+                results suggest that the internal equilibrium of VSE ribozyme favors ligation over cleavage, as is the
+                case for the VS RNA.
+            </p>
+            <p>The two helix 7 mutations, A782U and U785C, could either play a role in promoting the properly folded RNA
+                conformation or they may directly stabilize interactions with the substrate in order to promote greater
+                ligation efficiency. Both mutations appear to be important for ligation activity, though the U785C
+                mutation makes the greatest contribution. The U785C mutation converts a G-U base pair to a G-C base
+                pair, which may contribute additional stability to the helix. It is unclear how the A782U mutation makes
+                its modest contribution to the ligation activity of the RNA. These mutations do not increase ligation
+                activity in the absence of their complementary sequence at the 5&#x02032;-end, demonstrating that the 3&#x02032;
+                extension of helix 7 alone is not sufficient for ligation activity.
+            </p>
+            <p>Based upon sequence alignments and chemical probing data we propose that helix 7 exists in equilibrium
+                between two alternative conformations. In one conformation a weak helix 7 is formed that would exhibit
+                poor substrate interactions (Fig.<xref ref-type="fig" rid="gke666f5">5</xref>, left). In the alternative
+                conformation a stronger helix 7 is formed that would allow better substrate binding interactions and
+                thus increased ligation activity (Fig.<xref ref-type="fig" rid="gke666f5">5</xref>, right). In switching
+                between these two conformations, base pairing interactions in helix 2 are also disrupted (Fig.<xref
+                        ref-type="fig" rid="gke666f5">5</xref>, right). This is consistent with modification
+                interference experiments that previously demonstrated that disruptions in helix 2, achieved through
+                reaction of base functional groups with hydrazine or DEPC, enhanced self-cleavage activity of the
+                ribozyme (<xref ref-type="bibr" rid="gke666c8">8</xref>). This region of secondary structure has been
+                implicated as part of a VS attenuator structure evolved to affect the cleavage and ligation equilibrium
+                of VS RNA and to promote the formation of closed circular products
+                <italic>in vivo</italic>
+                (<xref ref-type="bibr" rid="gke666c8">8</xref>). While the precise base pairs that are formed within
+                helix 7 and disrupted in helix 2 remain to be determined, these results clearly demonstrate that RNA
+                sequence to the 5&#x02032;- and 3&#x02032;-sides of the traditionally defined boundaries of the VS
+                ribozyme are important for its RNA ligation activity.
+            </p>
+        </sec>
+    </body>
+    <back>
+        <sec sec-type="display-objects">
+            <title>Figures and Tables</title>
+            <fig id="gke666f1">
+                <label>Figure 1</label>
+                <caption>
+                    <p>Secondary structure of the VS6 clone predicted by MFOLD (v.2.1). The site of cleavage and
+                        ligation is indicated by an arrow. The RNA consists of seven helical regions (helices 1A&#x02013;7).
+                        Base paired regions in the ribozyme are indicated by horizontal and vertical lines, while base
+                        pairing interactions in helix 7 are shown. The VS6 ribozyme contains a truncated version of
+                        helix 7, however, in full-length VS RNA helix 7 may extend over 40 bp of sequence (boxed
+                        region). Wild-type sequence is denoted in upper case and vector sequence in lower case. The VSE
+                        ribozyme contains two helix 7 mutations, U785C and A782U (shaded circles), that are observed to
+                        enhance ligation activity. Mutations in ribozyme 3B and compensatory mutations in SUB24M (used
+                        to demonstrate the helix 7 specificity switch) are indicated. In addition to the mutations
+                        indicated, ribozyme 3B also contains the A782U mutation.
+                    </p>
+                </caption>
+                <graphic xlink:href="gke66601"/>
+            </fig>
+            <fig id="gke666f2">
+                <label>Figure 2</label>
+                <caption>
+                    <p>Schematic representation of the selection scheme. Randomized Pool 0 DNA was designed with a
+                        primer binding site (PBS 1B) at its 3&#x02032;-end and a T7 promoter at the 5&#x02032;-end.
+                        Unligated RNA from the randomized pool was incubated with an oligonucleotide substrate (SUB24)
+                        containing a 2&#x02032;,3&#x02032;-cyclic phosphate terminus. Active RNAs ligate the
+                        oligonucleotide substrate and become sequence tagged at their 5&#x02032;-end. Active variants
+                        were size selected from inactive variants by denaturing gel electrophoresis, reverse transcribed
+                        and PCR amplified with selective primers (SLX 1B and SLX 3A) to reintroduce the T7 promoter and
+                        regenerate the pool. The scheme was repeated for subsequent rounds of selection.
+                    </p>
+                </caption>
+                <graphic xlink:href="gke66602"/>
+            </fig>
+            <fig id="gke666f3">
+                <label>Figure 3</label>
+                <caption>
+                    <p>Ligation activity of RNA pools (Pools 0&#x02013;3) compared to wild-type VS6 RNA. Pool RNA was
+                        incubated with 5&#x02032;-end-labeled SUB24 at 30&#x000b0;C for 30 min under the conditions
+                        described in Materials and Methods. The ligation efficiency of the pool increased with each
+                        round of selection, as those sequences that promote ligation were selectively enriched.
+                    </p>
+                </caption>
+                <graphic xlink:href="gke66603"/>
+            </fig>
+            <fig id="gke666f4">
+                <label>Figure 4</label>
+                <caption>
+                    <p>Sequence alignment of the most active selected clones. Individual mutations are shown with
+                        respect to their location in the VS6 ribozyme. &#x02013;, deleted bases. Ligation activity
+                        (L.A.), reported after 30 min at 30&#x000b0;C, are shown to the right of the first row. Values
+                        do not reflect end points of reactions. The entire region of VS6 was randomized, with the
+                        exception of nucleotides 691&#x02013;694 in helix 5 (boxed region).
+                    </p>
+                </caption>
+                <graphic xlink:href="gke66604"/>
+            </fig>
+            <fig id="gke666f5">
+                <label>Figure 5</label>
+                <caption>
+                    <p>Potential conformational switch between helices 2 and 7. Helix 7 can exist in equilibrium between
+                        two possible conformations, a weak helix 7 (left) and a more stable helix 7 (right). Formation
+                        of a stable helix 7 results in disruption of base pairing interactions in helix 2. Disruption of
+                        these base pairs has been observed to enhance self-cleavage activity<italic>in vitro</italic>.
+                        Sites of modified bases in helix 2 observed to enhance self-cleavage of G11 RNA are indicated by
+                        ovals above the nucleotides.
+                    </p>
+                </caption>
+                <graphic xlink:href="gke66605"/>
+            </fig>
+            <table-wrap id="gke666tb1">
+                <label>Table 1.</label>
+                <caption>
+                    <title>Results of the
+                        <italic>in vitro</italic>
+                        selection assay
+                    </title>
+                </caption>
+                <table frame="hsides" rules="groups" border="1" width="85%">
+                    <colgroup>
+                        <col/>
+                        <col/>
+                    </colgroup>
+                    <thead valign="bottom">
+                        <tr valign="top">
+                            <th valign="top">RNA pool</th>
+                            <th valign="top">Ligation activity (&#x00025;) after 30 min (SUB24)</th>
+                        </tr>
+                    </thead>
+                    <tbody valign="top">
+                        <tr valign="top">
+                            <td valign="top">0</td>
+                            <td valign="top">0.1</td>
+                        </tr>
+                        <tr valign="top">
+                            <td valign="top">1</td>
+                            <td valign="top">1.4</td>
+                        </tr>
+                        <tr valign="top">
+                            <td valign="top">2</td>
+                            <td valign="top">5.1</td>
+                        </tr>
+                        <tr valign="top">
+                            <td valign="top">3</td>
+                            <td valign="top">10</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </table-wrap>
+            <table-wrap id="gke666tb2">
+                <label>Table 2.</label>
+                <caption>
+                    <title>Comparison of initial rates and percentage ligation for the VSE ribozyme and ribozymes 1A, 2B
+                        and 3B
+                    </title>
+                </caption>
+                <table frame="hsides" rules="groups" border="1" width="85%">
+                    <colgroup>
+                        <col/>
+                        <col/>
+                        <col/>
+                        <col/>
+                        <col/>
+                    </colgroup>
+                    <thead valign="bottom">
+                        <tr valign="top">
+                            <th valign="top">Ribozyme</th>
+                            <th valign="top">Mutation(s)</th>
+                            <th valign="top">Substrate</th>
+                            <th valign="top">Initial rate (min<sup>&#x02013;1</sup>)
+                            </th>
+                            <th valign="top">Ligation activity (&#x00025;) after 6 h</th>
+                        </tr>
+                    </thead>
+                    <tbody valign="top">
+                        <tr valign="top">
+                            <td valign="top">VSE</td>
+                            <td valign="top">A782U, U785C</td>
+                            <td valign="top">SUB24</td>
+                            <td valign="top">1.6</td>
+                            <td valign="top">70</td>
+                        </tr>
+                        <tr valign="top">
+                            <td valign="top">1A</td>
+                            <td valign="top">U785C</td>
+                            <td valign="top">SUB24</td>
+                            <td valign="top">0.64</td>
+                            <td valign="top">35</td>
+                        </tr>
+                        <tr valign="top">
+                            <td valign="top">2B</td>
+                            <td valign="top">A782U</td>
+                            <td valign="top">SUB24</td>
+                            <td valign="top">0.09</td>
+                            <td valign="top">10</td>
+                        </tr>
+                        <tr valign="top">
+                            <td valign="top">3B</td>
+                            <td valign="top">A782U, U785G, U786A, U787G</td>
+                            <td valign="top">SUB24</td>
+                            <td valign="top">0.07</td>
+                            <td valign="top">10</td>
+                        </tr>
+                        <tr valign="top">
+                            <td valign="top">3B</td>
+                            <td valign="top">A782U, U785G, U786A, U787G</td>
+                            <td valign="top">SUB24M</td>
+                            <td valign="top">1.8
+                                <sup>a</sup>
+                            </td>
+                            <td valign="top">40</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table-wrap-foot>
+                    <fn>
+                        <p><sup>a</sup>Initial rate of ligation of ribozyme 3B with SUB24M which restores helix 7 base
+                            pairing interactions; SUB24M, 5&#x02032;-ggUAGUA<bold>CUC</bold>UGUCGCAAUCUGCG.
+                        </p>
+                    </fn>
+                </table-wrap-foot>
+            </table-wrap>
+            <table-wrap id="gke666tb3">
+                <label>Table 3.</label>
+                <caption>
+                    <title>Both the 5&#x02032;- and 3&#x02032;-extensions of helix 7 are required for ligation
+                        activity
+                    </title>
+                </caption>
+                <table frame="hsides" rules="groups" border="1" width="85%">
+                    <colgroup>
+                        <col/>
+                        <col/>
+                        <col/>
+                    </colgroup>
+                    <thead valign="bottom">
+                        <tr valign="top">
+                            <th valign="top">Ribozyme</th>
+                            <th valign="top">Ligation activity (&#x00025;) after 6 h
+                                <hr/>
+                            </th>
+                            <th valign="top">&#x000a0;
+                                <hr/>
+                            </th>
+                        </tr>
+                        <tr valign="top">
+                            <th valign="top">&#x000a0;</th>
+                            <th valign="top">SUB13</th>
+                            <th valign="top">SUB24</th>
+                        </tr>
+                    </thead>
+                    <tfoot valign="top">
+                        <tr valign="top">
+                            <th colspan="3" align="left" valign="top">SUB13, 5&#x02032;-gggaaagcuUGCG; SUB24, 5&#x02032;-ggUAGUAGAGUGUCGCAAUCUGCG;
+                                lower case letters denote vector sequence.
+                            </th>
+                        </tr>
+                    </tfoot>
+                    <tbody valign="top">
+                        <tr valign="top">
+                            <td valign="top">G11</td>
+                            <td valign="top">&#x0003c;1</td>
+                            <td valign="top">&#x0003c;1</td>
+                        </tr>
+                        <tr valign="top">
+                            <td valign="top">VS6</td>
+                            <td valign="top">&#x0003c;1</td>
+                            <td valign="top">2</td>
+                        </tr>
+                        <tr valign="top">
+                            <td valign="top">VSE</td>
+                            <td valign="top">&#x0003c;1</td>
+                            <td valign="top">70</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </table-wrap>
+        </sec>
+        <ack>
+            <sec>
+                <title>ACKNOWLEDGEMENTS</title>
+                <p>An NIH Individual Research Award to F.D.J and an NSF grant CHE 0100057 to S.A.S supported this
+                    work.
+                </p>
+            </sec>
+        </ack>
+        <ref-list>
+            <title>REFERENCES</title>
+            <ref id="gke666c1">
+                <label>1.</label>
+                <citation citation-type="journal">
+                    <name>
+                        <surname>Griffiths</surname>
+                        <given-names>A.J.F.</given-names>
+                    </name>
+                    (1995) Natural plasmids of filamentous fungi.<source>Microbiol. Rev.</source>,<volume>59</volume>,
+                    <fpage>673</fpage>&#x02013;<lpage>685</lpage>.
+                    <pub-id pub-id-type="pmid">8531891</pub-id>
+                </citation>
+            </ref>
+            <ref id="gke666c2">
+                <label>2.</label>
+                <citation citation-type="journal">
+                    <name>
+                        <surname>Kennell</surname>
+                        <given-names>J.C.</given-names>
+                    </name>
+                    , Saville,B.J. and Collins,R.A. (1995) The VS catalytic RNA replicates by reverse transcription as a
+                    satellite of a retroplasmid.<source>Genes Dev.</source>,<volume>9</volume>,<fpage>294</fpage>
+                    &#x02013;<lpage>303</lpage>.
+                    <pub-id pub-id-type="pmid">7532606</pub-id>
+                </citation>
+            </ref>
+            <ref id="gke666c3">
+                <label>3.</label>
+                <citation citation-type="journal">
+                    <name>
+                        <surname>Symons</surname>
+                        <given-names>R.H.</given-names>
+                    </name>
+                    (1992) Small catalytic RNAs.<source>Annu. Rev. Biochem.</source>,<volume>61</volume>,<fpage>
+                    641</fpage>&#x02013;<lpage>671</lpage>.
+                    <pub-id pub-id-type="pmid">1497321</pub-id>
+                </citation>
+            </ref>
+            <ref id="gke666c4">
+                <label>4.</label>
+                <citation citation-type="journal">
+                    <name>
+                        <surname>Saville</surname>
+                        <given-names>B.J.</given-names>
+                    </name>
+                    and Collins,R.A. (1990) A site-specific self-cleavage reaction performed by a novel RNA in
+                    <italic>Neurospora</italic>
+                    mitochondria.<source>Cell</source>,<volume>61</volume>,<fpage>685</fpage>&#x02013;<lpage>696</lpage>
+                    .
+                    <pub-id pub-id-type="pmid">2160856</pub-id>
+                </citation>
+            </ref>
+            <ref id="gke666c5">
+                <label>5.</label>
+                <citation citation-type="other">
+                    <name>
+                        <surname>McKay</surname>
+                        <given-names>D.B.</given-names>
+                    </name>
+                    and Wedekind,J.E. (1999) Small ribozymes. In Gesteland,R.F., Cech,T.R. and Atkins,J.F. (eds),
+                    <italic>The RNA World</italic>. Cold Spring Harbor Laboratory Press, Cold Spring Harbor, NY, pp. 265&#x02013;286.
+                </citation>
+            </ref>
+            <ref id="gke666c6">
+                <label>6.</label>
+                <citation citation-type="journal">
+                    <name>
+                        <surname>Guo</surname>
+                        <given-names>H.C.</given-names>
+                    </name>
+                    , De Abreu,D.M., Tillier,E.R., Saville,B.J., Olive,J.E. and Collins,R.A. (1993) Nucleotide sequence
+                    requirements for self-cleavage of
+                    <italic>Neurospora</italic>
+                    VS RNA.<source>J. Mol. Biol.</source>,<volume>232</volume>,<fpage>351</fpage>&#x02013;<lpage>
+                    361</lpage>.
+                    <pub-id pub-id-type="pmid">8345516</pub-id>
+                </citation>
+            </ref>
+            <ref id="gke666c7">
+                <label>7.</label>
+                <citation citation-type="journal">
+                    <name>
+                        <surname>Beattie</surname>
+                        <given-names>T.L.</given-names>
+                    </name>
+                    , Olive,J.E. and Collins,R.A. (1995) A secondary-structure model for the self-cleaving region of
+                    <italic>Neurospora</italic>
+                    VS RNA.<source>Proc. Natl Acad. Sci. USA</source>,<volume>92</volume>,<fpage>4686</fpage>&#x02013;
+                    <lpage>4690</lpage>.
+                    <pub-id pub-id-type="pmid">7753865</pub-id>
+                </citation>
+            </ref>
+            <ref id="gke666c8">
+                <label>8.</label>
+                <citation citation-type="journal">
+                    <name>
+                        <surname>Beattie</surname>
+                        <given-names>T.L.</given-names>
+                    </name>
+                    and Collins,R.A. (1997) Identification of functional domains in the self-cleaving
+                    <italic>Neurospora</italic>
+                    VS ribozyme using damage selection.<source>J. Mol. Biol.</source>,<volume>267</volume>,<fpage>
+                    830</fpage>&#x02013;<lpage>840</lpage>.
+                    <pub-id pub-id-type="pmid">9135115</pub-id>
+                </citation>
+            </ref>
+            <ref id="gke666c9">
+                <label>9.</label>
+                <citation citation-type="journal">
+                    <name>
+                        <surname>Guo</surname>
+                        <given-names>H.C.T.</given-names>
+                    </name>
+                    and Collins,R.A. (1995) Efficient trans-cleavage of a stem&#x02013;loop RNA substrate by a ribozyme
+                    derived from
+                    <italic>Neurospora</italic>
+                    VS RNA.<source>EMBO J.</source>,<volume>14</volume>,<fpage>368</fpage>&#x02013;<lpage>376</lpage>.
+                    <pub-id pub-id-type="pmid">7835347</pub-id>
+                </citation>
+            </ref>
+            <ref id="gke666c10">
+                <label>10.</label>
+                <citation citation-type="other">
+                    <name>
+                        <surname>Zuker</surname>
+                        <given-names>M.</given-names>
+                    </name>
+                    , Mathews,D.H. and Turner,D.H. (1999) Algorithms and thermodynamics for RNA secondary structure
+                    prediction: a practical guide. In Barciszewski,J. and Clark,B.F.C. (eds),<italic>RNA Biochemistry
+                    and Biotechnology</italic>. Kluwer Academic Publishers, The Netherlands, pp.<fpage>11</fpage>
+                    &#x02013;<lpage>43</lpage>.
+                </citation>
+            </ref>
+            <ref id="gke666c11">
+                <label>11.</label>
+                <citation citation-type="journal">
+                    <name>
+                        <surname>Bartel</surname>
+                        <given-names>D.P.</given-names>
+                    </name>
+                    and Szostak,J.W. (1993) Isolation of new ribozymes from a large pool of random sequences.<source>
+                    Science</source>,<volume>261</volume>,<fpage>1411</fpage>&#x02013;<lpage>1417</lpage>.
+                    <pub-id pub-id-type="pmid">7690155</pub-id>
+                </citation>
+            </ref>
+            <ref id="gke666c12">
+                <label>12.</label>
+                <citation citation-type="journal">
+                    <name>
+                        <surname>Berzal-Herranz</surname>
+                        <given-names>A.</given-names>
+                    </name>
+                    , Joseph,S., Chowrira,B.M., Butcher,S.E. and Burke,J.M. (1993) Essential nucleotide sequences and
+                    secondary structure elements of the hairpin ribozyme.<source>EMBO J.</source>,<volume>2</volume>,
+                    <fpage>2567</fpage>&#x02013;<lpage>2574</lpage>.
+                </citation>
+            </ref>
+            <ref id="gke666c13">
+                <label>13.</label>
+                <citation citation-type="journal">
+                    <name>
+                        <surname>Andersen</surname>
+                        <given-names>A.A.</given-names>
+                    </name>
+                    and Collins,R.A. (2000) Rearrangement of a stable RNA secondary structure during VS ribozyme
+                    catalysis.<source>Mol. Cell</source>,<volume>5</volume>,<fpage>469</fpage>&#x02013;<lpage>
+                    478</lpage>.
+                    <pub-id pub-id-type="pmid">10882132</pub-id>
+                </citation>
+            </ref>
+        </ref-list>
+    </back>
+</article>
 
 

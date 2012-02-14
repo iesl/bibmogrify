@@ -1,8 +1,10 @@
+import AssemblyKeys._ // put this at the top of the file
+
 name := "bibmogrify"
 
 organization := "edu.umass.cs.iesl"
 
-version := "0.1"
+version := "0.1-SNAPSHOT"
 
 scalaVersion := "2.9.1"
 
@@ -12,19 +14,16 @@ libraryDependencies +=  "net.liftweb" %% "lift-json" % "2.4-M5"
 
 libraryDependencies += "org.scalatest" %% "scalatest" % "1.6.1" % "test"
 
-libraryDependencies += "com.weiglewilczek.slf4s" %% "slf4s" % "1.0.7"
+libraryDependencies += "org.scala-tools.subcut" %% "subcut" % "1.0"
 
-libraryDependencies += "ch.qos.logback" % "logback-classic" % "0.9.24"
+addCompilerPlugin("org.scala-tools.subcut" %% "subcut" % "1.0")
 
-libraryDependencies += "ch.qos.logback" % "logback-core" % "0.9.24"
 
 resolvers += "IESL Repo" at "http://iesl.cs.umass.edu:8081/nexus/content/repositories/releases"
 
 resolvers += "IESL Snapshot Repo" at "http://iesl.cs.umass.edu:8081/nexus/content/repositories/snapshots"
 
-libraryDependencies +=  "edu.umass.cs.iesl" %% "scalacommons" % "0.1-SNAPSHOT"  changing()
-
-seq(com.github.retronym.SbtOneJar.oneJarSettings: _*)
+seq(assemblySettings: _*)
 
 publishTo <<= (version)
                                             {version: String =>

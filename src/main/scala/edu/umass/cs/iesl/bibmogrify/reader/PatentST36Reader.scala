@@ -3,16 +3,21 @@ package edu.umass.cs.iesl.bibmogrify.reader
 import edu.umass.cs.iesl.scalacommons.StringUtils._
 import edu.umass.cs.iesl.scalacommons.DateUtils._
 import edu.umass.cs.iesl.bibmogrify.model._
+import edu.umass.cs.iesl.bibmogrify.model.CitationUtils._
 import com.weiglewilczek.slf4s.Logging
 import xml.Node
-import edu.umass.cs.iesl.bibmogrify.{BibMogrifyException, CitationStreamReader}
-import java.io.InputStream
+import java.net.URL
 import edu.umass.cs.iesl.scalacommons.XMLIgnoreDTD
+import edu.umass.cs.iesl.bibmogrify.pipeline.Transformer
+import edu.umass.cs.iesl.bibmogrify.{NamedPlugin, BibMogrifyException}
 
-object PatentST36Reader extends CitationStreamReader with Logging
+object PatentST36Reader extends Transformer[URL, StructuredCitation] with Logging with NamedPlugin
   {
 
-  def parse(doc: Node): CitationMention =
+
+  val name = "st36"
+
+  def parse(doc: Node): StructuredCitation =
     {
 
     val date: Some[BasicPartialDate] =
@@ -28,10 +33,10 @@ object PatentST36Reader extends CitationStreamReader with Logging
       }
 
 
-    val c = new CitationMention()
+    val c = new StructuredCitation()
       {
-      val doctype = Patent
-      override val title: String = (doc \ "bibliographic-data" \ "invention-title").text.trim
+      override val doctype : Option[DocType]= Patent
+      override val title: Option[String] = (doc \ "bibliographic-data" \ "invention-title").text.trim
       override val dates = Seq(BasicCitationEvent(date, Published))
 
       override val abstractText: Option[String] = (doc \ "abstract").text.trim
@@ -39,7 +44,7 @@ object PatentST36Reader extends CitationStreamReader with Logging
     c
     }
 
-  def parseDroppingErrors(doc: Node): Option[CitationMention] =
+  def parseDroppingErrors(doc: Node): Option[StructuredCitation] =
     {
     try
     {
@@ -53,13 +58,31 @@ object PatentST36Reader extends CitationStreamReader with Logging
     }
     }
 
-  def apply(s: InputStream): TraversableOnce[CitationMention] =
-    {
-    //val xmlloader = new XMLFilenameOnlyMappingDTDLoader(Map("wo-patent-document-v1-3.dtd" -> new InputSource(getClass.getResource("/wo-patent-document-v1-3.dtd").getPath)))
-    val xmlloader = XMLIgnoreDTD
+  /*  def apply(s: InputStream): TraversableOnce[CitationMention] =
+      {
+      //val xmlloader = new XMLFilenameOnlyMappingDTDLoader(Map("wo-patent-document-v1-3.dtd" -> new InputSource(getClass.getResource("/wo-patent-document-v1-3.dtd").getPath)))
+      val xmlloader = XMLIgnoreDTD
 
-    // always one per file
-    parseDroppingErrors(xmlloader.load(s))
-    //XmlUtils.firstLevelNodes(s).flatMap(node => (node \\ "wopatent-document").flatMap(parseDroppingErrors(_)))
+      // always one per file
+      parseDroppingErrors(xmlloader.load(s))
+      //XmlUtils.firstLevelNodes(s).flatMap(node => (node \\ "wopatent-document").flatMap(parseDroppingErrors(_)))
+      }*/
+  def apply(url: URL): TraversableOnce[StructuredCitation] =
+    {
+    //val xml = scala.xml.XML.load(f)
+    // val xml = XMLIgnoreDTD.load(f)  // can't, because we need the entity declarations
+    //XMLMapDTD.setGlobalXMLCatalogDir(getClass.getResource("/dblp.dtd").getPath)
+    //val xmlloader = new XMLFilenameOnlyMappingDTDLoader(Map("dblp.dtd" -> new InputSource(getClass.getResource("/dblp.dtd").getPath)))
+    // val xml = xmlloader.load(f)
+    //XmlUtils.firstLevelNodes(s).flatMap(node => (node \\ "REC").flatMap(parseDroppingErrors(_)))
+    val s = url.openStream()
+    try
+    {
+    XMLIgnoreDTD.load(s).flatMap(parseDroppingErrors(_))
+    }
+    finally
+      {
+      s.close()
+      }
     }
   }

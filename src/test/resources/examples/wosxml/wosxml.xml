@@ -11,6 +11,13 @@
   <records>
     <REC inst_id="1" recid="157959855" hot="yes" sortkey="3101145488"
          timescited="0" sharedrefs="0" inpi="false">
+
+      <issue>
+        <subjects count="1">
+          <subject code="CU" edition="SCI">BIOLOGY</subject>
+        </subjects>
+      </issue>
+
       <item issue="157959718" recid="157959855" coverdate="200707"
             sortkey="3101145488" refkey="1482335" dbyear="2007" dbweek="41">
         <ut>000247812800035</ut>

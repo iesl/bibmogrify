@@ -5,20 +5,19 @@ import edu.umass.cs.iesl.bibmogrify.model.Published
 import com.weiglewilczek.slf4s.Logging
 
 
-class PatentST36ReaderTestSuite extends FunSuite with BeforeAndAfter with Logging
+class WosXmlReaderTestSuite extends FunSuite with BeforeAndAfter with Logging
   {
-  val file = getClass.getResource("/examples/patentST36/patentST36.xml")
+  val file = getClass.getResource("/examples/wosxml/wosxml.xml")
 
-  val citationList = PatentST36Reader(file)
+  val citationList = WosXMLReader(file)
   val c = citationList.toIterator.next()
 
   // todo: detailed tests of all fields
 
   test("Title is parsed")
   {
-  assert(c.title === Some("GOLF TEE DEVICE"))
+  assert(c.title === Some("Universal non-equilibrium phenomena at submicrometric surfaces and interfaces"))
   }
-
   test("Abstract is parsed")
   {
   assert(c.abstractText.get.size > 50)
@@ -33,18 +32,18 @@ class PatentST36ReaderTestSuite extends FunSuite with BeforeAndAfter with Loggin
   assert(c.authors.head.person.name === Some("E. F. Codd"))
   }
 */
-  /*  test("Journal is parsed")
+  test("Journal is parsed")
   {
   val cont = c.containedIn.get
-  assert(cont.container.title === "Patent: WO")
+  assert(cont.container.title === Some("EUROPEAN PHYSICAL JOURNAL-SPECIAL TOPICS"))
   //assert(cont.volume === Some("146"))
-  }*/
+  }
 
   test("Partial date is parsed")
   {
   val ce = c.dates.head
   assert(ce.eventType === Published)
-  assert(ce.date.get.year === Some(2004))
+  assert(ce.date.get.year === Some(2007))
   }
 
   test("Every record has a title")
@@ -53,6 +52,18 @@ class PatentST36ReaderTestSuite extends FunSuite with BeforeAndAfter with Loggin
     {
     assert(!c.title.isEmpty)
     logger.info("Title : " + c.title)
+    }
+  }
+
+  test("References are parsed")
+  {
+    for (c <- citationList)
+    {
+      assert(!c.references.isEmpty)
+      for(r <- c.references) {
+        assert(!r.authors.isEmpty)
+      logger.info("Reference first author : " +  r.authors.head.person.name)
+      }
     }
   }
   }
