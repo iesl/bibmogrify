@@ -11,6 +11,8 @@ import collection.TraversableOnce
 import edu.umass.cs.iesl.bibmogrify.pipeline.Transformer
 import edu.umass.cs.iesl.bibmogrify.NamedPlugin
 
+//** use sjson
+
 object BibJSONWriter extends Transformer[StructuredCitation, String] with NamedPlugin {
 
 

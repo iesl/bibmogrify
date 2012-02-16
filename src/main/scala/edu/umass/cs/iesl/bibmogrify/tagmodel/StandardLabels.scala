@@ -1,6 +1,10 @@
 package edu.umass.cs.iesl.bibmogrify.tagmodel
 
 import org.apache.commons.lang.NotImplementedException
+import edu.umass.cs.iesl.bibmogrify.pipeline.Transformer
+import java.net.URL
+import edu.umass.cs.iesl.bibmogrify.model.StructuredCitation
+import edu.umass.cs.iesl.bibmogrify.NamedPlugin
 
 /**
  * @author <a href="mailto:dev@davidsoergel.com">David Soergel</a>
@@ -8,24 +12,23 @@ import org.apache.commons.lang.NotImplementedException
  */
 
 object StandardLabels extends LabelSet {
-  val validLabels = Set(
+  val validLabels = Seq(
     "author",
+    "date",
+    "title",
+    "volume",
+    "pages",
     "booktitle",
-    "date",
-    "author",
-    "date",
     "editor",
     "institution",
+    "conference",
     "journal",
     "location",
     "note",
-    "pages",
     "publisher",
-    "tech",
-    "title",
-    "volume");
+    "tech");
 
-  def toCitationMention(c: TaggedCitation) = {
+  def toStructuredCitation(c: TaggedCitation) = {
     throw new NotImplementedException()
     /*   new CitationMention {
       override val title = c.get("title")
@@ -36,18 +39,22 @@ object StandardLabels extends LabelSet {
   }
 }
 
-object StandardLabelXMLReader extends TaggedCitationXMLReader(StandardLabels)
-object ExtendedLabelXMLReader extends TaggedCitationXMLReader(ExtendedLabels)
+// with Transformer[URL, TaggedCitation] needs to be explicit for the sake of the plugin discovery
+object StandardLabelXMLReader extends TaggedCitationXMLReader(StandardLabels) with Transformer[URL, TaggedCitation] with NamedPlugin {
+  val name = "standardLabels"
+}
+object ExtendedLabelXMLReader extends TaggedCitationXMLReader(ExtendedLabels) with Transformer[URL, TaggedCitation] with NamedPlugin {
+  val name = "extendedLabels"
+}
 
 object ExtendedLabels extends LabelSet {
-  val validLabels = StandardLabels.validLabels ++ Set(
+  val validLabels = StandardLabels.validLabels ++ Seq(
     "abstract",
     "address",
     "biblio-hlabeled",
     "biblioEpilogue",
     "biblioPrologue",
     "body",
-    "conference",
     "email",
     "headers-hlabeled",
     "keyword",
@@ -61,7 +68,7 @@ object ExtendedLabels extends LabelSet {
     "web"
   )
 
-  def toCitationMention(c: TaggedCitation) = {
+  def toStructuredCitation(c: TaggedCitation) = {
     throw new NotImplementedException()
     /*   new CitationMention {
       override val title = c.get("title")

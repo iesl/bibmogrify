@@ -18,7 +18,7 @@ trait Sink[T] {
 
 object Pump extends Logging {
   def apply[T](source: TraversableOnce[T], sink: Sink[T])  {
-    val x = source.toSeq  // no clue why toSeq is needed here, but otherwise the map below doesn't work
+    val x = source.toList  // no clue why toSeq is needed here, but otherwise the map below doesn't work
     x.map(sink.put(_))
   }
 }

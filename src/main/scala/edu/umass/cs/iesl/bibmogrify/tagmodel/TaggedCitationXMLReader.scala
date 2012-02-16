@@ -6,18 +6,21 @@ import xml.Node
 import edu.umass.cs.iesl.bibmogrify.BibMogrifyException
 import com.weiglewilczek.slf4s.Logging
 import collection.immutable.Seq
+import edu.umass.cs.iesl.bibmogrify.pipeline.Transformer
+import collection.TraversableOnce
 
 /**
  * @author <a href="mailto:dev@davidsoergel.com">David Soergel</a>
  * @version $Id$
  */
 
-class TaggedCitationXMLReader(labels: LabelSet) extends Logging {
+class TaggedCitationXMLReader(labels: LabelSet) extends Transformer[URL, TaggedCitation] with Logging {
 
   def apply(url: URL): TraversableOnce[TaggedCitation] = {
     val s = url.openStream()
     try {
-      XmlUtils.firstLevelNodes(s).flatMap(parseDroppingErrors(_))
+      val allNodes: TraversableOnce[Node] = XmlUtils.firstLevelNodes(s).toList
+      allNodes.flatMap(parseDroppingErrors(_))
     }
     finally {
       s.close()
@@ -38,7 +41,7 @@ class TaggedCitationXMLReader(labels: LabelSet) extends Logging {
   def parse(node: Node): TaggedCitation = {
     // just pull the desired tagged ranges from the tree at whatever hierarchy level they may be
 
-    val taggedTokens: Seq[(String, String)] = node.descendant.map(f => (f.text, f.label))
+    val taggedTokens: Seq[(String, String)] = node.descendant.map(f => (f.text.replaceAll("\\s|\""," ").trim, f.label))
     val validTaggedTokens = taggedTokens.filter(a => {
       val result = labels.validLabels.contains(a._2)
       if (!result) {
