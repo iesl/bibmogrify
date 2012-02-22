@@ -18,6 +18,7 @@ libraryDependencies += "org.scala-tools.subcut" %% "subcut" % "1.0"
 
 addCompilerPlugin("org.scala-tools.subcut" %% "subcut" % "1.0")
 
+resolvers += "David Soergel Repo" at "http://dev.davidsoergel.com/artifactory/repo"
 
 resolvers += "IESL Repo" at "http://iesl.cs.umass.edu:8081/nexus/content/repositories/releases"
 
