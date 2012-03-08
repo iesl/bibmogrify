@@ -1,9 +1,9 @@
 package edu.umass.cs.iesl.bibmogrify.writer
 
-import edu.umass.cs.iesl.bibmogrify.model.StructuredCitation
 import edu.umass.cs.iesl.bibmogrify.model.RichCitationMention._
 import edu.umass.cs.iesl.bibmogrify.pipeline.Transformer
 import edu.umass.cs.iesl.bibmogrify.NamedPlugin
+import edu.umass.cs.iesl.bibmogrify.model.{ContainmentInfo, StructuredCitation}
 
 object OneLineWriter extends Transformer[StructuredCitation, String] with NamedPlugin {
   val name = "oneline"
@@ -33,3 +33,13 @@ object MalletFullWriter extends Transformer[StructuredCitation, String] with Nam
   }
 }
 
+object CorefWriter extends Transformer[StructuredCitation, String] with NamedPlugin {
+  val name = "corefoneline"
+
+  def apply(cm: StructuredCitation) = {
+    val venue: String = cm.rootContainedInNotSelf.flatMap(_.title).getOrElse("")
+    Some(cm.primaryId + "\t" + cm.year.getOrElse("") + "\t" + cm.authorFullNamesWithId.mkString(", ") + "\t" + cm.title.getOrElse("") + "\t" + venue +
+      "\n")
+
+  }
+}

@@ -1,13 +1,21 @@
 package edu.umass.cs.iesl.bibmogrify.model
 
 import actors.threadpool.AtomicInteger
+import com.cybozu.labs.langdetect.{LangDetectException, Detector, DetectorFactory}
+
 
 object RichCitationMention {
+  DetectorFactory.loadProfiles(Language.majorLanguages.map(_.name).toList: _*);
+
   implicit def enrichCitationMention(cm: StructuredCitation): RichCitationMention = new RichCitationMention(cm)
+
   val adhocIdIncrementor: AtomicInteger = new AtomicInteger(0)
 }
 
 class RichCitationMention(cm: StructuredCitation) {
+
+  import RichCitationMention.enrichCitationMention
+  import RichPerson.enrichPerson
 
   //val cleanAbstract = paperAbstract.toLowerCase.replaceAll("\\s", " ").replaceAll("[^\\w ]", " ").split(" +").mkString(" ")
   //val cleanBody = body.toLowerCase.replaceAll("\\s", " ").replaceAll("[^\\w ]", " ").split(" +").mkString(" ")
@@ -15,9 +23,10 @@ class RichCitationMention(cm: StructuredCitation) {
   lazy val cleanTitle = cm.title.map(_.replaceAll("\\s", " ").trim).getOrElse("")
   lazy val cleanAbstract = cm.abstractText.map(_.replaceAll("\\s", " ")).getOrElse("").trim
   lazy val cleanTitleAndAbstract = cleanTitle + " " + cleanAbstract
-  lazy val cleanIntro = cm.introText.map(_.replaceAll("\\s", " ")).getOrElse("").trim
-  lazy val cleanBody = cm.bodyText.map(_.replaceAll("\\s", " ")).getOrElse("").trim
-  lazy val cleanTotal = cleanTitleAndAbstract + " " + cleanIntro + " " + cleanBody
+  lazy val cleanSummary = cm.textOfType(Summary).map(_.replaceAll("\\s", " ")).mkString("").trim
+  //lazy val cleanIntro = cm.textOfType(IntroductionAndBackground).map(_.replaceAll("\\s", " ")).mkString("").trim
+  lazy val cleanBody = cm.bodyText.map(_.text.replaceAll("\\s", " ")).mkString("").trim
+  lazy val cleanTotal = cleanTitleAndAbstract + " " + cleanSummary + " " + cleanBody
 
   def totalTextSize = cleanTotal.size
 
@@ -33,16 +42,87 @@ class RichCitationMention(cm: StructuredCitation) {
 
   def year: Option[Int] = primaryDate.flatMap(_.year)
 
-  // todo parameterize/refactor authority short names
-  val authorityPriority: Map[String, Int] = Map("doi" -> 100, "pubmed" -> 10)
+  // todo parameterize/refactor authority short names; attach priorities directly to authorities; etc
+  val authorityPriority: Map[String, Int] = Map("wos-ut" -> 200, "wos-ut-ref" -> 190, "wos-cid" -> 180, "doi" -> 100, "pubmed" -> 10, "" -> 0)
 
-  def qualifiedIdsInOrder = cm.identifiers.sortBy(x => authorityPriority(x.authority.map(_.shortName).getOrElse(""))).map(_.qualifiedValue)
+  def qualifiedIdsInOrder = cm.identifiers.sortBy(x => {
+    val sortOrder: Option[Int] = authorityPriority.get(x.authority.map(_.shortName).getOrElse(""))
+    -sortOrder.getOrElse(0)
+  }).map(_.qualifiedValue)
 
 
   def primaryId = qualifiedIdsInOrder.headOption.getOrElse("adhoc:" + RichCitationMention.adhocIdIncrementor.getAndIncrement)
 
   def authorFullNames: Seq[String] = cm.authors.flatMap(_.person.name)
 
+  def authorFullNamesWithId: Seq[String] = cm.authors.map(air => {
+    val p: Person = air.person
+    val id = p.primaryId
+
+    val r: String = p.name.getOrElse("") + id.map(" [" + _ + "]").getOrElse("")
+    r
+  })
+
+
+  def detectAbstractLanguage: Option[String] = {
+    try {
+      cm.abstractText map (a => {
+        val detector: Detector = DetectorFactory.create();
+        detector.append(a);
+        detector.detect()
+      })
+    } catch {
+      case e: LangDetectException => None
+    }
+  }
+
+
+  def listAbstractLanguages: String = {
+    cm.abstractLanguages.map({
+      case None => "None"
+      case Some(x) => x.toString
+    }).sorted.mkString(",")
+  }
+
+  def keywordsCountByAuthority: String = {
+    val counts = cm.keywords.groupBy(k => k.authority).map(x => (x._1.get.name, x._2.length))
+    counts.map(x => x._1 + ":" + x._2).mkString(",")
+  }
+
+  def rootContainedIn: StructuredCitation = {
+    cm.containedIn.map(_.container.rootContainedIn).getOrElse(cm)
+  }
+
+  def rootContainedInNotSelf: Option[StructuredCitation] = {
+    cm.containedIn.map(x => Some(x.container.rootContainedIn)).getOrElse(None)
+  }
+
+  /*
+    public void init(String profileDirectory) throws LangDetectException {
+      DetectorFactory.loadProfile(profileDirectory);
+    }
+  */
   // + "\t" + referenceIds.mkString(", ")
+
+}
+
+object RichPerson {
+
+  implicit def enrichPerson(p: Person): RichPerson = new RichPerson(p)
+
+  val adhocIdIncrementor: AtomicInteger = new AtomicInteger(0)
+}
+
+class RichPerson(p: Person) {
+  val authorityPriority: Map[String, Int] = Map("wos-author" -> 200, "" -> 0)
+
+  def qualifiedIdsInOrder = p.identifiers.sortBy(x => {
+    val sortOrder: Option[Int] = authorityPriority.get(x.authority.map(_.shortName).getOrElse(""))
+    -sortOrder.getOrElse(0)
+  }).map(_.qualifiedValue)
+
+
+  def primaryId = qualifiedIdsInOrder.headOption
+    //.getOrElse("adhoc:" + RichPerson.adhocIdIncrementor.getAndIncrement)
 
 }

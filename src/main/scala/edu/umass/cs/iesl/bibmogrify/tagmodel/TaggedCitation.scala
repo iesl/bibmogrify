@@ -15,8 +15,10 @@ import edu.umass.cs.iesl.bibmogrify.NamedPlugin
  * so the parser should ignore the authors container.
  *
  * taggedTokens is (text, label)
+ *
+ * Note there should be an "untagged" label, so that the entire citation is represented by the union of the text, tag pairs.
  */
-case class TaggedCitation(taggedTokens: Seq[(String, String)], labelset: LabelSet) {
+case class TaggedCitation(taggedTokens: Seq[(String, String)], references:Seq[TaggedCitation], labelset: LabelSet) {
   lazy val asMap = taggedTokens.groupBy(_._2).map {
     case (k, v) => (k, v.map(_._1))
   }
@@ -31,7 +33,11 @@ case class TaggedCitation(taggedTokens: Seq[(String, String)], labelset: LabelSe
 //trait Label extends String
 
 trait LabelSet {
+  val topLevelRecordLabels: Seq[String]
+
   val validLabels: Seq[String]
+  val headerSectionLabels: Seq[String]
+  val referenceSectionLabels: Seq[String]
   // each label set is mapped differently into a CitationMention
   def toStructuredCitation(c: TaggedCitation): StructuredCitation
 

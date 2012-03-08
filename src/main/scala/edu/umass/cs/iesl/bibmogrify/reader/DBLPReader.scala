@@ -36,7 +36,7 @@ object DBLPReader extends Transformer[URL, StructuredCitation] with Logging with
 
 
     val key = (doc \ "@key").text
-    val id = new BasicIdentifier(key, DBLPAuthority)
+    val id = new BasicIdentifier(key, DblpAuthority)
 
 
     // these "X" variables may be empty Strings; they are implicitly converted to Option[String]
@@ -86,7 +86,7 @@ object DBLPReader extends Transformer[URL, StructuredCitation] with Logging with
       }, Nil))
       override val otherContributors = editorsX map (x => new OtherContributorInRole(new Person {
         override val name = Some(x)
-      }, Seq(Editor)))
+      }, List(Editor)))
       override val dates = Seq(BasicCitationEvent(date, Published))
 
       override val abstractText: Option[String] = (doc \ "abstract").text

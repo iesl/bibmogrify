@@ -1,17 +1,17 @@
 package edu.umass.cs.iesl.bibmogrify.tagmodel
 
-import org.apache.commons.lang.NotImplementedException
 import edu.umass.cs.iesl.bibmogrify.pipeline.Transformer
 import java.net.URL
-import edu.umass.cs.iesl.bibmogrify.model.StructuredCitation
 import edu.umass.cs.iesl.bibmogrify.NamedPlugin
+import edu.umass.cs.iesl.bibmogrify.model._
+import com.weiglewilczek.slf4s.Logging
 
 /**
  * @author <a href="mailto:dev@davidsoergel.com">David Soergel</a>
  * @version $Id$
  */
 
-object StandardLabels extends LabelSet {
+object StandardLabels extends LabelSet with Logging {
   val validLabels = Seq(
     "author",
     "date",
@@ -28,14 +28,55 @@ object StandardLabels extends LabelSet {
     "publisher",
     "tech");
 
-  def toStructuredCitation(c: TaggedCitation) = {
-    throw new NotImplementedException()
-    /*   new CitationMention {
-      override val title = c.get("title")
-      override val authors = c.get("authors")
-      override val dates = c.get("date")
+  val headerSectionLabels = Seq()
+  val referenceSectionLabels = Seq()
+  val topLevelRecordLabels = Seq("REC","doc","NEWREFERENCE")
 
-    }*/
+  val yearRE = """.*((19|20)\d\d).*""".r
+
+  def toStructuredCitation(c: TaggedCitation) = {
+    //throw new NotImplementedException()
+    new StructuredCitation {
+      override val title = c.get("title").headOption
+      override val authors = c.get("author").map(n => new AuthorInRole(new Person {
+        override val name = Some(n)
+      }, Nil))
+
+      val year: Option[Int] = {
+        val od: Option[String] = c.get("date").headOption
+        od.flatMap(d => {
+          try {
+            val yearRE(y, ignore) = d
+            Some(y.toInt)
+          }
+          catch {
+            case e: MatchError => {
+              logger.error("bad date:" + d)
+              None
+            }
+          }
+        })
+
+      }
+
+      override val abstractText = c.get("abstract").headOption
+
+      override val dates = Seq(new BasicCitationEvent(Some(new BasicPartialDate(year, None, None)), Published))
+
+      val venueMention = new StructuredCitation {
+        // drop superscripts, subscripts, italics, and typewriter styles
+        override val title: Option[String] = c.get("journal").headOption match {
+          case None => c.get("conference").headOption
+          case x => x
+        }
+
+        // todo interpret pubtype field in associated issue
+        //val doctype = Journal
+      }
+      override val containedIn = Some(BasicContainmentInfo(venueMention, None, None, None, None))
+
+      override val references = c.references.map(_.toStructuredCitation)
+    }
   }
 }
 
@@ -43,20 +84,23 @@ object StandardLabels extends LabelSet {
 object StandardLabelXMLReader extends TaggedCitationXMLReader(StandardLabels) with Transformer[URL, TaggedCitation] with NamedPlugin {
   val name = "standardLabels"
 }
+
 object ExtendedLabelXMLReader extends TaggedCitationXMLReader(ExtendedLabels) with Transformer[URL, TaggedCitation] with NamedPlugin {
   val name = "extendedLabels"
 }
 
-object ExtendedLabels extends LabelSet {
+// todo abstract away cut-and-paste
+
+object ExtendedLabels extends LabelSet with Logging {
   val validLabels = StandardLabels.validLabels ++ Seq(
     "abstract",
     "address",
-    "biblio-hlabeled",
+    //"biblio-hlabeled",
     "biblioEpilogue",
     "biblioPrologue",
     "body",
     "email",
-    "headers-hlabeled",
+    //"headers-hlabeled",
     "keyword",
     "number",
     "phone",
@@ -68,14 +112,78 @@ object ExtendedLabels extends LabelSet {
     "web"
   )
 
-  def toStructuredCitation(c: TaggedCitation) = {
-    throw new NotImplementedException()
-    /*   new CitationMention {
-      override val title = c.get("title")
-      override val authors = c.get("authors")
-      override val dates = c.get("date")
+  val headerSectionLabels = Seq("headers-hlabeled")
+  val referenceSectionLabels = Seq("biblio-hlabeled")
 
-    }*/
+  val topLevelRecordLabels = Seq("REC","doc","NEWREFERENCE")
+
+  val yearRE = """.*((19|20)\d\d).*""".r
+
+  def toStructuredCitation(c: TaggedCitation) = {
+    //throw new NotImplementedException()
+    new StructuredCitation {
+      override val title = c.get("title").headOption
+      override val authors = {
+        val individualAuthors = c.get("author").map(n => new AuthorInRole(new Person {
+          override val name = Some(n)
+        }, Nil))
+        val result = if (!individualAuthors.isEmpty) individualAuthors
+        else {
+          val combinedAuthorsTag: Option[String] = c.get("authors").headOption
+          val q : Seq[AuthorInRole] = combinedAuthorsTag match {
+            case None => Nil
+            case Some(x) => x.split(",").map(n => new AuthorInRole(new Person {
+              override val name = Some(n)
+            }, Nil))
+          }
+          q
+        }
+        result
+      }
+
+      val year: Option[Int] = {
+        val od: Option[String] = c.get("date").headOption
+        od.flatMap(d => {
+          try {
+            val yearRE(y, ignore) = d
+            Some(y.toInt)
+          }
+          catch {
+            case e: MatchError => {
+              logger.error("bad date:" + d)
+              None
+            }
+          }
+        })
+
+      }
+
+      override val abstractText = c.get("abstract").headOption
+
+      override val dates = Seq(new BasicCitationEvent(Some(new BasicPartialDate(year, None, None)), Published))
+
+      val venueMention = new StructuredCitation {
+        // drop superscripts, subscripts, italics, and typewriter styles
+        override val title: Option[String] = c.get("journal").headOption match {
+          case None => {
+            c.get("conference").headOption match {
+              case None => {
+                if (!c.get("tech").isEmpty) c.get("institution").headOption else None
+              }
+              case y => y
+            }
+          }
+          case x => x
+        }
+
+        // todo interpret pubtype field in associated issue
+        //val doctype = Journal
+      }
+      override val containedIn = Some(BasicContainmentInfo(venueMention, None, None, None, None))
+
+      override val references = c.references.map(_.toStructuredCitation)
+    }
+
   }
 }
 

@@ -26,3 +26,13 @@ object AnyToString extends Transformer[Any,  String] with NamedPlugin {
 
   def apply(v1: Any) = Some(v1.toString + "\n")
 }
+
+object LineReader extends Transformer[URL, String] with NamedPlugin {
+  def apply(u: URL) : TraversableOnce[String] = io.Source.fromURL(u).getLines().toStream.view
+
+  val name = "byLine"
+}
+
+object Identity extends Transformer[TraversableOnce[String],String] {
+  def apply(u: TraversableOnce[String]) : TraversableOnce[String] = u
+}

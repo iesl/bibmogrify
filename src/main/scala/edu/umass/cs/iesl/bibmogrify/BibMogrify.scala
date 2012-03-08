@@ -47,7 +47,11 @@ class BibMogrify extends Logging {
 
     val sink = ConsoleSink // don't bother parsing the command line for now
 
-    Pump(inputStrings.flatMap(pipeline), sink.asInstanceOf[Sink[Any]])
+    sink.putMetadata(pipeline.metadata)
+
+    //Pump(pipeline(inputStrings), sink.asInstanceOf[Sink[Any]])
+    val p2 = new CompositeTransformer(Identity, pipeline)
+    Pump(p2(inputStrings), sink.asInstanceOf[Sink[Any]])
     sink.close();
   }
 }

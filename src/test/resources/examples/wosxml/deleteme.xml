@@ -1,3 +1,4 @@
+<db>
 <REC>
   <issue recid="185770801" coverdate="200808" sortkey="3053357637" dbyear="2010" dbweek="02">
     <ui>0002644268</ui>
@@ -219,3 +220,288 @@
     </refs>
   </item>
 </REC>
+
+    <REC inst_id="1" recid="157959855" hot="yes" sortkey="3101145488"
+         timescited="0" sharedrefs="0" inpi="false">
+
+        <issue>
+            <subjects count="1">
+                <subject code="CU" edition="SCI">BIOLOGY</subject>
+            </subjects>
+        </issue>
+
+        <item issue="157959718" recid="157959855" coverdate="200707"
+              sortkey="3101145488" refkey="1482335" dbyear="2007" dbweek="41">
+            <ut>000247812800035</ut>
+            <i_ckey>CUER0427070146ER</i_ckey>
+            <i_cid>0116230126</i_cid>
+            <source_title>EUROPEAN PHYSICAL JOURNAL-SPECIAL TOPICS</source_title>
+            <source_abbrev>EUR PHYS J-SPEC TOP</source_abbrev>
+            <item_title>Universal non-equilibrium phenomena at submicrometric surfaces and interfaces</item_title>
+            <sq>C6983J0</sq>
+            <bib_id>146: 427-441 JUL 2007</bib_id>
+            <article_nos count="1">
+                <article_no>DOI 10.1140/epjst/e2007-00197-4</article_no>
+            </article_nos>
+            <bib_pages begin="427" end="441" pages="15">427-441</bib_pages>
+            <bib_issue year="2007" vol="146"/>
+            <doctype code="@">Article</doctype>
+            <editions full="SCI"/>
+            <languages count="1">
+                <primarylang code="EN">English</primarylang>
+            </languages>
+            <authors count="5">
+                <primaryauthor>Cuerno, R</primaryauthor>
+                <fullauthorname>
+                    <AuRole>Author, Reprint Author</AuRole>
+                    <AuLastName>Cuerno</AuLastName>
+                    <AuFirstName>R.</AuFirstName>
+                    <AuCollectiveName>Cuerno, R.</AuCollectiveName>
+                </fullauthorname>
+                <author key="1116072">Castro, M</author>
+                <fullauthorname>
+                    <AuRole>Author</AuRole>
+                    <AuLastName>Castro</AuLastName>
+                    <AuFirstName>M.</AuFirstName>
+                    <AuCollectiveName>Castro, M.</AuCollectiveName>
+                </fullauthorname>
+                <author key="4940393">Munoz-Garcia, J</author>
+                <fullauthorname>
+                    <AuRole>Author</AuRole>
+                    <AuLastName>Munoz-Garcia</AuLastName>
+                    <AuFirstName>J.</AuFirstName>
+                    <AuCollectiveName>Munoz-Garcia, J.</AuCollectiveName>
+                </fullauthorname>
+                <author key="2325145">Gago, R</author>
+                <fullauthorname>
+                    <AuRole>Author</AuRole>
+                    <AuLastName>Gago</AuLastName>
+                    <AuFirstName>R.</AuFirstName>
+                    <AuCollectiveName>Gago, R.</AuCollectiveName>
+                </fullauthorname>
+                <author key="7231501">Vazquez, L</author>
+                <fullauthorname>
+                    <AuRole>Author</AuRole>
+                    <AuLastName>Vazquez</AuLastName>
+                    <AuFirstName>L.</AuFirstName>
+                    <AuCollectiveName>Vazquez, L.</AuCollectiveName>
+                </fullauthorname>
+            </authors>
+            <keywords_plus count="10">
+                <keyword>CHEMICAL-VAPOR-DEPOSITION</keyword>
+                <keyword>THIN-FILM GROWTH</keyword>
+                <keyword>ION-SPUTTERED SURFACES</keyword>
+                <keyword>AEOLIAN SAND RIPPLES</keyword>
+                <keyword>VICINAL SURFACES</keyword>
+                <keyword>MORPHOLOGICAL INSTABILITIES</keyword>
+                <keyword>NONLINEAR EVOLUTION</keyword>
+                <keyword>DYNAMICS</keyword>
+                <keyword>MODEL</keyword>
+                <keyword>EQUATION</keyword>
+            </keywords_plus>
+            <reprint>
+                <rp_author>Cuerno, R</rp_author>
+                <rp_address>Univ Carlos III Madrid, Dept Matemat, Leganes 28911,
+                    Spain
+                </rp_address>
+                <rp_organization>Univ Carlos III Madrid</rp_organization>
+                <rp_suborganizations count="1">
+                    <rp_suborganization>Dept Matemat</rp_suborganization>
+                </rp_suborganizations>
+                <rp_city>Leganes</rp_city>
+                <rp_country>Spain</rp_country>
+                <rp_zips count="1">
+                    <rp_zip location="AC">28911</rp_zip>
+                </rp_zips>
+            </reprint>
+            <research_addrs count="6">
+                <research>
+                    <rs_address>Univ Carlos III Madrid, Dept Matemat, Leganes 28911,
+                        Spain
+                    </rs_address>
+                    <rs_organization>Univ Carlos III Madrid</rs_organization>
+                    <rs_suborganizations count="1">
+                        <rs_suborganization>Dept Matemat</rs_suborganization>
+                    </rs_suborganizations>
+                    <rs_city>Leganes</rs_city>
+                    <rs_country>Spain</rs_country>
+                    <rs_zips count="1">
+                        <rs_zip location="AC">28911</rs_zip>
+                    </rs_zips>
+                </research>
+                <research>
+                    <rs_address>Univ Carlos III Madrid, GISC, Leganes 28911, Spain</rs_address>
+                    <rs_organization>Univ Carlos III Madrid</rs_organization>
+                    <rs_suborganizations count="1">
+                        <rs_suborganization>GISC</rs_suborganization>
+                    </rs_suborganizations>
+                    <rs_city>Leganes</rs_city>
+                    <rs_country>Spain</rs_country>
+                    <rs_zips count="1">
+                        <rs_zip location="AC">28911</rs_zip>
+                    </rs_zips>
+                </research>
+                <research>
+                    <rs_address>Unvi Pontificia Comillas, Escuela Tecn Super Ingenieria, Madrid
+                        28015, Spain
+                    </rs_address>
+                    <rs_organization>Unvi Pontificia Comillas</rs_organization>
+                    <rs_suborganizations count="1">
+                        <rs_suborganization>Escuela Tecn Super Ingenieria</rs_suborganization>
+                    </rs_suborganizations>
+                    <rs_city>Madrid</rs_city>
+                    <rs_country>Spain</rs_country>
+                    <rs_zips count="1">
+                        <rs_zip location="AC">28015</rs_zip>
+                    </rs_zips>
+                </research>
+                <research>
+                    <rs_address>Unvi Pontificia Comillas, GISC, Madrid 28015, Spain</rs_address>
+                    <rs_organization>Unvi Pontificia Comillas</rs_organization>
+                    <rs_suborganizations count="1">
+                        <rs_suborganization>GISC</rs_suborganization>
+                    </rs_suborganizations>
+                    <rs_city>Madrid</rs_city>
+                    <rs_country>Spain</rs_country>
+                    <rs_zips count="1">
+                        <rs_zip location="AC">28015</rs_zip>
+                    </rs_zips>
+                </research>
+                <research>
+                    <rs_address>Univ Autonoma Madrid, Ctr Micro Anal Mat, E-28049 Madrid,
+                        Spain
+                    </rs_address>
+                    <rs_organization>Univ Autonoma Madrid</rs_organization>
+                    <rs_suborganizations count="1">
+                        <rs_suborganization>Ctr Micro Anal Mat</rs_suborganization>
+                    </rs_suborganizations>
+                    <rs_city>Madrid</rs_city>
+                    <rs_country>Spain</rs_country>
+                    <rs_zips count="1">
+                        <rs_zip location="BC">E-28049</rs_zip>
+                    </rs_zips>
+                </research>
+                <research>
+                    <rs_address>CSIC, Inst Ciencia Mat, E-28049 Madrid, Spain</rs_address>
+                    <rs_organization>CSIC</rs_organization>
+                    <rs_suborganizations count="1">
+                        <rs_suborganization>Inst Ciencia Mat</rs_suborganization>
+                    </rs_suborganizations>
+                    <rs_city>Madrid</rs_city>
+                    <rs_country>Spain</rs_country>
+                    <rs_zips count="1">
+                        <rs_zip location="BC">E-28049</rs_zip>
+                    </rs_zips>
+                </research>
+            </research_addrs>
+            <abstract avail="Y" count="1">
+                <p>The recent widespread interest in processes occurring at micro and
+                    nanometric scales has increased the physical relevance of the surfaces and
+                    interfaces constituting system boundaries, both at and far from equilibrium.
+                    In the latter case, universal properties occur, such as scale invariance
+                    (surface kinetic roughening), surface pattern formation or domain
+                    coarsening. However, descriptions of these systems feature limited
+                    predictive power when based merely on universality principles. We review
+                    examples from Materials Science at nano and submicrometric scales, that
+                    underlie the importance of describing growing surfaces by means of
+                    (phenomenological) constitutive laws, in order to correctly describe the
+                    rich behaviors experimentally found across many different systems.
+                    Additionally, this approach provides new generic models that are also of
+                    interest in the wider contexts of Pattern Formation and Non-Linear
+                    Science.
+                </p>
+            </abstract>
+            <refs count="89">
+                <ref>148629326</ref>
+                <ref>125721540</ref>
+                <ref>145155923</ref>
+                <ref>68181038</ref>
+                <ref>71957469</ref>
+                <ref>89109533</ref>
+                <ref>66336735</ref>
+                <ref>90450674</ref>
+                <ref>131454756</ref>
+                <ref>115907348</ref>
+                <ref>157959856</ref>
+                <ref>143850959</ref>
+                <ref>157959857</ref>
+                <ref>142606416</ref>
+                <ref>94625184</ref>
+                <ref>118138215</ref>
+                <ref>158689958</ref>
+                <ref>91500052</ref>
+                <ref>148629327</ref>
+                <ref>127394965</ref>
+                <ref>131133520</ref>
+                <ref>137084549</ref>
+                <ref>147848065</ref>
+                <ref>127141117</ref>
+                <ref>134982443</ref>
+                <ref>150389938</ref>
+                <ref>111619292</ref>
+                <ref>121013994</ref>
+                <ref>150068534</ref>
+                <ref>133472626</ref>
+                <ref>117396637</ref>
+                <ref>119847794</ref>
+                <ref>153614905</ref>
+                <ref>111140497</ref>
+                <ref>118138088</ref>
+                <ref>118772083</ref>
+                <ref>94983617</ref>
+                <ref>88602043</ref>
+                <ref>98054976</ref>
+                <ref>32213345</ref>
+                <ref>117506087</ref>
+                <ref>134425946</ref>
+                <ref>85508180</ref>
+                <ref>157959858</ref>
+                <ref>125906796</ref>
+                <ref>144177251</ref>
+                <ref>102556836</ref>
+                <ref>124728878</ref>
+                <ref>127584254</ref>
+                <ref>134705051</ref>
+                <ref>121433234</ref>
+                <ref>149108751</ref>
+                <ref>153515492</ref>
+                <ref>92828185</ref>
+                <ref>112748415</ref>
+                <ref>157959860</ref>
+                <ref>114398202</ref>
+                <ref>130479470</ref>
+                <ref>101384092</ref>
+                <ref>65602191</ref>
+                <ref>106291475</ref>
+                <ref>105183230</ref>
+                <ref>106291478</ref>
+                <ref>147616027</ref>
+                <ref>132326972</ref>
+                <ref>149551608</ref>
+                <ref>133675491</ref>
+                <ref>157959861</ref>
+                <ref>124397617</ref>
+                <ref>116385779</ref>
+                <ref>114016043</ref>
+                <ref>94881776</ref>
+                <ref>115719538</ref>
+                <ref>109033010</ref>
+                <ref>16357259</ref>
+                <ref>23971371</ref>
+                <ref>82013815102</ref>
+                <ref>146761103</ref>
+                <ref>152494564</ref>
+                <ref>108677156</ref>
+                <ref>149016606</ref>
+                <ref>107401065</ref>
+                <ref>111746594</ref>
+                <ref>126855141</ref>
+                <ref>114398205</ref>
+                <ref>124247665</ref>
+                <ref>142444393</ref>
+                <ref>101620809</ref>
+                <ref>98259967</ref>
+            </refs>
+        </item>
+    </REC>
+</db>

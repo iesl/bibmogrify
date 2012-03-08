@@ -18,11 +18,19 @@ libraryDependencies += "org.scala-tools.subcut" %% "subcut" % "1.0"
 
 addCompilerPlugin("org.scala-tools.subcut" %% "subcut" % "1.0")
 
+libraryDependencies += "com.cybozu.labs" % "langdetect" % "1.2.2"
+
+libraryDependencies += "net.arnx" % "jsonic" % "1.2.7"
+
 resolvers += "David Soergel Repo" at "http://dev.davidsoergel.com/artifactory/repo"
 
 resolvers += "IESL Repo" at "http://iesl.cs.umass.edu:8081/nexus/content/repositories/releases"
 
 resolvers += "IESL Snapshot Repo" at "http://iesl.cs.umass.edu:8081/nexus/content/repositories/snapshots"
+
+resolvers += "Github Imaginatio" at "https://github.com/Imaginatio/Maven-repository/raw/master"
+
+resolvers += "Seasar" at "http://maven.seasar.org/maven2/"
 
 seq(assemblySettings: _*)
 

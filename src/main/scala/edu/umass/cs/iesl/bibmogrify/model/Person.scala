@@ -1,6 +1,7 @@
 package edu.umass.cs.iesl.bibmogrify.model
 
 import java.net.URL
+import collection.immutable.Seq
 
 // Don't even try to split author names into components.  First of all, it's a rabbit hole of edge cases.  Second, it's largely useless for our purposes.  We have to do coreference separately
 // anyway, and split author names don't really help with that.  Thu only other thing it might be good for is sort order.  So identifying the last name for that purpose could conceivably be useful.
@@ -72,15 +73,151 @@ import java.net.URL
   def fullName = firstName.map(_ + " " + middleName.map(_ + " ").getOrElse("")).getOrElse(givenInitials.map(_ + " ").getOrElse("")) + lastName
   }
 */
-trait Person
-  {
-  val name: Option[String] = None
-  val address: Option[Address]= None
-  val email: Option[String]= None
-  val phone: Option[String]= None
-  val affiliations: Seq[Institution]= Nil
-  val homepages: Seq[URL]= Nil
+object Person {
+  val invertedNamePattern = """^([^,]*),([^,]*)$""".r
+  /**
+   * Replace periods with spaces.
+   * if there is exactly one comma in the name, reverse the order, e.g. "lastname, firstname" -> "firstname lastname".  In any other case just return the string as is.
+   *
+   * @param s
+   */
+  def cleanupName(s: String): String = {
+    assert(!s.isEmpty)
+    val q = try {
+      val invertedNamePattern(lastname, firstname) = s
+      if (lastname != null && firstname != null) {
+        firstname.trim + " " + lastname.trim
+      } else s
+    }
+    catch {
+      case e: MatchError => s
+    }
+    val r = q.replace(".", " ").replace("  "," ").trim
+    assert(!r.isEmpty)
+    r
   }
+
+  /**
+   * could two names conceivably refer to the same person?  Largely for use within a single WOS record, not for coref
+   */
+  def compatibleName(oa: Option[String], ob: Option[String]): Boolean = {
+    // the usual case is that the last names match, but the first name may be an initial
+    // but there may be additional stuff with prefixes, suffixes, middle names, etc. etc.
+    // or just initials
+    // we don't want to do coref here!  Just look for contradictions
+
+    // two names are compatible iff
+    // a) any string in one name longer than 3 chars is matched in the other string either exactly or by first initial
+    // b) any s
+
+    (oa, ob) match {
+      case (Some(a), Some(b)) => {
+        compatibleName(a, b)
+      }
+      case default => false
+    }
+
+  }
+
+  def compatibleName(a: String, b: String): Boolean = {
+    val aToks = cleanupName(a).toLowerCase.split(" ").reverse.map(_.trim).filterNot(_.isEmpty)
+    val bToks = cleanupName(b).toLowerCase.split(" ").reverse.map(_.trim).filterNot(_.isEmpty)
+    if (aToks.isEmpty || bToks.isEmpty) {
+      false
+    }
+    else {
+
+      val try1 = compatibleTokens(aToks,bToks)
+
+      val try2 = if (try1) true
+      else {
+
+        // special case: see if separating a two- or three-character name into initials helps
+
+        val aToks2 : Array[String] = aToks.flatMap(tok =>  (if (tok.length == 2 || tok.length == 3) tok.toCharArray.reverse.map(_.toString) else Some(tok)))
+        val bToks2 : Array[String] = bToks.flatMap(tok =>  if (tok.length == 2 || tok.length == 3) tok.toCharArray.reverse.map(_.toString) else Some(tok))
+
+        compatibleTokens(aToks2,bToks2)
+
+      }
+
+      try2
+    }
+  }
+
+  private def compatibleTokens(aToks:Array[String],bToks:Array[String]): Boolean = {
+    // basically a simple alignment.  don't bother with DP, just a couple heuristics for the common cases
+
+    // don't support suffixes; the last names must match, (allowing initials)
+    // suffixes after a comma may be OK due to uninvert
+    val headA = aToks.head
+    val headB = bToks.head
+    if (!((headA equals headB) || (headA equals headB(0).toString) || (headB equals headA(0).toString))) {
+      false
+    }
+    else {
+      // choose the minimum set of first & middle names & initials
+      if (aToks.length <= bToks.length) {
+        compatibleFirstMiddle(aToks.tail, bToks.tail)
+      }
+      else {
+        compatibleFirstMiddle(bToks.tail, aToks.tail)
+      }
+    }
+
+  }
+
+  // remember tokens are reversed
+  private def compatibleFirstMiddle(fewerToks: Array[String], moreToks: Array[String]): Boolean = {
+
+    if (fewerToks.isEmpty || moreToks.isEmpty) true
+    else {
+      val headX = fewerToks.head
+      val headY = moreToks.head
+      if (!((headX equals headY) || (headX equals headY(0).toString) || (headY equals headX(0).toString))) {
+        // mismatch in first token; try to drop middle name/initial
+        // note this means that "A J Smith" and "J Smith" are compatible; oh well
+        if (fewerToks.length < moreToks.length)
+          compatibleFirstMiddle(fewerToks, moreToks.tail)
+        else false
+      }
+      else {
+        //first initial equal; proceed
+        compatibleFirstMiddle(fewerToks.tail, moreToks.tail)
+      }
+    }
+  }
+
+  def withIdentifiers(p: Person, newIds: Seq[PersonIdentifier]): Person = new Person {
+    override val name = p.name
+    override val address = p.address
+    override val email = p.email
+    override val phone = p.phone
+    override val affiliations = p.affiliations
+    override val homepages = p.homepages
+    override val identifiers = newIds ++ p.identifiers
+
+  }
+}
+
+trait Person {
+
+  val name: Option[String] = None
+  val address: Option[Address] = None
+  val email: Option[String] = None
+  val phone: Option[String] = None
+  val affiliations: Seq[Institution] = Nil
+  val homepages: Seq[URL] = Nil
+  val identifiers: Seq[PersonIdentifier] = Nil
+
+}
+
+trait PersonIdentifier {
+  val authority: Option[PersonIdentifierAuthority] = None
+  val value: String
+
+  def qualifiedValue = authority.map(_.shortName).getOrElse("Unknown") + ":" + value
+}
 
 /*
 case class BasicPerson(override val name: Option[String] = None, //
@@ -90,59 +227,88 @@ case class BasicPerson(override val name: Option[String] = None, //
                        affiliations: Seq[Institution] = Nil, //
                        homepages: Seq[URL] = Nil) extends Person*/
 
-case class AuthorInRole(person: Person, roles: Seq[AuthorRole])
+case class AuthorInRole(person: Person, roles: Seq[AuthorRole]) {
+  def mergeWithMatching(fullAuthors: Seq[AuthorInRole]): AuthorInRole = {
+    val matches = fullAuthors.filter(other => Person.compatibleName(person.name, other.person.name))
+    if (matches.size == 1) {
+      // assume the "full" record is more complete, but merge the role and id info
+      val full: AuthorInRole = matches.head
+      new AuthorInRole(Person.withIdentifiers(full.person, person.identifiers)
+        , roles ++ full.roles)
+    }
+    else {
+      // if there are no matches or ambiguous matches, just drop it
+      this
+    }
+  }
+}
 
 case class OtherContributorInRole(person: Person, roles: Seq[OtherContributorRole])
 
 sealed class AuthorRole
+
+// a middle author has an empty "role" but is still an author
 case object FirstAuthor extends AuthorRole
+
 case object EqualContribution extends AuthorRole
+
 // (could be represented as multiple first author)
 case object WroteThePaper extends AuthorRole
+
 case object ProvidedMaterials extends AuthorRole
+
 case object ProvidedData extends AuthorRole
+
 case object PerformedExperiment extends AuthorRole
+
 case object PerformedAnalysis extends AuthorRole
+
 case object ConceivedExperiment extends AuthorRole
+
 case object PrincipalInvestigator extends AuthorRole
+
 case object CoPrincipalInvestigator extends AuthorRole
+
 case object Corresponding extends AuthorRole
 
 sealed class OtherContributorRole
+
 case object Editor extends OtherContributorRole
+
 case object Communicator extends OtherContributorRole
+
 // e.g., for PNAS
 case object Acknowledged extends OtherContributorRole
+
 case object Reviewer extends OtherContributorRole
+
 case object ProgramManager extends OtherContributorRole
 
-trait Institution
-  {
+trait Institution {
   val name: String
   val address: Option[Address]
   val phone: Option[String]
   val email: Option[String]
   val homepages: Seq[URL]
   val parent: Option[Institution]
-  }
+}
 
 case class BasicInstitution(override val name: String, override val address: Option[Address], override val phone: Option[String], override val email: Option[String], override val homepages: Seq[URL],
                             override val parent: Option[Institution]) extends Institution
 
-trait IdentifierAuthority extends Institution
-  {
+trait IdentifierAuthority extends Institution {
   val shortName: String // for prefixing the ID to establish uniqueness in some string context, e.g. "pubmed:838387"
-  }
+}
 
-case class BasicIdentifierAuthority(override val shortName: String) extends IdentifierAuthority
-  {
+
+case class BasicIdentifierAuthority(override val shortName: String) extends IdentifierAuthority {
   val address = None
   val email = None
   val homepages = Nil
   val name = shortName
   val parent = None
   val phone = None
-  }
+}
 
 trait InstitutionIdentifierAuthority extends IdentifierAuthority with Institution
 
@@ -151,26 +317,40 @@ trait InstitutionIdentifierAuthority extends IdentifierAuthority with Institutio
  */
 trait LocationIdentifierAuthority extends IdentifierAuthority with Location
 
-trait KeywordAuthority extends Institution
-  {
+trait KeywordAuthority extends Institution {
   val shortName: String // for prefixing the ID to establish uniqueness in some string context, e.g. "pubmed:838387"
-  }
+}
 
-case class BasicKeywordAuthority(override val shortName: String) extends KeywordAuthority
-  {
+case class BasicKeywordAuthority(override val shortName: String) extends KeywordAuthority {
   val address = None
   val email = None
   val homepages = Nil
   val name = shortName
   val parent = None
   val phone = None
-  }
+}
 
-trait Address
-  {
+trait Address {
   val streetLines: Seq[String]
   val city: String
   val country: Country
-  }
+}
 
 case class BasicAddress(override val streetLines: Seq[String], override val city: String, override val country: Country) extends Address
+
+
+trait PersonIdentifierAuthority extends Institution {
+  val shortName: String // for prefixing the ID to establish uniqueness in some string context, e.g. "pubmed:838387"
+}
+
+case class BasicPersonIdentifierAuthority(override val shortName: String) extends PersonIdentifierAuthority {
+  val address = None
+  val email = None
+  val homepages = Nil
+  val name = shortName
+  val parent = None
+  val phone = None
+}
+
+
+case class BasicPersonIdentifier(override val value: String, override val authority: Option[PersonIdentifierAuthority] = None) extends PersonIdentifier

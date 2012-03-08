@@ -10,7 +10,8 @@ trait StructuredCitation {
   val title: Option[String] = None
   val authors: Seq[AuthorInRole] = Nil
   val otherContributors: Seq[OtherContributorInRole] = Nil
-  val language: Option[Language] = None
+  val sourceLanguage: Option[Language] = None // the original language, if this is a translation
+  val language: Option[Language] = None // the language of this version of the document (e.g., after translation)
   val identifiers: Seq[Identifier] = Nil
   val locations: Seq[Location] = Nil
   val supplementaryLocations: Seq[Location] = Nil // where to find supplementary material, databases, etc.
@@ -20,18 +21,71 @@ trait StructuredCitation {
   val grants: Seq[GrantInfo] = Nil
 
   val references: Seq[StructuredCitation] = Nil // could include context here
+
+
   val keywords: Seq[Keyword] = Nil
 
+  val abstractLanguages: Seq[Option[Language]] = Nil
   val abstractText: Option[String] = None
-  val introText: Option[String] = None
-  val bodyText: Option[String] = None
+  //val introText: Option[String] = None
+  val bodyText: Seq[BodyTextSection] = Nil // can't use LinkedHashMap because keys may recur
 
   val notes: Seq[String] = Nil
 
   val refMarker: Option[String] = None // within-document ID
 
+  def textOfType(sectionType: BodyTextSectionType): Seq[String] = bodyText.filter(_.sectionType == sectionType).map(_.text)
 
 }
+
+trait StructuredPatent extends StructuredCitation {
+
+  override val doctype = Some(Patent)
+  val priorityClaims: Seq[StructuredCitation] = Nil
+  val mainFamily: Seq[StructuredCitation] = Nil
+  val completeFamily: Seq[StructuredCitation] = Nil
+  val searchReportReferences: Seq[StructuredCitation] = Nil
+}
+
+trait BodyTextSection {
+  val sectionType: BodyTextSectionType
+  val text: String
+}
+
+case class BasicBodyTextSection(override val sectionType: BodyTextSectionType, override val text: String) extends BodyTextSection
+
+case class UndifferentiatedBodyTextSection(override val text: String) extends BodyTextSection {
+  val sectionType = GeneralBodyText
+}
+
+sealed class BodyTextSectionType
+
+case object GeneralBodyText extends BodyTextSectionType
+
+case object Summary extends BodyTextSectionType
+
+case object IntroductionAndBackground extends BodyTextSectionType
+
+case object Results extends BodyTextSectionType
+
+case object MaterialsAndMethods extends BodyTextSectionType
+
+case object DiscussionAndConclusion extends BodyTextSectionType
+
+case object UnparsedReferences extends BodyTextSectionType
+
+case object Acknowledgements extends BodyTextSectionType
+
+case object FigureCaptions extends BodyTextSectionType
+
+case object Sidebar extends BodyTextSectionType
+
+case object Table extends BodyTextSectionType
+
+case object Appendix extends BodyTextSectionType
+
+case object Claims extends BodyTextSectionType
+
 
 object CitationUtils {
 
@@ -83,8 +137,6 @@ case object Grant extends DocType
 
 case object WwwArticle extends DocType
 
-
-sealed class Language
 
 sealed class Country
 
@@ -155,24 +207,24 @@ case class BasicStringPageRange(override val start: String, override val end: Op
  *
  * @param primaryPriority indicates the order in which entries should be consulted to determine the "primary" date of the document.  A value of zero indicates that the date cannot be primary.
  */
-sealed class EventType(val primaryPriority: Int)
+ sealed class EventType(val primaryPriority: Int,val shortName : String)
 
-case object Received extends EventType(6)
+case object Received extends EventType(6,"rec")
 
-case object Revised extends EventType(7)
+case object Revised extends EventType(7,"rev")
 
-case object Epub extends EventType(8)
+case object Epub extends EventType(8,"epub")
 
-case object Published extends EventType(9)
+case object Published extends EventType(9,"pub")
 
-case object Retracted extends EventType(0)
+case object Retracted extends EventType(0,"retr")
 
-case object Captured extends EventType(0)
+case object Captured extends EventType(0,"capt")
 
-case object Begin extends EventType(10)
+case object Begin extends EventType(10,"beg")
 
 // for grants, patents
-case object End extends EventType(0)
+case object End extends EventType(0,"end")
 
 trait CitationEvent {
   val eventType: EventType

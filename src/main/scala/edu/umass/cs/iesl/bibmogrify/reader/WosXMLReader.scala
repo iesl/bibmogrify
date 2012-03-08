@@ -5,36 +5,32 @@ import edu.umass.cs.iesl.scalacommons.DateUtils._
 import edu.umass.cs.iesl.bibmogrify.model._
 import com.weiglewilczek.slf4s.Logging
 import edu.umass.cs.iesl.bibmogrify.model.Authorities._
-import xml.Node
-import edu.umass.cs.iesl.scalacommons.XMLIgnoreDTD
 import java.net.URL
 import edu.umass.cs.iesl.bibmogrify.pipeline.Transformer
 import edu.umass.cs.iesl.bibmogrify.{NamedPlugin, BibMogrifyException}
+import edu.umass.cs.iesl.scalacommons.XmlUtils
+import xml.Node
+import collection.immutable.Seq
 
 object WosXMLReader extends Transformer[URL, StructuredCitation] with Logging with NamedPlugin {
 
   val name = "wosxml"
 
 
-  def apply(url: URL): TraversableOnce[StructuredCitation] = {
-    //val xml = scala.xml.XML.load(f)
-    // val xml = XMLIgnoreDTD.load(f)  // can't, because we need the entity declarations
-    //XMLMapDTD.setGlobalXMLCatalogDir(getClass.getResource("/dblp.dtd").getPath)
-    //val xmlloader = new XMLFilenameOnlyMappingDTDLoader(Map("dblp.dtd" -> new InputSource(getClass.getResource("/dblp.dtd").getPath)))
-    // val xml = xmlloader.load(f)
-    //XmlUtils.firstLevelNodes(s).flatMap(node => (node \\ "REC").flatMap(parseDroppingErrors(_)))
-    val s = url.openStream()
-    try {
-      //XMLIgnoreDTD.load(s).flatMap(node => (node \\ "REC").flatMap(parseDroppingErrors(url, _)))
-
-      for {
-        node <- XMLIgnoreDTD.load(s)
-        rec <- (node \\ "REC")
-        result <- parseDroppingErrors(url, rec)
-      } yield result
-    }
-    finally {
-      s.close()
+  def apply(url: URL): TraversableOnce[StructuredCitation] = new Traversable[StructuredCitation] {
+    def foreach[U](f: (StructuredCitation) => U) {
+      val s = url.openStream()
+      try {
+        def ff(rec: Node) {
+          assert(rec.label.equals("REC"));
+          val result = parseDroppingErrors(url, rec)
+          result.foreach(f)
+        }
+        XmlUtils.firstLevelNodes(s).foreach(n => (n \\ "REC").foreach(ff))
+      }
+      finally {
+        s.close()
+      }
     }
   }
 
@@ -71,8 +67,7 @@ object WosXMLReader extends Transformer[URL, StructuredCitation] with Logging wi
       // drop superscripts, subscripts, italics, and typewriter styles
       override val title: Option[String] = (item \ "source_title").text
 
-
-      // todo interpret pubtype fieldin associated issue
+      // todo interpret pubtype field in associated issue
       //val doctype = Journal
     }
 
@@ -87,29 +82,102 @@ object WosXMLReader extends Transformer[URL, StructuredCitation] with Logging wi
 
       override val abstractText: Option[String] = (item \ "abstract").text
 
-      // todo collect other identifiers
-      override val identifiers = Seq(BasicIdentifier((item \ "ut").text, WOSIDAuthority))
+      // todo collect other identifiers?
+      val wosUtId: String = (item \ "ut").text
+      val wosDoi: String = (item \ "article_nos" \ "article_no").text
+
+      override val identifiers = Seq(
+        BasicIdentifier(wosUtId, WosUtAuthority),
+        new BasicIdentifier((item \ "@recid").text, WosRecidAuthority),
+        new BasicIdentifier((item \ "@refkey").text, WosRefkeyAuthority),
+        new BasicIdentifier((item \ "@refid").text, WosRefidAuthority),
+        new BasicIdentifier((item \ "i_cid").text, WosCidAuthority),
+        new BasicIdentifier(wosDoi, DoiAuthority)
+      ).filter(!_.value.isEmpty)
+
+
+      override val authors = {
+        val authorsNode = item \ "authors"
+
+        // there are at least "primaryauthor" and/or "author" tags containing lastname, firstinitial
+        val primaryAuthorNodes = authorsNode \ "primaryauthor"
+        val basicAuthorNodes = authorsNode \ "author"
+
+        val basicAuthors: Seq[AuthorInRole] = primaryAuthorNodes.map(x => {
+          new AuthorInRole(new Person() {
+            override val name: Option[String] = Person.cleanupName(x.text)
+            override val identifiers: Seq[PersonIdentifier] = {
+              val key = (x \ "@key").text
+              if (!key.isEmpty) {
+                Seq(new BasicPersonIdentifier(key, WosAuthorAuthority))
+              } else Nil
+            }
+          }, List(FirstAuthor)
+          )
+        }) ++ basicAuthorNodes.map(x => {
+          new AuthorInRole(new Person() {
+            override val name: Option[String] = Person.cleanupName(x.text)
+            override val identifiers: Seq[PersonIdentifier] = {
+              val key = (x \ "@key").text
+              if (!key.isEmpty) {
+                Seq(new BasicPersonIdentifier(key, WosAuthorAuthority))
+              } else Nil
+            }
+          }, Nil
+          )
+        })
+
+        // there may also be more detailed records with full names and addresses
+        val fullAuthorNodes = authorsNode \ "fullauthorname"
+
+        val fullAuthors = fullAuthorNodes.map(x => {
+          val first = (x \ "AuFirstName").text
+          val last = (x \ "AuLastName").text
+          val assembled = Person.cleanupName(first + " " + last)
+          val collective = Person.cleanupName((x \ "AuCollectiveName").text)
+
+          // choose the longer of the assembled vs collective names, on the assumption that it's more informative
+          val chosenFullName = if (assembled.length() >= collective.length()) assembled else collective;
+
+          new AuthorInRole(new Person() {
+            override val name: Option[String] = chosenFullName
+            // override val address:
+          }, Nil
+          )
+        })
+
+        val m = basicAuthors.map(_.mergeWithMatching(fullAuthors))
+
+        assert(!m.head.person.name.isEmpty)
+
+        m
+
+
+      }
 
       // TODO implement parsePages, or just store the string
       def parsePages(s: String): Option[PageRange] = None
 
       override val containedIn = Some(BasicContainmentInfo(venueMention, None, None, None, None))
 
-      override val keywords = subjectCodes map (new BasicKeyword(_, WOSKeywordAuthority))
+      override val keywords = subjectCodes map (new BasicKeyword(_, WosKeywordAuthority))
 
       override val locations = Seq(new BasicLocation(url, Nil))
 
 
-      override val references = (item \ "refs" \ "ref").map(parseRef(_))
+      override val references = (item \ "refs" \ "ref").zipWithIndex.map(parseRef(_, wosUtId))
     }
     c
   }
 
 
-  def parseRef(node: Node): StructuredCitation = new StructuredCitation {
-    override val authors = Seq(new AuthorInRole(new Person() {
+  def parseRef(nodeWithIndex: (Node, Int), idBasis: String): StructuredCitation = new StructuredCitation {
+
+    val (node, index) = nodeWithIndex
+
+    override val authors: Seq[AuthorInRole] = Seq(new AuthorInRole(new Person() {
       override val name: Option[String] = (node \ "@auth").text
-    }, Seq(FirstAuthor)))
+    }, List(FirstAuthor)))
 
     val venueMention = new StructuredCitation {
       override val title: Option[String] = (node \ "@work").text
@@ -125,12 +193,13 @@ object WosXMLReader extends Transformer[URL, StructuredCitation] with Logging wi
     override val dates = Seq(BasicCitationEvent(date, Published))
     override val identifiers = Seq(
       new BasicIdentifier(node.text),
-      new BasicIdentifier((node \ "recid").text),
-      new BasicIdentifier((node \ "refkey").text),
-      new BasicIdentifier((node \ "refid").text),
-      new BasicIdentifier((node \ "cid").text),
-      new BasicIdentifier((node \ "artno").text, DoiAuthority)
-    )
+      new BasicIdentifier(idBasis + "-ref-" + index, WosUtRefIndexAuthority),
+      new BasicIdentifier((node \ "@recid").text, WosRecidAuthority),
+      new BasicIdentifier((node \ "@refkey").text, WosRefkeyAuthority),
+      new BasicIdentifier((node \ "@refid").text, WosRefidAuthority),
+      new BasicIdentifier((node \ "@cid").text, WosCidAuthority),
+      new BasicIdentifier((node \ "@artno").text, DoiAuthority)
+    ).filter(!_.value.isEmpty)
   }
 
 }

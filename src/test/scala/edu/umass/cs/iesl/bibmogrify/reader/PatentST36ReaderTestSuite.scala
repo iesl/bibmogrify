@@ -1,8 +1,8 @@
 package edu.umass.cs.iesl.bibmogrify.reader
 
 import org.scalatest.{BeforeAndAfter, FunSuite}
-import edu.umass.cs.iesl.bibmogrify.model.Published
 import com.weiglewilczek.slf4s.Logging
+import edu.umass.cs.iesl.bibmogrify.model.{Summary, GeneralBodyText, Claims, Published}
 
 
 class PatentST36ReaderTestSuite extends FunSuite with BeforeAndAfter with Logging
@@ -12,16 +12,39 @@ class PatentST36ReaderTestSuite extends FunSuite with BeforeAndAfter with Loggin
   val citationList = PatentST36Reader(file)
   val c = citationList.toIterator.next()
 
-  // todo: detailed tests of all fields
+  // todo: detailed tests of all fieldstest
+
 
   test("Title is parsed")
   {
   assert(c.title === Some("GOLF TEE DEVICE"))
   }
 
+  test("ID is parsed")
+  {
+    assert(c.identifiers.head.authority.get.name === "patent-WO-pub")
+  }
+
   test("Abstract is parsed")
   {
   assert(c.abstractText.get.size > 50)
+  }
+
+  /*
+  test("Summary is parsed")
+  {
+    assert(c.textOfType(Summary).mkString.size > 50)
+  }
+  */
+
+  test("Description is parsed")
+  {
+    assert(c.textOfType(GeneralBodyText).mkString.size > 50)
+  }
+
+  test("Claims are parsed")
+  {
+    assert(c.textOfType(Claims).mkString.size > 50)
   }
 
   /*  test("Authors are parsed")

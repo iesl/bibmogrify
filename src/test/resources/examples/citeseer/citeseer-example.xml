@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<TaggedCitations>
+    <NEWREFERENCE>
+        <meta reference_no="2" cluster_no="2"/>
+        <title>Implementation issues in the development of the parsec parser .</title>
+        <journal>SOFTWARE - Practice and Experience</journal>
+        <volume>25</volume>
+        <number>( 8 ) :</number>
+        <pages>831 - 862 .</pages>
+        <authors>
+            <author>Helzerman , R. A. ,</author>
+            and
+            <author>Harper , M. P.</author>
+        </authors>
+        <date>1996 .</date>
+    </NEWREFERENCE>
+    <NEWREFERENCE>
+        <meta reference_no="1" cluster_no="1"/>
+        <authors>
+            <author>B. M. Smith</author>
+            and
+            <author>M. E. Dyer .</author>
+        </authors>
+        <title>Locating the Phase Transition in Constraint Satisfaction Problems .</title>
+        <note>To appear in Artificial Intelligence ,</note>
+        <date>1995 .</date>
+    </NEWREFERENCE>
+</TaggedCitations>

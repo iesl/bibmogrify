@@ -1,0 +1,3260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc source="ftp:##prog.vub.ac.be#tech_report#1996#vub-prog-tr-96-08.pdf.pp">
+    <headers-hlabeled>
+        <page value="1" /><position x="1090.0" y="7560.0" />
+
+        <institution>Vrije Universiteit Brussel     <font size="217" /><position x="1110.0" y="7380.0" />     Faculteit Wetenschappen</institution>
+        <font size="122" /><position x="1951.0" y="7118.0" />
+        S
+        <font size="123" /><position x="1880.0" y="7103.0" />
+        R
+        <position x="1817.0" y="7079.0" />
+        E
+        <font size="122" /><position x="1755.0" y="7047.0" />
+        V
+        <font size="123" /><position x="1736.0" y="7032.0" />
+        I
+        <position x="1683.0" y="6992.0" />
+        N
+        <position x="1635.0" y="6941.0" />
+        U
+        <font size="122" /><position x="2014.0" y="7121.0" />
+        I
+        <font size="123" /><position x="2041.0" y="7122.0" />
+        T
+        <position x="2108.0" y="7115.0" />
+        E
+        <position x="2169.0" y="7098.0" />
+        I
+        <position x="2195.0" y="7091.0" />
+        T
+        <position x="1582.0" y="6864.0" />
+        E
+        <position x="1563.0" y="6824.0" />
+        J
+        <position x="1554.0" y="6802.0" />
+        I
+        <position x="1531.0" y="6731.0" />
+        R
+        <position x="1521.0" y="6665.0" />
+        V
+        <position x="2280.0" y="7050.0" />
+        B
+        <position x="2335.0" y="7012.0" />
+        R
+        <font size="122" /><position x="2387.0" y="6965.0" />
+        U
+        <font size="123" /><position x="2432.0" y="6908.0" />
+        S
+        <position x="2468.0" y="6848.0" />
+        S
+        <position x="2496.0" y="6784.0" />
+        E
+        <position x="2514.0" y="6710.0" />
+        L
+        <font size="122" /><position x="2008.0" y="6046.0" />
+        E
+        <font size="123" /><position x="1925.0" y="6054.0" />
+        C
+        <position x="1847.0" y="6072.0" />
+        N
+        <position x="1812.0" y="6086.0" />
+        I
+        <position x="1740.0" y="6119.0" />
+        V
+        <position x="2085.0" y="6050.0" />
+        R
+        <position x="2166.0" y="6065.0" />
+        E
+        <font size="122" /><position x="2272.0" y="6104.0" />
+        T
+        <font size="123" /><position x="2340.0" y="6142.0" />
+        E
+        <position x="2401.0" y="6189.0" />
+        N
+        <position x="2459.0" y="6249.0" />
+        E
+        <font size="122" /><position x="2507.0" y="6314.0" />
+        B
+        <font size="123" /><position x="2544.0" y="6381.0" />
+        R
+        <font size="122" /><position x="2572.0" y="6459.0" />
+        A
+        <font size="123" /><position x="2589.0" y="6537.0" />
+        S
+        <position x="1649.0" y="6182.0" />
+        A
+        <position x="1620.0" y="6210.0" />
+        I
+        <position x="1568.0" y="6267.0" />
+        T
+        <position x="1520.0" y="6338.0" />
+        N
+        <position x="1487.0" y="6408.0" />
+        E
+        <position x="1474.0" y="6447.0" />
+        I
+        <position x="1454.0" y="6526.0" />
+        C
+        <position x="1447.0" y="6603.0" />
+        S
+        <font size="234" /><position x="1750.0" y="4680.0" />
+
+        <title>Building frameworks through     <position x="1809.0" y="4420.0" />     specialisable nested objects.</title>
+        <font size="169" /><position x="2310.0" y="3930.0" />
+
+        <authors>
+            <author><author-first>Marc</author-first> <author-last>Van Limberghen</author-last></author>
+        </authors>
+        <font size="121" /><position x="2380.0" y="3320.0" />
+
+        <tech>Techreport vub-prog-tr-96-08</tech>
+        <position x="4130.0" y="2280.0" />
+
+        <institution>Programming Technology Lab     <position x="4880.0" y="2140.0" />     PROG(WE)     <position x="5160.0" y="2000.0" />     VUB</institution>
+        <position x="4910.0" y="1860.0" />     <address>Pleinlaan 2     <position x="4840.0" y="1720.0" />
+        1050 Brussel     <position x="4920.0" y="1580.0" />     BELGIUM     <position x="4440.0" y="1300.0" />    </address>
+        <phone>Fax: (+32) 2-629-3525     <position x="4460.0" y="1160.0" />     Tel: (+32) 2-629-3308     <position x="4140.0" y="1020.0" />    </phone><abstract>
+        <web>Anon. FTP: progftp.vub.ac.be     <position x="4230.0" y="880.0" />     WWW: progwww.vub.ac.be</web>
+        <page value="2" /><position x="2130.0" y="7600.0" />
+
+        <title>Building frameworks through     <font size="169" /><position x="2203.0" y="7460.0" />     specialisable nested objects.</title>
+        <font size="143" /><position x="2410.0" y="7040.0" />
+    </abstract>
+        <authors>
+            <author><author-first>Marc</author-first> <author-last>Van Limberghen</author-last></author>
+            <font size="133" /><position x="2190.0" y="6900.0" />    </authors>
+        <institution>Department of Computer Science     <position x="2520.0" y="6760.0" />     Faculty of Sciences     <position x="2390.0" y="6620.0" />     Vrije Universiteit Brussel     <position x="2030.0" y="6480.0" />    </institution>
+        <address>Pleinlaan 2, B-1050 Brussels, BELGIUM     <position x="2150.0" y="6340.0" />    </address>
+        <email>E-mail: mvlimber@vnet3.vub.ac.be     <font size="170" /><position x="570.0" y="5900.0" />    </email><abstract>Abstract
+        <font size="133" /><position x="570.0" y="5640.0" />
+        If a framework that internally creates objects is to
+        <position x="570.0" y="5500.0" />
+        be specialisable, then not only procedure calling
+        <position x="570.0" y="5360.0" />
+        must be subject to late-binding, but also object
+        <position x="570.0" y="5220.0" />
+        creation. In OO languages with compile-time
+        <position x="570.0" y="5080.0" />
+        classes, complicated extra code is needed that
+        <position x="570.0" y="4940.0" />
+        only serves to bypass the static character of class
+        <position x="570.0" y="4800.0" />
+        instantiation. The programmer has to maintain
+        <position x="570.0" y="4660.0" />
+        this code during framework specialisation. In
+        <position x="570.0" y="4520.0" />
+        languages with first-class classes or with
+        <position x="570.0" y="4380.0" />
+        prototypes, a structure of classes respectively
+        <position x="570.0" y="4240.0" />
+        prototypes has to be constructed and maintained
+        <position x="570.0" y="4100.0" />
+        during specialisation, an equally complicated
+        <position x="570.0" y="3960.0" />
+        task.
+        <position x="570.0" y="3820.0" />
+        This paper proposes specialisable nested objects
+        <position x="570.0" y="3680.0" />
+        to deal directly with late bound object creation in
+        <position x="570.0" y="3540.0" />
+        frameworks. Nesting is exploited between a
+        <position x="570.0" y="3400.0" />
+        framework and the objects that belong to it.
+        <position x="570.0" y="3259.0" />
+        Object-based encapsulation is provided to
+        <position x="570.0" y="3119.0" />
+        develop the framework and its specialisations
+        <position x="570.0" y="2979.0" />
+        more independently.
+    </abstract>
+    </headers-hlabeled>
+    <body><font size="170" /><position x="570.0" y="2680.0" />
+        1 Introduction
+        <font size="133" /><position x="570.0" y="2420.0" />
+        A framework is a family of collaborating classes,
+        <position x="570.0" y="2280.0" />
+        of which some may be abstract. A specialised
+        <position x="570.0" y="2140.0" />
+        version of the framework may make some of the
+        <position x="570.0" y="2000.0" />
+        abstract classes concrete or may refine or extend
+        <position x="570.0" y="1860.0" />
+        classes [Steyaert 96]. Amongst other things, the
+        <position x="570.0" y="1720.0" />
+        class collaboration can consist of the
+        <position x="3140.0" y="6060.0" />
+        instantiation
+        <font size="108" /><position x="3736.0" y="6090.0" />
+        1
+        <font size="133" /><position x="3814.0" y="6060.0" />
+        of framework classes from within
+        <position x="3140.0" y="5920.0" />
+        the framework itself. The instantiating code must
+        <position x="3140.0" y="5780.0" />
+        transparently instantiate specialised versions of
+        <position x="3140.0" y="5640.0" />
+        the classes. This software prerequisite has been
+        <position x="3140.0" y="5500.0" />
+        called the Factory Method design pattern
+        <position x="3140.0" y="5360.0" />
+        [Gamma 94]. In order to be able to perform the
+        <position x="3140.0" y="5220.0" />
+        instantiations, the classes of the framework need
+        <position x="3140.0" y="5080.0" />
+        to refer to each other somehow. In class-based
+        <position x="3140.0" y="4940.0" />
+        languages with compile time classes, as C++
+        <position x="3140.0" y="4800.0" />
+        [Stroustrup 91] or Eiffel [Meyer 88], the
+        <position x="3140.0" y="4660.0" />
+        programmer has to explicitly implement this
+        <position x="3140.0" y="4520.0" />
+        reference structure and reconstruct it for each
+        <position x="3140.0" y="4380.0" />
+        framework specialisation, cluttering the code that
+        <position x="3140.0" y="4240.0" />
+        represents the essential framework behaviour.
+        <position x="3140.0" y="3960.0" />
+        Also external clients must be able to transparently
+        <position x="3140.0" y="3820.0" />
+        instantiate specialised versions of a framework, a
+        <position x="3140.0" y="3680.0" />
+        prerequisite that corresponds to the Abstract
+        <position x="3140.0" y="3540.0" />
+        Factory design pattern [Gamma 94]. Usually this
+        <position x="3140.0" y="3400.0" />
+        is implemented by providing the client with an
+        <position x="3140.0" y="3260.0" />
+        object of some artificial class containing a create
+        <position x="3140.0" y="3119.0" />
+        method for each framework class. The
+        <position x="3140.0" y="2979.0" />
+        programmer has to build such an artificial class
+        <position x="3140.0" y="2839.0" />
+        for each framework specialisation.
+        <position x="3140.0" y="2559.0" />
+        If the classes of the framework are instantiated
+        <position x="3140.0" y="2419.0" />
+        from within the framework as well as by an
+        <position x="3140.0" y="2279.0" />
+        external client, then it is required to combine the
+        <position x="3140.0" y="2139.0" />
+        implementations of the Factory Method and
+        <position x="3140.0" y="1999.0" />
+        Abstract Factory design patterns, making things
+        <position x="3140.0" y="1859.0" />
+        even more complicated.
+        <position x="3140.0" y="1579.0" />
+        First-class classes, as in Smaltalk [Lalonde 90], or
+        <position x="3140.0" y="1439.0" />
+        clonable prototypes, as in Self [Ungar 87], do not
+        <font size="108" /><position x="3140.0" y="1070.0" />
+        1
+        <font size="96" /><position x="3212.0" y="1040.0" />
+        A concrete version of an abstract class is sometimes called an
+        <position x="3140.0" y="940.0" />
+        "instantiation" of that abstract class. But in this paper we will reserve
+        <position x="3140.0" y="840.0" />
+        the term instantiation for the creation of an object corresponding to a
+        <position x="3140.0" y="740.0" />
+        class.
+        <page value="3" /><position x="570.0" y="7940.0" />
+        Marc Van Limberghen Building frameworks through specialisable nested objects
+        <position x="2620.0" y="380.0" />
+        page 2
+        <font size="133" /><position x="570.0" y="7590.0" />
+        alleviate the problems: In order to allow different
+        <position x="570.0" y="7450.0" />
+        specialised versions of a framework to coexist, an
+        <position x="570.0" y="7310.0" />
+        entire new set of interconnected classes (or
+        <position x="570.0" y="7170.0" />
+        prototypes) has to be constructed for each
+        <position x="570.0" y="7030.0" />
+        framework specialisation.
+        <position x="570.0" y="6750.0" />
+        So, Factory Methods and Abstract Factories tend
+        <position x="570.0" y="6610.0" />
+        to require complicated implementations in
+        <position x="570.0" y="6470.0" />
+        current OO languages. Nevertheless these design
+        <position x="570.0" y="6330.0" />
+        patterns express an essential OO idea: late
+        <position x="570.0" y="6190.0" />
+        (binding of) object creation. It seems rather
+        <position x="570.0" y="6050.0" />
+        natural for an OO framework to comply with
+        <position x="570.0" y="5910.0" />
+        both design patterns. Therefore object creation
+        <position x="570.0" y="5770.0" />
+        should be subject to the same late-binding
+        <position x="570.0" y="5630.0" />
+        mechanism as method invocation, with the known
+        <position x="570.0" y="5490.0" />
+        advantages of polymorphism and genericity as a
+        <position x="570.0" y="5350.0" />
+        consequence.
+        <position x="570.0" y="5070.0" />
+        This paper offers a thorough discussion of object
+        <position x="570.0" y="4930.0" />
+        creation problems in frameworks, and provides a
+        <position x="570.0" y="4790.0" />
+        solution to these problems under the form of
+        <position x="570.0" y="4650.0" />
+        "specialisable nested objects". This language
+        <position x="570.0" y="4510.0" />
+        concept is presented as a characteristic of an
+        <position x="570.0" y="4370.0" />
+        experimental OO language called LENS (Late-
+        <position x="570.0" y="4230.0" />
+        bound Encapsulated Name Spaces). A LENS
+        <position x="570.0" y="4089.0" />
+        program consists of nested name spaces that can
+        <position x="570.0" y="3949.0" />
+        be encapsulated and refined dynamically. Late
+        <position x="570.0" y="3809.0" />
+        object creation is obtained by directly coupling
+        <position x="570.0" y="3669.0" />
+        object creation to method invocation. Object
+        <position x="570.0" y="3529.0" />
+        creation methods are put in a name space
+        <position x="3140.0" y="7589.0" />
+        representing the framework. Nested scoping
+        <position x="3140.0" y="7449.0" />
+        allows an object belonging to the framework to
+        <position x="3140.0" y="7309.0" />
+        easily create any other kind of framework
+        <position x="3140.0" y="7169.0" />
+        objects. The framework is not a module or
+        <position x="3140.0" y="7029.0" />
+        library, but an object. This allows different
+        <position x="3140.0" y="6889.0" />
+        versions of the framework to coexist.
+        <position x="3140.0" y="6749.0" />
+        Encapsulation of names is provided to hide
+        <position x="3140.0" y="6609.0" />
+        implementation details of the framework.
+        <position x="3140.0" y="6329.0" />
+        Problems with object creation in frameworks have
+        <position x="3140.0" y="6189.0" />
+        been addressed before in [Kiczales 93] and in
+        <position x="3140.0" y="6049.0" />
+        [Riehle 95]. Section 5 contrasts LENS with these
+        <position x="3140.0" y="5909.0" />
+        approaches, and also discusses nesting in other
+        <position x="3140.0" y="5769.0" />
+        OO languages, especially in the OO language
+        <position x="3140.0" y="5629.0" />
+        Beta [Madsen 93].
+        <position x="3140.0" y="5349.0" />
+        The rest of this paper is organised as follows.
+        <position x="3140.0" y="5209.0" />
+        Section 2 describes an example of a framework
+        <position x="3140.0" y="5069.0" />
+        complying simultaneously with the Abstract
+        <position x="3140.0" y="4929.0" />
+        Factory and Factory Method design patterns,
+        <position x="3140.0" y="4789.0" />
+        namely the abstract grammar of a programming
+        <position x="3140.0" y="4649.0" />
+        language. Section 3 thoroughly discusses the
+        <position x="3140.0" y="4509.0" />
+        problems when this framework is implemented in
+        <position x="3140.0" y="4369.0" />
+        current OO paradigms. Section 4 explains the
+        <position x="3140.0" y="4229.0" />
+        basic concepts of the OO language LENS and
+        <position x="3140.0" y="4089.0" />
+        shows how the framework implementation
+        <position x="3140.0" y="3949.0" />
+        problems are solved in it. Section 5 discusses
+        <position x="3140.0" y="3809.0" />
+        related work in detail, section 6 presents future
+        <position x="3140.0" y="3669.0" />
+        perspectives and section 7 concludes.
+        <font size="93" /><position x="3069.0" y="3181.0" />
+        (Sequence)
+        <position x="3479.0" y="2901.0" />
+        (Sequence)
+        <position x="4009.0" y="2312.0" />
+        (Sequence)
+        <position x="2660.0" y="2951.0" />
+        (Assignment)
+        <position x="2500.0" y="2712.0" />
+        (Identifier)
+        <font size="114" /><position x="2620.0" y="2632.0" />
+        a
+        <font size="93" /><position x="2969.0" y="2712.0" />
+        (Literal)
+        <font size="114" /><position x="3079.0" y="2612.0" />
+        3
+        <font size="93" /><position x="3149.0" y="2422.0" />
+        (Assignment)
+        <position x="2919.0" y="2182.0" />
+        (Identifier)
+        <font size="114" /><position x="3039.0" y="2082.0" />
+        b
+        <font size="93" /><position x="3469.0" y="2182.0" />
+        (Literal)
+        <font size="114" /><position x="3569.0" y="2082.0" />
+        2
+        <font size="93" /><position x="3609.0" y="1792.0" />
+        (Input)
+        <position x="3569.0" y="1532.0" />
+        (Identifier)
+        <font size="114" /><position x="3689.0" y="1432.0" />
+        c
+        <font size="93" /><position x="4379.0" y="1912.0" />
+        (Output)
+        <position x="4419.0" y="1672.0" />
+        (Add)
+        <position x="4149.0" y="1362.0" />
+        (Multiply)
+        <position x="4669.0" y="1422.0" />
+        (Identifier)
+        <font size="114" /><position x="4829.0" y="1322.0" />
+        c
+        <font size="93" /><position x="3889.0" y="1122.0" />
+        (Identifier)
+        <font size="114" /><position x="4009.0" y="1042.0" />
+        a
+        <font size="93" /><position x="4359.0" y="1122.0" />
+        (Identifier)
+        <font size="114" /><position x="4489.0" y="1042.0" />
+        b
+        <font size="83" /><position x="980.0" y="3201.0" />
+        a := 3;
+        <position x="980.0" y="3121.0" />
+        b:= 2;
+        <position x="980.0" y="3031.0" />
+        input(c);
+        <position x="980.0" y="2951.0" />
+        output(a * b + c)
+        <font size="114" /><position x="1800.0" y="3191.0" />
+        Parse
+        <position x="1980.0" y="2931.0" />
+        Unparse
+        <font size="83" /><position x="950.0" y="2742.0" />
+        Instance of concrete grammar
+        <position x="2470.0" y="952.0" />
+        Instance of Abstract grammar
+        <font size="93" /><position x="1240.0" y="2322.0" />
+        (Sequence)
+        <position x="1050.0" y="2082.0" />
+        (Input)
+        <position x="1000.0" y="1812.0" />
+        (Identifier)
+        <font size="114" /><position x="1120.0" y="1712.0" />
+        c
+        <font size="93" /><position x="1680.0" y="2062.0" />
+        (Output)
+        <position x="1730.0" y="1812.0" />
+        (Add)
+        <position x="1900.0" y="1572.0" />
+        (Identifier)
+        <font size="114" /><position x="2030.0" y="1472.0" />
+        c
+        <font size="93" /><position x="1420.0" y="1562.0" />
+        (Literal)
+        <font size="114" /><position x="1540.0" y="1462.0" />
+        6
+        <position x="1790.0" y="2502.0" />
+        Optimise
+        <font size="83" /><position x="940.0" y="1342.0" />
+        Instance of Abstract grammar
+        <font size="114" /><position x="1930.0" y="1002.0" />
+        Unparse
+        <font size="83" /><position x="990.0" y="1142.0" />
+        input(c);
+        <position x="990.0" y="1062.0" />
+        output(6 + c)
+        <position x="950.0" y="972.0" />
+        Instance of concrete grammar
+        <font size="121" /><position x="1250.0" y="740.0" />
+        Figure 1: Implementing a programming environment by means of an abstract grammar
+        <page value="4" /><position x="570.0" y="7940.0" />
+        Marc Van Limberghen Building frameworks through specialisable nested objects
+        <font size="96" /><position x="2620.0" y="380.0" />
+        page 3
+        <font size="170" /><position x="570.0" y="7320.0" />
+        2 A Framework example:
+        <position x="570.0" y="7140.0" />
+        abstract grammar
+        <font size="133" /><position x="570.0" y="6880.0" />
+        This section presents a programming
+        <position x="570.0" y="6740.0" />
+        environment as an example framework that is
+        <position x="570.0" y="6600.0" />
+        used throughout the paper. In the implementation
+        <position x="570.0" y="6460.0" />
+        of a programming environment, it is common to
+        <position x="570.0" y="6320.0" />
+        represent a program (an instance of the concrete
+        <position x="570.0" y="6180.0" />
+        grammar) internally by a tree of nodes. This
+        <position x="570.0" y="6040.0" />
+        accords to the Interpreter design pattern
+        <position x="570.0" y="5900.0" />
+        [Gamma 94]. The internal representation, often
+        <position x="570.0" y="5760.0" />
+        called abstract grammar, is easy to interpret,
+        <position x="570.0" y="5620.0" />
+        compile, type check, optimise, etc., independently
+        <position x="570.0" y="5480.0" />
+        of the syntactical peculiarities of the concrete
+        <position x="570.0" y="5340.0" />
+        grammar. Figure 1 shows a program and its
+        <position x="570.0" y="5200.0" />
+        internal representation generated by the parser.
+        <position x="570.0" y="5060.0" />
+        The unparser and the optimiser perform actions
+        <position x="570.0" y="4920.0" />
+        on instances of the abstract grammar. The
+        <position x="570.0" y="4780.0" />
+        optimiser detects which variables have a constant
+        <position x="570.0" y="4640.0" />
+        value and generates a more efficient internal
+        <position x="570.0" y="4499.0" />
+        representation.
+        <position x="570.0" y="4220.0" />
+        In an OO approach the abstract grammar can be
+        <position x="570.0" y="4080.0" />
+        implemented by representing each kind of node
+        <position x="570.0" y="3939.0" />
+        by a class. Each node-class will provide a method
+        <position x="570.0" y="3799.0" />
+        for each of the necessary activities: unparsing,
+        <position x="570.0" y="3659.0" />
+        optimising, evaluating, etc. The node classes of
+        <position x="570.0" y="3519.0" />
+        the abstract grammar together constitute a
+        <position x="3140.0" y="7479.0" />
+        framework that complies with the Factory Method
+        <position x="3140.0" y="7339.0" />
+        design pattern. Indeed, the optimising methods
+        <position x="3140.0" y="7199.0" />
+        generate a new instance of the abstract grammar,
+        <position x="3140.0" y="7059.0" />
+        i.e. they instantiate the node-classes of the
+        <position x="3140.0" y="6919.0" />
+        abstract grammar. Our abstract grammar also
+        <position x="3140.0" y="6779.0" />
+        complies with the Abstract Factory Method
+        <position x="3140.0" y="6639.0" />
+        design pattern. The external client that instantiates
+        <position x="3140.0" y="6499.0" />
+        the node-classes is the parser. It should be
+        <position x="3140.0" y="6359.0" />
+        possible to use the same parser code for every
+        <position x="3140.0" y="6219.0" />
+        abstract grammar specialisation: a variant of the
+        <position x="3140.0" y="6079.0" />
+        defined unparsing or optimisation, or even an
+        <position x="3140.0" y="5939.0" />
+        extra facility, like program execution.
+        <position x="3140.0" y="5659.0" />
+        Figure 2 shows an OMT-like scheme representing
+        <position x="3140.0" y="5519.0" />
+        a basic abstract grammar framework offering
+        <position x="3140.0" y="5379.0" />
+        optimisation, and a framework specialisation that
+        <position x="3140.0" y="5239.0" />
+        also offers unparsing. Besides the object creation
+        <position x="3140.0" y="5099.0" />
+        issue, also an encapsulation issue is manifested in
+        <position x="3140.0" y="4959.0" />
+        our example: in Figure 2, only the items
+        <position x="3140.0" y="4819.0" />
+        represented with thick lines should be visible
+        <position x="3140.0" y="4679.0" />
+        outside their surrounding rectangle. The
+        <position x="3140.0" y="4539.0" />
+        optimiser and the unparser both use their own
+        <position x="3140.0" y="4399.0" />
+        implementation details to implement their
+        <position x="3140.0" y="4259.0" />
+        behaviour. The optimiser needs to access some
+        <font size="131" /><position x="3140.0" y="4119.0" />
+        optimiserTable
+        <font size="133" /><position x="3904.0" y="4119.0" />
+        that holds the constant values. It
+        <position x="3140.0" y="3979.0" />
+        also uses its own intermediate classes. The class
+        <font size="131" /><position x="3140.0" y="3839.0" />
+        RuntimeExpression
+        <font size="133" /><position x="4172.0" y="3839.0" />
+        for instance is merely an
+        <position x="3140.0" y="3699.0" />
+        implementation aspect of the optimiser process.
+        <position x="3140.0" y="3559.0" />
+        The unparsing process, depicted in Figure 2 in
+        <font size="82" /><position x="3648.0" y="2717.0" />
+        RuntimeExpression
+        <position x="3488.0" y="2477.0" />
+        Operation
+        <position x="3418.0" y="2217.0" />
+        Add MultiplyOutputInputSequenceAssignment Identifier Literal
+        <font size="76" /><position x="3019.0" y="1697.0" />
+        unparse -abstract}
+        <font size="82" /><position x="3019.0" y="1797.0" />
+        Expression
+        <position x="3538.0" y="1417.0" />
+        Operation
+        <position x="3418.0" y="1147.0" />
+        Add MultiplyOutputInputSequenceAssignment Identifier Literal
+        <font size="68" /><position x="1609.0" y="1007.0" />
+        Specialisation of abstract grammar framework, extending the grammar with unparsing
+        <font size="115" /><position x="940.0" y="2677.0" />
+        Parser
+        <font size="76" /><position x="3088.0" y="3088.0" />
+        (optimiserTable)
+        <font size="68" /><position x="1619.0" y="3168.0" />
+        Abstract grammar framework offering optimisation
+        <font size="76" /><position x="2139.0" y="2928.0" />
+        optimiseProgram
+        <position x="2139.0" y="2858.0" />
+        optimiseStatement -abstract}
+        <font size="82" /><position x="2139.0" y="3028.0" />
+        Statement
+        <font size="76" /><position x="3958.0" y="3058.0" />
+        isConstant -abstract}
+        <position x="3958.0" y="2988.0" />
+        optimiseExpression -abstract}
+        <font size="82" /><position x="3958.0" y="3158.0" />
+        Expression
+        <font size="121" /><position x="1900.0" y="770.0" />
+        Figure 2: OMT-like scheme of the abstract grammars
+        <page value="5" /><position x="570.0" y="7940.0" />
+        Marc Van Limberghen Building frameworks through specialisable nested objects
+        <font size="96" /><position x="2620.0" y="380.0" />
+        page 4
+        <font size="133" /><position x="570.0" y="7590.0" />
+        the bottom rectangle, has its own, different,
+        <position x="570.0" y="7450.0" />
+        private inheritance structure. Such
+        <position x="570.0" y="7310.0" />
+        implementation details should be hidden from
+        <position x="570.0" y="7170.0" />
+        framework users and also from framework
+        <position x="570.0" y="7030.0" />
+        specialisers.
+        <position x="570.0" y="6750.0" />
+        Different research papers indicated the need to
+        <position x="570.0" y="6610.0" />
+        separate typing and code reuse in OO
+        <position x="570.0" y="6470.0" />
+        languages (e.g. [Canning 89]). Therefore we
+        <position x="570.0" y="6330.0" />
+        consider inheritance as a pure code-reuse
+        <position x="570.0" y="6190.0" />
+        mechanism. That 's why the entire optimiser
+        <position x="570.0" y="6050.0" />
+        inheritance tree, in the upper rectangle of Figure
+        <position x="570.0" y="5910.0" />
+        2, is hidden. If type-information is desired, then
+        <position x="570.0" y="5770.0" />
+        the framework should declare some (visible)
+        <position x="570.0" y="5630.0" />
+        statement-type.
+        <font size="170" /><position x="570.0" y="5330.0" />
+        3 Framework implementation
+        <position x="570.0" y="5150.0" />
+        problems
+        <font size="133" /><position x="570.0" y="4890.0" />
+        This section shows why current OO languages are
+        <position x="570.0" y="4750.0" />
+        inadequate to build the abstract grammar
+        <position x="570.0" y="4610.0" />
+        framework. The first part elaborates upon
+        <position x="570.0" y="4470.0" />
+        problems of late object creation, the second part
+        <position x="570.0" y="4330.0" />
+        upon the visibility issue. It should be clear that
+        <position x="570.0" y="4190.0" />
+        the discussion is not particularly oriented to
+        <position x="570.0" y="4050.0" />
+        abstract grammars, but applies to the framework
+        <position x="570.0" y="3910.0" />
+        problems in general.
+        <font size="156" /><position x="570.0" y="3680.0" />
+        3.1 Object creation problems
+        <font size="133" /><position x="570.0" y="3480.0" />
+        This section discusses the problems one
+        <position x="570.0" y="3340.0" />
+        encounters when implementing simultaneously
+        <position x="570.0" y="3200.0" />
+        the Abstract Factory and Factory Method design
+        <position x="570.0" y="3060.0" />
+        patterns in a framework. In order to implement
+        <position x="570.0" y="2920.0" />
+        the Factory Method aspect, some classes of the
+        <position x="570.0" y="2780.0" />
+        framework need to know (i.e. need to refer to)
+        <position x="570.0" y="2640.0" />
+        some other classes, namely those they want to
+        <position x="570.0" y="2500.0" />
+        instantiate. But while implementing the unparser
+        <position x="570.0" y="2360.0" />
+        specialisation of our abstract grammar example
+        <position x="570.0" y="2220.0" />
+        of Figure 2, the programmer does not (want to)
+        <position x="570.0" y="2080.0" />
+        know which internal instantiations are performed
+        <position x="570.0" y="1940.0" />
+        by the optimiser. So, the specialisation has to
+        <position x="570.0" y="1800.0" />
+        foresee a
+        <font size="131" /><position x="1021.0" y="1800.0" />
+        total
+        <font size="133" /><position x="1266.0" y="1800.0" />
+        cross reference between the node-
+        <position x="570.0" y="1660.0" />
+        classes, in order to make the implementation of
+        <position x="570.0" y="1520.0" />
+        the specialisation (the unparser) independent of
+        <position x="570.0" y="1380.0" />
+        the implementation of the original (the
+        <position x="570.0" y="1240.0" />
+        optimiser). Thus each specialisation needs its own
+        <position x="570.0" y="1099.0" />
+        cross-reference. The following two subsections
+        <position x="570.0" y="959.0" />
+        reveal the problems when trying to achieve these
+        <position x="570.0" y="819.0" />
+        cross-references. The first subsection acts on
+        <position x="3140.0" y="7589.0" />
+        languages with compile time classes and the
+        <position x="3140.0" y="7449.0" />
+        second on languages with prototypes or first-class
+        <position x="3140.0" y="7309.0" />
+        classes.
+        <font size="130" /><position x="3140.0" y="7070.0" />
+        3.1.1 Object creation problems in a language
+        <position x="3140.0" y="6930.0" />
+        with compile time classes
+        <font size="133" /><position x="3140.0" y="6740.0" />
+        [Gamma 94] describes separately how to
+        <position x="3140.0" y="6600.0" />
+        implement in C++ the Abstract Factory and
+        <position x="3140.0" y="6460.0" />
+        Factory Method design patterns. In the case of an
+        <position x="3140.0" y="6320.0" />
+        abstract grammar framework, we have to combine
+        <position x="3140.0" y="6180.0" />
+        both implementation strategies, and construct a
+        <position x="3140.0" y="6040.0" />
+        total cross reference for the Factory Method (for
+        <position x="3140.0" y="5900.0" />
+        the reason mentioned earlier). Figure 3 shows this
+        <position x="3140.0" y="5760.0" />
+        combination. The grey zones implement the
+        <position x="3140.0" y="5620.0" />
+        cross-reference between node-classes and should
+        <position x="3140.0" y="5480.0" />
+        be private. Note that only the methods that serve
+        <position x="3140.0" y="5340.0" />
+        to implement the design patterns are present: the
+        <position x="3140.0" y="5200.0" />
+        real behaviour of the abstract grammar itself is
+        <position x="3140.0" y="5060.0" />
+        even not drawn! The slightest specialisation, for
+        <position x="3140.0" y="4920.0" />
+        instance only unparsing assignments in a
+        <position x="3140.0" y="4780.0" />
+        different way, requires a total new cross reference
+        <position x="3140.0" y="4640.0" />
+        to be constructed.
+        <position x="3140.0" y="4360.0" />
+        In C++, it is impossible to directly inherit the
+        <position x="3140.0" y="4220.0" />
+        create methods from a common super class due
+        <position x="3140.0" y="4080.0" />
+        to multiple inheritance problems: each create
+        <position x="3140.0" y="3940.0" />
+        method will be inherited via different paths
+        <position x="3140.0" y="3799.0" />
+        making it still necessary to specify the correct
+        <position x="3140.0" y="3659.0" />
+        one. The same problem occurs in almost all
+        <position x="3140.0" y="3519.0" />
+        existing class-based languages since usually (even
+        <position x="3140.0" y="3379.0" />
+        in the
+        <font size="131" /><position x="3440.0" y="3379.0" />
+        rename
+        <font size="133" /><position x="3828.0" y="3379.0" />
+        clause of Eiffel) the class name is
+        <position x="3140.0" y="3239.0" />
+        used somehow to disambiguate between multiple
+        <position x="3140.0" y="3099.0" />
+        inherited homonymous attributes [Carre 90]
+        <position x="3140.0" y="2959.0" />
+        [Van Limberghen 96].
+        <position x="3140.0" y="2679.0" />
+        Can we at least avoid the ponderous code
+        <position x="3140.0" y="2539.0" />
+        duplication in the grey zones? The node-classes
+        <position x="3140.0" y="2399.0" />
+        can directly refer to their Abstract Factory class,
+        <position x="3140.0" y="2259.0" />
+        but they unfortunately need an
+        <font size="131" /><position x="4657.0" y="2259.0" />
+        instance of
+        <font size="133" /><position x="5216.0" y="2259.0" />
+        their
+        <position x="3140.0" y="2119.0" />
+        Abstract Factory class instead of that class itself.
+        <position x="3140.0" y="1979.0" />
+        We present the different alternatives to obtain an
+        <position x="3140.0" y="1839.0" />
+        instance of the Abstract Factory:
+        <position x="3360.0" y="1699.0" />
+        Creating a new Abstract Factory object, i.e.
+        <position x="3360.0" y="1559.0" />
+        instantiating the (known) Abstract Factory
+        <position x="3360.0" y="1419.0" />
+        class, each time when a node is instantiated.
+        <position x="3360.0" y="1279.0" />
+        This causes a very expensive runtime
+        <position x="3360.0" y="1139.0" />
+        overhead.
+        <position x="3360.0" y="999.0" />
+        Putting an instance of the Abstract Factory
+        <position x="3360.0" y="859.0" />
+        class in a global variable. The framework
+        <page value="6" /><position x="570.0" y="7940.0" />
+        Marc Van Limberghen Building frameworks through specialisable nested objects
+        <font size="96" /><position x="2620.0" y="380.0" />
+        page 5
+        <font size="88" /><position x="1260.0" y="7370.0" />
+        Abstract grammar framework
+        <font size="107" /><position x="2250.0" y="7160.0" />
+        Assignment
+        <font size="99" /><position x="2280.0" y="6990.0" />
+        CreateAssignment
+        <position x="2280.0" y="6900.0" />
+        ....
+        <position x="2280.0" y="6810.0" />
+        ....
+        <position x="2280.0" y="6720.0" />
+        CreateOutput
+        <font size="107" /><position x="3580.0" y="7160.0" />
+        Output
+        <font size="99" /><position x="3600.0" y="6990.0" />
+        CreateAssignment
+        <position x="3600.0" y="6900.0" />
+        ....
+        <position x="3600.0" y="6810.0" />
+        ....
+        <position x="3600.0" y="6720.0" />
+        CreateOutput
+        <font size="511" /><position x="3050.0" y="6940.0" />
+        . . .
+        <font size="88" /><position x="1260.0" y="5500.0" />
+        Specialisation of abstract grammar framework
+        <font size="107" /><position x="2250.0" y="6130.0" />
+        Assignment2
+        <font size="99" /><position x="2280.0" y="5960.0" />
+        CreateAssignment
+        <position x="2280.0" y="5870.0" />
+        ....
+        <position x="2280.0" y="5780.0" />
+        ....
+        <position x="2280.0" y="5690.0" />
+        CreateOutput
+        <font size="107" /><position x="3580.0" y="6130.0" />
+        Output2
+        <font size="99" /><position x="3600.0" y="5960.0" />
+        CreateAssignment
+        <position x="3600.0" y="5870.0" />
+        ....
+        <position x="3600.0" y="5780.0" />
+        ....
+        <position x="3600.0" y="5690.0" />
+        CreateOutput
+        <font size="511" /><position x="3050.0" y="5900.0" />
+        . . .
+        <font size="107" /><position x="1360.0" y="7160.0" />
+        Abstract Factory
+        <font size="99" /><position x="1380.0" y="6990.0" />
+        CreateAssignment
+        <position x="1380.0" y="6900.0" />
+        ....
+        <position x="1380.0" y="6810.0" />
+        ....
+        <position x="1380.0" y="6720.0" />
+        CreateOutput
+        <font size="107" /><position x="1360.0" y="6140.0" />
+        Abstract Factory2
+        <font size="99" /><position x="1380.0" y="5970.0" />
+        CreateAssignment
+        <position x="1380.0" y="5880.0" />
+        ....
+        <position x="1380.0" y="5790.0" />
+        ....
+        <position x="1380.0" y="5700.0" />
+        CreateOutput
+        <position x="4460.0" y="6750.0" />
+        Output new()
+        <position x="2730.0" y="6460.0" />
+        Output new()
+        <position x="1840.0" y="6450.0" />
+        Output new()
+        <position x="2010.0" y="5310.0" />
+        Assignment2 new()
+        <position x="1420.0" y="5130.0" />
+        Output2 new()
+        <position x="2190.0" y="7550.0" />
+        Assignment new() Assignment new()
+        <position x="4450.0" y="7030.0" />
+        Assignment new()
+        <position x="4450.0" y="5990.0" />
+        Assignment2 new()
+        <position x="4480.0" y="5710.0" />
+        Output2 new()
+        <position x="2960.0" y="5300.0" />
+        Assignment2 new()
+        <position x="2480.0" y="5130.0" />
+        Output2 new()
+        <font size="121" /><position x="1520.0" y="4840.0" />
+        Figure 3: The abstract grammar framework in a language with compile time classes
+        <font size="133" /><position x="790.0" y="4570.0" />
+        must then be delivered with an initialisation
+        <position x="790.0" y="4430.0" />
+        procedure to fill in this global variable. But
+        <position x="790.0" y="4290.0" />
+        each specialisation requires its proper
+        <position x="790.0" y="4150.0" />
+        installation code. Porting the framework
+        <position x="790.0" y="4010.0" />
+        becomes more error-prone. Moreover
+        <position x="790.0" y="3870.0" />
+        initialisation from the outside exposes
+        <position x="790.0" y="3730.0" />
+        implementation variables: they can be
+        <position x="790.0" y="3590.0" />
+        reassigned (or reinitialised) anytime. And,
+        <position x="790.0" y="3450.0" />
+        last but not least, a global variable makes it is
+        <position x="790.0" y="3310.0" />
+        impossible to run different specialisations
+        <position x="790.0" y="3170.0" />
+        simultaneously.
+        <position x="790.0" y="3030.0" />
+        Adding a parameter in each node-creation
+        <position x="790.0" y="2890.0" />
+        method. This parameter can then be filled in
+        <position x="790.0" y="2750.0" />
+        with the Abstract Factory object. This is
+        <position x="790.0" y="2610.0" />
+        probably the best alternative implementation
+        <position x="790.0" y="2470.0" />
+        to avoid the code duplication in the grey
+        <position x="790.0" y="2330.0" />
+        zones, but the code of the node-classes is
+        <position x="790.0" y="2189.0" />
+        troubled by the existence of and the
+        <position x="790.0" y="2049.0" />
+        communication with this extra parameter that
+        <position x="790.0" y="1909.0" />
+        is not part of the essential node behaviour.
+        <position x="570.0" y="1629.0" />
+        Either way, the Abstract Factory classes have to be
+        <position x="570.0" y="1489.0" />
+        built and the artificial communication with it has
+        <position x="570.0" y="1349.0" />
+        to be programmed: a (too) complex task only for
+        <position x="570.0" y="1209.0" />
+        obtaining late creation.
+        <font size="130" /><position x="3140.0" y="4470.0" />
+        3.1.2 Object creation problems in a language
+        <position x="3140.0" y="4330.0" />
+        with prototypes or first-class classes
+        <font size="133" /><position x="3140.0" y="4140.0" />
+        In languages with first-class classes, as in
+        <position x="3140.0" y="4000.0" />
+        Smalltalk, classes can contain state and classes can
+        <position x="3140.0" y="3860.0" />
+        be stored in variables. A node class can then
+        <position x="3140.0" y="3720.0" />
+        contain every other node class in a variable
+        <font size="108" /><position x="5154.0" y="3750.0" />
+        2
+        <font size="133" /><position x="5201.0" y="3720.0" />
+        . The
+        <position x="3140.0" y="3580.0" />
+        resulting scheme would resemble Figure 3, except
+        <position x="3140.0" y="3440.0" />
+        that the create methods would be replaced by
+        <position x="3140.0" y="3300.0" />
+        variables holding the appropriate node class.
+        <position x="3140.0" y="3160.0" />
+        Analogously to avoiding the duplication of the
+        <position x="3140.0" y="3020.0" />
+        create methods in the grey zones of Figure 3, it is
+        <position x="3140.0" y="2880.0" />
+        now possible to avoid duplication of variables by
+        <position x="3140.0" y="2740.0" />
+        holding only one variable in each node-class,
+        <position x="3140.0" y="2600.0" />
+        namely an instance of the Abstract Factory class.
+        <position x="3140.0" y="2320.0" />
+        In order to allow the coexistence of different
+        <position x="3140.0" y="2180.0" />
+        specialised versions, the specialisation of only one
+        <position x="3140.0" y="2040.0" />
+        kind of node still necessitates to build a new class
+        <position x="3140.0" y="1900.0" />
+        for
+        <font size="131" /><position x="3306.0" y="1900.0" />
+        every
+        <font size="133" /><position x="3589.0" y="1900.0" />
+        kind of node: the cross-reference has to
+        <position x="3140.0" y="1760.0" />
+        be reconstructed entirely. So, compared to the
+        <position x="3140.0" y="1620.0" />
+        solutions of the previous section, first-class classes
+        <position x="3140.0" y="1480.0" />
+        do not ease the implementation of late creation.
+        <font size="108" /><position x="3140.0" y="1170.0" />
+        2
+        <font size="96" /><position x="3209.0" y="1140.0" />
+        In Smalltalk instance variables of class objects must be used, and
+        <position x="3140.0" y="1040.0" />
+        these variables must be made accessible for the instances of the
+        <position x="3140.0" y="940.0" />
+        classes. Class-variables are inappropriate since they are shared with
+        <position x="3140.0" y="840.0" />
+        subclasses,. That sharing would exclude the coexistence of different
+        <position x="3140.0" y="740.0" />
+        specialisations.
+        <page value="7" /><position x="570.0" y="7940.0" />
+        Marc Van Limberghen Building frameworks through specialisable nested objects
+        <position x="2620.0" y="380.0" />
+        page 6
+        <font size="133" /><position x="570.0" y="7590.0" />
+        An additional Smalltalk-specific problem is that,
+        <position x="570.0" y="7450.0" />
+        due to the absence of C++ -like constructor
+        <position x="570.0" y="7310.0" />
+        methods, the variables holding the classes have to
+        <position x="570.0" y="7170.0" />
+        be initialised from the outside. Again, porting the
+        <position x="570.0" y="7030.0" />
+        framework is more complicated and the variables,
+        <position x="570.0" y="6890.0" />
+        albeit this time class object variables, are exposed.
+        <position x="570.0" y="6610.0" />
+        Clonable prototypes are sometimes proposed as
+        <position x="570.0" y="6470.0" />
+        alternative object creation mechanism. But
+        <position x="570.0" y="6330.0" />
+        linking the right prototypes together is exactly
+        <position x="570.0" y="6190.0" />
+        equivalent to correctly filling in the Smalltalk
+        <position x="570.0" y="6050.0" />
+        class object variables. The scheme of related
+        <position x="570.0" y="5910.0" />
+        prototypes will be isomorphic with the
+        <position x="570.0" y="5770.0" />
+        corresponding Smalltalk class structure.
+        <position x="570.0" y="5630.0" />
+        Moreover prototypes give rise to other problems:
+        <position x="570.0" y="5490.0" />
+        the deep versus shallow clone dilemma; the
+        <position x="570.0" y="5350.0" />
+        variable exposing problem (a uniform
+        <position x="570.0" y="5210.0" />
+        parameterless clone operator forces initialisation
+        <position x="570.0" y="5070.0" />
+        from the outside, exposing even more
+        <position x="570.0" y="4930.0" />
+        implementation variables); and an artificial
+        <position x="570.0" y="4790.0" />
+        prototype only serving to be cloned can be
+        <position x="570.0" y="4649.0" />
+        inconsistent with the data-model (for instance
+        <position x="570.0" y="4509.0" />
+        which license plate should we give to an artificial
+        <position x="570.0" y="4369.0" />
+        car only serving to be cloned?).
+        <font size="156" /><position x="570.0" y="4140.0" />
+        3.2 Framework visibility through
+        <position x="570.0" y="4000.0" />
+        object-based encapsulation
+        <font size="133" /><position x="570.0" y="3800.0" />
+        As explained in section 2, the classes of our
+        <position x="570.0" y="3660.0" />
+        abstract grammar need common access to names
+        <position x="570.0" y="3520.0" />
+        representing state or classes. Some of these names
+        <position x="570.0" y="3380.0" />
+        represent implementation details. In order to
+        <position x="570.0" y="3240.0" />
+        obtain some independence in the development of
+        <position x="570.0" y="3100.0" />
+        the different frameworks in a system, and in the
+        <position x="570.0" y="2960.0" />
+        development of different specialisations of a
+        <position x="570.0" y="2820.0" />
+        single framework, some visibility mechanism is
+        <position x="570.0" y="2680.0" />
+        needed. Sharing a name between a family of
+        <position x="570.0" y="2540.0" />
+        classes that are not necessarily in subclass
+        <position x="570.0" y="2400.0" />
+        relationship with each other, and hiding the name
+        <position x="570.0" y="2260.0" />
+        from other classes, poses a problem in many
+        <position x="570.0" y="2120.0" />
+        object oriented languages. Similarly, hiding
+        <position x="570.0" y="1980.0" />
+        names from the specialisation of the framework
+        <position x="570.0" y="1840.0" />
+        and vice versa is often impossible.
+        <position x="570.0" y="1560.0" />
+        A few object-oriented languages include some
+        <position x="570.0" y="1420.0" />
+        form of separate module system to regulate
+        <position x="570.0" y="1280.0" />
+        visibility. In C++ files can be used as modules.
+        <position x="570.0" y="1140.0" />
+        [Wirfs-Brock 88] introduced modules in
+        <position x="570.0" y="1000.0" />
+        Smalltalk. But modules are inappropriate to hide
+        <position x="570.0" y="859.0" />
+        framework implementation details for the very
+        <position x="3140.0" y="7590.0" />
+        same reason as they are inappropriate to hide
+        <position x="3140.0" y="7449.0" />
+        object implementation details. The difference
+        <position x="3140.0" y="7309.0" />
+        between modules and objects is just that different
+        <position x="3140.0" y="7169.0" />
+        objects of the same kind can coexist, whereas a
+        <position x="3140.0" y="7029.0" />
+        module represents a unique set of its items since it
+        <position x="3140.0" y="6889.0" />
+        is a compile time aspect. As a consequence
+        <position x="3140.0" y="6749.0" />
+        running simultaneously different specialisations
+        <position x="3140.0" y="6609.0" />
+        of a framework with state, or providing
+        <position x="3140.0" y="6469.0" />
+        simultaneously different implementations of the
+        <position x="3140.0" y="6329.0" />
+        same framework functionality, requires the
+        <position x="3140.0" y="6189.0" />
+        framework to be an object instead of a module.
+        <position x="3140.0" y="6049.0" />
+        Perhaps coexistence of different specialisations is
+        <position x="3140.0" y="5909.0" />
+        not directly a realistic need in the case of an
+        <position x="3140.0" y="5769.0" />
+        abstract grammar, but it certainly is in the
+        <position x="3140.0" y="5629.0" />
+        application-document example of a Factory
+        <position x="3140.0" y="5489.0" />
+        Method in [Gamma 94]. So also object-based
+        <position x="3140.0" y="5349.0" />
+        encapsulation instead of module-based
+        <position x="3140.0" y="5209.0" />
+        encapsulation is needed to hide names, not only
+        <position x="3140.0" y="5069.0" />
+        in simple objects but also in frameworks.
+        <font size="170" /><position x="3140.0" y="4770.0" />
+        4 The abstract grammar in
+        <position x="3140.0" y="4590.0" />
+        LENS
+        <font size="133" /><position x="3140.0" y="4330.0" />
+        Figure 4 contains the implementation of the
+        <position x="3140.0" y="4190.0" />
+        abstract grammar in LENS. Before discussing
+        <position x="3140.0" y="4050.0" />
+        how the framework problems are solved, we
+        <position x="3140.0" y="3910.0" />
+        briefly introduce the syntax and basic concepts of
+        <position x="3140.0" y="3770.0" />
+        LENS necessary to understand Figure 4.
+        <font size="156" /><position x="3140.0" y="3540.0" />
+        4.1 Syntactical conventions
+        <font size="133" /><position x="3140.0" y="3340.0" />
+        All identifiers and operators in bold are
+        <position x="3140.0" y="3200.0" />
+        predefined. Identifiers that would correspond to a
+        <position x="3140.0" y="3060.0" />
+        class in a class-based language, are capitalised.
+        <position x="3140.0" y="2920.0" />
+        But this is only a convention for clarity. The
+        <position x="3140.0" y="2780.0" />
+        following message passing notation is adopted:
+        <position x="3360.0" y="2640.0" />
+        Messages with an explicit receiver are
+        <position x="3360.0" y="2500.0" />
+        denoted by writing the receiver followed by
+        <position x="3360.0" y="2360.0" />
+        the message-selector. Arguments are added
+        <position x="3360.0" y="2220.0" />
+        between parentheses, as in line 16:
+        <font size="131" /><position x="3360.0" y="2080.0" />
+        optimiserTable atPut(to, whatOptimised).
+        <font size="133" /><position x="3360.0" y="1940.0" />
+        Receiverless messages represent self sends,
+        <position x="3360.0" y="1800.0" />
+        e.g.
+        <font size="131" /><position x="3607.0" y="1800.0" />
+        optimiseStatement
+        <font size="133" /><position x="4714.0" y="1800.0" />
+        in line 8 and
+        <font size="131" /><position x="3360.0" y="1660.0" />
+        myOperation(..,...)
+        <font size="133" /><position x="4253.0" y="1660.0" />
+        in line 65.
+        <position x="3360.0" y="1520.0" />
+        Super calls are denoted with the
+        <font size="142" /><position x="5131.0" y="1520.0" />
+        super
+        <font size="133" /><position x="3360.0" y="1380.0" />
+        keyword. We use super calls only to refer to
+        <position x="3360.0" y="1240.0" />
+        the method we are currently overriding.
+        <position x="3360.0" y="1100.0" />
+        Consequently it is redundant to specify
+        <position x="3360.0" y="959.0" />
+        which super method is activated. In other
+        <position x="3360.0" y="819.0" />
+        words when for example overriding the
+        <page value="8" /><position x="540.0" y="8000.0" />
+        Marc Van Limberghen Building frameworks through specialisable nested objects
+        <font size="96" /><position x="2590.0" y="570.0" />
+        page 7
+        <font size="99" /><position x="540.0" y="7830.0" />
+        00 [
+        <position x="720.0" y="7720.0" />
+        /* Abstract grammar framework offering optimisation */
+        <position x="738.0" y="7640.0" />
+        [
+        <position x="765.0" y="7560.0" />
+        optimiserTable
+        <font size="100" /><position x="1285.0" y="7560.0" />
+        variable;
+        <font size="99" /><position x="540.0" y="7400.0" />
+        05 STATEMENT
+        <font size="100" /><position x="1267.0" y="7400.0" />
+        method(
+        <font size="99" /><position x="805.0" y="7320.0" />
+        [ optimiseProgram
+        <font size="100" /><position x="1483.0" y="7320.0" />
+        method(
+        <font size="99" /><position x="911.0" y="7240.0" />
+        [ optimiserTable!(DICTIONARY);
+        <position x="944.0" y="7160.0" />
+        optimiseStatement])
+        <position x="802.0" y="7080.0" />
+        ]);
+        <position x="557.0" y="7000.0" />
+        10
+        <position x="763.0" y="6920.0" />
+        ASSIGNMENT(to, what)
+        <font size="100" /><position x="1631.0" y="6920.0" />
+        method(
+        <font size="99" /><position x="804.0" y="6840.0" />
+        [ STATEMENT;
+        <position x="846.0" y="6760.0" />
+        optimiseStatement
+        <font size="100" /><position x="1507.0" y="6760.0" />
+        method(
+        <font size="99" /><position x="867.0" y="6680.0" />
+        [ whatOptimised
+        <font size="100" /><position x="1442.0" y="6680.0" />
+        temporary(what
+        <font size="99" /><position x="2027.0" y="6680.0" />
+        optimiseExpression);
+        <position x="557.0" y="6600.0" />
+        15 whatOptimised isConstant
+        <font size="100" /><position x="1817.0" y="6600.0" />
+        if
+        <font size="99" /><position x="1884.0" y="6600.0" />
+        (
+        <position x="967.0" y="6520.0" />
+        optimiserTable atPut(to, whatOptimised),
+        <position x="972.0" y="6440.0" />
+        ASSIGNMENT(to, whatOptimised))])
+        <position x="822.0" y="6360.0" />
+        ]);
+        <position x="540.0" y="6200.0" />
+        20 SEQUENCE(first, second)
+        <font size="100" /><position x="1701.0" y="6200.0" />
+        method(
+        <font size="99" /><position x="804.0" y="6120.0" />
+        [ STATEMENT;
+        <position x="846.0" y="6040.0" />
+        optimiseStatement
+        <font size="100" /><position x="1507.0" y="6040.0" />
+        method(
+        <font size="99" /><position x="868.0" y="5960.0" />
+        [ firstOptimised
+        <font size="100" /><position x="1406.0" y="5960.0" />
+        temporary(first
+        <font size="99" /><position x="1952.0" y="5960.0" />
+        optimiseStatement);
+        <position x="935.0" y="5880.0" />
+        (firstOptimised
+        <font size="100" /><position x="1461.0" y="5880.0" />
+        = nil) if(
+        <font size="99" /><position x="540.0" y="5800.0" />
+        25 second optimiseStatement,
+        <position x="989.0" y="5720.0" />
+        SEQUENCE(firstOptimised, second optimiseStatement))
+        <position x="883.0" y="5640.0" />
+        ])
+        <position x="822.0" y="5560.0" />
+        ]);
+        <position x="540.0" y="5400.0" />
+        30 INPUT(to)
+        <font size="100" /><position x="1146.0" y="5400.0" />
+        method(
+        <font size="99" /><position x="804.0" y="5320.0" />
+        [ STATEMENT;
+        <position x="846.0" y="5240.0" />
+        optimiseStatement
+        <font size="100" /><position x="1507.0" y="5240.0" />
+        method(
+        <font size="99" /><position x="886.0" y="5160.0" />
+        [ optimiserTable removeKey(to);
+        <position x="932.0" y="5080.0" />
+        INPUT(to)])
+        <position x="540.0" y="5000.0" />
+        35 ]);
+        <position x="764.0" y="4840.0" />
+        OUTPUT(what)
+        <font size="100" /><position x="1336.0" y="4840.0" />
+        method(
+        <font size="99" /><position x="804.0" y="4760.0" />
+        [ STATEMENT;
+        <position x="848.0" y="4680.0" />
+        optimiseStatement
+        <font size="100" /><position x="1516.0" y="4680.0" />
+        method(OUTPUT(what
+        <font size="99" /><position x="2356.0" y="4680.0" />
+        optimiseExpression))
+        <position x="540.0" y="4600.0" />
+        40 ]);
+        <position x="764.0" y="4440.0" />
+        LITERAL(val)
+        <font size="100" /><position x="1259.0" y="4440.0" />
+        method(
+        <font size="99" /><position x="805.0" y="4360.0" />
+        [ isConstant
+        <font size="100" /><position x="1239.0" y="4360.0" />
+        method(true);
+        <font size="99" /><position x="849.0" y="4280.0" />
+        value
+        <font size="100" /><position x="1057.0" y="4280.0" />
+        method(val);
+        <font size="99" /><position x="540.0" y="4200.0" />
+        45 optimiseExpression
+        <font size="100" /><position x="1548.0" y="4200.0" />
+        method(LITERAL(val))
+        <font size="99" /><position x="802.0" y="4120.0" />
+        ]);
+        <position x="763.0" y="3960.0" />
+        RUNTIME_EXPRESSION
+        <font size="100" /><position x="1700.0" y="3960.0" />
+        method(
+        <font size="99" /><position x="867.0" y="3880.0" />
+        isConstant
+        <font size="100" /><position x="1255.0" y="3880.0" />
+        method(false)
+        <font size="99" /><position x="540.0" y="3800.0" />
+        50 );
+        <position x="764.0" y="3640.0" />
+        IDENTIFIER(label)
+        <font size="100" /><position x="1447.0" y="3640.0" />
+        method(
+        <font size="99" /><position x="803.0" y="3560.0" />
+        [ RUNTIME_EXPRESSION;
+        <position x="847.0" y="3480.0" />
+        optimiseExpression
+        <font size="100" /><position x="1544.0" y="3480.0" />
+        method(
+        <font size="99" /><position x="540.0" y="3400.0" />
+        55 optimiserTable atIfAbsent(label, IDENTIFIER(label)))
+        <position x="802.0" y="3320.0" />
+        ]);
+        <position x="763.0" y="3160.0" />
+        OPERATION(left, right)
+        <font size="100" /><position x="1601.0" y="3160.0" />
+        method(
+        <font size="99" /><position x="803.0" y="3080.0" />
+        [ RUNTIME_EXPRESSION;
+        <position x="540.0" y="3000.0" />
+        60 optimiseExpression
+        <font size="100" /><position x="1544.0" y="3000.0" />
+        method(
+        <font size="99" /><position x="888.0" y="2920.0" />
+        [ leftOptimised
+        <font size="100" /><position x="1403.0" y="2920.0" />
+        temporary(left
+        <font size="99" /><position x="1925.0" y="2920.0" />
+        optimiseExpression);
+        <position x="931.0" y="2840.0" />
+        rightOptimised
+        <font size="100" /><position x="1452.0" y="2840.0" />
+        temporary(right
+        <font size="99" /><position x="2024.0" y="2840.0" />
+        optimiseExpression);
+        <position x="933.0" y="2760.0" />
+        ((leftOptimised isConstant)
+        <font size="100" /><position x="1874.0" y="2760.0" />
+        &amp;
+        <font size="99" /><position x="1951.0" y="2760.0" />
+        (rightOptimised isConstant))
+        <font size="100" /><position x="2938.0" y="2760.0" />
+        if(
+        <font size="99" /><position x="1015.0" y="2680.0" />
+        LITERAL(calculate(leftOptimised value,rightOptimised value)),
+        <position x="540.0" y="2600.0" />
+        65 myOperation(leftOptimised,rightOptimised))])
+        <position x="802.0" y="2520.0" />
+        ]);
+        <position x="764.0" y="2360.0" />
+        ADD(left, right)
+        <font size="100" /><position x="1309.0" y="2360.0" />
+        method(
+        <font size="99" /><position x="804.0" y="2280.0" />
+        [ OPERATION(left, right);
+        <position x="540.0" y="2200.0" />
+        70 calculate(left, right)
+        <font size="100" /><position x="1525.0" y="2200.0" />
+        method(left
+        <font size="99" /><position x="1955.0" y="2200.0" />
+        + right);
+        <position x="849.0" y="2120.0" />
+        myOperation(left, right)
+        <font size="100" /><position x="1670.0" y="2120.0" />
+        method(ADD(left,
+        <font size="99" /><position x="2317.0" y="2120.0" />
+        right))
+        <position x="805.0" y="2040.0" />
+        ]
+        <font size="100" /><position x="848.0" y="2040.0" />
+        encaps(calculate,
+        <font size="99" /><position x="1479.0" y="2040.0" />
+        myOperation));
+        <position x="763.0" y="1880.0" />
+        MULTIPLY(left, right)
+        <font size="100" /><position x="1521.0" y="1880.0" />
+        method(
+        <font size="99" /><position x="540.0" y="1800.0" />
+        75 [ OPERATION(left, right);
+        <position x="848.0" y="1720.0" />
+        calculate(left, right)
+        <font size="100" /><position x="1523.0" y="1720.0" />
+        method(left
+        <font size="99" /><position x="1951.0" y="1720.0" />
+        * right);
+        <position x="848.0" y="1640.0" />
+        myOperation(left, right)
+        <font size="100" /><position x="1667.0" y="1640.0" />
+        method(MULTIPLY(left,
+        <font size="99" /><position x="2527.0" y="1640.0" />
+        right))
+        <position x="805.0" y="1560.0" />
+        ]
+        <font size="100" /><position x="848.0" y="1560.0" />
+        encaps(calculate,
+        <font size="99" /><position x="1479.0" y="1560.0" />
+        myOperation))
+        <position x="540.0" y="1400.0" />
+        80 ]
+        <font size="100" /><position x="785.0" y="1400.0" />
+        encaps(STATEMENT,
+        <font size="99" /><position x="1593.0" y="1400.0" />
+        RUNTIME_EXPRESSION,
+        <position x="1092.0" y="1320.0" />
+        OPERATION, optimiserTable);
+        <position x="3711.0" y="7720.0" />
+        /*Specialisation of abstract grammar,
+        <position x="3752.0" y="7640.0" />
+        extending the grammar with unparsing. */
+        <position x="3708.0" y="7560.0" />
+        [
+        <position x="3510.0" y="7480.0" />
+        85 ASSIGNMENT(to, what)
+        <font size="100" /><position x="4560.0" y="7480.0" />
+        method(
+        <font size="99" /><position x="3774.0" y="7400.0" />
+        [
+        <font size="100" /><position x="3817.0" y="7400.0" />
+        super(to,
+        <font size="99" /><position x="4152.0" y="7400.0" />
+        what);
+        <position x="3819.0" y="7320.0" />
+        leftHand
+        <font size="100" /><position x="4132.0" y="7320.0" />
+        constant(IDENTIFIER(to));
+        <font size="99" /><position x="3816.0" y="7240.0" />
+        unparse
+        <font size="100" /><position x="4117.0" y="7240.0" />
+        method(
+        <font size="99" /><position x="3848.0" y="7160.0" />
+        [ leftHand unparse;
+        <position x="3510.0" y="7080.0" />
+        90 " := "
+        <font size="100" /><position x="4088.0" y="7080.0" />
+        print;
+        <font size="99" /><position x="3890.0" y="7000.0" />
+        what unparse])
+        <position x="3775.0" y="6920.0" />
+        ]
+        <font size="100" /><position x="3817.0" y="6920.0" />
+        encaps(leftHand));
+        <font size="99" /><position x="3733.0" y="6760.0" />
+        SEQUENCE(first, second)
+        <font size="100" /><position x="4671.0" y="6760.0" />
+        method(
+        <font size="99" /><position x="3510.0" y="6680.0" />
+        95 [
+        <font size="100" /><position x="3818.0" y="6680.0" />
+        super(first,
+        <font size="99" /><position x="4214.0" y="6680.0" />
+        second);
+        <position x="3816.0" y="6600.0" />
+        unparse
+        <font size="100" /><position x="4117.0" y="6600.0" />
+        method(
+        <font size="99" /><position x="3853.0" y="6520.0" />
+        [ first unparse;
+        <position x="3902.0" y="6440.0" />
+        "; "
+        <font size="100" /><position x="4021.0" y="6440.0" />
+        println;
+        <font size="99" /><position x="3888.0" y="6360.0" />
+        second unparse])
+        <position x="3510.0" y="6280.0" />
+        100 ]);
+        <position x="3734.0" y="6120.0" />
+        INPUT(to)
+        <font size="100" /><position x="4116.0" y="6120.0" />
+        method(
+        <font size="99" /><position x="3775.0" y="6040.0" />
+        [
+        <font size="100" /><position x="3817.0" y="6040.0" />
+        super(to);
+        <font size="99" /><position x="3828.0" y="5960.0" />
+        toIdent
+        <font size="100" /><position x="4086.0" y="5960.0" />
+        constant(IDENTIFIER(to));
+        <font size="99" /><position x="3510.0" y="5880.0" />
+        105 unparse
+        <font size="100" /><position x="4117.0" y="5880.0" />
+        method(
+        <font size="99" /><position x="3858.0" y="5800.0" />
+        [ "input("
+        <font size="100" /><position x="4169.0" y="5800.0" />
+        print;
+        <font size="99" /><position x="3884.0" y="5720.0" />
+        toIdent unparse;
+        <position x="3906.0" y="5640.0" />
+        ")"
+        <font size="100" /><position x="4010.0" y="5640.0" />
+        print])
+        <font size="99" /><position x="3774.0" y="5560.0" />
+        ]
+        <font size="100" /><position x="3816.0" y="5560.0" />
+        encaps(toIdent))
+        <font size="99" /><position x="3510.0" y="5480.0" />
+        110
+        <position x="3734.0" y="5400.0" />
+        OUTPUT(what)
+        <font size="100" /><position x="4306.0" y="5400.0" />
+        method(
+        <font size="99" /><position x="3775.0" y="5320.0" />
+        [
+        <font size="100" /><position x="3818.0" y="5320.0" />
+        super(what);
+        <font size="99" /><position x="3816.0" y="5240.0" />
+        unparse
+        <font size="100" /><position x="4117.0" y="5240.0" />
+        method(
+        <font size="99" /><position x="3861.0" y="5160.0" />
+        [ "print("
+        <font size="100" /><position x="4157.0" y="5160.0" />
+        print;
+        <font size="99" /><position x="3510.0" y="5080.0" />
+        115 what unparse;
+        <position x="3906.0" y="5000.0" />
+        ")"
+        <font size="100" /><position x="4010.0" y="5000.0" />
+        print])
+        <font size="99" /><position x="4560.0" y="5000.0" />
+        ]);
+        <position x="3734.0" y="4840.0" />
+        LITERAL(val)
+        <font size="100" /><position x="4229.0" y="4840.0" />
+        method(
+        <font size="99" /><position x="3776.0" y="4760.0" />
+        [
+        <font size="100" /><position x="3819.0" y="4760.0" />
+        super(val);
+        <font size="99" /><position x="3510.0" y="4680.0" />
+        120 unparse
+        <font size="100" /><position x="4123.0" y="4680.0" />
+        method(val print)
+        <font size="99" /><position x="3772.0" y="4600.0" />
+        ]);
+        <position x="3734.0" y="4440.0" />
+        IDENTIFIER(label)
+        <font size="100" /><position x="4417.0" y="4440.0" />
+        method(
+        <font size="99" /><position x="3775.0" y="4360.0" />
+        [
+        <font size="100" /><position x="3818.0" y="4360.0" />
+        super(label);
+        <font size="99" /><position x="3510.0" y="4280.0" />
+        125 unparse
+        <font size="100" /><position x="4121.0" y="4280.0" />
+        method(label print)
+        <font size="99" /><position x="3772.0" y="4200.0" />
+        ]);
+        <position x="3733.0" y="4040.0" />
+        OPERATION(left, right)
+        <font size="100" /><position x="4571.0" y="4040.0" />
+        method(
+        <font size="99" /><position x="3816.0" y="3960.0" />
+        unparse
+        <font size="100" /><position x="4117.0" y="3960.0" />
+        method(
+        <font size="99" /><position x="3510.0" y="3880.0" />
+        130 [ "("
+        <font size="100" /><position x="4007.0" y="3880.0" />
+        print;
+        <font size="99" /><position x="3888.0" y="3800.0" />
+        left unparse;
+        <position x="3892.0" y="3720.0" />
+        printOperator;
+        <position x="3890.0" y="3640.0" />
+        right unparse;
+        <position x="3905.0" y="3560.0" />
+        ")"
+        <font size="100" /><position x="4008.0" y="3560.0" />
+        print
+        <font size="99" /><position x="3510.0" y="3480.0" />
+        135 ]
+        <position x="3776.0" y="3400.0" />
+        ));
+        <position x="3734.0" y="3240.0" />
+        ADD(left, right)
+        <font size="100" /><position x="4279.0" y="3240.0" />
+        method(
+        <font size="99" /><position x="3775.0" y="3160.0" />
+        [
+        <font size="100" /><position x="3817.0" y="3160.0" />
+        super(left,
+        <font size="99" /><position x="4194.0" y="3160.0" />
+        right);
+        <position x="3510.0" y="3080.0" />
+        140 OPERATION(left, right);
+        <position x="3820.0" y="3000.0" />
+        printOperator
+        <font size="100" /><position x="4304.0" y="3000.0" />
+        method("
+        <font size="99" /><position x="4663.0" y="3000.0" />
+        + "
+        <font size="100" /><position x="4780.0" y="3000.0" />
+        print)
+        <font size="99" /><position x="3775.0" y="2920.0" />
+        ]
+        <font size="100" /><position x="3818.0" y="2920.0" />
+        encaps(printOperator));
+        <font size="99" /><position x="3733.0" y="2760.0" />
+        MULTIPLY(left, right)
+        <font size="100" /><position x="4491.0" y="2760.0" />
+        method(
+        <font size="99" /><position x="3510.0" y="2680.0" />
+        145 [
+        <font size="100" /><position x="3817.0" y="2680.0" />
+        super(left,
+        <font size="99" /><position x="4194.0" y="2680.0" />
+        right);
+        <position x="3816.0" y="2600.0" />
+        OPERATION(left, right);
+        <position x="3819.0" y="2520.0" />
+        printOperator
+        <font size="100" /><position x="4302.0" y="2520.0" />
+        method("
+        <font size="99" /><position x="4659.0" y="2520.0" />
+        * "
+        <font size="100" /><position x="4761.0" y="2520.0" />
+        print)
+        <font size="99" /><position x="3775.0" y="2440.0" />
+        ]
+        <font size="100" /><position x="3818.0" y="2440.0" />
+        encaps(printOperator));
+        <font size="99" /><position x="3510.0" y="2280.0" />
+        150 ]
+        <font size="100" /><position x="3733.0" y="2280.0" />
+        encaps(OPERATION);
+        <font size="99" /><position x="3690.0" y="2090.0" />
+        DICTIONARY
+        <font size="100" /><position x="4188.0" y="2090.0" />
+        method(
+        <font size="99" /><position x="4578.0" y="2090.0" />
+        ............... );
+        <position x="3690.0" y="1930.0" />
+        parse
+        <font size="100" /><position x="3909.0" y="1930.0" />
+        method(
+        <font size="99" /><position x="3510.0" y="1850.0" />
+        155 SEQUENCE(
+        <position x="3817.0" y="1770.0" />
+        ASSIGNMENT("a", LITERAL(3)),
+        <position x="3836.0" y="1690.0" />
+        SEQUENCE(
+        <position x="3886.0" y="1610.0" />
+        ASSIGNMENT("b", LITERAL(2)),
+        <position x="3897.0" y="1530.0" />
+        SEQUENCE(
+        <position x="3531.0" y="1450.0" />
+        160 INPUT("c"),
+        <position x="3964.0" y="1370.0" />
+        OUTPUT(
+        <position x="4017.0" y="1290.0" />
+        ADD(MULTIPLY(IDENTIFIER("a"),
+        <position x="4620.0" y="1210.0" />
+        IDENTIFIER("b")),
+        <position x="4215.0" y="1130.0" />
+        IDENTIFIER("c")))))))
+        <position x="3527.0" y="1050.0" />
+        165
+        <position x="3690.0" y="970.0" />
+        ] parse optimiseProgram unparse
+        <font size="131" /><position x="2250.0" y="730.0" />
+        Figure 4: the abstract grammar in LENS
+        <page value="9" /><position x="570.0" y="7940.0" />
+        Marc Van Limberghen Building frameworks through specialisable nested objects
+        <font size="96" /><position x="2620.0" y="380.0" />
+        page 8
+        <font size="131" /><position x="660.0" y="7590.0" />
+        ASSIGNMENT
+        <font size="133" /><position x="1485.0" y="7590.0" />
+        method in line 86, we will
+        <position x="790.0" y="7450.0" />
+        simply write
+        <font size="142" /><position x="1407.0" y="7450.0" />
+        super(to,what)
+        <font size="133" /><position x="2126.0" y="7450.0" />
+        to call the super
+        <position x="790.0" y="7310.0" />
+        variant of the
+        <font size="131" /><position x="1427.0" y="7310.0" />
+        ASSIGNMENT
+        <font size="133" /><position x="2140.0" y="7310.0" />
+        method.
+        <position x="570.0" y="7030.0" />
+        LENS provides three kinds of slot declarations:
+        <font size="131" /><position x="790.0" y="6890.0" />
+        calculate(left, rigtht)
+        <font size="142" /><position x="1839.0" y="6890.0" />
+        method(body)
+        <font size="133" /><position x="2560.0" y="6890.0" />
+        in line
+        <position x="790.0" y="6750.0" />
+        70, declares a method slot with selector
+        <font size="131" /><position x="790.0" y="6610.0" />
+        calculate
+        <font size="133" /><position x="1286.0" y="6610.0" />
+        and the two parameters
+        <font size="131" /><position x="2494.0" y="6610.0" />
+        left
+        <font size="133" /><position x="2686.0" y="6610.0" />
+        and
+        <font size="131" /><position x="790.0" y="6470.0" />
+        right. body
+        <font size="133" /><position x="1432.0" y="6470.0" />
+        is evaluated each time the
+        <font size="131" /><position x="790.0" y="6330.0" />
+        calculate
+        <font size="133" /><position x="1234.0" y="6330.0" />
+        message is sent.
+        <font size="131" /><position x="790.0" y="6190.0" />
+        optimiserTable
+        <font size="142" /><position x="1519.0" y="6190.0" />
+        variable
+        <font size="133" /><position x="1933.0" y="6190.0" />
+        in line 3, declares a
+        <position x="790.0" y="6050.0" />
+        variable. This declaration introduces two
+        <position x="790.0" y="5910.0" />
+        slots: a retrieve slot
+        <font size="131" /><position x="1756.0" y="5910.0" />
+        optimiserTable
+        <font size="133" /><position x="2554.0" y="5910.0" />
+        and an
+        <position x="790.0" y="5770.0" />
+        update slot
+        <font size="131" /><position x="1315.0" y="5770.0" />
+        optimiserTable!.
+        <position x="790.0" y="5630.0" />
+        leftHand
+        <font size="142" /><position x="1220.0" y="5630.0" />
+        constant(value)
+        <font size="133" /><position x="1975.0" y="5630.0" />
+        ,in line 87, declares
+        <position x="790.0" y="5490.0" />
+        a read-only instance variable by only
+        <position x="790.0" y="5350.0" />
+        introducing the retrieve slot
+        <font size="131" /><position x="2091.0" y="5350.0" />
+        leftHand
+        <font size="133" /><position x="2521.0" y="5350.0" />
+        .
+        <font size="142" /><position x="570.0" y="5070.0" />
+        temporary
+        <font size="133" /><position x="1174.0" y="5070.0" />
+        declarations (
+        <font size="131" /><position x="1910.0" y="5070.0" />
+        leftOptimised
+        <font size="133" /><position x="2671.0" y="5070.0" />
+        and
+        <font size="131" /><position x="570.0" y="4930.0" />
+        rightOptimised
+        <font size="133" /><position x="1443.0" y="4930.0" />
+        in lines 61 and 62) do not
+        <position x="570.0" y="4790.0" />
+        introduce object slots, but only introduce a local
+        <position x="570.0" y="4650.0" />
+        variable in the lexically surrounding method
+        <font size="131" /><position x="570.0" y="4510.0" />
+        optimiseExpression.
+        <font size="133" /><position x="570.0" y="4230.0" />
+        New objects can be created from scratch by
+        <position x="570.0" y="4090.0" />
+        denoting them as a block (i.e. a name space)
+        <position x="570.0" y="3950.0" />
+        using brackets
+        <font size="131" /><position x="1316.0" y="3950.0" />
+        [...].
+        <font size="133" /><position x="1564.0" y="3950.0" />
+        For instance the
+        <font size="131" /><position x="2393.0" y="3950.0" />
+        LITERAL
+        <font size="133" /><position x="570.0" y="3810.0" />
+        method in line 42 creates a new literal node
+        <position x="570.0" y="3670.0" />
+        object consisting of the three slots declared in
+        <position x="570.0" y="3530.0" />
+        lines 43 to 45. The three slots are actually
+        <position x="570.0" y="3390.0" />
+        composed using inheritance, denoted by the ';'
+        <position x="570.0" y="3250.0" />
+        operator. Note that the outermost block of Figure
+        <position x="570.0" y="3110.0" />
+        4, beginning at line 0 and ending at line 168, also
+        <position x="570.0" y="2970.0" />
+        denotes an object. We sent the message
+        <font size="131" /><position x="2406.0" y="2970.0" />
+        parse
+        <font size="133" /><position x="2688.0" y="2970.0" />
+        to it
+        <position x="570.0" y="2830.0" />
+        in line 168.
+        <position x="570.0" y="2550.0" />
+        The
+        <font size="131" /><position x="786.0" y="2550.0" />
+        optimiseProgram
+        <font size="133" /><position x="1653.0" y="2550.0" />
+        method declared in line 6
+        <position x="570.0" y="2410.0" />
+        is an example of a more ordinary method
+        <position x="570.0" y="2270.0" />
+        invoking two statements. Since this method is
+        <position x="570.0" y="2130.0" />
+        denoted using brackets, it also creates an object.
+        <position x="570.0" y="1989.0" />
+        The convention is that assignments, for instance
+        <position x="570.0" y="1849.0" />
+        that in line 7, return an empty object. Composing
+        <position x="570.0" y="1709.0" />
+        this empty object with the result of the second
+        <position x="570.0" y="1569.0" />
+        statement, the method invocation in line 8,
+        <position x="570.0" y="1429.0" />
+        eventually yields the wanted result. Syntactically
+        <position x="570.0" y="1289.0" />
+        this is similar to writing the result of a method as
+        <position x="570.0" y="1149.0" />
+        its last statement.
+        <font size="156" /><position x="3140.0" y="7520.0" />
+        4.2 Basic concepts of LENS
+        <font size="133" /><position x="3140.0" y="7320.0" />
+        LENS is slot-based because instance variables are
+        <position x="3140.0" y="7180.0" />
+        only accessible through a couple of retrieve and
+        <position x="3140.0" y="7040.0" />
+        update methods. Slot-based instance variables
+        <position x="3140.0" y="6900.0" />
+        blend state and behaviour, even towards
+        <position x="3140.0" y="6760.0" />
+        inheritors, enhancing the degree of encapsulation
+        <position x="3140.0" y="6620.0" />
+        [Ungar 87].
+        <position x="3140.0" y="6340.0" />
+        The
+        <font size="131" /><position x="3374.0" y="6340.0" />
+        STATEMENT
+        <font size="133" /><position x="4119.0" y="6340.0" />
+        method declared in line 5
+        <position x="3140.0" y="6200.0" />
+        creates an incomplete (or abstract) object only
+        <position x="3140.0" y="6060.0" />
+        consisting of the method
+        <font size="131" /><position x="4373.0" y="6060.0" />
+        optimiseProgram
+        <font size="133" /><position x="5256.0" y="6060.0" />
+        that
+        <position x="3140.0" y="5920.0" />
+        calls through a self send the undefined (or
+        <position x="3140.0" y="5780.0" />
+        abstract) method
+        <font size="131" /><position x="3969.0" y="5780.0" />
+        optimiseStatement.
+        <font size="133" /><position x="4903.0" y="5780.0" />
+        Incomplete
+        <position x="3140.0" y="5640.0" />
+        objects can be passed around. Wrong use of
+        <position x="3140.0" y="5500.0" />
+        incomplete objects raises a runtime "message not
+        <position x="3140.0" y="5360.0" />
+        understood" error. We do not consider this as a
+        <position x="3140.0" y="5220.0" />
+        problem because we feel it is the task of an
+        <position x="3140.0" y="5080.0" />
+        optional static type system
+        <font size="108" /><position x="4399.0" y="5110.0" />
+        3
+        <font size="133" /><position x="4476.0" y="5080.0" />
+        to avoid such wrong
+        <position x="3140.0" y="4940.0" />
+        uses at compile time.
+        <position x="3140.0" y="4660.0" />
+        Inheritance can be applied dynamically:
+        <position x="3140.0" y="4520.0" />
+        inheritance hierarchies can be built at run time. In
+        <position x="3140.0" y="4380.0" />
+        line 12 for example the
+        <font size="131" /><position x="4292.0" y="4380.0" />
+        ASSIGNMENT
+        <font size="133" /><position x="5047.0" y="4380.0" />
+        method,
+        <position x="3140.0" y="4240.0" />
+        adds by means of inheritance the
+        <font size="131" /><position x="3140.0" y="4100.0" />
+        optimiseStatement
+        <font size="133" /><position x="4066.0" y="4100.0" />
+        method to a (newly created)
+        <position x="3140.0" y="3960.0" />
+        statement object. Figure 5 presents an OMT-like
+        <position x="3140.0" y="3820.0" />
+        [Rumbaugh 91] diagram of this situation. The
+        <position x="3140.0" y="3680.0" />
+        diagram is OMT-incorrect because in OMT only
+        <position x="3140.0" y="3540.0" />
+        classes can be specialised. An apparent
+        <position x="3140.0" y="3400.0" />
+        characteristic of LENS is life-time sharing
+        <position x="3140.0" y="3260.0" />
+        between child-objects and their common parent
+        <position x="3140.0" y="3120.0" />
+        object, a specific property of prototype-based
+        <position x="3140.0" y="2980.0" />
+        languages [Dony 92]. But LENS is not
+        <position x="3140.0" y="2840.0" />
+        prototype-based in the sense that its primitive
+        <position x="3140.0" y="2700.0" />
+        object creation mechanism does not rely on the
+        <position x="3140.0" y="2560.0" />
+        cloning of prototypes.
+        <font size="118" /><position x="3261.0" y="2262.0" />
+        (STATEMENT)
+        <position x="3251.0" y="1902.0" />
+        (ASSIGNMENT)
+        <position x="4091.0" y="2122.0" />
+        STATEMENT (line 12)
+        <position x="4101.0" y="1782.0" />
+        result of calling the ASSIGNMENT
+        <position x="4101.0" y="1672.0" />
+        method on line 11
+        <position x="3251.0" y="1552.0" />
+        (ASSIGNMENT)
+        <position x="4101.0" y="1432.0" />
+        result of calling the ASSIGNMENT
+        <position x="4101.0" y="1322.0" />
+        method on line 85, as in line 156
+        <font size="121" /><position x="3150.0" y="1190.0" />
+        Figure 5: inheritance on abstract grammar node objects
+        <font size="108" /><position x="3140.0" y="870.0" />
+        3
+        <font size="96" /><position x="3212.0" y="840.0" />
+        Theoretical foundations for typing dynamic inheritance can be
+        <position x="3140.0" y="740.0" />
+        found in [Lucas et al. 95]
+        <page value="10" /><position x="570.0" y="7940.0" />
+        Marc Van Limberghen Building frameworks through specialisable nested objects
+        <position x="2620.0" y="380.0" />
+        page 9
+        <font size="133" /><position x="570.0" y="7450.0" />
+        In LENS a sub-object does not declare the class
+        <position x="570.0" y="7310.0" />
+        of its super-object: sub- and super-objects can be
+        <position x="570.0" y="7170.0" />
+        freely combined. Therefore the inheritance of
+        <position x="570.0" y="7030.0" />
+        LENS corresponds to mixin-based inheritance
+        <position x="570.0" y="6890.0" />
+        [Bracha 90].
+        <position x="570.0" y="6610.0" />
+        In line 72, the
+        <font size="142" /><position x="1306.0" y="6610.0" />
+        encaps
+        <font size="133" /><position x="1696.0" y="6610.0" />
+        operator hides the slots
+        <font size="131" /><position x="570.0" y="6470.0" />
+        calculate
+        <font size="133" /><position x="1046.0" y="6470.0" />
+        and
+        <font size="131" /><position x="1252.0" y="6470.0" />
+        myOperation
+        <font size="133" /><position x="1924.0" y="6470.0" />
+        from further clients
+        <position x="570.0" y="6330.0" />
+        (inheritors as well as senders
+        <font size="108" /><position x="2270.0" y="6360.0" />
+        4
+        <font size="133" /><position x="2331.0" y="6330.0" />
+        ).
+        <font size="142" /><position x="2453.0" y="6330.0" />
+        e n c a p s
+        <font size="133" /><position x="570.0" y="6190.0" />
+        corresponds to the 'hide' operator of [Bracha 92].
+        <position x="570.0" y="6050.0" />
+        This object-based encapsulation mechanism can
+        <position x="570.0" y="5910.0" />
+        be used as visibility boundary between sender and
+        <position x="570.0" y="5770.0" />
+        receiver or between original and specialisation.
+        <position x="570.0" y="5630.0" />
+        The combination of mixin-based inheritance and
+        <position x="570.0" y="5490.0" />
+        this kind of encapsulation is an innovative way to
+        <position x="570.0" y="5350.0" />
+        l o o k a t m u l t i p l e i n h e r i t a n c e
+        <position x="570.0" y="5210.0" />
+        [Van Limberghen 96].
+        <position x="570.0" y="4930.0" />
+        A LENS program can contain nested name
+        <position x="570.0" y="4790.0" />
+        spaces. Nesting gives rise to a kind of closure: an
+        <position x="570.0" y="4650.0" />
+        assignment node for instance will implicitly retain
+        <position x="570.0" y="4510.0" />
+        a reference to its surrounding context, i.e. its
+        <position x="570.0" y="4370.0" />
+        creator. In this way it can refer to the more global
+        <position x="570.0" y="4230.0" />
+        variable
+        <font size="131" /><position x="960.0" y="4230.0" />
+        optimiserTable.
+        <font size="133" /><position x="570.0" y="3950.0" />
+        We conclude this section by summarising the
+        <position x="570.0" y="3810.0" />
+        characteristics of LENS:
+        <position x="790.0" y="3670.0" />
+        object creation from scratch, no class
+        <position x="790.0" y="3530.0" />
+        instantiation, no prototype cloning
+        <position x="790.0" y="3390.0" />
+        dynamic mixin-based inheritance
+        <position x="790.0" y="3250.0" />
+        slot-based access to methods and variables
+        <position x="790.0" y="3110.0" />
+        nesting of objects
+        <font size="156" /><position x="570.0" y="2880.0" />
+        4.3 Solution of the framework
+        <position x="570.0" y="2740.0" />
+        problems
+        <font size="133" /><position x="570.0" y="2540.0" />
+        In contrast with the complicated implementations
+        <position x="570.0" y="2400.0" />
+        of our abstract grammar framework in section 3,
+        <position x="570.0" y="2260.0" />
+        the LENS program directly reflects its class
+        <position x="570.0" y="2120.0" />
+        design: the left respectively right rectangle in
+        <position x="570.0" y="1980.0" />
+        Figure 4 correspond to the upper and bottom
+        <position x="570.0" y="1840.0" />
+        rectangles in Figure 2. The abstract grammar
+        <position x="570.0" y="1700.0" />
+        indeed complies with
+        <position x="790.0" y="1560.0" />
+        Factory Method: during optimisation, the
+        <position x="790.0" y="1420.0" />
+        operation nodes
+        <font size="131" /><position x="1611.0" y="1420.0" />
+        ADD
+        <font size="133" /><position x="1895.0" y="1420.0" />
+        and
+        <font size="131" /><position x="2108.0" y="1420.0" />
+        MULTIPLY
+        <font size="133" /><position x="2723.0" y="1420.0" />
+        for
+        <position x="790.0" y="1280.0" />
+        instance create a
+        <font size="131" /><position x="1732.0" y="1280.0" />
+        LITERAL
+        <font size="133" /><position x="2291.0" y="1280.0" />
+        when both
+        <position x="790.0" y="1140.0" />
+        operands are constant (line 64).
+        <font size="108" /><position x="570.0" y="870.0" />
+        4
+        <font size="96" /><position x="637.0" y="840.0" />
+        LENS also contains a
+        <font size="103" /><position x="1368.0" y="840.0" />
+        preventSpecialisation
+        <font size="96" /><position x="2116.0" y="840.0" />
+        operation to hide a slot
+        <position x="570.0" y="740.0" />
+        only from inheritors.
+        <font size="133" /><position x="3360.0" y="7590.0" />
+        Abstract Factory: the
+        <font size="131" /><position x="4473.0" y="7590.0" />
+        parse
+        <font size="133" /><position x="4788.0" y="7590.0" />
+        method (line
+        <position x="3360.0" y="7450.0" />
+        154, in the program here only generating the
+        <position x="3360.0" y="7310.0" />
+        example code of Figure 1) can be used to
+        <position x="3360.0" y="7170.0" />
+        generate any specialisation of the abstract
+        <position x="3360.0" y="7030.0" />
+        grammar.
+        <position x="3140.0" y="6750.0" />
+        The Factory Method aspect is accomplished so
+        <position x="3140.0" y="6610.0" />
+        easily mainly thanks to object creation from
+        <position x="3140.0" y="6470.0" />
+        s c r a t c h. In C++ Factory Methods are
+        <position x="3140.0" y="6330.0" />
+        implemented by introducing (overridable)
+        <position x="3140.0" y="6190.0" />
+        methods that perform the creation. The code of
+        <position x="3140.0" y="6050.0" />
+        these methods consists of the instantiation of a
+        <position x="3140.0" y="5910.0" />
+        class (see figure 3). Object creation from scratch
+        <position x="3140.0" y="5770.0" />
+        avoids this intermediate step: in LENS these
+        <position x="3140.0" y="5630.0" />
+        methods directly contain the object to be created.
+        <position x="3140.0" y="5490.0" />
+        As a consequence the double administration of
+        <position x="3140.0" y="5350.0" />
+        object creating methods and their corresponding
+        <position x="3140.0" y="5210.0" />
+        classes is no longer necessary.
+        <position x="3140.0" y="4930.0" />
+        A second benefit of object creation from scratch
+        <position x="3140.0" y="4790.0" />
+        with regard to Factory Methods concerns nesting.
+        <position x="3140.0" y="4650.0" />
+        In C++, classes can be nested, but the induced
+        <position x="3140.0" y="4510.0" />
+        nested scoping of identifiers cannot be used
+        <position x="3140.0" y="4370.0" />
+        because the instance of a nested class can exist
+        <position x="3140.0" y="4230.0" />
+        without any instance of the surrounding class.
+        <position x="3140.0" y="4090.0" />
+        This is a typical problem when introducing
+        <position x="3140.0" y="3950.0" />
+        nesting in an OO language with compile time
+        <position x="3140.0" y="3810.0" />
+        classes. Object creation from scratch bypasses this
+        <position x="3140.0" y="3670.0" />
+        problem: a nested object can only be created by a
+        <position x="3140.0" y="3529.0" />
+        surrounding object. As a consequence the
+        <position x="3140.0" y="3389.0" />
+        induced nested scoping is valid.
+        <position x="3140.0" y="3110.0" />
+        The total cross reference between the node
+        <position x="3140.0" y="2969.0" />
+        classes, needed for the Factory Method aspect as
+        <position x="3140.0" y="2829.0" />
+        explained in section 3.1, is obtained thanks to this
+        <position x="3140.0" y="2690.0" />
+        nested scoping. By nesting the node objects in the
+        <position x="3140.0" y="2550.0" />
+        same surrounding object, they can call each
+        <position x="3140.0" y="2410.0" />
+        other. The surrounding object represents the
+        <position x="3140.0" y="2270.0" />
+        framework. This way we obtain the total cross
+        <position x="3140.0" y="2130.0" />
+        reference without having to write any
+        <position x="3140.0" y="1990.0" />
+        supplementary code. We only have to implement
+        <position x="3140.0" y="1850.0" />
+        the essential behaviour of the abstract grammar.
+        <position x="3140.0" y="1570.0" />
+        Most OO languages heavily emphasise object
+        <position x="3140.0" y="1430.0" />
+        classification, but neglect object composition.
+        <position x="3140.0" y="1290.0" />
+        Nevertheless object composition, especially part-
+        <position x="3140.0" y="1150.0" />
+        whole composition, is an important method of
+        <position x="3140.0" y="1010.0" />
+        apprehending real world objects during analysis.
+        <position x="3140.0" y="870.0" />
+        Moreover part-whole composition can also be
+        <page value="11" /><position x="570.0" y="7940.0" />
+        Marc Van Limberghen Building frameworks through specialisable nested objects
+        <font size="96" /><position x="2600.0" y="380.0" />
+        page 10
+        <font size="133" /><position x="570.0" y="7590.0" />
+        employed as a method of structuring software
+        <position x="570.0" y="7450.0" />
+        objects during design [Civello 93]. The nesting of
+        <position x="570.0" y="7310.0" />
+        LENS introduces a part-whole relationship
+        <position x="570.0" y="7170.0" />
+        between the nested object and the lexically
+        <position x="570.0" y="7030.0" />
+        surrounding object. In Figure 4 the whole is the
+        <position x="570.0" y="6890.0" />
+        abstract grammar framework and the parts are the
+        <position x="570.0" y="6750.0" />
+        grammar nodes.
+        <position x="570.0" y="6470.0" />
+        Note that the nested scoping of LENS is not
+        <position x="570.0" y="6330.0" />
+        entirely lexical. The effective surrounding whole
+        <position x="570.0" y="6190.0" />
+        can be a specialised version of the statically
+        <position x="570.0" y="6050.0" />
+        surrounding one. This feature allows the whole to
+        <position x="570.0" y="5910.0" />
+        be specialisable, an essential requirement for the
+        <position x="570.0" y="5770.0" />
+        abstract grammar framework. In general the
+        <position x="570.0" y="5630.0" />
+        whole could even be abstract, i.e. some parts still
+        <position x="570.0" y="5490.0" />
+        must be specified by means of inheritance.
+        <position x="570.0" y="5210.0" />
+        In section 3.1.2 we showed that storing classes or
+        <position x="570.0" y="5070.0" />
+        prototypes in variables is an inferior strategy to
+        <position x="570.0" y="4930.0" />
+        obtain framework genericity. Since a class
+        <position x="570.0" y="4790.0" />
+        instantiation or prototype cloning mechanism is
+        <position x="570.0" y="4650.0" />
+        absent in LENS, the programmer is discouraged
+        <position x="570.0" y="4510.0" />
+        from passing around first-class object templates.
+        <position x="570.0" y="4370.0" />
+        Instead, LENS advocates to uniformly use
+        <position x="570.0" y="4230.0" />
+        inheritance as genericity mechanism.
+        <position x="570.0" y="3950.0" />
+        In LENS inheritance is applied on objects. This
+        <position x="570.0" y="3810.0" />
+        feature allows objects to be built incrementally.
+        <position x="570.0" y="3670.0" />
+        Consequently the initialisation of an object
+        <position x="570.0" y="3530.0" />
+        created by a framework can be distributed over
+        <position x="570.0" y="3390.0" />
+        the different parts of that framework, e.g. the
+        <position x="570.0" y="3250.0" />
+        optimiser and the unparser. In a class-based
+        <position x="570.0" y="3110.0" />
+        approach on the contrary, initialisation has to be
+        <position x="570.0" y="2970.0" />
+        done at once at instantiation time for the entire
+        <position x="570.0" y="2830.0" />
+        new object. Possibly some initialisation values,
+        <position x="570.0" y="2690.0" />
+        specific for an implementation of one part of the
+        <position x="570.0" y="2550.0" />
+        framework, have to be passed as arguments to the
+        <position x="570.0" y="2410.0" />
+        class instantiation procedure. This violates the
+        <position x="570.0" y="2270.0" />
+        independence between implementation and use of
+        <position x="570.0" y="2130.0" />
+        the parts of a framework.
+        <position x="570.0" y="1850.0" />
+        By encapsulating the intermediate classes in lines
+        <position x="570.0" y="1710.0" />
+        80 and 150, the internal inheritance structures for
+        <position x="570.0" y="1570.0" />
+        the optimiser and unparser are totally hidden,
+        <position x="570.0" y="1430.0" />
+        even towards each other. Consequently, the
+        <position x="570.0" y="1290.0" />
+        original framework and its specialisation(s) can
+        <position x="570.0" y="1150.0" />
+        be developed more independently. But, if desired,
+        <position x="570.0" y="1010.0" />
+        one can of course let part of the intermediate
+        <position x="570.0" y="870.0" />
+        class structure be visible, in order to reuse the
+        <position x="3140.0" y="7590.0" />
+        inheritance structure in framework specialisations.
+        <position x="3140.0" y="7450.0" />
+        We could for instance let class OPERATION be
+        <position x="3140.0" y="7310.0" />
+        visible since it represents the same classes in the
+        <position x="3140.0" y="7170.0" />
+        parser and the optimiser.
+        <position x="3140.0" y="6890.0" />
+        The program in Figure 4 only invokes one
+        <position x="3140.0" y="6750.0" />
+        version of the abstract grammar. But running
+        <position x="3140.0" y="6610.0" />
+        different specialisations simultaneously could
+        <position x="3140.0" y="6470.0" />
+        easily be obtained by giving the specialisations a
+        <position x="3140.0" y="6330.0" />
+        (method-) name. In such a case the client has to
+        <position x="3140.0" y="6190.0" />
+        qualify the desired framework anyway, so why
+        <position x="3140.0" y="6050.0" />
+        not by means of message passing: the parser
+        <position x="3140.0" y="5910.0" />
+        would for instance make an assignment node by
+        <position x="3140.0" y="5770.0" />
+        sending
+        <font size="131" /><position x="3628.0" y="5770.0" />
+        SEQUENCE
+        <font size="133" /><position x="4412.0" y="5770.0" />
+        to the appropriate
+        <position x="3140.0" y="5629.0" />
+        framework object instead of performing a self
+        <position x="3140.0" y="5489.0" />
+        send as in Figure 4 (line 155). Since frameworks
+        <position x="3140.0" y="5349.0" />
+        are objects, each version would have its own state.
+        <position x="3140.0" y="5209.0" />
+        It would consequently also be possible to provide
+        <position x="3140.0" y="5069.0" />
+        simultaneously different implementations of the
+        <position x="3140.0" y="4929.0" />
+        optimiser framework.
+        <font size="170" /><position x="3140.0" y="4630.0" />
+        5 Related work
+        <font size="156" /><position x="3140.0" y="4280.0" />
+        5.1 Other research on late creation.
+        <font size="133" /><position x="3140.0" y="4080.0" />
+        [Riehle 95] introduces late creation and class tree
+        <position x="3140.0" y="3940.0" />
+        encapsulation in frameworks by only granting
+        <position x="3140.0" y="3800.0" />
+        access to classes through a class specification
+        <position x="3140.0" y="3660.0" />
+        system. A client can only retrieve classes by
+        <position x="3140.0" y="3520.0" />
+        providing a logic expression describing the
+        <position x="3140.0" y="3380.0" />
+        desired classes. The graphical editor in
+        <position x="3140.0" y="3240.0" />
+        [Riehle 95] for instance finds all graphical classes
+        <position x="3140.0" y="3100.0" />
+        with the class specification
+        <font size="131" /><position x="4586.0" y="3100.0" />
+        isGraphical and
+        <position x="3140.0" y="2960.0" />
+        isConcrete.
+        <font size="133" /><position x="3747.0" y="2960.0" />
+        This way the editor can provide a
+        <position x="3140.0" y="2820.0" />
+        button for each class of graphical objects that is
+        <position x="3140.0" y="2680.0" />
+        defined in the actual framework. The framework
+        <position x="3140.0" y="2540.0" />
+        implementor has to provide its classes with (meta)
+        <position x="3140.0" y="2400.0" />
+        methods to answer on the retrieve specifications.
+        <position x="3140.0" y="2260.0" />
+        Such a mechanism is useful when an external
+        <position x="3140.0" y="2120.0" />
+        client needs to find a set of present classes, as in
+        <position x="3140.0" y="1980.0" />
+        the graphics editor example. We would need a
+        <position x="3140.0" y="1840.0" />
+        similar specification mechanism to solve this
+        <position x="3140.0" y="1699.0" />
+        particular problem in LENS.
+        <position x="3140.0" y="1420.0" />
+        To cope with Factory Methods, [Riehle 95]
+        <position x="3140.0" y="1280.0" />
+        additionally introduces a special kind of class
+        <position x="3140.0" y="1139.0" />
+        specification to refer to the current computing
+        <position x="3140.0" y="999.0" />
+        context. In the case of our abstract grammar, this
+        <position x="3140.0" y="859.0" />
+        means that the implementor would specify
+        <page value="12" /><position x="570.0" y="7940.0" />
+        Marc Van Limberghen Building frameworks through specialisable nested objects
+        <font size="96" /><position x="2600.0" y="380.0" />
+        page 11
+        <font size="133" /><position x="570.0" y="7590.0" />
+        something like
+        <font size="131" /><position x="1645.0" y="7590.0" />
+        i sA ss i g n m e n t a n d
+        <position x="570.0" y="7450.0" />
+        ofCurrentContext
+        <font size="133" /><position x="1460.0" y="7450.0" />
+        to create an assignment node
+        <position x="570.0" y="7310.0" />
+        from within the specialisable framework. Again,
+        <position x="570.0" y="7170.0" />
+        the framework implementor has to provide the
+        <position x="570.0" y="7030.0" />
+        class-information. In this case he must ensure that
+        <position x="570.0" y="6890.0" />
+        the specification is not ambiguous since we
+        <position x="570.0" y="6750.0" />
+        expect only a single class. Furthermore the class
+        <position x="570.0" y="6610.0" />
+        tree has to be traversed, a rather expensive
+        <position x="570.0" y="6470.0" />
+        operation for simply indicating one specific
+        <position x="570.0" y="6330.0" />
+        concrete subclass. Another problem with this
+        <position x="570.0" y="6190.0" />
+        approach is that specialising only one abstract
+        <position x="570.0" y="6050.0" />
+        grammar node class (providing another
+        <position x="570.0" y="5910.0" />
+        unparsing for assignments for instance), still
+        <position x="570.0" y="5770.0" />
+        needs a whole set of new node-classes to be
+        <position x="570.0" y="5630.0" />
+        introduced. The issue of frameworks containing
+        <position x="570.0" y="5490.0" />
+        state, as with our
+        <font size="131" /><position x="1369.0" y="5490.0" />
+        optimiserTable,
+        <font size="133" /><position x="2114.0" y="5490.0" />
+        is not handled in
+        <position x="570.0" y="5350.0" />
+        [Riehle 95]. So, the approach of logic class
+        <position x="570.0" y="5209.0" />
+        specifications is not really appropriate for the
+        <position x="570.0" y="5069.0" />
+        problems presented in our paper, i.e. to simply
+        <position x="570.0" y="4929.0" />
+        obtain a late bound reference to the desired
+        <position x="570.0" y="4789.0" />
+        subclass.
+        <position x="570.0" y="4509.0" />
+        [Kiczales 93] tackled yet another object creation
+        <position x="570.0" y="4369.0" />
+        problem emerging when specialising a
+        <position x="570.0" y="4229.0" />
+        framework, namely when the behaviour of
+        <position x="570.0" y="4089.0" />
+        internally created objects depends on the
+        <position x="570.0" y="3949.0" />
+        initialisation values. For instance when extending
+        <position x="570.0" y="3809.0" />
+        a framework of graphical objects with
+        <font size="131" /><position x="2463.0" y="3809.0" />
+        optional
+        <font size="133" /><position x="570.0" y="3669.0" />
+        moving behaviour, a polygon should only be
+        <position x="570.0" y="3529.0" />
+        "movable" (i.e. contain a
+        <font size="131" /><position x="1851.0" y="3529.0" />
+        move
+        <font size="133" /><position x="2147.0" y="3529.0" />
+        method) when
+        <position x="570.0" y="3389.0" />
+        every of it lines is "movable", and a line on its
+        <position x="570.0" y="3249.0" />
+        turn should only be "movable" when both its end-
+        <position x="570.0" y="3109.0" />
+        points are "movable". [Kiczales 93] introduced
+        <position x="570.0" y="2969.0" />
+        "traces" to easily tackle this propagation
+        <position x="570.0" y="2829.0" />
+        phenomenon, without the programmer having to
+        <position x="570.0" y="2689.0" />
+        implement it. The concept of traces is orthogonal
+        <position x="570.0" y="2549.0" />
+        to the concept of late creation we proposed:
+        <position x="570.0" y="2409.0" />
+        LENS could be orthogonally extended with
+        <position x="570.0" y="2269.0" />
+        traces.
+        <font size="156" /><position x="570.0" y="2040.0" />
+        5.2 Nesting in other OO languages
+        <font size="133" /><position x="570.0" y="1840.0" />
+        Most OO languages do not support nested
+        <position x="570.0" y="1700.0" />
+        scoping. Smalltalk and Eiffel do not offer
+        <position x="570.0" y="1560.0" />
+        nesting. In C++, classes can be nested. But as
+        <position x="570.0" y="1420.0" />
+        explained in section 4.3, the induced nested
+        <position x="570.0" y="1280.0" />
+        scoping of identifiers cannot be used.
+        <position x="570.0" y="1000.0" />
+        The only prototype-based language with nested
+        <position x="570.0" y="860.0" />
+        scoping that we know of is Agora [Steyaert 93].
+        <position x="3140.0" y="7590.0" />
+        Nesting is conceived there as a kind of
+        <position x="3140.0" y="7450.0" />
+        subclassing restriction (a task that we would like
+        <position x="3140.0" y="7310.0" />
+        to delegate to an optional and more powerful
+        <position x="3140.0" y="7170.0" />
+        classification system, see our future work).
+        <position x="3140.0" y="6890.0" />
+        Beta [Madsen 93] is a class-based language with
+        <position x="3140.0" y="6750.0" />
+        nested scoping. In Beta, a nested class can only be
+        <position x="3140.0" y="6610.0" />
+        accessed by sending a message to
+        <font size="131" /><position x="4773.0" y="6610.0" />
+        an instance of
+        <font size="133" /><position x="3140.0" y="6470.0" />
+        the surrounding class. This allows nested scoping
+        <position x="3140.0" y="6330.0" />
+        to be introduced but necessitates at the same time
+        <position x="3140.0" y="6190.0" />
+        that classes are first-class values. LENS
+        <position x="3140.0" y="6050.0" />
+        deliberately omitted first-class object templates.
+        <position x="3140.0" y="5910.0" />
+        Just as in LENS, the Beta nested scoping is not
+        <position x="3140.0" y="5770.0" />
+        lexical for identifiers denoting overridable
+        <position x="3140.0" y="5630.0" />
+        methods. The advantage of inheritance on
+        <position x="3140.0" y="5490.0" />
+        objects, as in LENS, with respect to inheritance on
+        <position x="3140.0" y="5350.0" />
+        classes, as in Beta, concerns initialisation, as
+        <position x="3140.0" y="5210.0" />
+        explained in section 4.3.
+        <font size="156" /><position x="3140.0" y="4980.0" />
+        5.3 Other related research
+        <font size="133" /><position x="3140.0" y="4780.0" />
+        [Kiczales 92] identified problems in extending
+        <position x="3140.0" y="4640.0" />
+        traditional class libraries due to overridden
+        <position x="3140.0" y="4500.0" />
+        methods that are called from within the
+        <position x="3140.0" y="4360.0" />
+        framework. The specialiser does not know where
+        <position x="3140.0" y="4220.0" />
+        or when these calls happen in the library. For this
+        <position x="3140.0" y="4080.0" />
+        reason we provided a
+        <font size="131" /><position x="4336.0" y="4080.0" />
+        total
+        <font size="133" /><position x="4618.0" y="4080.0" />
+        cross reference
+        <position x="3140.0" y="3940.0" />
+        between the framework "classes" by implementing
+        <position x="3140.0" y="3800.0" />
+        the Factory Method design pattern (see section
+        <position x="3140.0" y="3660.0" />
+        3.1). [Kiczales 92] criticises non-overridable
+        <position x="3140.0" y="3520.0" />
+        methods as solution because the framework has to
+        <position x="3140.0" y="3380.0" />
+        anticipate them. This criticism is not valid in
+        <position x="3140.0" y="3240.0" />
+        LENS because the encapsulation operators can
+        <position x="3140.0" y="3100.0" />
+        also be performed afterwards by the specialiser.
+        <position x="3140.0" y="2960.0" />
+        But, apart from this detail, LENS starts from the
+        <position x="3140.0" y="2820.0" />
+        philosophy that a self send to a method intends to
+        <position x="3140.0" y="2680.0" />
+        be possibly overridden. If not, the called
+        <position x="3140.0" y="2540.0" />
+        behaviour is no longer worth to be called a
+        <position x="3140.0" y="2399.0" />
+        method and should be encapsulated (possibly
+        <position x="3140.0" y="2259.0" />
+        only towards inheritors), transforming the method
+        <position x="3140.0" y="2119.0" />
+        internally in a procedure. In this sense we believe
+        <position x="3140.0" y="1979.0" />
+        that a library designer certainly should keep
+        <position x="3140.0" y="1839.0" />
+        specialisations in mind by indicating what is
+        <position x="3140.0" y="1699.0" />
+        overridable and what isn't, and by creating and
+        <position x="3140.0" y="1559.0" />
+        invoking intermediate methods containing
+        <position x="3140.0" y="1419.0" />
+        replaceable code.
+        <position x="3140.0" y="1139.0" />
+        [K hne 95] identifies cases where ordinary
+        <position x="3140.0" y="999.0" />
+        parametrisation is a more appropriate software
+        <position x="3140.0" y="859.0" />
+        adaptability mechanism than inheritance. The
+        <page value="13" /><position x="570.0" y="7940.0" />
+        Marc Van Limberghen Building frameworks through specialisable nested objects
+        <font size="96" /><position x="2600.0" y="380.0" />
+        page 12
+        <font size="133" /><position x="570.0" y="7590.0" />
+        enhanced inheritance mechanism of LENS omits
+        <position x="570.0" y="7450.0" />
+        different of the flaws of traditional inheritance
+        <position x="570.0" y="7310.0" />
+        enumerated in [K hne 95] and allows inheritance
+        <position x="570.0" y="7170.0" />
+        to be applied more uniformly as adaptability
+        <position x="570.0" y="7030.0" />
+        mechanism.
+        <position x="570.0" y="6750.0" />
+        [Ossher 95] agree with us that there is a need for
+        <position x="570.0" y="6610.0" />
+        unanticipated extension and composition, for
+        <position x="570.0" y="6470.0" />
+        decentralised development and for grouping
+        <position x="570.0" y="6330.0" />
+        methods by functionality instead of by class.
+        <position x="570.0" y="6190.0" />
+        They propose subject-orientation as a solution.
+        <position x="570.0" y="6050.0" />
+        [Harrison 93], their preceding paper on subject-
+        <position x="570.0" y="5910.0" />
+        oriented programming, even uses as main
+        <position x="570.0" y="5770.0" />
+        example a tree with different separate
+        <position x="570.0" y="5630.0" />
+        functionalities, just as our abstract grammar tree.
+        <position x="570.0" y="5490.0" />
+        We also agree that traditional OO is too firmly
+        <position x="570.0" y="5350.0" />
+        connected to the notion of
+        <font size="131" /><position x="1848.0" y="5350.0" />
+        identity.
+        <font size="133" /><position x="2264.0" y="5350.0" />
+        In LENS the
+        <position x="570.0" y="5210.0" />
+        inheritance mechanism was detached from the
+        <position x="570.0" y="5070.0" />
+        identity of the self object: self sends are used
+        <position x="570.0" y="4930.0" />
+        instead of self references. We try to identify some
+        <position x="570.0" y="4790.0" />
+        differences with our approach without judging:
+        <position x="790.0" y="4649.0" />
+        [Ossher 95] does not seem to propose
+        <position x="790.0" y="4509.0" />
+        anything like late object creation.
+        <position x="790.0" y="4369.0" />
+        In LENS classes are constructed by means of
+        <position x="790.0" y="4229.0" />
+        inheritance and encapsulation. [Ossher 95]
+        <position x="790.0" y="4089.0" />
+        proposes a set of composition rules to merge
+        <position x="790.0" y="3949.0" />
+        existing classes.
+        <position x="570.0" y="3669.0" />
+        Contracts [Holland 92] are yet another approach
+        <position x="570.0" y="3529.0" />
+        to group code by functionality instead of by
+        <position x="570.0" y="3389.0" />
+        class. Contracts emphasise rather on specifications
+        <position x="570.0" y="3249.0" />
+        to which the collaboration must comply, whereas
+        <position x="570.0" y="3109.0" />
+        LENS deals with building the collaboration.
+        <position x="570.0" y="2829.0" />
+        In [Andersen 92] separate aspects of objects are
+        <position x="570.0" y="2689.0" />
+        represented in a role model, containing the roles
+        <position x="570.0" y="2549.0" />
+        the objects 'play' in the context of that aspect. The
+        <position x="570.0" y="2409.0" />
+        notion of role models, emerging from the design
+        <position x="570.0" y="2269.0" />
+        world, very much resembles a set of collaborating
+        <position x="570.0" y="2129.0" />
+        mixins as in LENS.
+        <font size="170" /><position x="570.0" y="1830.0" />
+        6 Future work
+        <font size="133" /><position x="570.0" y="1570.0" />
+        LENS was created with the aim to express OO
+        <position x="570.0" y="1430.0" />
+        design ideas more directly. A comparison with
+        <position x="570.0" y="1290.0" />
+        the other design patterns in [Gamma 94]
+        <position x="570.0" y="1150.0" />
+        strengthens us in the approach taken. LENS is not
+        <position x="570.0" y="1010.0" />
+        innovative in implementing design patterns that
+        <position x="570.0" y="870.0" />
+        are not involved with inheritance, for instance the
+        <position x="3140.0" y="7590.0" />
+        Iterator and Command design patterns that are
+        <position x="3140.0" y="7450.0" />
+        also valid in software without inheritance. But
+        <position x="3140.0" y="7310.0" />
+        when inheritance is involved, LENS scores well.
+        <position x="3140.0" y="7170.0" />
+        The Visitor design pattern for instance deals with
+        <position x="3140.0" y="7030.0" />
+        different classes that have to be iterated, possibly
+        <position x="3140.0" y="6890.0" />
+        adapting state during traversal. An abstract
+        <position x="3140.0" y="6750.0" />
+        grammar is actually a perfect example. In other
+        <position x="3140.0" y="6610.0" />
+        languages an artificial visitor class and the
+        <position x="3140.0" y="6470.0" />
+        communication with the visitor object has to be
+        <position x="3140.0" y="6330.0" />
+        programmed. The combination of dynamic
+        <position x="3140.0" y="6190.0" />
+        inheritance and encapsulation also allows to
+        <position x="3140.0" y="6050.0" />
+        directly obtain the software requirements
+        <position x="3140.0" y="5910.0" />
+        indicated by the design patterns Decorator,
+        <position x="3140.0" y="5769.0" />
+        Bridge and Strategy.
+        <position x="3140.0" y="5490.0" />
+        A possible way to make LENS even more design
+        <position x="3140.0" y="5349.0" />
+        oriented is to restrict the dynamic inheritance with
+        <position x="3140.0" y="5209.0" />
+        static classification. Mixins are chunks of code
+        <position x="3140.0" y="5069.0" />
+        that can be freely combined. Therefore mixin-
+        <position x="3140.0" y="4929.0" />
+        based inheritance is sometimes criticised to be a
+        <position x="3140.0" y="4789.0" />
+        mere code-sharing mechanism without
+        <position x="3140.0" y="4649.0" />
+        conceptual meaning. In traditional class-based
+        <position x="3140.0" y="4509.0" />
+        systems the class hierarchy partially fulfils a
+        <position x="3140.0" y="4369.0" />
+        combination restricting role, but still has to be
+        <position x="3140.0" y="4229.0" />
+        enhanced with extra restricting capabilities.
+        <position x="3140.0" y="4089.0" />
+        Multiple inheritance is less expressive than it
+        <position x="3140.0" y="3949.0" />
+        appears, essentially in its lack to put constraints
+        <position x="3140.0" y="3809.0" />
+        on multiple inheritance from different classes.
+        <position x="3140.0" y="3669.0" />
+        For example we should be able to prevent a class
+        <position x="3140.0" y="3529.0" />
+        to inherit from the classes Male and Female
+        <position x="3140.0" y="3389.0" />
+        simultaneously. To this extent, [Hamer 92]
+        <position x="3140.0" y="3249.0" />
+        include
+        <font size="131" /><position x="3509.0" y="3249.0" />
+        classifiers
+        <font size="133" /><position x="4005.0" y="3249.0" />
+        in their class hierarchy. We are
+        <position x="3140.0" y="3109.0" />
+        thinking about a similar static classification
+        <position x="3140.0" y="2969.0" />
+        mechanism especially destined for mixins,
+        <position x="3140.0" y="2829.0" />
+        preserving its characteristic of parametrical super
+        <position x="3140.0" y="2689.0" />
+        binding. [Lucas 95] suggested to use a
+        <position x="3140.0" y="2549.0" />
+        classification system as to make their type system
+        <position x="3140.0" y="2409.0" />
+        less verbose. Unifying static classification and
+        <position x="3140.0" y="2269.0" />
+        static typing sounds very reasonable and is one of
+        <position x="3140.0" y="2129.0" />
+        the following challenges for LENS.
+        <position x="3140.0" y="1849.0" />
+        Currently we execute LENS programs with a
+        <position x="3140.0" y="1709.0" />
+        bluntly implemented interpreter: we did not pay
+        <position x="3140.0" y="1569.0" />
+        attention to efficiency matters in the current
+        <position x="3140.0" y="1429.0" />
+        implementation. LENS and the prototype-based
+        <position x="3140.0" y="1289.0" />
+        language Self both contain a dynamic inheritance
+        <position x="3140.0" y="1149.0" />
+        mechanism and both are dynamically typed.
+        <position x="3140.0" y="1009.0" />
+        Therefore we expect that the results of the efforts
+        <position x="3140.0" y="869.0" />
+        undertaken to optimise Self [Chambers 91] can
+        <page value="14" /><position x="570.0" y="7940.0" />
+        Marc Van Limberghen Building frameworks through specialisable nested objects
+        <font size="96" /><position x="2600.0" y="380.0" />
+        page 13
+        <font size="133" /><position x="570.0" y="7590.0" />
+        be transported to LENS and will give it an
+        <position x="570.0" y="7450.0" />
+        acceptable performance. But avoiding runtime
+        <position x="570.0" y="7310.0" />
+        method lookup in our dynamically typed
+        <position x="570.0" y="7170.0" />
+        language seems a hard problem. Static method
+        <position x="570.0" y="7030.0" />
+        lookup can be obtained in an efficient way in
+        <position x="570.0" y="6890.0" />
+        dynamically typed languages, as long as the
+        <position x="570.0" y="6750.0" />
+        inheritance structure remains static [Driesen 95].
+        <position x="570.0" y="6610.0" />
+        But for languages with dynamic inheritance, static
+        <position x="570.0" y="6470.0" />
+        method lookup techniques are as yet unavailable.
+        <position x="570.0" y="6330.0" />
+        It has still to be investigated if the static type and
+        <position x="570.0" y="6190.0" />
+        classification system we are thinking of, can and
+        <position x="570.0" y="6050.0" />
+        should be used for efficiency matters.
+        <font size="170" /><position x="570.0" y="5750.0" />
+        7 Conclusions
+        <font size="133" /><position x="570.0" y="5490.0" />
+        Object orientation is conceived to specify
+        <position x="570.0" y="5350.0" />
+        behaviour incrementally. But current OO
+        <position x="570.0" y="5210.0" />
+        languages do not support the incremental
+        <position x="570.0" y="5070.0" />
+        specification of a particular kind of behaviour,
+        <position x="570.0" y="4930.0" />
+        namely object creation. However the design
+        <position x="570.0" y="4790.0" />
+        patterns Abstract Factory and Factory Method
+        <position x="570.0" y="4650.0" />
+        demand late bound object creation to be
+        <position x="570.0" y="4510.0" />
+        considered as a high level concept in object
+        <position x="570.0" y="4370.0" />
+        oriented frameworks.
+        <position x="570.0" y="4090.0" />
+        LENS was presented as the orthogonal
+        <position x="570.0" y="3950.0" />
+        combination of existing OO aspects: late-binding
+        <position x="570.0" y="3810.0" />
+        (by means of message passing), pure (i.e. mixin-
+        <position x="570.0" y="3670.0" />
+        based or code-reuse) inheritance and object-
+        <position x="570.0" y="3530.0" />
+        based encapsulation. This combination was shown
+        <position x="570.0" y="3390.0" />
+        to fit the needs for framework construction. The
+        <position x="570.0" y="3250.0" />
+        object creation mechanism did not consist of class
+        <position x="570.0" y="3110.0" />
+        instantiation, nor prototype cloning. Instead,
+        <position x="570.0" y="2970.0" />
+        objects were created from scratch. This way we
+        <position x="570.0" y="2830.0" />
+        used the same mechanism to subject both object
+        <position x="570.0" y="2690.0" />
+        creation and procedure calls to late-binding.
+        <position x="570.0" y="2549.0" />
+        Consequently we did not need to introduce new
+        <position x="570.0" y="2409.0" />
+        language concepts to obtain late creation.
+        <position x="570.0" y="2130.0" />
+        Object composition, another important
+        <position x="570.0" y="1989.0" />
+        constituent of design, has been neglected in most
+        <position x="570.0" y="1849.0" />
+        OO languages. In LENS it was present by means
+        <position x="570.0" y="1709.0" />
+        of nesting, modelling part-whole relationships
+        <position x="570.0" y="1569.0" />
+        between software components. Because objects,
+        <position x="570.0" y="1429.0" />
+        especially nested objects, were specialisable, it was
+        <position x="570.0" y="1289.0" />
+        easy to construct specialisable frameworks.
+        <position x="570.0" y="1149.0" />
+        Object-based encapsulation was used to
+        <position x="570.0" y="1009.0" />
+        selectively restrict specialisation.
+        <position x="3140.0" y="7589.0" />
+        The Abstract Factory and Factory Method design
+        <position x="3140.0" y="7449.0" />
+        patterns did no longer have to be implemented:
+        <position x="3140.0" y="7309.0" />
+        only the essential behaviour of the abstract
+        <position x="3140.0" y="7169.0" />
+        grammar framework was written down. The code
+        <position x="3140.0" y="7029.0" />
+        directly reflected the design of the framework.
+        <position x="3140.0" y="6889.0" />
+        All of this made us believe that LENS narrows the
+        <position x="3140.0" y="6749.0" />
+        gap between OO design and implementation and
+        <position x="3140.0" y="6609.0" />
+        that it constitutes a valuable basis for an OO
+        <position x="3140.0" y="6469.0" />
+        software design language.
+        <font size="170" /><position x="3140.0" y="6170.0" />
+        Acknowledgements
+        <font size="133" /><position x="3140.0" y="5910.0" />
+        I am much indebted to Tom Mens for
+        <position x="3140.0" y="5770.0" />
+        experiments in and thorough discussions about
+        <position x="3140.0" y="5630.0" />
+        LENS. I also thank Kris De Volder, Kim Mens,
+        <position x="3140.0" y="5490.0" />
+        Niels Boyen and Thomas K hne for comments
+        <position x="3140.0" y="5350.0" />
+        on earlier versions of this paper.
+    </body><biblioPrologue><font size="170" /><position x="3140.0" y="5050.0" />
+    References
+</biblioPrologue>
+    <biblio-hlabeled>
+        <reference>
+
+            <ref-marker><font size="121" /><position x="3140.0" y="4750.0" />
+                [Andersen 92] </ref-marker>
+            <authors>E. P. Andersen and T. Reenskaug:
+                <position x="3320.0" y="4640.0" />
+            </authors>
+            <title>System Design by Composing Structures of     <position x="3320.0" y="4530.0" />    Interacting Objects. </title>
+            <booktitle>In Proc. of ECOOP 92,     <position x="3320.0" y="4420.0" />    </booktitle>
+            <pages>pp.133-152, </pages>
+            <address>Springer-Verlag.    </address>
+        </reference>
+        <reference>
+
+            <ref-marker><position x="3140.0" y="4250.0" />
+                [Bracha 90] </ref-marker>
+            <authors>G. Bracha and W. </authors>
+            <title>Cook: Mixin-based     <position x="3320.0" y="4140.0" />    Inheritance. </title>
+            <booktitle>In Proc. of OOPSLA/ECOOP 90,     <position x="3320.0" y="4030.0" />    </booktitle>
+            <pages>pp.303-311, </pages>
+            <publisher>ACM Press.    </publisher>
+        </reference>
+        <reference>
+
+            <ref-marker><position x="3140.0" y="3860.0" />
+                [Bracha 92] </ref-marker>
+            <authors>G. Bracha and G. Lindstrom: </authors>
+            <title>Modularity     <position x="3320.0" y="3750.0" />    meets Inheritance. </title>
+            <booktitle>In Proc. of International     <position x="3320.0" y="3640.0" />     Conference on Computer Languages, 1992, IEEE     <position x="3320.0" y="3530.0" />    Computer Society, </booktitle>
+            <pages>pp. 282-290. </pages>
+            <note>Also available as     <position x="3320.0" y="3420.0" />     Technical report UUCS-91-017.    </note>
+        </reference>
+        <reference>
+
+            <ref-marker><position x="3140.0" y="3250.0" />
+                [Canning 89] </ref-marker>
+            <authors>P. S. Canning, W. R. Cook, W. L. Hill
+                <position x="3320.0" y="3140.0" />
+                &amp; W. G. </authors>
+            <title>Olthoff: Interfaces for Strongly-Typed     <position x="3320.0" y="3030.0" />    Object-Oriented Programming. </title>
+            <booktitle>In Proceedings of     <position x="3320.0" y="2920.0" />    OOPSLA '89, </booktitle>
+            <pages>pp. 457-467, </pages>
+            <publisher>ACM Press.    </publisher>
+        </reference>
+        <reference>
+
+            <ref-marker><position x="3140.0" y="2750.0" />
+                [Carre 90] </ref-marker>
+            <authors>B. Carre and J. Geib: </authors>
+            <title>The Point of View     <position x="3320.0" y="2640.0" />    notion for Multiple Inheritance. </title>
+            <booktitle>In joint     <position x="3320.0" y="2530.0" />     OOPSLA/ECOOP 90 Conference Proceedings,     <position x="3320.0" y="2420.0" />    </booktitle>
+            <pages>pp. 312-321, </pages>
+            <publisher>ACM Press.    </publisher>
+        </reference>
+        <reference>
+
+            <ref-marker><position x="3140.0" y="2250.0" />
+                [Chambers 91] </ref-marker>
+            <authors>C. Chambers, D. </authors>
+            <title>Ungar: Making Pure     <position x="3320.0" y="2140.0" />    Object-Oriented Languages Practical. </title>
+            <booktitle>In     <position x="3320.0" y="2030.0" />    Proceedings of OOPSLA '91, </booktitle>
+            <pages>pp. 1-15, </pages>
+            <publisher>ACM     <position x="3320.0" y="1920.0" />     Press.    </publisher>
+        </reference>
+        <reference>
+
+            <ref-marker><position x="3140.0" y="1750.0" />
+                [Civello 93] </ref-marker>
+            <authors>F. Civello: </authors>
+            <title>Roles for composite objects     <position x="3320.0" y="1640.0" />    in object-oriented analysis and design. </title>
+            <booktitle>In Proc. of     <position x="3320.0" y="1530.0" />    OOPSLA'93, </booktitle>
+            <pages>pp. 376-493, </pages>
+            <publisher>ACM Press.    </publisher>
+        </reference>
+        <reference>
+
+            <ref-marker><position x="3140.0" y="1360.0" />
+                [Dony 92] </ref-marker>
+            <authors>C. Dony, J. Malenfant and P. Cointe:
+                <position x="3320.0" y="1250.0" />
+            </authors>
+            <title>Prototype-Based Languages: From a New     <position x="3320.0" y="1140.0" />     Taxonomy to Constructive Proposals and Their     <position x="3320.0" y="1030.0" />    Validation. </title>
+            <booktitle>In Proceedings of OOPSLA 92, </booktitle>
+            <pages>pp.     <position x="3320.0" y="920.0" />    201-217, </pages>
+            <note>ACM Press.     <page value="15" /><position x="570.0" y="7940.0" />     Marc Van Limberghen Building frameworks through specialisable nested objects     <font size="96" /><position x="2600.0" y="380.0" />     page 14    </note>
+        </reference>
+        <reference>
+
+            <ref-marker><font size="121" /><position x="570.0" y="7550.0" />
+                [Driesen 95] </ref-marker>
+            <authors>K. Driesen, U. </authors>
+            <title>H lzle: Minimising Row     <position x="750.0" y="7440.0" />    Displacement Dispatch Tables. </title>
+            <booktitle>In Proc. of     <position x="750.0" y="7330.0" />    OOPSLA'95, </booktitle>
+            <pages>pp. 141-154, </pages>
+            <publisher>ACM Press.    </publisher>
+        </reference>
+        <reference>
+
+            <ref-marker><position x="570.0" y="7160.0" />
+                [Gamma 94] </ref-marker>
+            <authors>E. Gamma, R. Helm, R. Johnson and J.
+                <position x="750.0" y="7050.0" />
+                Vlissides: </authors>
+            <title>Design Patterns: Elements of Reusable     <position x="750.0" y="6940.0" />    Object-Oriented Software. </title>
+            <journal>ISBN 0-201</journal>
+            <volume>-</volume>
+            <pages>63361-2,     <position x="750.0" y="6830.0" />    </pages>
+            <date>1994, </date>
+            <pages>Addison-Wesley.    </pages>
+        </reference>
+        <reference-hlabeled>
+
+            <ref-marker><position x="570.0" y="6660.0" />
+                [Hamer 92] </ref-marker>
+            <authors>
+                <author><author-first>J.</author-first> <author-last>Hamer,</author-last></author>
+
+                <author><author-first>J.</author-first>
+                    <author-middle>G.</author-middle>
+                    <author-last>Hosking,</author-last></author>
+                and
+                <author><author-first>W.</author-first>
+                    <author-middle>B.</author-middle>
+                    <position x="750.0" y="6550.0" /> <author-last>Mugridge:</author-last></author>
+            </authors> <title>Static Subclass Constraints and     <position x="750.0" y="6440.0" />     Dynamic Class Membership Using Classifiers.     <position x="750.0" y="6330.0" />    </title>
+            <tech>Technical Report</tech>
+            <date>(1992),</date>
+            <institution>University of Auckland,     <position x="750.0" y="6220.0" />     Computer Science Department.    </institution>
+        </reference-hlabeled>
+        <reference>
+
+            <ref-marker><position x="570.0" y="6050.0" />
+                [Harrison 93] </ref-marker>
+            <authors>W. Harrison and H. Ossher: </authors>
+            <title>Subject-     <position x="750.0" y="5940.0" />    Oriented Programming. </title>
+            <booktitle>In Proc. of OOPSLA'93,     <position x="750.0" y="5830.0" />    </booktitle>
+            <pages>pp. 411-429, </pages>
+            <publisher>ACM Press.    </publisher>
+        </reference>
+        <reference>
+
+            <ref-marker><position x="570.0" y="5660.0" />
+                [Holland 92] </ref-marker>
+            <authors>I. M. </authors>
+            <title>Holland: Specifying reusable     <position x="750.0" y="5550.0" />    components using Contracts. </title>
+            <booktitle>In Proc. of     <position x="750.0" y="5440.0" />    ECOOP 92, </booktitle>
+            <pages>pp.287-308, </pages>
+            <address>Springer-Verlag.    </address>
+        </reference>
+        <reference>
+
+            <ref-marker><position x="570.0" y="5270.0" />
+                [Lucas 95] </ref-marker>
+            <authors>C. Lucas, K. Mens, P. </authors>
+            <title>Steyaert: Typing     <position x="750.0" y="5160.0" />     Dynamic Inheritance, a Trade-Off between     <position x="750.0" y="5050.0" />    Substitutability and Extensibility. </title>
+            <tech>Technical     <position x="750.0" y="4940.0" />     Report vub-prog-tr-95-03.    </tech>
+        </reference>
+        <reference>
+
+            <ref-marker><position x="570.0" y="4770.0" />
+                [Kiczales 92] </ref-marker>
+            <authors>G. Kiczales and J. Lamping: </authors>
+            <title>Issues in     <position x="750.0" y="4660.0" />    the Design and Specification of Class Libraries. </title>
+            <booktitle>In     <position x="750.0" y="4550.0" />    Proc. of OOPSLA'92, </booktitle>
+            <pages>pp. 435-451, </pages>
+            <publisher>ACM Press.    </publisher>
+        </reference>
+        <reference>
+
+            <ref-marker><position x="570.0" y="4380.0" />
+                [Kiczales 93] </ref-marker>
+            <authors>G. Kiczales: </authors>
+            <title>Traces: A cut at the 'make     <position x="750.0" y="4270.0" />    isn't generic' problem. </title>
+            <booktitle>ISOTAS '93 Conference     <position x="750.0" y="4160.0" />    Proceedings, LNCS 742, </booktitle>
+            <publisher>Springer-Verlag.    </publisher>
+        </reference>
+        <reference>
+
+            <ref-marker><position x="570.0" y="3990.0" />
+                [K hne 95] </ref-marker>
+            <authors>T. </authors>
+            <title>K hne: Parametrisation versus     <position x="750.0" y="3880.0" />    inheritance. </title>
+            <booktitle>In Proceeding of TOOLS Pacific     <position x="750.0" y="3770.0" />    (TOOLS 15), 1995, </booktitle>
+            <publisher>Prentice Hall.    </publisher>
+        </reference>
+        <reference>
+
+            <ref-marker><position x="570.0" y="3600.0" />
+                [Lalonde 90] </ref-marker>
+            <authors>W. R. Lalonde and J. R. </authors>
+            <title>Pugh: Inside     <position x="750.0" y="3490.0" />    Smalltalk. </title>
+            <tech>ISBN 0-13-468430-3, 1990, </tech>
+            <institution>Prentice-     <position x="750.0" y="3380.0" />     Hall.    </institution>
+        </reference>
+        <reference>
+
+            <ref-marker><position x="570.0" y="3210.0" />
+                [Madsen 93] </ref-marker>
+            <authors>O.L. Madsen, B. M ller-Pedersen, K.
+                <position x="750.0" y="3100.0" />
+            </authors>
+            <title>Nygaard: Object-Oriented Programming in the     <position x="750.0" y="2990.0" />    Beta Programming language. </title>
+            <tech>ISBN 0-201-62430-     <position x="750.0" y="2880.0" />    3, </tech>
+            <institution>Addison Wesley, </institution>
+            <date>1993.    </date>
+        </reference>
+        <reference>
+
+            <ref-marker><position x="570.0" y="2710.0" />
+                [Meyer 88] </ref-marker>
+            <authors>B. Meyer: </authors>
+            <title>Object-oriented Software     <position x="750.0" y="2600.0" />    Construction. </title>
+            <tech>ISBN 0-13-629031-0, 1988,     <position x="750.0" y="2490.0" />    </tech>
+            <institution>Prentice Hall.    </institution>
+        </reference>
+        <reference>
+
+            <ref-marker><position x="570.0" y="2320.0" />
+                [Ossher 95] </ref-marker>
+            <authors>H. Ossher, M. Kaplan, W. Harrison, A.
+                <position x="750.0" y="2210.0" />
+                Katz and V. Kruskal: </authors>
+            <title>Subject-Oriented     <position x="750.0" y="2100.0" />    Composition Rules. </title>
+            <booktitle>In Proc. of OOPSLA'95,     <position x="750.0" y="1990.0" />    </booktitle>
+            <pages>pp. 235-250, </pages>
+            <publisher>ACM Press.    </publisher>
+        </reference>
+        <reference>
+
+            <ref-marker><position x="570.0" y="1820.0" />
+                [Riehle 95] </ref-marker>
+            <authors>D. Riehle: </authors>
+            <title>How and Why to Encapsulate     <position x="750.0" y="1710.0" />    Class Trees. </title>
+            <booktitle>In Proc. of OOPSLA'95, </booktitle>
+            <pages>pp. 251-     <position x="750.0" y="1600.0" />    264, </pages>
+            <publisher>ACM Press.    </publisher>
+        </reference>
+        <reference>
+
+            <ref-marker><position x="570.0" y="1430.0" />
+                [Rumbaugh 91] </ref-marker>
+            <authors>J. Rumbaugh, M. Blaha, W.
+                <position x="750.0" y="1320.0" />
+                Premerlani, F. Eddy, and W. Lorensen: </authors>
+            <title>Object-     <position x="750.0" y="1210.0" />    Oriented Modeling and Design. </title>
+            <tech>ISBN 0-13-     <position x="750.0" y="1100.0" />    630064-5, 1991, </tech>
+            <institution>Prentice Hall.    </institution>
+        </reference>
+        <reference>
+
+            <ref-marker><position x="3140.0" y="7550.0" />
+                [Steyaert 93] </ref-marker>
+            <authors>P. Steyaert, W. Codenie, T. D Hondt, K.
+                <position x="3320.0" y="7440.0" />
+                De Hondt, C. Lucas, M. </authors>
+            <title>Van Limberghen: Nested     <position x="3320.0" y="7330.0" />    Mixin-Methods in Agora. </title>
+            <booktitle>In ECOOP 93, </booktitle>
+            <pages>pp.     <position x="3320.0" y="7220.0" />    197-219, </pages>
+            <address>Springer-Verlag .    </address>
+        </reference>
+        <reference>
+
+            <ref-marker><position x="3140.0" y="7050.0" />
+                [Steyaert 96] </ref-marker>
+            <authors>P. Steyaert, C. Lucas, K. Mens, T.
+                <position x="3320.0" y="6940.0" />
+            </authors>
+            <title>D Hondt: Reuse Contracts: Managing the     <position x="3320.0" y="6830.0" />    Evolution of Reusable Assets. </title>
+            <booktitle>To appear in     <position x="3320.0" y="6720.0" />    OOPSLA '96, </booktitle>
+            <publisher>ACM Press.    </publisher>
+        </reference>
+        <reference>
+
+            <ref-marker><position x="3140.0" y="6550.0" />
+                [Stroustrup 91] </ref-marker>
+            <authors>B. Stroustrup: </authors>
+            <title>The C++ Programming     <position x="3320.0" y="6440.0" />    Language. </title>
+            <journal>Second edition, </journal>
+            <pages>ISBN 0-201-53992-6,     <position x="3320.0" y="6330.0" />    </pages>
+            <date>1991, </date>
+            <pages>Addison-Wesley.    </pages>
+        </reference>
+        <reference>
+
+            <ref-marker><position x="3140.0" y="6160.0" />
+                [Ungar 87] </ref-marker>
+            <authors>D. Ungar and R. </authors>
+            <title>Smith: S     <font size="108" /><position x="4686.0" y="6160.0" />     ELF:     <font size="121" /><position x="4905.0" y="6160.0" />     The power     <position x="3320.0" y="6050.0" />    of simplicity. </title>
+            <booktitle>In Proc. of OOPSLA '87 pp. 227-     <position x="3320.0" y="5940.0" />    242, </booktitle>
+            <publisher>ACM Press.    </publisher>
+        </reference>
+        <reference>
+
+            <ref-marker><position x="3140.0" y="5770.0" />
+                [Van Limberghen 96] </ref-marker>
+            <authors>M. Van Limberghen and T.
+                <position x="3320.0" y="5660.0" />
+                Mens: </authors>
+            <title>Encapsulation and composition as     <position x="3320.0" y="5550.0" />     orthogonal operators on mixins: a solution to     <position x="3320.0" y="5440.0" />    multiple inheritance problems. </title>
+            <journal>Object Oriented     <position x="3320.0" y="5330.0" />    Systems journal volume </journal>
+            <volume>3 number 1, 1996, </volume>
+            <pages>pp.1-     <position x="3320.0" y="5220.0" />    30, </pages>
+            <address>Chapman &amp; Hall.    </address>
+        </reference>
+        <reference>
+
+            <ref-marker><position x="3140.0" y="5050.0" />
+                [Wirfs-Brock 88] </ref-marker>
+            <authors>A. Wirfs-Brock, B. </authors>
+            <title>Wilkerson: An     <position x="3320.0" y="4940.0" />    Overview of Modular Smalltalk. </title>
+            <booktitle>In Proc. of     <position x="3320.0" y="4830.0" />    OOPSLA '88, </booktitle>
+            <pages>pp. 123-134, </pages>
+            <publisher>ACM Press.  </publisher>
+        </reference>
+    </biblio-hlabeled>
+    <biblioEpilogue />
+</doc>
