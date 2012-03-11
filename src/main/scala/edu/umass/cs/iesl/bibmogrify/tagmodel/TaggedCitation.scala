@@ -18,7 +18,8 @@ import edu.umass.cs.iesl.bibmogrify.NamedPlugin
  *
  * Note there should be an "untagged" label, so that the entire citation is represented by the union of the text, tag pairs.
  */
-case class TaggedCitation(taggedTokens: Seq[(String, String)], references:Seq[TaggedCitation], labelset: LabelSet) {
+case class TaggedCitation(taggedTokens: Seq[(String, String)], labelset: LabelSet) {
+
   lazy val asMap = taggedTokens.groupBy(_._2).map {
     case (k, v) => (k, v.map(_._1))
   }
@@ -26,20 +27,26 @@ case class TaggedCitation(taggedTokens: Seq[(String, String)], references:Seq[Ta
   def get(label: String): Seq[String] = asMap.getOrElse(label, Nil)
 
   def toStructuredCitation: StructuredCitation = {
-    labelset.toStructuredCitation(this)
+    labelset.toStructuredCitation(new TaggedCitationWithReferences(this, Nil))
   }
+}
+
+case class TaggedCitationWithReferences(parent: TaggedCitation, references: Seq[TaggedCitation]) extends TaggedCitation(parent.taggedTokens, parent.labelset) {
+  override def toStructuredCitation: StructuredCitation = labelset.toStructuredCitation(this)
 }
 
 //trait Label extends String
 
 trait LabelSet {
+
   val topLevelRecordLabels: Seq[String]
 
   val validLabels: Seq[String]
   val headerSectionLabels: Seq[String]
   val referenceSectionLabels: Seq[String]
+  val mergeableLabels: Seq[String]
   // each label set is mapped differently into a CitationMention
-  def toStructuredCitation(c: TaggedCitation): StructuredCitation
+  def toStructuredCitation(c: TaggedCitationWithReferences): StructuredCitation
 
   //def read(s: String): TaggedCitation
 }
@@ -58,7 +65,9 @@ object toString extends Transformer[TaggedCitation, String] with NamedPlugin {
       for (label <- v1.labelset.validLabels)
       yield {
         val vals: Seq[String] = v1.get(label)
-        if (vals.isEmpty) { "NONE" } else vals.mkString(" | ")
+        if (vals.isEmpty) {
+          "NONE"
+        } else vals.mkString(" | ")
       }
       ).mkString("\t") + "\n"
   )

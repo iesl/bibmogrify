@@ -4,19 +4,18 @@ import java.net.URL
 import edu.umass.cs.iesl.scalacommons.XmlUtils
 import edu.umass.cs.iesl.bibmogrify.BibMogrifyException
 import com.weiglewilczek.slf4s.Logging
-import collection.immutable.Seq
 import edu.umass.cs.iesl.bibmogrify.pipeline.Transformer
 import collection.TraversableOnce
-import xml.{Text, Node}
+import xml.{Elem, Text, Node}
 
 /**
  * @author <a href="mailto:dev@davidsoergel.com">David Soergel</a>
  * @version $Id$
  */
 
-class TaggedCitationXMLReader(labels: LabelSet) extends Transformer[URL, TaggedCitation] with Logging {
+class TaggedCitationXMLReader(labels: LabelSet) extends Transformer[URL, TaggedCitationWithReferences ] with Logging {
 
-  def apply(url: URL): TraversableOnce[TaggedCitation] = {
+  def apply(url: URL): TraversableOnce[TaggedCitationWithReferences ] = {
     val s = url.openStream()
     try {
       val allNodes: TraversableOnce[Node] = XmlUtils.nodesMatching(s, labels.topLevelRecordLabels).toList
@@ -27,56 +26,97 @@ class TaggedCitationXMLReader(labels: LabelSet) extends Transformer[URL, TaggedC
     }
   }
 
-  def parseDroppingErrors(doc: Node): Option[TaggedCitation] = {
-    try {
-      val c = parse(doc)
-      Some(c)
-    }
+  def parseDroppingErrors(doc: Node): Option[TaggedCitationWithReferences ] = {
+    try Some(parseWithReferences(doc))
     catch {
       case e: BibMogrifyException => logger.error(e.getMessage)
       None
     }
   }
 
-  def parse(node: Node): TaggedCitation = {
-    // can't just pull the desired tagged ranges from the tree at whatever hierarchy level they may be, because there may be a contained reference section
 
-    val allNonReferenceSectionDescendants = XmlUtils.descendantExcluding(node, labels.referenceSectionLabels)
+  def parseWithReferences(node: Node): TaggedCitationWithReferences = {
+    // because of the untagged-text problem, we have to just walk the tree.
+    // This is a little tricky because we want to slash-separate nested but valid tags,
+    // while merging all text in invalid tags (regardless of level) into "untagged" nodes,
+    // all while maintaining order.
 
-    // this is tricky: any text that is not in an accepted tag should be "untagged".  e.g. <bogus> this is untagged text <title>this is tagged</title> this is untagged again</bogus>
+    // labelPath is whatever we want to see in front of the label at this level, not including the delimiter.
+    // the reason not to include the delimiter is that a PCDATA section should be recorded at the parent path with no trailing delimiter
+    // this basically requires that "untagged" == "".
 
-    val taggedTokens: scala.Seq[(String, String)] = allNonReferenceSectionDescendants.map(f => {
-      val parts: Seq[String] = f.descendant.filter(_.isInstanceOf[Text]).map(_.text)
-      val comb: String = parts.mkString(" ")
-      val s: String = comb.replaceAll("\\s|\"", " ").trim
-      (s, f.label)
-    })
+    // a further complication is that all text in a valid node that has no valid descendants should be merged.  That is, we want to ignore invalid nodes entirely.
+    // at the same time, two neighboring valid nodes should not be merged; that distinction is legit.
 
-    /*
+    // so: perhaps we should:
+    // 0) pull out reference sections
+    // 1) remove all invalid nodes, flattening their contents upwards
+    // 2) merge neighboring PCDATA
+    // 3) traverse tree, collecting TaggedCitation elements.
 
-    val headerSections = labels.headerSectionLabels.flatMap(node \\ _)
-    val allowedRootNodes = node +: headerSections
+    val references = extractReferences(node)
+    new TaggedCitationWithReferences(parse(node),references)
+  }
+    def parse(node: Node): TaggedCitation = {
 
-    node.descendant.filter(n => n.)
 
-    val taggedTokens: scala.Seq[(String, String)] = allowedRootNodes.flatMap(r => r.nonEmptyChildren.toList.map(f => {
-      val parts: Seq[String] = f.descendant.filter(_.isInstanceOf[Text]).map(_.text)
-      val comb: String = parts.mkString(" ")
-      val s: String = comb.replaceAll("\\s|\"", " ").trim
-      (s, f.label)
-    }))
-*/
-    val validTaggedTokens = taggedTokens.filter(a => {
-      val result = labels.validLabels.contains(a._2)
-      /*    if (!result) {
-        logger.warn("Ignored label: " + a._2)
-      }*/
-      result
-    })
+    // hmmm... good idiom for flatMap on a tree?
+    val validNode =
+      new Elem(node.prefix, node.label, node.attributes, node.scope, flattenValid(node): _*)
 
-    val referenceSections = labels.referenceSectionLabels.flatMap(node.descendant \\ _)
-    val references = referenceSections.map(parse(_))
-    new TaggedCitation(validTaggedTokens, references, labels)
+    val mergedNode = mergeText(validNode)
+
+    val resultElements = mergedNode.child.map(traverse(_, Nil)).flatten  // avoid including the top-level label
+
+    new TaggedCitation(resultElements,labels)
+
+  }
+
+  def extractReferences(node: Node): Seq[TaggedCitation] = {
+    val q = for (r <- labels.referenceSectionLabels;
+                 x <- (node \\ r)
+    ) yield
+    {
+      val refs = x.child.toList
+      refs.map(parse)
+    }
+
+    q.flatten
+  }
+
+  def flattenValid(node: Node): Seq[Node] = {
+    if(labels.referenceSectionLabels contains node.label) Nil
+    else if (node.isInstanceOf[Text]) {
+      if(node.text.trim().isEmpty) Nil else Seq(node)
+    }
+    else if (labels.validLabels contains node.label) {
+      new Elem(node.prefix, node.label, node.attributes, node.scope, node.child.map(flattenValid).flatten: _*)
+    }
+    else {
+      node.child.map(flattenValid).flatten
+    }
+  }
+
+  def mergeText(node: Node): Node = {
+    if (node.isInstanceOf[Text]) node
+    else {
+      val mergedChildren = node.child.map(mergeText).flatten
+      val mergedReverse = mergedChildren.foldLeft(Seq[Node]())((a: Seq[Node], b: Node) => {
+        if (a == Nil) Seq(b)
+        else
+          (a.head, b) match {
+            case (ah: Text, bh: Text) => new Text(ah.text + " " + bh.text) ++ a.tail
+            case (ah, bh) => b ++ a
+          }
+      })
+      new Elem(node.prefix, node.label, node.attributes, node.scope, mergedReverse.reverse: _*)
+    }
+  }
+
+
+  def traverse(node: Node, revpath: Seq[String]): Seq[(String, String)] = {
+    if(node.isInstanceOf[Text]) Seq((node.text, revpath.reverse.mkString("/")))
+    else node.child.flatMap(traverse(_, node.label +: revpath))
   }
 
 }

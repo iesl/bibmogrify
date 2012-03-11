@@ -4,22 +4,38 @@ import model.StructuredCitation
 import pipeline.Transformer
 import java.net.URL
 import java.io.File
+import tagmodel.{TaggedCitation, TaggedCitationWithReferences}
 
 /**
  * @author <a href="mailto:dev@davidsoergel.com">David Soergel</a>
  * @version $Id$
  */
 
-object WithReferences extends Transformer[StructuredCitation, StructuredCitation] with NamedPlugin {
+object StructuredWithReferences extends Transformer[StructuredCitation, StructuredCitation] with NamedPlugin {
 
   val name = "withReferences"
 
   def apply(cm: StructuredCitation) = cm +: cm.references
 }
 
-object OnlyReferences extends Transformer[StructuredCitation, StructuredCitation] with NamedPlugin {
+object StructuredOnlyReferences extends Transformer[StructuredCitation, StructuredCitation] with NamedPlugin {
 
   val name = "onlyReferences"
 
   def apply(cm: StructuredCitation) = cm.references
+}
+
+
+object TaggedWithReferences extends Transformer[TaggedCitationWithReferences, TaggedCitation] with NamedPlugin {
+
+  val name = "taggedWithReferences"
+
+  def apply(cm: TaggedCitationWithReferences) = cm.parent +: cm.references
+}
+
+object TaggedOnlyReferences extends Transformer[TaggedCitationWithReferences, TaggedCitation] with NamedPlugin {
+
+  val name = "taggedOnlyReferences"
+
+  def apply(cm: TaggedCitationWithReferences) = cm.references
 }

@@ -13,6 +13,7 @@ import com.weiglewilczek.slf4s.Logging
 
 object StandardLabels extends LabelSet with Logging {
   val validLabels = Seq(
+    "authors",
     "author",
     "date",
     "title",
@@ -30,11 +31,14 @@ object StandardLabels extends LabelSet with Logging {
 
   val headerSectionLabels = Seq()
   val referenceSectionLabels = Seq()
-  val topLevelRecordLabels = Seq("REC","doc","NEWREFERENCE")
+  val mergeableLabels = List[String]("": String)
+
+  val topLevelRecordLabels = Seq("REC", "doc", "NEWREFERENCE")
 
   val yearRE = """.*((19|20)\d\d).*""".r
 
-  def toStructuredCitation(c: TaggedCitation) = {
+  def toStructuredCitation(cwr: TaggedCitationWithReferences) = {
+    val c = cwr.parent
     //throw new NotImplementedException()
     new StructuredCitation {
       override val title = c.get("title").headOption
@@ -75,7 +79,7 @@ object StandardLabels extends LabelSet with Logging {
       }
       override val containedIn = Some(BasicContainmentInfo(venueMention, None, None, None, None))
 
-      override val references = c.references.map(_.toStructuredCitation)
+      override val references = cwr.references.map(_.toStructuredCitation)
     }
   }
 }
@@ -105,8 +109,8 @@ object ExtendedLabels extends LabelSet with Logging {
     "number",
     "phone",
     "ref-marker",
-    "reference-hlabeled",
-    "reference",
+    //"reference-hlabeled",
+    //"reference",
     "series",
     "thesis",
     "web"
@@ -115,28 +119,29 @@ object ExtendedLabels extends LabelSet with Logging {
   val headerSectionLabels = Seq("headers-hlabeled")
   val referenceSectionLabels = Seq("biblio-hlabeled")
 
-  val topLevelRecordLabels = Seq("REC","doc","NEWREFERENCE")
+  val mergeableLabels = List[String]("": String)
+  //val untagged : String = ""
+
+  val topLevelRecordLabels = Seq("REC", "doc", "NEWREFERENCE")
 
   val yearRE = """.*((19|20)\d\d).*""".r
 
-  def toStructuredCitation(c: TaggedCitation) = {
+  def toStructuredCitation(cwr: TaggedCitationWithReferences) = {
+    val c = cwr.parent
     //throw new NotImplementedException()
     new StructuredCitation {
       override val title = c.get("title").headOption
+
       override val authors = {
-        val individualAuthors = c.get("author").map(n => new AuthorInRole(new Person {
+        val individualAuthors = (c.get("author") ++ c.get("authors/author")).map(n => new AuthorInRole(new Person {
           override val name = Some(n)
         }, Nil))
         val result = if (!individualAuthors.isEmpty) individualAuthors
         else {
-          val combinedAuthorsTag: Option[String] = c.get("authors").headOption
-          val q : Seq[AuthorInRole] = combinedAuthorsTag match {
-            case None => Nil
-            case Some(x) => x.split(",").map(n => new AuthorInRole(new Person {
-              override val name = Some(n)
-            }, Nil))
-          }
-          q
+          val combinedAuthors = c.get("authors").flatMap(s => s.split(" and ").flatMap(_.split(","))).map(n => new AuthorInRole(new Person {
+            override val name = Some(n)
+          }, Nil))
+          combinedAuthors
         }
         result
       }
@@ -160,7 +165,7 @@ object ExtendedLabels extends LabelSet with Logging {
 
       override val abstractText = c.get("abstract").headOption
 
-      override val dates = Seq(new BasicCitationEvent(Some(new BasicPartialDate(year, None, None)), Published))
+      override val dates = year.map(y => new BasicCitationEvent(Some(new BasicPartialDate(Some(y), None, None)), Published)).toSeq
 
       val venueMention = new StructuredCitation {
         // drop superscripts, subscripts, italics, and typewriter styles
@@ -181,10 +186,11 @@ object ExtendedLabels extends LabelSet with Logging {
       }
       override val containedIn = Some(BasicContainmentInfo(venueMention, None, None, None, None))
 
-      override val references = c.references.map(_.toStructuredCitation)
+      override val references = cwr.references.map(_.toStructuredCitation)
     }
 
   }
+
 }
 
 /* <abstract>
