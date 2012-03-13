@@ -3,7 +3,7 @@ package edu.umass.cs.iesl.bibmogrify.reader
 import org.scalatest.{BeforeAndAfter, FunSuite}
 import edu.umass.cs.iesl.bibmogrify.model.Published
 import com.weiglewilczek.slf4s.Logging
-import edu.umass.cs.iesl.bibmogrify.tagmodel.{ExtendedLabelXMLReader, StandardLabelXMLReader}
+import edu.umass.cs.iesl.bibmogrify.tagmodel.{ExtendedLabelXMLReaderHlabeled, ExtendedLabelXMLReader, StandardLabelXMLReader}
 
 
 class GaryhuangTaggedCitationReaderTestSuite extends FunSuite with BeforeAndAfter with Logging {
@@ -70,6 +70,7 @@ class GaryhuangTaggedCitationReaderTestSuite extends FunSuite with BeforeAndAfte
     for (t <- citationList) {
       val cc = t.toStructuredCitation
       assert(!cc.references.isEmpty)
+      assert(cc.references.size == 29)
       for (r <- cc.references) {
         assert(!r.authors.isEmpty)
         val authorName: Option[String] = r.authors.head.person.name
@@ -77,6 +78,24 @@ class GaryhuangTaggedCitationReaderTestSuite extends FunSuite with BeforeAndAfte
       }
     }
   }
+
+
+  test("References are parsed with h-labeled-only option") {
+    val citationList = ExtendedLabelXMLReaderHlabeled(file)
+    // val tagged = citationList.toIterator.next()
+    //  val c = tagged.toStructuredCitation
+    for (t <- citationList) {
+      val cc = t.toStructuredCitation
+      assert(!cc.references.isEmpty)
+      assert(cc.references.size == 1)
+      for (r <- cc.references) {
+        assert(!r.authors.isEmpty)
+        val authorName: Option[String] = r.authors.head.person.name
+        logger.info("Reference first author : " + authorName)
+      }
+    }
+  }
+
 
   test("Untagged text gets merged") {
     val input = <bogus>some text<title>the title</title>some more<squee>more untagged<authors><author>hello</author> <author>world</author></authors></squee>the end</bogus>

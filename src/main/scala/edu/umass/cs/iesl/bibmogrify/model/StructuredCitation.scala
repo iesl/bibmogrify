@@ -7,7 +7,7 @@ import java.net.URL
 trait StructuredCitation {
   val doctype: Option[DocType] = None
   val docSubtype: Option[String] = None // for journal articles: Letter; Application Note; Research Article, etc.  For grants: R01, K99, etc.
-  val title: Option[String] = None
+  val title: Option[String] = None  // ** need to track titles in multiple languages.  Probably Map[Language, String]
   val authors: Seq[AuthorInRole] = Nil
   val otherContributors: Seq[OtherContributorInRole] = Nil
   val sourceLanguage: Option[Language] = None // the original language, if this is a translation
@@ -26,7 +26,7 @@ trait StructuredCitation {
   val keywords: Seq[Keyword] = Nil
 
   val abstractLanguages: Seq[Option[Language]] = Nil
-  val abstractText: Option[String] = None
+  val abstractText: Option[String] = None // ** need to track abstracts in multiple languages.  Probably Map[Language, String]
   //val introText: Option[String] = None
   val bodyText: Seq[BodyTextSection] = Nil // can't use LinkedHashMap because keys may recur
 

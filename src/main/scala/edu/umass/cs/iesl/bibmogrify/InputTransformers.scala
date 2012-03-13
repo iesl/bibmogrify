@@ -10,10 +10,12 @@ import java.io.File
  */
 
 object StringToUrl extends Transformer[String, URL] with NamedPlugin {
-  def apply(s: String) = if (s.contains(":")) {
-    Some(new URL(s))
-  } else {
-    Some(new File(s).toURL)
+  def apply(s: String) = {
+    val f = new File(s)
+    if(f.exists) Some(f.toURL)
+    else if(s.contains(":")) {
+      Some(new URL(s))
+    } else throw new BibMogrifyException("Input file not found: " + s)
   }
 
   val name = "toUrl"

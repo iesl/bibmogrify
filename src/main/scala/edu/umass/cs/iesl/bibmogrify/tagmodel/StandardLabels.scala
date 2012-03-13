@@ -31,6 +31,7 @@ object StandardLabels extends LabelSet with Logging {
 
   val headerSectionLabels = Seq()
   val referenceSectionLabels = Seq()
+  val referenceLabels = Seq()
   val mergeableLabels = List[String]("": String)
 
   val topLevelRecordLabels = Seq("REC", "doc", "NEWREFERENCE")
@@ -89,13 +90,17 @@ object StandardLabelXMLReader extends TaggedCitationXMLReader(StandardLabels) wi
   val name = "standardLabels"
 }
 
-object ExtendedLabelXMLReader extends TaggedCitationXMLReader(ExtendedLabels) with Transformer[URL, TaggedCitation] with NamedPlugin {
+object ExtendedLabelXMLReader extends TaggedCitationXMLReader(new ExtendedLabels()) with Transformer[URL, TaggedCitation] with NamedPlugin {
+  val name = "extendedLabels"
+}
+
+object ExtendedLabelXMLReaderHlabeled extends TaggedCitationXMLReader(new ExtendedLabels(Seq("reference-hlabeled"))) with Transformer[URL, TaggedCitation] with NamedPlugin {
   val name = "extendedLabels"
 }
 
 // todo abstract away cut-and-paste
 
-object ExtendedLabels extends LabelSet with Logging {
+class ExtendedLabels(val referenceLabels : Seq[String] = Seq("reference", "reference-hlabeled")) extends LabelSet with Logging {
   val validLabels = StandardLabels.validLabels ++ Seq(
     "abstract",
     "address",
@@ -118,6 +123,7 @@ object ExtendedLabels extends LabelSet with Logging {
 
   val headerSectionLabels = Seq("headers-hlabeled")
   val referenceSectionLabels = Seq("biblio-hlabeled")
+  //val referenceLabels = Seq("reference", "reference-hlabeled")
 
   val mergeableLabels = List[String]("": String)
   //val untagged : String = ""

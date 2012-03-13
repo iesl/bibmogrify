@@ -73,15 +73,12 @@ class TaggedCitationXMLReader(labels: LabelSet) extends Transformer[URL, TaggedC
   }
 
   def extractReferences(node: Node): Seq[TaggedCitation] = {
-    val q = for (r <- labels.referenceSectionLabels;
-                 x <- (node \\ r)
-    ) yield
-    {
-      val refs = x.child.toList
-      refs.map(parse)
-    }
-
-    q.flatten
+    val q = for (sectionLabel <- labels.referenceSectionLabels;
+                 section <- (node \\ sectionLabel);
+                  reflabel <- labels.referenceLabels;
+      ref <- section \ reflabel
+    ) yield parse(ref)
+q
   }
 
   def flattenValid(node: Node): Seq[Node] = {

@@ -44,6 +44,7 @@ trait LabelSet {
   val validLabels: Seq[String]
   val headerSectionLabels: Seq[String]
   val referenceSectionLabels: Seq[String]
+  val referenceLabels: Seq[String]
   val mergeableLabels: Seq[String]
   // each label set is mapped differently into a CitationMention
   def toStructuredCitation(c: TaggedCitationWithReferences): StructuredCitation

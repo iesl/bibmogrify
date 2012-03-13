@@ -108,7 +108,7 @@ object PatentST36Reader extends Transformer[URL, StructuredPatent] with Logging 
     val c = new StructuredPatent() {
       //override val doctype: Option[DocType] = Patent
       override val locations = Seq(new BasicLocation(url, Nil))
-      override val title: Option[String] = (doc \ "bibliographic-data" \ "invention-title").text.trim
+      override val title: Option[String] = (doc \ "bibliographic-data" \ "invention-title").map(_.text.trim).mkString(" ")
       override val (identifiers, dates) = getIdentifiersAndDates
 
       val abstracts = (doc \ "abstract");
