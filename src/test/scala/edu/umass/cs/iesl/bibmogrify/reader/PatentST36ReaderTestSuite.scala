@@ -3,13 +3,14 @@ package edu.umass.cs.iesl.bibmogrify.reader
 import org.scalatest.{BeforeAndAfter, FunSuite}
 import com.weiglewilczek.slf4s.Logging
 import edu.umass.cs.iesl.bibmogrify.model.{Summary, GeneralBodyText, Claims, Published}
+import edu.umass.cs.iesl.bibmogrify.UrlNamedInputStream
 
 
 class PatentST36ReaderTestSuite extends FunSuite with BeforeAndAfter with Logging
   {
   val file = getClass.getResource("/examples/patentST36/patentST36.xml")
 
-  val citationList = PatentST36Reader(file)
+  val citationList = PatentST36Reader(new UrlNamedInputStream(file.toExternalForm,file))
   val c = citationList.toIterator.next()
 
   // todo: detailed tests of all fieldstest

@@ -69,9 +69,9 @@ class GaryhuangTaggedCitationReaderTestSuite extends FunSuite with BeforeAndAfte
   //  val c = tagged.toStructuredCitation
     for (t <- citationList) {
       val cc = t.toStructuredCitation
-      assert(!cc.references.isEmpty)
-      assert(cc.references.size == 29)
-      for (r <- cc.references) {
+      assert(!cc.structuredReferences.isEmpty)
+      assert(cc.structuredReferences.size == 29)
+      for (r <- cc.structuredReferences) {
         assert(!r.authors.isEmpty)
         val authorName: Option[String] = r.authors.head.person.name
         logger.info("Reference first author : " + authorName)
@@ -86,9 +86,9 @@ class GaryhuangTaggedCitationReaderTestSuite extends FunSuite with BeforeAndAfte
     //  val c = tagged.toStructuredCitation
     for (t <- citationList) {
       val cc = t.toStructuredCitation
-      assert(!cc.references.isEmpty)
-      assert(cc.references.size == 1)
-      for (r <- cc.references) {
+      assert(!cc.structuredReferences.isEmpty)
+      assert(cc.structuredReferences.size == 1)
+      for (r <- cc.structuredReferences) {
         assert(!r.authors.isEmpty)
         val authorName: Option[String] = r.authors.head.person.name
         logger.info("Reference first author : " + authorName)

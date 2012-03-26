@@ -7,14 +7,12 @@ import edu.umass.cs.iesl.scalacommons.DateUtils._
 import edu.umass.cs.iesl.bibmogrify.model._
 import com.weiglewilczek.slf4s.Logging
 import xml.Node
-import java.net.URL
 import edu.umass.cs.iesl.scalacommons.XMLIgnoreDTD
 import java.lang.String
-import com.sun.org.apache.xerces.internal.impl.io.MalformedByteSequenceException
-import edu.umass.cs.iesl.bibmogrify.pipeline.{Transformer}
-import edu.umass.cs.iesl.bibmogrify.{NamedPlugin, BibMogrifyException}
+import edu.umass.cs.iesl.bibmogrify.pipeline.Transformer
+import edu.umass.cs.iesl.bibmogrify.{NamedInputStream, NamedPlugin, BibMogrifyException}
 
-object IEEEReader extends Transformer[URL, StructuredCitation] with Logging with NamedPlugin{
+object IEEEReader extends Transformer[NamedInputStream, StructuredCitation] with Logging with NamedPlugin {
 
   val name = "ieee"
 
@@ -28,7 +26,9 @@ object IEEEReader extends Transformer[URL, StructuredCitation] with Logging with
       override val abstractText: Option[String] = (doc \ "articleinfo" \ "abstract").text.trim
       override val identifiers = {
         val id: String = (doc \ "articleinfo" \ "articledoi").text.trim
-        if (id.isEmpty) { Nil }
+        if (id.isEmpty) {
+          Nil
+        }
         else {
           List(new Identifier {
             override val authority = Some(DoiAuthority)
@@ -70,37 +70,44 @@ object IEEEReader extends Transformer[URL, StructuredCitation] with Logging with
   }
 
 
-  def parseDroppingErrors(url: URL, doc: Node): TraversableOnce[StructuredCitation] = {
+  def parseDroppingErrors(inLocation: Location, doc: Node): TraversableOnce[StructuredCitation] = {
     try {
       //logger.debug(doc.toString())
       val c = parsePublication(doc)
       c
     }
     catch {
-      case e: BibMogrifyException => logger.error(e.getMessage)
-      None
+      case e: BibMogrifyException => logger.error(e.getMessage); None
+      case f => {
+        logger.error("Could not parse " + inLocation); logger.error(f.getMessage)
+      }; None
     }
   }
 
 
   //def apply(s: InputStream): TraversableOnce[CitationMention] = XmlUtils.firstLevelNodes(s).flatMap(node => (node \ "publication").flatMap(parsePublication(_)))
-  def apply(url: URL): TraversableOnce[StructuredCitation] = {
+  def apply(nis: NamedInputStream): TraversableOnce[StructuredCitation] = {
     //val xml = scala.xml.XML.load(f)
     // val xml = XMLIgnoreDTD.load(f)  // can't, because we need the entity declarations
     //XMLMapDTD.setGlobalXMLCatalogDir(getClass.getResource("/dblp.dtd").getPath)
     //val xmlloader = new XMLFilenameOnlyMappingDTDLoader(Map("dblp.dtd" -> new InputSource(getClass.getResource("/dblp.dtd").getPath)))
     // val xml = xmlloader.load(f)
     //XmlUtils.firstLevelNodes(s).flatMap(node => (node \\ "REC").flatMap(parseDroppingErrors(_)))
-    val s = url.openStream()
+
+    val a = nis.getInputStream
+    val inLocation = new BasicStringLocation(nis.name, Nil)
+
     try {
       //XmlUtils.firstLevelNodes(s).flatMap(node => (node \ "publication").flatMap(parsePublication(_)))
-      parseDroppingErrors(url, XMLIgnoreDTD.load(url))
+      parseDroppingErrors(inLocation, XMLIgnoreDTD.load(a))
     }
-      catch {
-        case e: MalformedByteSequenceException => { logger.error("Failed to parse " + url, e) ; Nil }
+    catch {
+      case e => {
+        logger.error("Failed to parse " + nis.name, e); Nil
       }
+    }
     finally {
-      s.close()
+      a.close()
     }
   }
 }

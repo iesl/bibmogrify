@@ -3,13 +3,14 @@ package edu.umass.cs.iesl.bibmogrify.reader
 import org.scalatest.{BeforeAndAfter, FunSuite}
 import edu.umass.cs.iesl.bibmogrify.model.Published
 import com.weiglewilczek.slf4s.Logging
+import edu.umass.cs.iesl.bibmogrify.UrlNamedInputStream
 
 
 class IEEEReaderTestSuite extends FunSuite with BeforeAndAfter with Logging
   {
   val file = getClass.getResource("/examples/ieee/test.xml")
 
-  val citationList = IEEEReader(file)
+  val citationList = IEEEReader(new UrlNamedInputStream(file.toExternalForm,file))
   val c = citationList.toIterator.next()
 
   // todo: detailed tests of all fields

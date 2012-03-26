@@ -1,44 +1,50 @@
 package edu.umass.cs.iesl.bibmogrify.reader
 
 import edu.umass.cs.iesl.scalacommons.StringUtils._
-import java.net.URL
 import com.weiglewilczek.slf4s.Logging
 import edu.umass.cs.iesl.bibmogrify.model._
 import edu.umass.cs.iesl.bibmogrify.model.Authorities._
 import edu.umass.cs.iesl.bibmogrify.model.CitationUtils._
 import xml.{NodeSeq, Node}
 import edu.umass.cs.iesl.scalacommons.XMLIgnoreDTD
-import edu.umass.cs.iesl.bibmogrify.pipeline.{Transformer}
-import edu.umass.cs.iesl.bibmogrify.{NamedPlugin, BibMogrifyException}
+import edu.umass.cs.iesl.bibmogrify.pipeline.Transformer
+import edu.umass.cs.iesl.bibmogrify.{NamedInputStream, NamedPlugin, BibMogrifyException}
 
 /**
  * @author <a href="mailto:dev@davidsoergel.com">David Soergel</a>
  * @version $Id$
  */
 
-object NLMReader extends Transformer[URL, StructuredCitation] with Logging with NamedPlugin {
+object NLMReader extends Transformer[NamedInputStream, StructuredCitation] with Logging with NamedPlugin {
 
   val name = "nlm"
 
 
   //def apply(s: InputStream): TraversableOnce[CitationMention] = XmlUtils.firstLevelNodes(s).flatMap(node => (node \ "publication").flatMap(parsePublication(_)))
-  def apply(url: URL): TraversableOnce[StructuredCitation] = {
-    val s = url.openStream()
+  def apply(nis: NamedInputStream): TraversableOnce[StructuredCitation] = {
+
+    val a = nis.getInputStream
+    val inLocation = new BasicStringLocation(nis.name, Nil)
+
     try {
       //XmlUtils.firstLevelNodes(s).flatMap(node => (node \ "@{http://www.elsevier.com/xml/document/schema}document").flatMap(parseDroppingErrors(url, _)))
       //XmlUtils.firstLevelNodes(s).flatMap(parseDroppingErrors(url, _))
-      parseDroppingErrors(url, XMLIgnoreDTD.load(url))
+      parseDroppingErrors(inLocation, XMLIgnoreDTD.load(a))
+    } catch {
+      case e => {
+        logger.error("Failed to parse " + nis.name, e); Nil
+      }
     }
     finally {
-      s.close()
+      a.close()
     }
   }
 
 
-  def parseDroppingErrors(url: URL, doc: Node): Option[StructuredCitation] = {
+  def parseDroppingErrors(inLocation: Location, doc: Node): Option[StructuredCitation] = {
     try {
       //logger.debug(doc.toString())
-      val c = parse(url, doc)
+      val c = parse(inLocation, doc)
       Some(c)
     }
     catch {
@@ -48,7 +54,7 @@ object NLMReader extends Transformer[URL, StructuredCitation] with Logging with 
   }
 
 
-  def parse(url: URL, doc: Node): StructuredCitation = {
+  def parse(inLocation: Location, doc: Node): StructuredCitation = {
 
     val front: NodeSeq = doc \ "front"
     val articlemeta: NodeSeq = front \ "article-meta"
@@ -81,7 +87,7 @@ object NLMReader extends Transformer[URL, StructuredCitation] with Logging with 
     //val authorSplit = "(.+)( .*)? (.+)".r
     val c = new StructuredCitation() {
       // todo interpret pubtype field
-      override val doctype : Option[DocType]= JournalArticle
+      override val doctype: Option[DocType] = JournalArticle
 
       // drop superscripts, subscripts, italics, and typewriter styles
       override val title: Option[String] = (articlemeta \ "title-group" \ "article-title").text.trim
@@ -98,7 +104,7 @@ object NLMReader extends Transformer[URL, StructuredCitation] with Logging with 
 
       //override val keywords = subjectCodes map (new BasicKeyword(WOSKeywordAuthority, _))
 
-      override val locations = Seq(new BasicLocation(url, Nil))
+      override val locations = Seq(inLocation)
       override val authors = (articlemeta \ "contrib-group" \ "contrib" \ "name").map((c => new Person() {
         override val name = Some((c \ "given-names").text + " " + (c \ "surname").text)
 

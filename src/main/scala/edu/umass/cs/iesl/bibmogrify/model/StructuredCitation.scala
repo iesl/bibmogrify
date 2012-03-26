@@ -20,7 +20,8 @@ trait StructuredCitation {
   val dates: Seq[CitationEvent] = Nil
   val grants: Seq[GrantInfo] = Nil
 
-  val references: Seq[StructuredCitation] = Nil // could include context here
+  val referenceStrings: Seq[String] = Nil
+  val structuredReferences: Seq[StructuredCitation] = Nil // could include context here
 
 
   val keywords: Seq[Keyword] = Nil
@@ -151,11 +152,21 @@ case class BasicIdentifier(override val value: String, override val authority: O
 
 trait Location {
   // are there other kinds of locations?  e.g., call numbers
-  val url: URL
-  val hashes: Seq[Hash]
+ val hashes: Seq[Hash]
 }
 
-case class BasicLocation(override val url: URL, override val hashes: Seq[Hash]) extends Location
+trait UrlLocation extends Location {
+  val url: URL
+  override def toString : String = url.toExternalForm
+}
+
+trait StringLocation extends Location {
+  val name : String
+  override def toString : String = name
+}
+
+case class BasicUrlLocation(override val url: URL, override val hashes: Seq[Hash]) extends UrlLocation
+case class BasicStringLocation(override val name: String, override val hashes: Seq[Hash]) extends StringLocation
 
 trait Hash {
   val hashType: HashType

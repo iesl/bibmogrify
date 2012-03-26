@@ -35,7 +35,7 @@ object PatentStatsWriter extends Transformer[StructuredPatent, String] with Name
   def apply(cm: StructuredPatent) = {
 
     val fields = Seq(
-      cm.locations.headOption.map(_.url.toExternalForm),
+      cm.locations.headOption.map(_.toString),
       Some(cm.primaryId),
       cm.year,
       cm.sourceLanguage,
@@ -45,7 +45,7 @@ object PatentStatsWriter extends Transformer[StructuredPatent, String] with Name
       Some(cm.priorityClaims.length),
       Some(cm.mainFamily.length),
       Some(cm.completeFamily.length),
-      Some(cm.references.length),
+      Some(cm.structuredReferences.length),
       Some(cm.searchReportReferences.length),
     Some(cm.keywordsCountByAuthority)
     )

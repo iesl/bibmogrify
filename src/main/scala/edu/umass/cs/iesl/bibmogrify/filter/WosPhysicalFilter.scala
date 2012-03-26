@@ -15,7 +15,7 @@ object WosPhysicalFilter extends Transformer[StructuredCitation, StructuredCitat
 
   def apply(cm: StructuredCitation) = {
     val result = !cm.keywords.map(_.word).intersect(okKeywords).isEmpty
-    logger.debug("Filter " + (if (result) "PASSED" else "FAILED") + ": " + cm.locations.head.url)
+    logger.debug("Filter " + (if (result) "PASSED" else "FAILED") + ": " + cm.locations.head.toString)
     if (result) {
       Some(cm)
     } else None

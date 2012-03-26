@@ -22,11 +22,17 @@ libraryDependencies += "com.cybozu.labs" % "langdetect" % "1.2.2"
 
 libraryDependencies += "net.arnx" % "jsonic" % "1.2.7"
 
+libraryDependencies += "org.apache.commons" % "commons-vfs2" % "2.0"
+
+libraryDependencies += "commons-collections" % "commons-collections" % "3.2.1"
+
+libraryDependencies += "org.apache.commons" % "commons-compress" % "1.3"
+
 resolvers += "David Soergel Repo" at "http://dev.davidsoergel.com/artifactory/repo"
 
-resolvers += "IESL Repo" at "http://iesl.cs.umass.edu:8081/nexus/content/repositories/releases"
+resolvers += "IESL Repo" at "https://dev-iesl.cs.umass.edu/nexus/content/repositories/releases"
 
-resolvers += "IESL Snapshot Repo" at "http://iesl.cs.umass.edu:8081/nexus/content/repositories/snapshots"
+resolvers += "IESL Snapshot Repo" at "https://dev-iesl.cs.umass.edu/nexus/content/repositories/snapshots"
 
 resolvers += "Github Imaginatio" at "https://github.com/Imaginatio/Maven-repository/raw/master"
 
@@ -37,7 +43,7 @@ seq(assemblySettings: _*)
 publishTo <<= (version)
                                             {version: String =>
                                               {
-                                              def repo(name: String) = name at "http://iesl.cs.umass.edu:8081/nexus/content/repositories/" + name
+                                              def repo(name: String) = name at "https://dev-iesl.cs.umass.edu/nexus/content/repositories/" + name
                                               val isSnapshot = version.trim.endsWith("SNAPSHOT")
                                               val repoName = if (isSnapshot) "snapshots" else "releases"
                                               Some(repo(repoName))

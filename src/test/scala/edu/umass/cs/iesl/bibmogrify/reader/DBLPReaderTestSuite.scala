@@ -3,13 +3,14 @@ package edu.umass.cs.iesl.bibmogrify.reader
 import org.scalatest.{BeforeAndAfter, FunSuite}
 import edu.umass.cs.iesl.bibmogrify.model.Published
 import com.weiglewilczek.slf4s.Logging
+import edu.umass.cs.iesl.bibmogrify.UrlNamedInputStream
 
 
 class DBLPReaderTestSuite extends FunSuite with BeforeAndAfter with Logging
   {
   val file = getClass.getResource("/examples/dblp/dblp.xml")
 
-  val citationList = DBLPReader(file)
+  val citationList = DBLPReader(new UrlNamedInputStream(file.toExternalForm,file))
   val c = citationList.toIterator.next()
 
   // todo: detailed tests of all fields
@@ -55,7 +56,7 @@ class DBLPReaderTestSuite extends FunSuite with BeforeAndAfter with Logging
 
   test("Every record has a title")
   {
-  val citationList = DBLPReader(file)
+  val citationList = DBLPReader(new UrlNamedInputStream(file.toExternalForm,file))
   for (c <- citationList)
     {
     assert(!c.title.isEmpty)

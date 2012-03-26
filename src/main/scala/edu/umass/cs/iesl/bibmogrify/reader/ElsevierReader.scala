@@ -1,32 +1,40 @@
 package edu.umass.cs.iesl.bibmogrify.reader
 
 import edu.umass.cs.iesl.scalacommons.StringUtils._
-import java.net.URL
 import com.weiglewilczek.slf4s.Logging
 import edu.umass.cs.iesl.bibmogrify.model._
 import edu.umass.cs.iesl.bibmogrify.model.Authorities._
 import edu.umass.cs.iesl.bibmogrify.model.CitationUtils._
 import xml.{XML, NodeSeq, Node}
-import edu.umass.cs.iesl.bibmogrify.pipeline.{Transformer}
-import edu.umass.cs.iesl.bibmogrify.{NamedPlugin, BibMogrifyException}
+import edu.umass.cs.iesl.bibmogrify.pipeline.Transformer
+import edu.umass.cs.iesl.bibmogrify.{NamedInputStream, NamedPlugin, BibMogrifyException}
 
 /**
  * @author <a href="mailto:dev@davidsoergel.com">David Soergel</a>
  * @version $Id$
  */
 
-object ElsevierReader extends Transformer[URL, StructuredCitation] with Logging with NamedPlugin {
+object ElsevierReader extends Transformer[NamedInputStream, StructuredCitation] with Logging with NamedPlugin {
 
   val name = "elsevier"
 
 
   //def apply(s: InputStream): TraversableOnce[CitationMention] = XmlUtils.firstLevelNodes(s).flatMap(node => (node \ "publication").flatMap(parsePublication(_)))
-  def apply(url: URL): TraversableOnce[StructuredCitation] = {
-    val s = url.openStream()
+  def apply(nis: NamedInputStream): TraversableOnce[StructuredCitation] = {
+
+    val s = nis.getInputStream
+    val inLocation = new BasicStringLocation(nis.name, Nil)
+
     try {
       //XmlUtils.firstLevelNodes(s).flatMap(node => (node \ "@{http://www.elsevier.com/xml/document/schema}document").flatMap(parseDroppingErrors(url, _)))
       //XmlUtils.firstLevelNodes(s).flatMap(parseDroppingErrors(url, _))
-      parseDroppingErrors(url, XML.load(url))
+      parseDroppingErrors(inLocation, XML.load(s))
+    }
+    catch {
+      case e => {
+        logger.error("Failed to parse " + nis.name, e);
+        Nil
+      }
     }
     finally {
       s.close()
@@ -34,21 +42,24 @@ object ElsevierReader extends Transformer[URL, StructuredCitation] with Logging 
   }
 
 
-  def parseDroppingErrors(url: URL, doc: Node): Option[StructuredCitation] = {
+  def parseDroppingErrors(inLocation: Location, doc: Node): Option[StructuredCitation] = {
     try {
       //logger.debug(doc.toString())
-      val c = parse(url, doc)
+      val c = parse(inLocation, doc)
       Some(c)
     }
     catch {
-      case e: BibMogrifyException => logger.error(e.getMessage)
+      case e: BibMogrifyException => logger.error(e.getMessage); None
+      case f => {
+        logger.error("Could not parse " + inLocation);
+        logger.error(f.getMessage)
+      };
       None
     }
   }
 
 
-
-  def parse(url: URL, doc: Node): StructuredCitation = {
+  def parse(inLocation: Location, doc: Node): StructuredCitation = {
 
     //val doc = docp \ "@{http://www.elsevier.com/xml/document/schema}document"
     // val rdf = doc \ "@{http://www.w3.org/1999/02/22-rdf-syntax-ns#}RDF" \ "@{http://www.w3.org/1999/02/22-rdf-syntax-ns#}Description"
@@ -72,16 +83,16 @@ object ElsevierReader extends Transformer[URL, StructuredCitation] with Logging 
 
     val journalMention = new StructuredCitation {
       // drop superscripts, subscripts, italics, and typewriter styles
-      override val title : Option[String] = (rdf \ "publicationName").text.trim
+      override val title: Option[String] = (rdf \ "publicationName").text.trim
 
       // todo interpret pubtype fieldin associated issue
-      override val doctype  : Option[DocType] = Journal
+      override val doctype: Option[DocType] = Journal
     }
 
     //val authorSplit = "(.+)( .*)? (.+)".r
     val c = new StructuredCitation() {
       // todo interpret pubtype field
-      override val doctype   : Option[DocType] = JournalArticle
+      override val doctype: Option[DocType] = JournalArticle
 
       // drop superscripts, subscripts, italics, and typewriter styles
       override val title: Option[String] = (rdf \ "title").text.trim
@@ -89,7 +100,7 @@ object ElsevierReader extends Transformer[URL, StructuredCitation] with Logging 
 
       override val abstractText: Option[String] = (doc \ "converted-article" \ "head" \ "abstract" \ "abstract-sec").text.trim
 
-      override val identifiers = Seq(BasicIdentifier((rdf \ "doi").text,DoiAuthority))
+      override val identifiers = Seq(BasicIdentifier((rdf \ "doi").text, DoiAuthority))
       // TODO implement parsePages, or just store the string
       def parsePages(s: String): Option[PageRange] = None
 
@@ -98,7 +109,7 @@ object ElsevierReader extends Transformer[URL, StructuredCitation] with Logging 
 
       //override val keywords = subjectCodes map (new BasicKeyword(WOSKeywordAuthority, _))
 
-      override val locations = Seq(new BasicLocation(url, Nil))
+      override val locations = Seq(inLocation)
       override val authors = (rdf \ "creator" \ "Seq" \ "li").map((nameS => new Person() {
         override val name = Some(nameS.text)
       })).map(new AuthorInRole(_, Nil))

@@ -10,14 +10,14 @@ import xml.Node
 import java.net.URL
 import edu.umass.cs.iesl.scalacommons.XmlUtils
 import edu.umass.cs.iesl.bibmogrify.pipeline.Transformer
-import edu.umass.cs.iesl.bibmogrify.{NamedPlugin, BibMogrifyException}
+import edu.umass.cs.iesl.bibmogrify.{NamedInputStream, NamedPlugin, BibMogrifyException}
 
-object DBLPReader extends Transformer[URL, StructuredCitation] with Logging with NamedPlugin {
+object DBLPReader extends Transformer[NamedInputStream, StructuredCitation] with Logging with NamedPlugin {
 
   val name = "dblp"
-  val baseUrl = " http://www.informatik.uni-trier.de/∼ley/db/"
+  val baseUrl = "http://www.informatik.uni-trier.de/∼ley/db/"
 
-  def parse(inurl: URL, doc: Node): StructuredCitation = {
+  def parse(inLocation:Location, doc: Node): StructuredCitation = {
 
     val doctypeX: DocType = doc.label match {
       case "article" => JournalArticle
@@ -100,18 +100,18 @@ object DBLPReader extends Transformer[URL, StructuredCitation] with Logging with
 
       val loc = url.map(u => {
         val uu = if (u.contains(":")) u else (baseUrl + u)
-        new BasicLocation(new URL(uu), Nil)
+        new BasicUrlLocation(new URL(uu), Nil)
       })
 
 
-      override val locations = Seq(new BasicLocation(inurl, Nil)) ++ loc
+      override val locations = Seq(inLocation) ++ loc
     }
     c
   }
 
-  def parseDroppingErrors(url: URL, doc: Node): Option[StructuredCitation] = {
+  def parseDroppingErrors(inLocation: Location, doc: Node): Option[StructuredCitation] = {
     try {
-      val c = parse(url, doc)
+      val c = parse(inLocation, doc)
       Some(c)
     }
     catch {
@@ -121,16 +121,20 @@ object DBLPReader extends Transformer[URL, StructuredCitation] with Logging with
   }
 
 
-  def apply(url: URL): TraversableOnce[StructuredCitation] = {
+  def apply(nis: NamedInputStream): TraversableOnce[StructuredCitation] = {
     //val xml = scala.xml.XML.load(f)
     // val xml = XMLIgnoreDTD.load(f)  // can't, because we need the entity declarations
     //XMLMapDTD.setGlobalXMLCatalogDir(getClass.getResource("/dblp.dtd").getPath)
     //val xmlloader = new XMLFilenameOnlyMappingDTDLoader(Map("dblp.dtd" -> new InputSource(getClass.getResource("/dblp.dtd").getPath)))
     // val xml = xmlloader.load(f)
     //XmlUtils.firstLevelNodes(s).flatMap(node => (node \\ "REC").flatMap(parseDroppingErrors(_)))
-    val s = url.openStream()
+    val s = nis.getInputStream
+    val inLocation = new BasicStringLocation(nis.name, Nil)
     try {
-      XmlUtils.firstLevelNodes(s).flatMap(parseDroppingErrors(url, _))
+      XmlUtils.firstLevelNodes(s).flatMap(parseDroppingErrors(inLocation, _))
+    }
+    catch {
+      case e => { logger.error("Failed to parse " + nis.name, e) ; Nil }
     }
     finally {
       s.close()

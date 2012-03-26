@@ -5,13 +5,12 @@ import edu.umass.cs.iesl.scalacommons.DateUtils._
 import edu.umass.cs.iesl.bibmogrify.model._
 import edu.umass.cs.iesl.bibmogrify.model.Authorities._
 import com.weiglewilczek.slf4s.Logging
-import java.net.URL
 import edu.umass.cs.iesl.scalacommons.XMLIgnoreDTD
 import edu.umass.cs.iesl.bibmogrify.pipeline.Transformer
-import edu.umass.cs.iesl.bibmogrify.{NamedPlugin, BibMogrifyException}
 import xml.{NodeSeq, Node}
+import edu.umass.cs.iesl.bibmogrify.{NamedInputStream, NamedPlugin, BibMogrifyException}
 
-object PatentST36Reader extends Transformer[URL, StructuredPatent] with Logging with NamedPlugin {
+object PatentST36Reader extends Transformer[NamedInputStream, StructuredPatent] with Logging with NamedPlugin {
 
 
   val name = "st36"
@@ -62,7 +61,7 @@ object PatentST36Reader extends Transformer[URL, StructuredPatent] with Logging 
   }
 
 
-  def parse(url: URL, doc: Node): StructuredPatent = {
+  def parse(inLocation: Location, doc: Node): StructuredPatent = {
 
 
     def getBodyText: Seq[BodyTextSection] = {
@@ -107,7 +106,7 @@ object PatentST36Reader extends Transformer[URL, StructuredPatent] with Logging 
 
     val c = new StructuredPatent() {
       //override val doctype: Option[DocType] = Patent
-      override val locations = Seq(new BasicLocation(url, Nil))
+      override val locations = Seq(inLocation)
       override val title: Option[String] = (doc \ "bibliographic-data" \ "invention-title").map(_.text.trim).mkString(" ")
       override val (identifiers, dates) = getIdentifiersAndDates
 
@@ -181,7 +180,7 @@ object PatentST36Reader extends Transformer[URL, StructuredPatent] with Logging 
       }
 
       override val priorityClaims = parseReferenceGroup(doc \ "bibliographic-data" \ "priority-claims" \ "priority-claim")
-      override val references = parseReferenceGroup(doc \\ "bibliographic-data" \\ "patcit") ++ parseReferenceGroup(doc \\ "description" \\ "patcit")
+      override val structuredReferences = parseReferenceGroup(doc \\ "bibliographic-data" \\ "patcit") ++ parseReferenceGroup(doc \\ "description" \\ "patcit")
       override val searchReportReferences = parseReferenceGroup(doc \\ "srep-citations" \\ "patcit")
       override val mainFamily = parseFamily(doc \ "bibliographic-data" \ "patent-family" \ "main-family")
       override val completeFamily = parseFamily(doc \ "bibliographic-data" \ "patent-family" \ "complete-family")
@@ -191,9 +190,9 @@ object PatentST36Reader extends Transformer[URL, StructuredPatent] with Logging 
     c
   }
 
-  def parseDroppingErrors(url: URL, doc: Node): Option[StructuredPatent] = {
+  def parseDroppingErrors(inLocation: Location, doc: Node): Option[StructuredPatent] = {
     try {
-      val c = parse(url, doc)
+      val c = parse(inLocation, doc)
       Some(c)
     }
     catch {
@@ -211,16 +210,22 @@ object PatentST36Reader extends Transformer[URL, StructuredPatent] with Logging 
   parseDroppingErrors(xmlloader.load(s))
   //XmlUtils.firstLevelNodes(s).flatMap(node => (node \\ "wopatent-document").flatMap(parseDroppingErrors(_)))
   }*/
-  def apply(url: URL): TraversableOnce[StructuredPatent] = {
+  def apply(nis: NamedInputStream): TraversableOnce[StructuredPatent] = {
     //val xml = scala.xml.XML.load(f)
     // val xml = XMLIgnoreDTD.load(f)  // can't, because we need the entity declarations
     //XMLMapDTD.setGlobalXMLCatalogDir(getClass.getResource("/dblp.dtd").getPath)
     //val xmlloader = new XMLFilenameOnlyMappingDTDLoader(Map("dblp.dtd" -> new InputSource(getClass.getResource("/dblp.dtd").getPath)))
     // val xml = xmlloader.load(f)
     //XmlUtils.firstLevelNodes(s).flatMap(node => (node \\ "REC").flatMap(parseDroppingErrors(_)))
-    val s = url.openStream()
+
+    val s = nis.getInputStream
+    val inLocation = new BasicStringLocation(nis.name, Nil)
     try {
-      XMLIgnoreDTD.load(s).flatMap(parseDroppingErrors(url, _))
+      XMLIgnoreDTD.load(s).flatMap(parseDroppingErrors(inLocation, _))
+    } catch {
+      case e => {
+        logger.error("Failed to parse " + nis.name, e); Nil
+      }
     }
     finally {
       s.close()

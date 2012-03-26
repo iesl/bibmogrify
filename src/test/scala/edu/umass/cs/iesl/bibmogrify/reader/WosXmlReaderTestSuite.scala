@@ -3,12 +3,13 @@ package edu.umass.cs.iesl.bibmogrify.reader
 import org.scalatest.{BeforeAndAfter, FunSuite}
 import edu.umass.cs.iesl.bibmogrify.model.Published
 import com.weiglewilczek.slf4s.Logging
+import edu.umass.cs.iesl.bibmogrify.UrlNamedInputStream
 
 
 class WosXmlReaderTestSuite extends FunSuite with BeforeAndAfter with Logging {
   val file = getClass.getResource("/examples/wosxml/wosxml.xml")
 
-  val citationList = WosXMLReader(file)
+  val citationList = WosXMLReader(new UrlNamedInputStream(file.toExternalForm,file))
   val c = citationList.toIterator.next()
 
   // todo: detailed tests of all fields
@@ -50,7 +51,7 @@ class WosXmlReaderTestSuite extends FunSuite with BeforeAndAfter with Logging {
 
   test("References are parsed") {
     for (c <- citationList) {
-      assert(!c.references.isEmpty)
+      assert(!c.structuredReferences.isEmpty)
 /*      for (r <- c.references) {
         assert(!r.authors.isEmpty)
         assert(!r.authors.head.person.name.isEmpty)

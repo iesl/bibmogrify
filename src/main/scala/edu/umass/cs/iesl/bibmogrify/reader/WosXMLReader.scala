@@ -5,28 +5,34 @@ import edu.umass.cs.iesl.scalacommons.DateUtils._
 import edu.umass.cs.iesl.bibmogrify.model._
 import com.weiglewilczek.slf4s.Logging
 import edu.umass.cs.iesl.bibmogrify.model.Authorities._
-import java.net.URL
 import edu.umass.cs.iesl.bibmogrify.pipeline.Transformer
-import edu.umass.cs.iesl.bibmogrify.{NamedPlugin, BibMogrifyException}
 import edu.umass.cs.iesl.scalacommons.XmlUtils
 import xml.Node
 import collection.immutable.Seq
+import edu.umass.cs.iesl.bibmogrify.{NamedInputStream, NamedPlugin, BibMogrifyException}
 
-object WosXMLReader extends Transformer[URL, StructuredCitation] with Logging with NamedPlugin {
+object WosXMLReader extends Transformer[NamedInputStream, StructuredCitation] with Logging with NamedPlugin {
 
   val name = "wosxml"
 
 
-  def apply(url: URL): TraversableOnce[StructuredCitation] = new Traversable[StructuredCitation] {
+  def apply(nis: NamedInputStream): TraversableOnce[StructuredCitation] = new Traversable[StructuredCitation] {
     def foreach[U](f: (StructuredCitation) => U) {
-      val s = url.openStream()
+
+      val s = nis.getInputStream
+      val inLocation = new BasicStringLocation(nis.name, Nil)
+
       try {
         def ff(rec: Node) {
           assert(rec.label.equals("REC"));
-          val result = parseDroppingErrors(url, rec)
+          val result = parseDroppingErrors(inLocation, rec)
           result.foreach(f)
         }
         XmlUtils.firstLevelNodes(s).foreach(n => (n \\ "REC").foreach(ff))
+      } catch {
+        case e => {
+          logger.error("Failed to parse " + nis.name, e); Nil
+        }
       }
       finally {
         s.close()
@@ -34,9 +40,9 @@ object WosXMLReader extends Transformer[URL, StructuredCitation] with Logging wi
     }
   }
 
-  def parseDroppingErrors(url: URL, doc: Node): Option[StructuredCitation] = {
+  def parseDroppingErrors(inLocation: Location, doc: Node): Option[StructuredCitation] = {
     try {
-      val c = parse(url, doc)
+      val c = parse(inLocation, doc)
       Some(c)
     }
     catch {
@@ -45,7 +51,7 @@ object WosXMLReader extends Transformer[URL, StructuredCitation] with Logging wi
     }
   }
 
-  def parse(url: URL, doc: Node): StructuredCitation = {
+  def parse(inLocation: Location, doc: Node): StructuredCitation = {
 
     val issue = doc \ "issue"
     val item = doc \ "item"
@@ -100,10 +106,11 @@ object WosXMLReader extends Transformer[URL, StructuredCitation] with Logging wi
         val authorsNode = item \ "authors"
 
         // there are at least "primaryauthor" and/or "author" tags containing lastname, firstinitial
-        val primaryAuthorNodes = authorsNode \ "primaryauthor"
-        val basicAuthorNodes = authorsNode \ "author"
+        val primaryAuthorNodes = (authorsNode \ "primaryauthor").filterNot(_.text.isEmpty)
+        val basicAuthorNodes = (authorsNode \ "author").filterNot(_.text.isEmpty)
 
         val basicAuthors: Seq[AuthorInRole] = primaryAuthorNodes.map(x => {
+
           new AuthorInRole(new Person() {
             override val name: Option[String] = Person.cleanupName(x.text)
             override val identifiers: Seq[PersonIdentifier] = {
@@ -162,10 +169,10 @@ object WosXMLReader extends Transformer[URL, StructuredCitation] with Logging wi
 
       override val keywords = subjectCodes map (new BasicKeyword(_, WosKeywordAuthority))
 
-      override val locations = Seq(new BasicLocation(url, Nil))
+      override val locations = Seq(inLocation)
 
 
-      override val references = (item \ "refs" \ "ref").zipWithIndex.map(parseRef(_, wosUtId))
+      override val structuredReferences = (item \ "refs" \ "ref").zipWithIndex.map(parseRef(_, wosUtId))
     }
     c
   }
