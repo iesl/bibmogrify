@@ -86,7 +86,7 @@ object PatentMultiLanguageAbstractsWriter extends Transformer[StructuredPatent, 
       Some(cm.primaryId),
       cm.year.map(_.toString),
       Some(cm.keywordsCountByAuthority),
-      Some(cm.englishAbstract)
+      Some(cm.cleanAbstract)
     ) ++ extraLanguageAbstracts
 
     val fieldsUnpacked = fields.map(_.getOrElse(""))
@@ -124,15 +124,15 @@ object PatentTokensPerSectionWriter extends Transformer[StructuredPatent, String
 
   def apply(cm: StructuredPatent) = {
 
-    val theAbstract: String = cm.englishAbstract
+    val theAbstract: String = cm.cleanTitleAndAbstract
     val theSummary: String = cm.cleanSummary
     val theClaims: String = cm.cleanClaims
     val theBody: String = cm.cleanGeneralBody
 
-    val theAbstractTokens: Set[String] = theAbstract.split(" ").toSet
-    val theSummaryTokens: Set[String] = theSummary.split(" ").toSet
-    val theClaimsTokens: Set[String] = theClaims.split(" ").toSet
-    val theBodyTokens: Set[String] = theBody.split(" ").toSet
+    val theAbstractTokens: Set[String] = theAbstract.split(" ").toSet - ""
+    val theSummaryTokens: Set[String] = theSummary.split(" ").toSet - ""
+    val theClaimsTokens: Set[String] = theClaims.split(" ").toSet - ""
+    val theBodyTokens: Set[String] = theBody.split(" ").toSet - ""
 
     val totalTokens: Set[String] = theAbstractTokens ++ theSummaryTokens ++ theClaimsTokens ++ theBodyTokens
 

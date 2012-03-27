@@ -3,13 +3,14 @@ package edu.umass.cs.iesl.bibmogrify.model
 import java.net.URL
 import com.weiglewilczek.slf4s.Logging
 
-import com.cybozu.labs.langdetect.{LangDetectException, Detector, DetectorFactory}
+import com.cybozu.labs.langdetect.{Detector, DetectorFactory}
+
 // ** add citances with context for sentiment
 
 trait StructuredCitation {
   val doctype: Option[DocType] = None
   val docSubtype: Option[String] = None // for journal articles: Letter; Application Note; Research Article, etc.  For grants: R01, K99, etc.
-  val title: Option[String] = None  // ** need to track titles in multiple languages.  Probably Map[Language, String]
+  val title: Option[String] = None // ** need to track titles in multiple languages.  Probably Map[Language, String]
   val authors: Seq[AuthorInRole] = Nil
   val otherContributors: Seq[OtherContributorInRole] = Nil
   val sourceLanguage: Option[Language] = None // the original language, if this is a translation
@@ -41,20 +42,29 @@ trait StructuredCitation {
 
 }
 
-class TextWithLanguage(val specifiedLanguage:Option[Language],val text:String) extends Logging {
-  def language : Option[Language] = {
+object TextWithLanguage extends Logging {
+    DetectorFactory.loadProfiles(Language.majorLanguages.map(_.name).toList: _*);
+    logger.info("Loaded language profiles")
+
+}
+
+class TextWithLanguage(val specifiedLanguage: Option[Language], val text: String) extends Logging {
+  TextWithLanguage // just be sure that the initialization runs
+
+  def language: Option[Language] = {
     (specifiedLanguage, detectedLanguage) match {
-      case (None,None) => None
-        case(Some(a),None) => Some(a)
-        case(None,Some(b)) => Some(b)
-      case (Some(a),Some(b)) if a == b => Some(a)
-      case (Some(a),Some(b)) => {
+      case (None, None) => None
+      case (Some(a), None) => Some(a)
+      case (None, Some(b)) => Some(b)
+      case (Some(a), Some(b)) if a == b => Some(a)
+      case (Some(a), Some(b)) => {
         logger.warn("Language disagreement. Using specified " + a + ", but detected " + b + ".")
         Some(a)
       }
     }
   }
-  def detectedLanguage : Option[Language] = {
+
+  def detectedLanguage: Option[Language] = {
     val detector: Detector = DetectorFactory.create();
     detector.append(text);
     val l = detector.detect()
@@ -177,20 +187,23 @@ case class BasicIdentifier(override val value: String, override val authority: O
 
 trait Location {
   // are there other kinds of locations?  e.g., call numbers
- val hashes: Seq[Hash]
+  val hashes: Seq[Hash]
 }
 
 trait UrlLocation extends Location {
   val url: URL
-  override def toString : String = url.toExternalForm
+
+  override def toString: String = url.toExternalForm
 }
 
 trait StringLocation extends Location {
-  val name : String
-  override def toString : String = name
+  val name: String
+
+  override def toString: String = name
 }
 
 case class BasicUrlLocation(override val url: URL, override val hashes: Seq[Hash]) extends UrlLocation
+
 case class BasicStringLocation(override val name: String, override val hashes: Seq[Hash]) extends StringLocation
 
 trait Hash {
@@ -243,24 +256,24 @@ case class BasicStringPageRange(override val start: String, override val end: Op
  *
  * @param primaryPriority indicates the order in which entries should be consulted to determine the "primary" date of the document.  A value of zero indicates that the date cannot be primary.
  */
- sealed class EventType(val primaryPriority: Int,val shortName : String)
+sealed class EventType(val primaryPriority: Int, val shortName: String)
 
-case object Received extends EventType(6,"rec")
+case object Received extends EventType(6, "rec")
 
-case object Revised extends EventType(7,"rev")
+case object Revised extends EventType(7, "rev")
 
-case object Epub extends EventType(8,"epub")
+case object Epub extends EventType(8, "epub")
 
-case object Published extends EventType(9,"pub")
+case object Published extends EventType(9, "pub")
 
-case object Retracted extends EventType(0,"retr")
+case object Retracted extends EventType(0, "retr")
 
-case object Captured extends EventType(0,"capt")
+case object Captured extends EventType(0, "capt")
 
-case object Begin extends EventType(10,"beg")
+case object Begin extends EventType(10, "beg")
 
 // for grants, patents
-case object End extends EventType(0,"end")
+case object End extends EventType(0, "end")
 
 trait CitationEvent {
   val eventType: EventType

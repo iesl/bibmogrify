@@ -1,11 +1,10 @@
 package edu.umass.cs.iesl.bibmogrify.model
 
 import actors.threadpool.AtomicInteger
-import com.cybozu.labs.langdetect.DetectorFactory
 import edu.umass.cs.iesl.scalacommons.StringUtils
 
 object RichCitationMention {
-  DetectorFactory.loadProfiles(Language.majorLanguages.map(_.name).toList: _*);
+  //DetectorFactory.loadProfiles(Language.majorLanguages.map(_.name).toList: _*);
 
   implicit def enrichCitationMention(cm: StructuredCitation): RichCitationMention = new RichCitationMention(cm)
 

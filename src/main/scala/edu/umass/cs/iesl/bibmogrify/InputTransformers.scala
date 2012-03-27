@@ -10,7 +10,7 @@ import sun.net.www.{MimeEntry, MimeTable}
 import edu.umass.cs.iesl.scalacommons.StreamZipArchive
 import org.apache.commons.compress.archivers.tar.{TarArchiveInputStream, TarArchiveEntry}
 import java.io.{ByteArrayInputStream, InputStream, File}
-import java.util.zip.GZIPInputStream
+import java.util.zip.{ZipEntry, ZipInputStream, GZIPInputStream}
 
 /**
  * @author <a href="mailto:dev@davidsoergel.com">David Soergel</a>
@@ -123,15 +123,8 @@ object ArchiveToInputStreams extends Transformer[URL, NamedInputStream] with Nam
         //assume .tar.gz for now
       case Some("gz") => processTarStream(name, new GZIPInputStream(nis.getInputStream)).flatMap(getAllInputStreams(_))
       case Some("tgz") => processTarStream(name, new GZIPInputStream(nis.getInputStream)).flatMap(getAllInputStreams(_))
-      case Some("zip") => {
-        val basename: String = name.substring(name.lastIndexOf("/") + 1)
-        val zin = new StreamZipArchive(basename, name, nis.getInputStream);
-        val result: Iterator[NamedInputStream] = zin.iterator.flatMap(e => Some(new NamedInputStream(e.name) {
-          def getInputStream = e.input
-        }))
+      case Some("zip") => processZipStream(name, nis.getInputStream).flatMap(getAllInputStreams(_))
 
-        result.flatMap(getAllInputStreams(_))
-      }
       case _ => {
         logger.warn("Unknown file extension: " + name)
         Nil
@@ -173,6 +166,52 @@ object ArchiveToInputStreams extends Transformer[URL, NamedInputStream] with Nam
             var offset = 0
             while (offset < size) {
               offset += tarInput.read(content, offset, size - offset)
+            }
+
+            // don't put the stream-reading part inside getInputStream, because there's no guarantee in what order those will be called
+            Some(new NamedInputStream(baseName + "#" + entry.getName) {
+              def getInputStream = new ByteArrayInputStream(content)
+            })
+          }
+          else readNext
+        }
+      }
+
+      def next() = {
+        val result = nextEntry
+        nextEntry = readNext
+        result.get // error if next was called when hasNext == false
+      }
+    }
+  }
+
+
+  private  def processZipStream(baseName: String, baseStream: InputStream): Iterator[NamedInputStream] {var nextEntry: Option[NamedInputStream]; def hasNext: Boolean; def readNext: Option[NamedInputStream]; def next(): NamedInputStream} = {
+    val zipInput:ZipInputStream = new ZipInputStream(baseStream)
+
+    new Iterator[NamedInputStream]() {
+      var nextEntry: Option[NamedInputStream] = readNext
+
+      def hasNext = nextEntry.isDefined
+
+      // operating on the Java-style inputStream directly, not a Source or something,
+      // because getNextTarEntry can reposition the stream and I don't trust an intermediary
+
+      def readNext: Option[NamedInputStream] = {
+        val entry: ZipEntry = zipInput.getNextEntry
+        if (entry == null) None
+        else {
+
+          //** todo check that the entry is an xml file (or whatever other filters are desired...)
+
+          val size: Int = entry.getSize.toInt // hope no entries are huge
+
+          // ignore anything but real files
+          if (size > 0) {
+            val content = new Array[Byte](size)
+            var offset = 0
+            while (offset < size) {
+              offset += zipInput.read(content, offset, size - offset)
             }
 
             // don't put the stream-reading part inside getInputStream, because there's no guarantee in what order those will be called

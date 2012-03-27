@@ -65,11 +65,15 @@ object PatentST36Reader extends Transformer[NamedInputStream, StructuredPatent] 
 
 
     def getBodyText: Seq[BodyTextSection] = {
-      val s = (doc \ "summary").text match {
+      val s = (doc \ "description" \ "summary").text match {
         case "" => None
         case t => Some(new BasicBodyTextSection(Summary, t))
       }
-      val g = (doc \ "description").text match {
+      val dd = (doc \ "description" \ "detailed-desc").text match {
+        case "" => None
+        case t => Some(new BasicBodyTextSection(GeneralBodyText, t))
+      }
+      val d = (doc \ "description").text match {
         case "" => None
         case t => Some(new BasicBodyTextSection(GeneralBodyText, t))
       }
@@ -77,7 +81,9 @@ object PatentST36Reader extends Transformer[NamedInputStream, StructuredPatent] 
         case "" => None
         case t => Some(new BasicBodyTextSection(Claims, t))
       }
-      Seq(s, g, c).flatten
+      if(s.nonEmpty && dd.nonEmpty) { Seq(s, dd, c).flatten}
+      else { Seq(d, c).flatten}
+
     }
 
     // IDs and dates are confounded in the source data; we separate and regroup them
