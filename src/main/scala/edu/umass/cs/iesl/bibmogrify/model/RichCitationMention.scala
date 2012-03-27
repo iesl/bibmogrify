@@ -2,6 +2,7 @@ package edu.umass.cs.iesl.bibmogrify.model
 
 import actors.threadpool.AtomicInteger
 import com.cybozu.labs.langdetect.DetectorFactory
+import edu.umass.cs.iesl.scalacommons.StringUtils
 
 object RichCitationMention {
   DetectorFactory.loadProfiles(Language.majorLanguages.map(_.name).toList: _*);
@@ -10,32 +11,42 @@ object RichCitationMention {
 
   val adhocIdIncrementor: AtomicInteger = new AtomicInteger(0)
 
-
   implicit def iterableTextWithLanguageToMap(i: Iterable[TextWithLanguage]): Map[Option[Language], String] = {
     i.map {
       x => (x.language, x.text)
     }.toMap
   }
+
+  import StringUtils.enrichString
+
+  def cleanup(s: String): String = s.toLowerCase.removePunctuation.removeNewlines.collapseWhitespace.trim
+
+  def cleanup(os: Option[String]): String = os.map(cleanup).getOrElse("")
+
+  def cleanup(ss: Iterable[String]): String = cleanup(ss.mkString(" "))
 }
 
 class RichCitationMention(cm: StructuredCitation) {
 
   import RichCitationMention.enrichCitationMention
   import RichCitationMention.iterableTextWithLanguageToMap
+  import RichCitationMention.cleanup
   import RichPerson.enrichPerson
 
   //val cleanAbstract = paperAbstract.toLowerCase.replaceAll("\\s", " ").replaceAll("[^\\w ]", " ").split(" +").mkString(" ")
   //val cleanBody = body.toLowerCase.replaceAll("\\s", " ").replaceAll("[^\\w ]", " ").split(" +").mkString(" ")
 
-  lazy val cleanTitle = cm.title.map(_.replaceAll("\\s", " ").trim).getOrElse("")
-  val englishAbstract: String = cm.abstractText.get(Some(English)).getOrElse(cm.abstractText.get(None).getOrElse(""))
+  lazy val cleanTitle = cleanup(cm.title)
+  val englishAbstract: String = cleanup(cm.abstractText.get(Some(English)).getOrElse(cm.abstractText.get(None).getOrElse("")))
 
-  lazy val cleanAbstract = englishAbstract.replaceAll("\\s", " ").trim
+  lazy val cleanAbstract = cleanup(englishAbstract)
 
   lazy val cleanTitleAndAbstract = cleanTitle + " " + cleanAbstract
-  lazy val cleanSummary = cm.textOfType(Summary).map(_.replaceAll("\\s", " ")).mkString("").trim
+  lazy val cleanSummary = cleanup(cm.textOfType(Summary))
+  lazy val cleanClaims = cleanup(cm.textOfType(Claims))
+  lazy val cleanGeneralBody = cleanup(cm.textOfType(GeneralBodyText))
   //lazy val cleanIntro = cm.textOfType(IntroductionAndBackground).map(_.replaceAll("\\s", " ")).mkString("").trim
-  lazy val cleanBody = cm.bodyText.map(_.text.replaceAll("\\s", " ")).mkString("").trim
+  lazy val cleanBody = cleanup(cm.bodyText.map(_.text))
   lazy val cleanTotal = cleanTitleAndAbstract + " " + cleanSummary + " " + cleanBody
 
   def totalTextSize = cleanTotal.size
@@ -88,6 +99,7 @@ class RichCitationMention(cm: StructuredCitation) {
   */
 
   def listAbstractLanguages: String = cm.abstractText.keys.flatten.map(_.toString).toSeq.sorted.mkString(",")
+
   /*
     def listAbstractLanguages: String = {
       cm.abstractLanguages.map({
@@ -97,7 +109,9 @@ class RichCitationMention(cm: StructuredCitation) {
     }
   */
   def keywordsCountByAuthority: String = {
-    val counts = cm.keywords.groupBy(k => k.authority).map{ case (auth, ks) => (auth.get.name, ks.size)}
+    val counts = cm.keywords.groupBy(k => k.authority).map {
+      case (auth, ks) => (auth.get.name, ks.size)
+    }
     counts.map(x => x._1 + ":" + x._2).mkString(",")
   }
 
