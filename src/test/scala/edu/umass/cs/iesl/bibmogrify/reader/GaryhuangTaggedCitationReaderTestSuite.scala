@@ -1,9 +1,9 @@
 package edu.umass.cs.iesl.bibmogrify.reader
 
 import org.scalatest.{BeforeAndAfter, FunSuite}
-import edu.umass.cs.iesl.bibmogrify.model.Published
 import com.weiglewilczek.slf4s.Logging
 import edu.umass.cs.iesl.bibmogrify.tagmodel.{ExtendedLabelXMLReaderHlabeled, ExtendedLabelXMLReader, StandardLabelXMLReader}
+import edu.umass.cs.iesl.bibmogrify.model.{RichCitationMention, Published}
 
 
 class GaryhuangTaggedCitationReaderTestSuite extends FunSuite with BeforeAndAfter with Logging {
@@ -17,11 +17,12 @@ class GaryhuangTaggedCitationReaderTestSuite extends FunSuite with BeforeAndAfte
     val c = tagged.toStructuredCitation
     assert(c.title === Some("Building frameworks through specialisable nested objects."))
   }
+  import RichCitationMention.enrichCitationMention
   test("Abstract is parsed") {
     val citationList = ExtendedLabelXMLReader(file)
     val tagged = citationList.toIterator.next()
     val c = tagged.toStructuredCitation
-    assert(c.abstractText.get.size > 50)
+    assert(c.englishAbstract.size > 50)
   }
 
   /*  test("Authors are parsed")

@@ -1,9 +1,9 @@
 package edu.umass.cs.iesl.bibmogrify.reader
 
 import org.scalatest.{BeforeAndAfter, FunSuite}
-import edu.umass.cs.iesl.bibmogrify.model.Published
 import com.weiglewilczek.slf4s.Logging
 import edu.umass.cs.iesl.bibmogrify.UrlNamedInputStream
+import edu.umass.cs.iesl.bibmogrify.model.{RichCitationMention, Published}
 
 
 class WosXmlReaderTestSuite extends FunSuite with BeforeAndAfter with Logging {
@@ -17,8 +17,9 @@ class WosXmlReaderTestSuite extends FunSuite with BeforeAndAfter with Logging {
   test("Title is parsed") {
     assert(c.title === Some("Universal non-equilibrium phenomena at submicrometric surfaces and interfaces"))
   }
+  import RichCitationMention.enrichCitationMention
   test("Abstract is parsed") {
-    assert(c.abstractText.get.size > 50)
+    assert(c.englishAbstract.size > 50)
   }
 
   /*  test("Authors are parsed")

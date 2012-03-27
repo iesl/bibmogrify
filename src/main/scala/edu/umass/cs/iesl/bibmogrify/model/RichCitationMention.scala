@@ -37,7 +37,7 @@ class RichCitationMention(cm: StructuredCitation) {
   //val cleanBody = body.toLowerCase.replaceAll("\\s", " ").replaceAll("[^\\w ]", " ").split(" +").mkString(" ")
 
   lazy val cleanTitle = cleanup(cm.title)
-  val englishAbstract: String = cleanup(cm.abstractText.get(Some(English)).getOrElse(cm.abstractText.get(None).getOrElse("")))
+  val englishAbstract: String = cm.abstractText.get(Some(English)).getOrElse(cm.abstractText.get(None).getOrElse(""))
 
   lazy val cleanAbstract = cleanup(englishAbstract)
 

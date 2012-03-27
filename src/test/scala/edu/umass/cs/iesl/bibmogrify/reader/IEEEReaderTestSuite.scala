@@ -1,9 +1,9 @@
 package edu.umass.cs.iesl.bibmogrify.reader
 
 import org.scalatest.{BeforeAndAfter, FunSuite}
-import edu.umass.cs.iesl.bibmogrify.model.Published
 import com.weiglewilczek.slf4s.Logging
 import edu.umass.cs.iesl.bibmogrify.UrlNamedInputStream
+import edu.umass.cs.iesl.bibmogrify.model.{RichCitationMention, Published}
 
 
 class IEEEReaderTestSuite extends FunSuite with BeforeAndAfter with Logging
@@ -54,11 +54,12 @@ class IEEEReaderTestSuite extends FunSuite with BeforeAndAfter with Logging
   assert(ce.date.get.day === None)
   }
 
+  import RichCitationMention.enrichCitationMention
   test("Abstract is parsed")
   {
-    val ce = c.abstractText
-    assert(ce.get.split(" ").head === "Domestication")
-    assert(ce.get.split(" ").last === "cans.")
+    val ce = c.englishAbstract
+    assert(ce.split(" ").head === "Domestication")
+    assert(ce.split(" ").last === "cans.")
   }
 
   test("Every record has a title")

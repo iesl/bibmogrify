@@ -2,8 +2,8 @@ package edu.umass.cs.iesl.bibmogrify.reader
 
 import org.scalatest.{BeforeAndAfter, FunSuite}
 import com.weiglewilczek.slf4s.Logging
-import edu.umass.cs.iesl.bibmogrify.model.{Summary, GeneralBodyText, Claims, Published}
 import edu.umass.cs.iesl.bibmogrify.UrlNamedInputStream
+import edu.umass.cs.iesl.bibmogrify.model._
 
 
 class PatentST36ReaderTestSuite extends FunSuite with BeforeAndAfter with Logging
@@ -26,9 +26,10 @@ class PatentST36ReaderTestSuite extends FunSuite with BeforeAndAfter with Loggin
     assert(c.identifiers.head.authority.get.name === "patent-WO-pub")
   }
 
+  import RichCitationMention.enrichCitationMention
   test("Abstract is parsed")
   {
-  assert(c.abstractText.get.size > 50)
+  assert(c.englishAbstract.size > 50)
   }
 
   /*
