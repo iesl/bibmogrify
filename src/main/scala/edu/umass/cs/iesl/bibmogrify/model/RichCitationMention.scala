@@ -1,8 +1,7 @@
 package edu.umass.cs.iesl.bibmogrify.model
 
 import actors.threadpool.AtomicInteger
-import com.cybozu.labs.langdetect.{LangDetectException, Detector, DetectorFactory}
-
+import com.cybozu.labs.langdetect.DetectorFactory
 
 object RichCitationMention {
   DetectorFactory.loadProfiles(Language.majorLanguages.map(_.name).toList: _*);
@@ -10,18 +9,29 @@ object RichCitationMention {
   implicit def enrichCitationMention(cm: StructuredCitation): RichCitationMention = new RichCitationMention(cm)
 
   val adhocIdIncrementor: AtomicInteger = new AtomicInteger(0)
+
+
+  implicit def iterableTextWithLanguageToMap(i: Iterable[TextWithLanguage]): Map[Option[Language], String] = {
+    i.map {
+      x => (x.language, x.text)
+    }.toMap
+  }
 }
 
 class RichCitationMention(cm: StructuredCitation) {
 
   import RichCitationMention.enrichCitationMention
+  import RichCitationMention.iterableTextWithLanguageToMap
   import RichPerson.enrichPerson
 
   //val cleanAbstract = paperAbstract.toLowerCase.replaceAll("\\s", " ").replaceAll("[^\\w ]", " ").split(" +").mkString(" ")
   //val cleanBody = body.toLowerCase.replaceAll("\\s", " ").replaceAll("[^\\w ]", " ").split(" +").mkString(" ")
 
   lazy val cleanTitle = cm.title.map(_.replaceAll("\\s", " ").trim).getOrElse("")
-  lazy val cleanAbstract = cm.abstractText.map(_.replaceAll("\\s", " ")).getOrElse("").trim
+  val englishAbstract: String = cm.abstractText.get(Some(English)).getOrElse(cm.abstractText.get(None).getOrElse(""))
+
+  lazy val cleanAbstract = englishAbstract.replaceAll("\\s", " ").trim
+
   lazy val cleanTitleAndAbstract = cleanTitle + " " + cleanAbstract
   lazy val cleanSummary = cm.textOfType(Summary).map(_.replaceAll("\\s", " ")).mkString("").trim
   //lazy val cleanIntro = cm.textOfType(IntroductionAndBackground).map(_.replaceAll("\\s", " ")).mkString("").trim
@@ -30,7 +40,7 @@ class RichCitationMention(cm: StructuredCitation) {
 
   def totalTextSize = cleanTotal.size
 
-  def allPrimaryEvents = cm.dates.filter(e => (e.eventType.primaryPriority != 0)).sortBy(e => -e.eventType.primaryPriority)
+  def allPrimaryEvents = cm.dates.filter(e => (e.eventType.primaryPriority != 0)).toSeq.sortBy(e => -e.eventType.primaryPriority)
 
   lazy val bestPrimaryPriority = allPrimaryEvents.headOption.map(_.eventType.primaryPriority).getOrElse(-1)
 
@@ -45,7 +55,7 @@ class RichCitationMention(cm: StructuredCitation) {
   // todo parameterize/refactor authority short names; attach priorities directly to authorities; etc
   val authorityPriority: Map[String, Int] = Map("wos-ut" -> 200, "wos-ut-ref" -> 190, "wos-cid" -> 180, "doi" -> 100, "pubmed" -> 10, "" -> 0)
 
-  def qualifiedIdsInOrder = cm.identifiers.sortBy(x => {
+  def qualifiedIdsInOrder = cm.identifiers.toSeq.sortBy(x => {
     val sortOrder: Option[Int] = authorityPriority.get(x.authority.map(_.shortName).getOrElse(""))
     -sortOrder.getOrElse(0)
   }).map(_.qualifiedValue)
@@ -63,29 +73,31 @@ class RichCitationMention(cm: StructuredCitation) {
     r
   })
 
-
-  def detectAbstractLanguage: Option[String] = {
-    try {
-      cm.abstractText map (a => {
-        val detector: Detector = DetectorFactory.create();
-        detector.append(a);
-        detector.detect()
-      })
-    } catch {
-      case e: LangDetectException => None
+  /*
+    def detectAbstractLanguages: Iterable[String] = {
+      try {
+        cm.abstractText map { case (l:Language,a:String) => {
+          val detector: Detector = DetectorFactory.create();
+          detector.append(a);
+          detector.detect()
+        }}
+      } catch {
+        case e: LangDetectException => None
+      }
     }
-  }
+  */
 
-
-  def listAbstractLanguages: String = {
-    cm.abstractLanguages.map({
-      case None => "None"
-      case Some(x) => x.toString
-    }).sorted.mkString(",")
-  }
-
+  def listAbstractLanguages: String = cm.abstractText.keys.flatten.map(_.toString).toSeq.sorted.mkString(",")
+  /*
+    def listAbstractLanguages: String = {
+      cm.abstractLanguages.map({
+        case None => "None"
+        case Some(x) => x.toString
+      }).sorted.mkString(",")
+    }
+  */
   def keywordsCountByAuthority: String = {
-    val counts = cm.keywords.groupBy(k => k.authority).map(x => (x._1.get.name, x._2.length))
+    val counts = cm.keywords.groupBy(k => k.authority).map{ case (auth, ks) => (auth.get.name, ks.size)}
     counts.map(x => x._1 + ":" + x._2).mkString(",")
   }
 
@@ -123,6 +135,7 @@ class RichPerson(p: Person) {
 
 
   def primaryId = qualifiedIdsInOrder.headOption
-    //.getOrElse("adhoc:" + RichPerson.adhocIdIncrementor.getAndIncrement)
+
+  //.getOrElse("adhoc:" + RichPerson.adhocIdIncrementor.getAndIncrement)
 
 }

@@ -93,7 +93,7 @@ object NLMReader extends Transformer[NamedInputStream, StructuredCitation] with 
       override val title: Option[String] = (articlemeta \ "title-group" \ "article-title").text.trim
       override val dates = Seq(BasicCitationEvent(date, Published))
 
-      override val abstractText: Option[String] = (articlemeta \ "abstract").text.trim
+      override val abstractText = Seq(new TextWithLanguage(None,(articlemeta \ "abstract").text.trim))
 
       override val identifiers = Seq(BasicIdentifier((articlemeta \ "article-id").filter(_.attribute("pub-id-type").filter(_ == "doi").isDefined).text, DoiAuthority))
       // TODO implement parsePages, or just store the string

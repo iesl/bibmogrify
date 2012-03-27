@@ -64,7 +64,7 @@ object StandardLabels extends LabelSet with Logging {
 
       }
 
-      override val abstractText = c.get("abstract").headOption
+      override val abstractText: Iterable[TextWithLanguage] = c.get("abstract").headOption.map(new TextWithLanguage(None, _))
 
       override val dates = Seq(new BasicCitationEvent(Some(new BasicPartialDate(year, None, None)), Published))
 
@@ -100,7 +100,7 @@ object ExtendedLabelXMLReaderHlabeled extends TaggedCitationXMLReader(new Extend
 
 // todo abstract away cut-and-paste
 
-class ExtendedLabels(val referenceLabels : Seq[String] = Seq("reference", "reference-hlabeled")) extends LabelSet with Logging {
+class ExtendedLabels(val referenceLabels: Seq[String] = Seq("reference", "reference-hlabeled")) extends LabelSet with Logging {
   val validLabels = StandardLabels.validLabels ++ Seq(
     "abstract",
     "address",
@@ -169,7 +169,7 @@ class ExtendedLabels(val referenceLabels : Seq[String] = Seq("reference", "refer
 
       }
 
-      override val abstractText = c.get("abstract").headOption
+      override val abstractText : Iterable[TextWithLanguage] = c.get("abstract").headOption.map(new TextWithLanguage(None, _))
 
       override val dates = year.map(y => new BasicCitationEvent(Some(new BasicPartialDate(Some(y), None, None)), Published)).toSeq
 

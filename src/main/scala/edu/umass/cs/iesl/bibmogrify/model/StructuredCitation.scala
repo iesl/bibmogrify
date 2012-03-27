@@ -1,7 +1,9 @@
 package edu.umass.cs.iesl.bibmogrify.model
 
 import java.net.URL
+import com.weiglewilczek.slf4s.Logging
 
+import com.cybozu.labs.langdetect.{LangDetectException, Detector, DetectorFactory}
 // ** add citances with context for sentiment
 
 trait StructuredCitation {
@@ -12,32 +14,55 @@ trait StructuredCitation {
   val otherContributors: Seq[OtherContributorInRole] = Nil
   val sourceLanguage: Option[Language] = None // the original language, if this is a translation
   val language: Option[Language] = None // the language of this version of the document (e.g., after translation)
-  val identifiers: Seq[Identifier] = Nil
-  val locations: Seq[Location] = Nil
-  val supplementaryLocations: Seq[Location] = Nil // where to find supplementary material, databases, etc.
+  val identifiers: Iterable[Identifier] = Nil
+  val locations: Iterable[Location] = Nil
+  val supplementaryLocations: Iterable[Location] = Nil // where to find supplementary material, databases, etc.
   val containedIn: Option[ContainmentInfo] = None // journal, book, proceedings, etc.
   val publisher: Option[Institution] = None // likely blank when there is containedIn, i.e. paper -> journal -> publisher
-  val dates: Seq[CitationEvent] = Nil
-  val grants: Seq[GrantInfo] = Nil
+  val dates: Iterable[CitationEvent] = Nil
+  val grants: Iterable[GrantInfo] = Nil
 
   val referenceStrings: Seq[String] = Nil
   val structuredReferences: Seq[StructuredCitation] = Nil // could include context here
 
 
-  val keywords: Seq[Keyword] = Nil
+  val keywords: Iterable[Keyword] = Nil
 
-  val abstractLanguages: Seq[Option[Language]] = Nil
-  val abstractText: Option[String] = None // ** need to track abstracts in multiple languages.  Probably Map[Language, String]
+  //val abstractLanguages: Seq[Option[Language]] = Nil
+  val abstractText: Iterable[TextWithLanguage] = Nil
   //val introText: Option[String] = None
   val bodyText: Seq[BodyTextSection] = Nil // can't use LinkedHashMap because keys may recur
 
-  val notes: Seq[String] = Nil
+  val notes: Iterable[String] = Nil
 
   val refMarker: Option[String] = None // within-document ID
 
   def textOfType(sectionType: BodyTextSectionType): Seq[String] = bodyText.filter(_.sectionType == sectionType).map(_.text)
 
 }
+
+class TextWithLanguage(val specifiedLanguage:Option[Language],val text:String) extends Logging {
+  def language : Option[Language] = {
+    (specifiedLanguage, detectedLanguage) match {
+      case (None,None) => None
+        case(Some(a),None) => Some(a)
+        case(None,Some(b)) => Some(b)
+      case (Some(a),Some(b)) if a == b => Some(a)
+      case (Some(a),Some(b)) => {
+        logger.warn("Language disagreement. Using specified " + a + ", but detected " + b + ".")
+        Some(a)
+      }
+    }
+  }
+  def detectedLanguage : Option[Language] = {
+    val detector: Detector = DetectorFactory.create();
+    detector.append(text);
+    val l = detector.detect()
+    Language.get(l)
+  }
+
+}
+
 
 trait StructuredPatent extends StructuredCitation {
 

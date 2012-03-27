@@ -86,7 +86,7 @@ object WosXMLReader extends Transformer[NamedInputStream, StructuredCitation] wi
       override val title: Option[String] = (item \ "item_title").text
       override val dates = Seq(BasicCitationEvent(date, Published))
 
-      override val abstractText: Option[String] = (item \ "abstract").text
+      override val abstractText= Seq(new TextWithLanguage(None,(item \ "abstract").text))
 
       // todo collect other identifiers?
       val wosUtId: String = (item \ "ut").text

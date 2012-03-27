@@ -89,7 +89,7 @@ object DBLPReader extends Transformer[NamedInputStream, StructuredCitation] with
       }, List(Editor)))
       override val dates = Seq(BasicCitationEvent(date, Published))
 
-      override val abstractText: Option[String] = (doc \ "abstract").text
+      override val abstractText: Iterable[TextWithLanguage] = Seq(new TextWithLanguage(None, (doc \ "abstract").text))
 
       override val identifiers = Seq(id)
 

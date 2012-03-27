@@ -98,7 +98,7 @@ object ElsevierReader extends Transformer[NamedInputStream, StructuredCitation] 
       override val title: Option[String] = (rdf \ "title").text.trim
       override val dates = Seq(BasicCitationEvent(date, Published))
 
-      override val abstractText: Option[String] = (doc \ "converted-article" \ "head" \ "abstract" \ "abstract-sec").text.trim
+      override val abstractText = Seq(new TextWithLanguage(None, (doc \ "converted-article" \ "head" \ "abstract" \ "abstract-sec").text.trim))
 
       override val identifiers = Seq(BasicIdentifier((rdf \ "doi").text, DoiAuthority))
       // TODO implement parsePages, or just store the string

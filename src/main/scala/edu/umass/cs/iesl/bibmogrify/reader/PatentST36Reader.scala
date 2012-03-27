@@ -122,16 +122,17 @@ object PatentST36Reader extends Transformer[NamedInputStream, StructuredPatent] 
         }
       }
 
-      override val abstractLanguages: Seq[Option[Language]] = abstractsByLanguage.keys.toSeq
+     // override val abstractLanguages: Seq[Option[Language]] = abstractsByLanguage.keys.toSeq
 
-      override val abstractText: Option[String] = {
+      override val abstractText: Iterable[TextWithLanguage] = {
 
         for ((lang, abs) <- abstractsByLanguage) {
           if (abs.length != 1) logger.error(abs.length + " abstracts for language " + lang.getOrElse("None"))
         }
-        val englishAbstracts: Option[NodeSeq] = abstractsByLanguage.get(Some(English))
-        val s = englishAbstracts.map(ns => Some(ns.text.trim)).getOrElse(abstractsByLanguage.get(None).map(_.text.trim))
-        s
+        abstractsByLanguage.map{ case (l,n) => (l,n.text.trim)}.map{ case (l,n) => new TextWithLanguage(l,n)}
+        //val englishAbstracts: Option[NodeSeq] = abstractsByLanguage.get(Some(English))
+        //val s = englishAbstracts.map(ns => Some(ns.text.trim)).getOrElse(abstractsByLanguage.get(None).map(_.text.trim))
+        //s
       }
       override val sourceLanguage = Language.get((doc \ "bibliographic-data" \ "language-of-filing").text.trim)
       override val language = Language.get((doc \ "bibliographic-data" \ "language-of-publication").text.trim)
