@@ -76,7 +76,7 @@ object PatentMultiLanguageAbstractsWriter extends Transformer[StructuredPatent, 
       twl.language match {
         case Some(English) => Nil
         case None => Nil
-        case Some(l) => Seq(Some(l.toString), Some(twl.text))
+        case Some(l) => Seq(Some(l.toString), Some(twl.cleanText))
       }
     }).flatten
 
@@ -85,7 +85,7 @@ object PatentMultiLanguageAbstractsWriter extends Transformer[StructuredPatent, 
       cm.locations.headOption.map(_.toString),
       Some(cm.primaryId),
       cm.year.map(_.toString),
-      Some(cm.keywordsCountByAuthority),
+      Some(cm.keywordsByAuthority),
       Some(cm.cleanAbstract)
     ) ++ extraLanguageAbstracts
 

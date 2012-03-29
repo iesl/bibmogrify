@@ -1,6 +1,7 @@
 package edu.umass.cs.iesl.bibmogrify.model
 
 import actors.threadpool.AtomicInteger
+import com.weiglewilczek.slf4s.Logging
 import edu.umass.cs.iesl.scalacommons.StringUtils
 
 object RichCitationMention {
@@ -25,7 +26,7 @@ object RichCitationMention {
   def cleanup(ss: Iterable[String]): String = cleanup(ss.mkString(" "))
 }
 
-class RichCitationMention(cm: StructuredCitation) {
+class RichCitationMention(cm: StructuredCitation) extends Logging {
 
   import RichCitationMention.enrichCitationMention
   import RichCitationMention.iterableTextWithLanguageToMap
@@ -112,6 +113,21 @@ class RichCitationMention(cm: StructuredCitation) {
       case (auth, ks) => (auth.get.name, ks.size)
     }
     counts.map(x => x._1 + ":" + x._2).mkString(",")
+  }
+
+  def keywordsByAuthority: String = {
+    cm.keywords.map(x => {
+      val w = x.word
+      // ensure result is easy to parse
+      val v = if (w.contains(":") || w.contains(",")) {
+        if (w.contains("\"") || w.contains("'")) {
+          logger.warn("Keyword contains quotes: " + w)
+        }
+        "'" + w + "'"
+      }
+      else w
+      x.authority.get.name + ":" + v
+    }).mkString(",")
   }
 
   def rootContainedIn: StructuredCitation = {

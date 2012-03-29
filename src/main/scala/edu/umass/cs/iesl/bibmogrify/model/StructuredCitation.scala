@@ -49,6 +49,8 @@ object TextWithLanguage extends Logging {
 }
 
 class TextWithLanguage(val specifiedLanguage: Option[Language], val text: String) extends Logging {
+  def cleanText = RichCitationMention.cleanup(text)  // ** lame, should refactor
+
   TextWithLanguage // just be sure that the initialization runs
 
   def language: Option[Language] = {
@@ -141,6 +143,10 @@ trait Keyword {
 
 // don't model hierarchical keywords, just leave them slash-delimited in the string
 case class BasicKeyword(override val word: String, override val authority: Option[KeywordAuthority] = None) extends Keyword
+{
+  require(! word.contains("\n"))
+  require(! word.contains("\t"))
+}
 
 
 sealed class DocType
