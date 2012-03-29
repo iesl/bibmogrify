@@ -2,8 +2,8 @@ package edu.umass.cs.iesl.bibmogrify.model
 
 import java.net.URL
 import com.weiglewilczek.slf4s.Logging
+import com.cybozu.labs.langdetect.{LangDetectException, Detector, DetectorFactory}
 
-import com.cybozu.labs.langdetect.{Detector, DetectorFactory}
 
 // ** add citances with context for sentiment
 
@@ -67,10 +67,16 @@ class TextWithLanguage(val specifiedLanguage: Option[Language], val text: String
   }
 
   def detectedLanguage: Option[Language] = {
+    try{
     val detector: Detector = DetectorFactory.create();
     detector.append(text);
     val l = detector.detect()
     Language.get(l)
+    }
+    catch
+      {
+        case e : LangDetectException => None
+      }
   }
 
 }

@@ -81,8 +81,12 @@ object PatentST36Reader extends Transformer[NamedInputStream, StructuredPatent] 
         case "" => None
         case t => Some(new BasicBodyTextSection(Claims, t))
       }
-      if(s.nonEmpty && dd.nonEmpty) { Seq(s, dd, c).flatten}
-      else { Seq(d, c).flatten}
+      if (s.nonEmpty && dd.nonEmpty) {
+        Seq(s, dd, c).flatten
+      }
+      else {
+        Seq(d, c).flatten
+      }
 
     }
 
@@ -128,17 +132,23 @@ object PatentST36Reader extends Transformer[NamedInputStream, StructuredPatent] 
         }
       }
 
-     // override val abstractLanguages: Seq[Option[Language]] = abstractsByLanguage.keys.toSeq
+      // override val abstractLanguages: Seq[Option[Language]] = abstractsByLanguage.keys.toSeq
 
       override val abstractText: Iterable[TextWithLanguage] = {
 
         for ((lang, abs) <- abstractsByLanguage) {
           if (abs.length != 1) logger.error(abs.length + " abstracts for language " + lang.getOrElse("None"))
         }
-        abstractsByLanguage.map{ case (l,n) => (l,n.text.trim)}.map{ case (l,n) => new TextWithLanguage(l,n)}
+        abstractsByLanguage.map {
+          case (l, n) => (l, n.text.trim)
+        }.flatMap {
+          case (l, n) if n.nonEmpty => Some(new TextWithLanguage(l, n))
+          case _ => None
+        }
         //val englishAbstracts: Option[NodeSeq] = abstractsByLanguage.get(Some(English))
         //val s = englishAbstracts.map(ns => Some(ns.text.trim)).getOrElse(abstractsByLanguage.get(None).map(_.text.trim))
         //s
+
       }
       override val sourceLanguage = Language.get((doc \ "bibliographic-data" \ "language-of-filing").text.trim)
       override val language = Language.get((doc \ "bibliographic-data" \ "language-of-publication").text.trim)
@@ -231,7 +241,8 @@ object PatentST36Reader extends Transformer[NamedInputStream, StructuredPatent] 
       XMLIgnoreDTD.load(s).flatMap(parseDroppingErrors(inLocation, _))
     } catch {
       case e => {
-        logger.error("Failed to parse " + nis.name, e); Nil
+        logger.error("Failed to parse " + nis.name, e);
+        Nil
       }
     }
     finally {
