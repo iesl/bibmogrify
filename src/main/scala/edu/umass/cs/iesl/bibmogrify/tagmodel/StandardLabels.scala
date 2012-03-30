@@ -102,6 +102,10 @@ object ExtendedLabelXMLReaderHlabeled extends TaggedCitationXMLReader(new Extend
 
 class ExtendedLabels(val referenceLabels: Seq[String] = Seq("reference", "reference-hlabeled")) extends LabelSet with Logging {
   val validLabels = StandardLabels.validLabels ++ Seq(
+    "author-affix",
+    "author-first",
+    "author-middle",
+    "author-last",
     "abstract",
     "address",
     //"biblio-hlabeled",
