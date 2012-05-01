@@ -80,7 +80,7 @@ object StandardLabels extends LabelSet with Logging {
       }
       override val containedIn = Some(BasicContainmentInfo(venueMention, None, None, None, None))
 
-      override val structuredReferences = cwr.references.map(_.toStructuredCitation)
+      override val references = cwr.references.map(_.toStructuredCitation)
     }
   }
 }
@@ -196,7 +196,7 @@ class ExtendedLabels(val referenceLabels: Seq[String] = Seq("reference", "refere
       }
       override val containedIn = Some(BasicContainmentInfo(venueMention, None, None, None, None))
 
-      override val structuredReferences = cwr.references.map(_.toStructuredCitation)
+      override val references = cwr.references.map(_.toStructuredCitation)
     }
 
   }

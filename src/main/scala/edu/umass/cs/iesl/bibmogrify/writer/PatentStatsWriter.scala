@@ -44,7 +44,7 @@ object PatentStatsWriter extends Transformer[StructuredPatent, String] with Name
       Some(cm.priorityClaims.length),
       Some(cm.mainFamily.length),
       Some(cm.completeFamily.length),
-      Some(cm.structuredReferences.length),
+      Some(cm.references.length),
       Some(cm.searchReportReferences.length),
       Some(cm.keywordsCountByAuthority)
     )

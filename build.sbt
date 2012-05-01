@@ -22,7 +22,9 @@ libraryDependencies += "com.cybozu.labs" % "langdetect" % "1.2.2"
 
 libraryDependencies += "net.arnx" % "jsonic" % "1.2.7"
 
-libraryDependencies += "org.apache.commons" % "commons-vfs2" % "2.0"
+libraryDependencies += "org.slf4j" % "jcl-over-slf4j" % "1.6.4"
+
+libraryDependencies += "org.apache.commons" % "commons-vfs2" % "2.0" exclude("commons-logging", "commons-logging")
 
 libraryDependencies += "commons-collections" % "commons-collections" % "3.2.1"
 

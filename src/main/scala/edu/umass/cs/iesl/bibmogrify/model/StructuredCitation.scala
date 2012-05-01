@@ -4,7 +4,6 @@ import java.net.URL
 import com.weiglewilczek.slf4s.Logging
 import com.cybozu.labs.langdetect.{LangDetectException, Detector, DetectorFactory}
 
-
 // ** add citances with context for sentiment
 
 trait StructuredCitation {
@@ -23,8 +22,10 @@ trait StructuredCitation {
   val dates: Iterable[CitationEvent] = Nil
   val grants: Iterable[GrantInfo] = Nil
 
-  val referenceStrings: Seq[String] = Nil
-  val structuredReferences: Seq[StructuredCitation] = Nil // could include context here
+val unstructuredString : Option[String] = None
+
+  //val referenceStrings: Seq[String] = Nil
+  val references: Seq[StructuredCitation] = Nil // could include context here
 
 
   val keywords: Iterable[Keyword] = Nil
@@ -155,7 +156,7 @@ case class BasicKeyword(override val word: String, override val authority: Optio
 }
 
 
-sealed class DocType
+sealed abstract class DocType
 
 case object JournalArticle extends DocType
 

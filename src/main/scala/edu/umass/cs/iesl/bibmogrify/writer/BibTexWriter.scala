@@ -12,6 +12,8 @@ import RichCitationMention._
  */
 object BibTexWriter extends Transformer[StructuredCitation, String] with NamedPlugin {
 
+// ** add collection open and close tag
+
   val name = "bibtex"
 
   def apply(cm: StructuredCitation) = {
@@ -41,9 +43,9 @@ object BibTexWriter extends Transformer[StructuredCitation, String] with NamedPl
     val title: Option[(String, String)] = cm.title.map(("title", _))
 
     // no need to filter author roles, because editors etc. are otherContributors
-    val authors: Option[(String, String)] = Some("authors", cm.authors.flatMap(_.person.name).mkString(" and "))
+    val authors: Option[(String, String)] = Some("author", cm.authors.flatMap(_.person.name).mkString(" and "))
     val year: Option[(String, String)] = cm.dates.filter(_.eventType == Published).flatMap(_.date.flatMap(_.year)).headOption.map(y => ("year", y.toString))
-    val venue: Option[(String, String)] = cm.containedIn.flatMap(_.container.title).map(("venue", _))
+    val venue: Option[(String, String)] = cm.containedIn.flatMap(_.container.title).map(("journal", _))
 
     val closer = "},\n"
 

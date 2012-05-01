@@ -197,7 +197,7 @@ object PatentST36Reader extends Transformer[NamedInputStream, StructuredPatent] 
       }
 
       override val priorityClaims = parseReferenceGroup(doc \ "bibliographic-data" \ "priority-claims" \ "priority-claim")
-      override val structuredReferences = parseReferenceGroup(doc \\ "bibliographic-data" \\ "patcit") ++ parseReferenceGroup(doc \\ "description" \\ "patcit")
+      override val references = parseReferenceGroup(doc \\ "bibliographic-data" \\ "patcit") ++ parseReferenceGroup(doc \\ "description" \\ "patcit")
       override val searchReportReferences = parseReferenceGroup(doc \\ "srep-citations" \\ "patcit")
       override val mainFamily = parseFamily(doc \ "bibliographic-data" \ "patent-family" \ "main-family")
       override val completeFamily = parseFamily(doc \ "bibliographic-data" \ "patent-family" \ "complete-family")

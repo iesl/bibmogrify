@@ -52,7 +52,7 @@ class WosXmlReaderTestSuite extends FunSuite with BeforeAndAfter with Logging {
 
   test("References are parsed") {
     for (c <- citationList) {
-      assert(!c.structuredReferences.isEmpty)
+      assert(!c.references.isEmpty)
 /*      for (r <- c.references) {
         assert(!r.authors.isEmpty)
         assert(!r.authors.head.person.name.isEmpty)

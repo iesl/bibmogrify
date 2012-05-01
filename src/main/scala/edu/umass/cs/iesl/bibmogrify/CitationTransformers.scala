@@ -15,14 +15,14 @@ object StructuredWithReferences extends Transformer[StructuredCitation, Structur
 
   val name = "withReferences"
 
-  def apply(cm: StructuredCitation) = cm +: cm.structuredReferences
+  def apply(cm: StructuredCitation) = cm +: cm.references
 }
 
 object StructuredOnlyReferences extends Transformer[StructuredCitation, StructuredCitation] with NamedPlugin {
 
   val name = "onlyReferences"
 
-  def apply(cm: StructuredCitation) = cm.structuredReferences
+  def apply(cm: StructuredCitation) = cm.references
 }
 
 

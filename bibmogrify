@@ -1,3 +1,23 @@
 #!/bin/sh
 
-java -cp /Users/lorax/iesl/pdf2meta/cli/target/scala-2.9.1/pdf2meta-cli_2.9.1-0.1-SNAPSHOT.jar:/Users/lorax/iesl/bibmogrify/target/bibmogrify-assembly-0.1-SNAPSHOT.jar edu.umass.cs.iesl.bibmogrify.BibMogrify $*
+#java -cp /Users/lorax/iesl/bibmogrify-project/pdf2meta/target/scala-2.9.1/pdf2meta_2.9.1-0.1-SNAPSHOT.jar:/Users/lorax/iesl/bibmogrify-project/bibmogrify/target/bibmogrify-assembly-0.1-SNAPSHOT.jar edu.umass.cs.iesl.bibmogrify.BibMogrify $*
+
+#!/bin/sh
+
+oldpwd=`pwd`
+# we want to reference logback.xml in the installation directory, but we don't know where that is.
+# solution from http://hintsforums.macworld.com/archive/index.php/t-73839.html
+
+IFS=$' \t\n'
+arg=$0; [[ -L $0 ]] && arg=$(stat -f '%Y' "$0")
+pth=$(2>/dev/null cd "${arg%/*}" >&2; echo "`pwd -P`/${arg##*/}")
+par=$(dirname "$pth")
+
+    #-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005 \
+cd $par
+java -DPluginClasspath=/Users/lorax/iesl/bibmogrify-project/pdf2meta/target/scala-2.9.1/pdf2meta_2.9.1-0.1-SNAPSHOT.jar \
+    -cp $par/target/bibmogrify-assembly-0.1-SNAPSHOT.jar \
+    -Dlogback.configurationFile=$par/logback.xml \
+    edu.umass.cs.iesl.bibmogrify.BibMogrify $*
+
+cd $oldpwd

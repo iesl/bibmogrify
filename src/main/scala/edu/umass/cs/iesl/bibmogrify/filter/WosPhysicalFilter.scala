@@ -3,8 +3,9 @@ package edu.umass.cs.iesl.bibmogrify.filter
 import edu.umass.cs.iesl.bibmogrify.model.StructuredCitation
 import com.weiglewilczek.slf4s.Logging
 import edu.umass.cs.iesl.bibmogrify.pipeline.Transformer
+import edu.umass.cs.iesl.bibmogrify.NamedPlugin
 
-object WosPhysicalFilter extends Transformer[StructuredCitation, StructuredCitation] with Logging {
+object WosPhysicalFilter extends Transformer[StructuredCitation, StructuredCitation] with NamedPlugin with Logging {
   val name = "wosphysical"
 
   val okKeywords = List(

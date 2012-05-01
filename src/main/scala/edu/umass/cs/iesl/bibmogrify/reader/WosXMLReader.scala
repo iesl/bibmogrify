@@ -172,7 +172,7 @@ object WosXMLReader extends Transformer[NamedInputStream, StructuredCitation] wi
       override val locations = Seq(inLocation)
 
 
-      override val structuredReferences = (item \ "refs" \ "ref").zipWithIndex.map(parseRef(_, wosUtId))
+      override val references = (item \ "refs" \ "ref").zipWithIndex.map(parseRef(_, wosUtId))
     }
     c
   }
