@@ -5,6 +5,7 @@ import java.net.URL
 import edu.umass.cs.iesl.bibmogrify.NamedPlugin
 import edu.umass.cs.iesl.bibmogrify.model._
 import com.weiglewilczek.slf4s.Logging
+import edu.umass.cs.iesl.scalacommons.NonemptyString
 
 /**
  * @author <a href="mailto:dev@davidsoergel.com">David Soergel</a>
@@ -42,10 +43,8 @@ object StandardLabels extends LabelSet with Logging {
     val c = cwr.parent
     //throw new NotImplementedException()
     new StructuredCitation {
-      override val title = c.get("title").headOption
-      override val authors = c.get("author").map(n => new AuthorInRole(new Person {
-        override val name = Some(n)
-      }, Nil))
+      override val title = c.get("title").headOption.map(NonemptyString(_))
+      override val authors = c.get("author").map(n => new AuthorInRole(Person(n), Nil))
 
       val year: Option[Int] = {
         val od: Option[String] = c.get("date").headOption
@@ -70,9 +69,9 @@ object StandardLabels extends LabelSet with Logging {
 
       val venueMention = new StructuredCitation {
         // drop superscripts, subscripts, italics, and typewriter styles
-        override val title: Option[String] = c.get("journal").headOption match {
-          case None => c.get("conference").headOption
-          case x => x
+        override val title: Option[NonemptyString] = c.get("journal").headOption match {
+          case None => c.get("conference").headOption.map(NonemptyString(_))
+          case x => x.map(NonemptyString(_))
         }
 
         // todo interpret pubtype field in associated issue
@@ -140,17 +139,13 @@ class ExtendedLabels(val referenceLabels: Seq[String] = Seq("reference", "refere
     val c = cwr.parent
     //throw new NotImplementedException()
     new StructuredCitation {
-      override val title = c.get("title").headOption
+      override val title = c.get("title").headOption.map(NonemptyString(_))
 
       override val authors = {
-        val individualAuthors = (c.get("author") ++ c.get("authors/author")).map(n => new AuthorInRole(new Person {
-          override val name = Some(n)
-        }, Nil))
+        val individualAuthors = (c.get("author") ++ c.get("authors/author")).map(n => new AuthorInRole(Person(n), Nil))
         val result = if (!individualAuthors.isEmpty) individualAuthors
         else {
-          val combinedAuthors = c.get("authors").flatMap(s => s.split(" and ").flatMap(_.split(","))).map(n => new AuthorInRole(new Person {
-            override val name = Some(n)
-          }, Nil))
+          val combinedAuthors = c.get("authors").flatMap(s => s.split(" and ").flatMap(_.split(","))).map(n => new AuthorInRole(Person(n), Nil))
           combinedAuthors
         }
         result
@@ -179,16 +174,16 @@ class ExtendedLabels(val referenceLabels: Seq[String] = Seq("reference", "refere
 
       val venueMention = new StructuredCitation {
         // drop superscripts, subscripts, italics, and typewriter styles
-        override val title: Option[String] = c.get("journal").headOption match {
+        override val title: Option[NonemptyString] = c.get("journal").headOption match {
           case None => {
             c.get("conference").headOption match {
               case None => {
-                if (!c.get("tech").isEmpty) c.get("institution").headOption else None
+                if (!c.get("tech").isEmpty) c.get("institution").headOption.map(NonemptyString(_)) else None
               }
-              case y => y
+              case y => y.map(NonemptyString(_))
             }
           }
-          case x => x
+          case x => x.map(NonemptyString(_))
         }
 
         // todo interpret pubtype field in associated issue

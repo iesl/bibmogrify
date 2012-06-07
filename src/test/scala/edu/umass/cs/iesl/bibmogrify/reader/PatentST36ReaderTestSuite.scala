@@ -4,7 +4,7 @@ import org.scalatest.{BeforeAndAfter, FunSuite}
 import com.weiglewilczek.slf4s.Logging
 import edu.umass.cs.iesl.bibmogrify.UrlNamedInputStream
 import edu.umass.cs.iesl.bibmogrify.model._
-
+import edu.umass.cs.iesl.scalacommons.StringUtils._
 
 class PatentST36ReaderTestSuite extends FunSuite with BeforeAndAfter with Logging
   {
@@ -18,7 +18,7 @@ class PatentST36ReaderTestSuite extends FunSuite with BeforeAndAfter with Loggin
 
   test("Title is parsed")
   {
-  assert(c.title === Some("GOLF TEE DEVICE"))
+  assert(c.title === emptyStringToNone("GOLF TEE DEVICE"))
   }
 
   test("ID is parsed")

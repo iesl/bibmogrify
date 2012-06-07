@@ -1,12 +1,13 @@
 package edu.umass.cs.iesl.bibmogrify.pipeline
 
 import com.weiglewilczek.slf4s.Logging
+import collection.GenTraversableOnce
 
 /**
  * @author <a href="mailto:dev@davidsoergel.com">David Soergel</a>
  * @version $Id$
  */
-trait Transformer[S, +T] extends ((S) => TraversableOnce[T])
+trait Transformer[S, +T] extends ((S) => GenTraversableOnce[T])
 	{
 	def metadata: Option[TransformerMetadata] = None
 	}
@@ -40,7 +41,23 @@ object Pump extends Logging
 		//logger.warn("Done Pumping!")
 		}
 	}
+/*
+object ParPump extends Logging
+	{
+	def apply[T](source: TraversableOnce[T], sink: Sink[T])
+		{
+		source.toIterator.sliding(100,100).foreach(
+		i=>i.par.foreach(sink.put(_))
+		)
 
+		//val x = source.toIterable.par //toSeq // no clue why toSeq is needed here, but otherwise the map below doesn't work ??  BAD memory use.  even
+		// toIterable makes a Stream.
+		//logger.warn("Pumping...")
+		//source.foreach(sink.put(_))
+		//logger.warn("Done Pumping!")
+		}
+	}
+*/
 class CompositeTransformer[T, U, V](first: Transformer[T, U], second: Transformer[U, V]) extends Transformer[T, V] with Logging
 	{
 	//def apply(t: T) = first(t).flatMap(second)  // this is strict and memoizes?

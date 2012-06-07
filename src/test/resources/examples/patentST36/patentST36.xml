@@ -108,7 +108,10 @@
   <description id="desc" lang="en">
     <invention-title lang="en">GOLF TEE DEVICE</invention-title>
     <p id="p0001" num="0001">The present invention relates to a golf tee device.</p>
+    <heading>field of the invention</heading>
     <p id="p0002" num="0002">Golf driving ranges are popularly used to practise long shots that may be used during a game of golf . . .</p>
+
+    <heading>background of the invention</heading>
     <p id="p0003" num="0003">The tees currently provided in driving ranges tend to be:
       <ol>
         <li>the conventional tee as used on a golf course:
@@ -216,6 +219,7 @@
       </chemistry>
       can be taken as an example.
     </p>
+
   </description>
   <claims id="claim">
     <claim id="c0001" num="0001">

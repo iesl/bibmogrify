@@ -12,12 +12,14 @@ object BibMogrify extends Logging
 	val pm = new BibMogrifyPlugins()
 
 	// todo multithread?
-	private      val tokensUsage  = "Usage: bibmogrify [options] <path1 path2 ...>\n\nOptions:"
-	private      val tokensUnary  = List() //"verbose" -> "be more verbose")
-	private      val tokensBinary = List("xform" -> ("transforms (" + pm.transformers.keys.mkString(", ") + ")"),
-	                                     "sink" -> ("sinks (" + pm.sinks.keys.mkString(", ") + ")")) //, "input" -> "a text file, or - for stdin")
-	private      val tokensInfo   = Spec.Info("bibmogrify", tokensUsage, "edu.umass.cs.iesl.bibmogrify.BibMogrify")
-	private lazy val TokensSpec   = Simple(tokensInfo, tokensUnary, tokensBinary, null)
+	private val tokensUsage = "Usage: bibmogrify [options] <path1 path2 ...>\n\nOptions:"
+	private val tokensUnary = List() //"par" -> "enable parallelism"
+	//"verbose" -> "be more verbose")
+	private val tokensBinary = List("xform" -> ("transforms (" + pm.transformers.keys.mkString(", ") + ")"),
+	                                "sink" -> ("sinks (" + pm.sinks.keys.mkString(", ") + ")"))
+	//, "input" -> "a text file, or - for stdin")
+	private      val tokensInfo = Spec.Info("bibmogrify", tokensUsage, "edu.umass.cs.iesl.bibmogrify.BibMogrify")
+	private lazy val TokensSpec = Simple(tokensInfo, tokensUnary, tokensBinary, null)
 
 	def main(args: Array[String])
 		{
@@ -54,7 +56,14 @@ class BibMogrify extends Logging
 
 		//Pump(pipeline(inputStrings), sink.asInstanceOf[Sink[Any]])
 		val p2 = new CompositeTransformer(Identity, pipeline)
-		Pump(p2(inputStrings), sink.asInstanceOf[Sink[Any]])
+		/*if (cl.isSet("--par"))
+			{
+			ParPump(p2(inputStrings), sink.asInstanceOf[Sink[Any]])
+			}
+		else
+			{*/
+			Pump(p2(inputStrings), sink.asInstanceOf[Sink[Any]])
+		//	}
 		sink.close();
 		}
 	}

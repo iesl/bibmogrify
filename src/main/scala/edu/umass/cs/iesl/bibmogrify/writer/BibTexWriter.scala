@@ -6,6 +6,7 @@ import edu.umass.cs.iesl.bibmogrify.NamedPlugin
 import edu.umass.cs.iesl.bibmogrify.model._
 
 import RichCitationMention._
+import edu.umass.cs.iesl.scalacommons.{StringUtils, NonemptyString}
 
 /**
  * just writes the fields needed for Rexa2 import for now
@@ -40,17 +41,18 @@ object BibTexWriter extends Transformer[StructuredCitation, String] with NamedPl
     }).getOrElse("@article {")
 
     val id : String = cm.primaryId
-    val title: Option[(String, String)] = cm.title.map(("title", _))
+    val title: Option[(String, NonemptyString)] = cm.title.map(("title", _))
 
     // no need to filter author roles, because editors etc. are otherContributors
-    val authors: Option[(String, String)] = Some("author", cm.authors.flatMap(_.person.name).mkString(" and "))
-    val year: Option[(String, String)] = cm.dates.filter(_.eventType == Published).flatMap(_.date.flatMap(_.year)).headOption.map(y => ("year", y.toString))
-    val venue: Option[(String, String)] = cm.containedIn.flatMap(_.container.title).map(("journal", _))
+    val authors: Option[(String, NonemptyString)] = Some("author", NonemptyString(cm.authors.map(_.person.bestFullName).mkString(" and ")))
+    val year: Option[(String, NonemptyString)] = cm.dates.filter(_.eventType == Published).flatMap(_.date.flatMap(_.year)).headOption.map(y => ("year",
+		    NonemptyString(y.toString)))
+    val venue: Option[(String, NonemptyString)] = cm.containedIn.flatMap(_.container.title).map(("journal", _))
 
     val closer = "},\n"
 
-    val fields: Seq[(String, String)] = Seq(title, authors, year, venue).flatten
-    val fieldsString = fields.map(x => "\t" + x._1 + " = {" + x._2.replace("{","\\{").replace("}","\\}") + "}").mkString(",\n")
+    val fields: Seq[(String, NonemptyString)] = Seq(title, authors, year, venue).flatten
+    val fieldsString = fields.map(x => "\t" + x._1 + " = {" + x._2.s.replace("{","\\{").replace("}","\\}") + "}").mkString(",\n")
     val result = opener + id + ",\n" + fieldsString + closer
     Some(result)
   }

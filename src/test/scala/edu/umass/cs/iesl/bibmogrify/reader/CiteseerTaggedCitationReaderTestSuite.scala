@@ -4,7 +4,7 @@ import org.scalatest.{BeforeAndAfter, FunSuite}
 import edu.umass.cs.iesl.bibmogrify.model.Published
 import com.weiglewilczek.slf4s.Logging
 import edu.umass.cs.iesl.bibmogrify.tagmodel.StandardLabelXMLReader
-
+import edu.umass.cs.iesl.scalacommons.StringUtils._
 
 class CiteseerTaggedCitationReaderTestSuite extends FunSuite with BeforeAndAfter with Logging {
   val file = getClass.getResource("/examples/citeseer/citeseer-example.xml")
@@ -16,7 +16,7 @@ class CiteseerTaggedCitationReaderTestSuite extends FunSuite with BeforeAndAfter
     val tagged = citationList.toIterator.next()
     val c = tagged.toStructuredCitation
 
-    assert(c.title === Some("Implementation issues in the development of the parsec parser ."))
+    assert(c.title === emptyStringToNone("Implementation issues in the development of the parsec parser ."))
   }
   /* test("Abstract is parsed") {
     assert(c.abstractText.get.size > 50)
@@ -37,7 +37,7 @@ class CiteseerTaggedCitationReaderTestSuite extends FunSuite with BeforeAndAfter
     val c = tagged.toStructuredCitation
 
     val cont = c.containedIn.get
-    assert(cont.container.title === Some("SOFTWARE - Practice and Experience"))
+    assert(cont.container.title === emptyStringToNone("SOFTWARE - Practice and Experience"))
     //assert(cont.volume === Some("146"))
   }
 

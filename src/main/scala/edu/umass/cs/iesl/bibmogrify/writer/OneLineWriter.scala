@@ -1,10 +1,11 @@
 package edu.umass.cs.iesl.bibmogrify.writer
 
 import edu.umass.cs.iesl.bibmogrify.model.RichCitationMention._
-import edu.umass.cs.iesl.bibmogrify.pipeline.Transformer
 import edu.umass.cs.iesl.bibmogrify.NamedPlugin
-import edu.umass.cs.iesl.bibmogrify.model.StructuredCitation
-import edu.umass.cs.iesl.bibmogrify.model.Authorities.PubmedAuthority
+import edu.umass.cs.iesl.bibmogrify.pipeline.{StringMetadata, TransformerMetadata, Transformer}
+import edu.umass.cs.iesl.bibmogrify.model.Authorities.{DoiAuthority, PubmedAuthority}
+import edu.umass.cs.iesl.bibmogrify.model.{Identifier, AuthorInRole, StructuredCitation}
+import edu.umass.cs.iesl.scalacommons.StringUtils
 
 object OneLineWriter extends Transformer[StructuredCitation, String] with NamedPlugin
 	{
@@ -38,13 +39,25 @@ object MalletFullWriter extends Transformer[StructuredCitation, String] with Nam
 		}
 	}
 
+object PatentBackgroundWriter extends Transformer[StructuredCitation, String] with NamedPlugin
+	{
+	val name = "patback"
+
+	def apply(cm: StructuredCitation) =
+		{
+		Some(cm.primaryId + "\t" + cm.year.getOrElse("") + "\t" + cm.cleanFieldAndBackground + "\n")
+		}
+	}
+
 object CorefWriter extends Transformer[StructuredCitation, String] with NamedPlugin
 	{
 	val name = "corefoneline"
 
+	import StringUtils._
+
 	def apply(cm: StructuredCitation) =
 		{
-		val venue: String = cm.rootContainedInNotSelf.flatMap(_.title).getOrElse("")
+		val venue: String = unwrapNonemptyString(cm.rootContainedInNotSelf.flatMap(_.title))
 		Some(cm.primaryId + "\t" + cm.year.getOrElse("") + "\t" + cm.authorFullNamesWithId.mkString(", ") + "\t" + cm.title.getOrElse("") + "\t" + venue +
 		     "\n")
 		}
@@ -72,6 +85,82 @@ object PmidRefMapWriter extends Transformer[StructuredCitation, String] with Nam
 		val op = pmid(cm)
 
 		val result = op.map(p => (p.value +: cm.references.flatMap(pmid(_)).map(_.value)).mkString("\t") + "\n")
+		result
+		}
+	}
+
+object PmidRefPairWriter extends Transformer[StructuredCitation, String] with NamedPlugin
+	{
+	val name = "pmidrefpairs"
+
+	override def metadata: Option[TransformerMetadata] =
+		{
+		val fields = Seq("citer", "citee")
+		Some(new StringMetadata(fields.mkString("\t") + "\n"))
+		}
+
+	private def pmid(cm: StructuredCitation) = cm.identifiers.filter(_.authority == Some(PubmedAuthority)).headOption
+
+	def apply(cm: StructuredCitation) =
+		{
+		val op = pmid(cm)
+
+		val result = op.map(p => (cm.references.flatMap(pmid(_)).map(p.value + "\t" + _.value)).mkString("\n"))
+		result.map(_ + "\n")
+		}
+	}
+
+object PaperStatsWriter extends Transformer[StructuredCitation, String] with NamedPlugin
+	{
+	val name = "paperstats"
+
+	private def pmid(cm: StructuredCitation) = cm.identifiers.filter(_.authority == Some(PubmedAuthority)).headOption
+
+	private def doi(cm: StructuredCitation) = cm.identifiers.filter(_.authority == Some(DoiAuthority)).headOption
+
+	override def metadata: Option[TransformerMetadata] =
+		{
+		val fields = Seq("pmid", "doi", "title", "year", "volume", "numpages", "abstractwords", "totalwords", "category", "license", "numFigures", "numTables")
+		Some(new StringMetadata(fields.mkString("\t") + "\n"))
+		}
+
+	def apply(cm: StructuredCitation) =
+		{
+
+		val fields = Seq(pmid(cm).map(_.qualifiedValue), doi(cm), cm.title, cm.year, cm.volume, cm.numPages, Some(cm.cleanAbstractWords),
+		                 Some(cm.cleanBodyWords), cm.docSubtype, cm.licenseType, cm.numFigures, cm.numTables)
+		val fieldsUnpacked = fields.map(_.getOrElse(""))
+		Some(fieldsUnpacked.mkString("\t") + "\n")
+		}
+	}
+
+object AuthorStatsWriter extends Transformer[StructuredCitation, String] with NamedPlugin
+	{
+	val name = "authorstats"
+
+	private def pmid(cm: StructuredCitation) = cm.identifiers.filter(_.authority == Some(PubmedAuthority)).headOption
+
+	override def metadata: Option[TransformerMetadata] =
+		{
+		val fields = Seq("pmid", "name", "email", "institution")
+		Some(new StringMetadata(fields.mkString("\t") + "\n"))
+		}
+
+	def apply(cm: StructuredCitation) =
+		{
+
+		val op = pmid(cm)
+
+		def authorToLine(p: Identifier, a: AuthorInRole): String =
+			{
+			p.qualifiedValue + "\t" + a.person.bestFullName + "\t" + a.person.email.getOrElse("") + "\t" +
+			a.person.affiliations.headOption.map(_.name).getOrElse("")
+			}
+
+
+		def pmidToManyLines(p: Identifier): String = cm.authors.map(authorToLine(p, _)).mkString("\n")
+
+		val result = op.map(pmidToManyLines).filter(_.nonEmpty).map(_ + "\n")
 		result
 		}
 	}

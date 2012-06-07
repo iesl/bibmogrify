@@ -4,7 +4,7 @@ import org.scalatest.{BeforeAndAfter, FunSuite}
 import com.weiglewilczek.slf4s.Logging
 import edu.umass.cs.iesl.bibmogrify.UrlNamedInputStream
 import edu.umass.cs.iesl.bibmogrify.model.{RichCitationMention, Published}
-
+import edu.umass.cs.iesl.scalacommons.StringUtils._
 
 class NLMReaderTestSuite extends FunSuite with BeforeAndAfter with Logging
   {
@@ -28,21 +28,21 @@ class NLMReaderTestSuite extends FunSuite with BeforeAndAfter with Logging
      */
   test("Title is parsed")
   {
-  assert(c.title === Some("Regulation of dopamine transporter activity by carboxypeptidase E"))
+  assert(c.title === emptyStringToNone("Regulation of dopamine transporter activity by carboxypeptidase E"))
   }
 
   test("Authors are parsed")
   {
   assert(c.authors.size === 6)
   assert(c.authors.head.roles.isEmpty)
-  assert(c.authors.head.person.name === Some("Heping Zhang"))
+  assert(c.authors.head.person.name.flatMap(_.inferFully.bestFullName)  === emptyStringToNone("Heping Zhang"))
   }
 
   test("Journal is parsed")
   {
   val cont = c.containedIn.get
-  assert(cont.container.title === Some("Molecular Brain"))
-  assert(cont.volume === Some("2"))
+  assert(cont.container.title === emptyStringToNone("Molecular Brain"))
+  assert(cont.volume === emptyStringToNone("2"))
   }
 
   test("Partial date is parsed")

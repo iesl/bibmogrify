@@ -4,7 +4,8 @@ import org.scalatest.{BeforeAndAfter, FunSuite}
 import com.weiglewilczek.slf4s.Logging
 import edu.umass.cs.iesl.bibmogrify.tagmodel.{ExtendedLabelXMLReaderHlabeled, ExtendedLabelXMLReader, StandardLabelXMLReader}
 import edu.umass.cs.iesl.bibmogrify.model.{RichCitationMention, Published}
-
+import edu.umass.cs.iesl.scalacommons.NonemptyString
+import edu.umass.cs.iesl.scalacommons.StringUtils._
 
 class GaryhuangTaggedCitationReaderTestSuite extends FunSuite with BeforeAndAfter with Logging {
   val file = getClass.getResource("/examples/garyhuang/garyhuang-example.xml")
@@ -15,7 +16,7 @@ class GaryhuangTaggedCitationReaderTestSuite extends FunSuite with BeforeAndAfte
     val citationList = ExtendedLabelXMLReader(file)
     val tagged = citationList.toIterator.next()
     val c = tagged.toStructuredCitation
-    assert(c.title === Some("Building frameworks through specialisable nested objects."))
+    assert(c.title === emptyStringToNone("Building frameworks through specialisable nested objects."))
   }
   import RichCitationMention.enrichCitationMention
   test("Abstract is parsed") {
@@ -34,12 +35,15 @@ class GaryhuangTaggedCitationReaderTestSuite extends FunSuite with BeforeAndAfte
   assert(c.authors.head.person.name === Some("E. F. Codd"))
   }
 */
+
+import edu.umass.cs.iesl.scalacommons.StringUtils.emptyStringToNone
+
   test("Journal is parsed") {
     val citationList = ExtendedLabelXMLReader(file)
     val tagged = citationList.toIterator.next()
     val c = tagged.toStructuredCitation
     val cont = c.containedIn.get
-    assert(cont.container.title === Some("Vrije Universiteit Brussel Faculteit Wetenschappen"))
+    assert(cont.container.title === emptyStringToNone("Vrije Universiteit Brussel Faculteit Wetenschappen"))
     //assert(cont.volume === Some("146"))
   }
 
@@ -74,7 +78,7 @@ class GaryhuangTaggedCitationReaderTestSuite extends FunSuite with BeforeAndAfte
       assert(cc.references.size == 29)
       for (r <- cc.references) {
         assert(!r.authors.isEmpty)
-        val authorName: Option[String] = r.authors.head.person.name
+        val authorName: Option[NonemptyString] = r.authors.head.person.name.flatMap(_.bestFullName)
         logger.info("Reference first author : " + authorName)
       }
     }
@@ -91,7 +95,7 @@ class GaryhuangTaggedCitationReaderTestSuite extends FunSuite with BeforeAndAfte
       assert(cc.references.size == 1)
       for (r <- cc.references) {
         assert(!r.authors.isEmpty)
-        val authorName: Option[String] = r.authors.head.person.name
+        val authorName: Option[NonemptyString] = r.authors.head.person.name.flatMap(_.bestFullName)
         logger.info("Reference first author : " + authorName)
       }
     }

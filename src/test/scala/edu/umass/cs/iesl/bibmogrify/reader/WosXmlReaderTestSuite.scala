@@ -4,7 +4,7 @@ import org.scalatest.{BeforeAndAfter, FunSuite}
 import com.weiglewilczek.slf4s.Logging
 import edu.umass.cs.iesl.bibmogrify.UrlNamedInputStream
 import edu.umass.cs.iesl.bibmogrify.model.{RichCitationMention, Published}
-
+import edu.umass.cs.iesl.scalacommons.StringUtils._
 
 class WosXmlReaderTestSuite extends FunSuite with BeforeAndAfter with Logging {
   val file = getClass.getResource("/examples/wosxml/wosxml.xml")
@@ -15,7 +15,7 @@ class WosXmlReaderTestSuite extends FunSuite with BeforeAndAfter with Logging {
   // todo: detailed tests of all fields
 
   test("Title is parsed") {
-    assert(c.title === Some("Universal non-equilibrium phenomena at submicrometric surfaces and interfaces"))
+    assert(c.title === emptyStringToNone("Universal non-equilibrium phenomena at submicrometric surfaces and interfaces"))
   }
   import RichCitationMention.enrichCitationMention
   test("Abstract is parsed") {
@@ -33,7 +33,7 @@ class WosXmlReaderTestSuite extends FunSuite with BeforeAndAfter with Logging {
 */
   test("Journal is parsed") {
     val cont = c.containedIn.get
-    assert(cont.container.title === Some("EUROPEAN PHYSICAL JOURNAL-SPECIAL TOPICS"))
+    assert(cont.container.title === emptyStringToNone("EUROPEAN PHYSICAL JOURNAL-SPECIAL TOPICS"))
     //assert(cont.volume === Some("146"))
   }
 

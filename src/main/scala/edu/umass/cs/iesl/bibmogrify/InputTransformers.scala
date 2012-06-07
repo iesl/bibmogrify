@@ -10,6 +10,8 @@ import sun.net.www.{MimeEntry, MimeTable}
 import org.apache.commons.compress.archivers.tar.{TarArchiveInputStream, TarArchiveEntry}
 import java.io.{ByteArrayInputStream, InputStream, File}
 import java.util.zip.{ZipEntry, ZipInputStream, GZIPInputStream}
+import collection.parallel.ParSeq
+import collection.GenTraversableOnce
 
 /**
  * @author <a href="mailto:dev@davidsoergel.com">David Soergel</a>
@@ -44,6 +46,13 @@ object LineReader extends Transformer[URL, String] with NamedPlugin
 	def apply(u: URL): TraversableOnce[String] = io.Source.fromURL(u).getLines().toStream.view
 
 	val name = "byLine"
+	}
+
+object ParallelLineReader extends Transformer[URL, String] with NamedPlugin
+	{
+	def apply(u: URL): GenTraversableOnce[String] = io.Source.fromURL(u).getLines().toStream.view.par
+
+	val name = "byLinePar"
 	}
 
 object UrlToStream extends Transformer[URL, NamedInputStream] with NamedPlugin

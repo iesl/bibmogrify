@@ -5,14 +5,14 @@
       <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
     </encoder>
   </appender>
-
+<!--
   <appender name="socket" class="ch.qos.logback.classic.net.SocketAppender">
     <RemoteHost>localhost</RemoteHost>
     <Port>4560</Port>
     <ReconnectionDelay>170</ReconnectionDelay>
     <IncludeCallerData>true</IncludeCallerData>
   </appender>
-
+-->
   <root level="debug">
     <!--<appender-ref ref="socket"/>-->
     <appender-ref ref="STDERR"/>

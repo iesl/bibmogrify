@@ -5,6 +5,7 @@ import edu.umass.cs.iesl.bibmogrify.model.RichCitationMention._
 import edu.umass.cs.iesl.bibmogrify.pipeline.{StringMetadata, TransformerMetadata, Transformer}
 import collection.Iterable
 import edu.umass.cs.iesl.bibmogrify.model._
+import edu.umass.cs.iesl.scalacommons.{StringUtils, NonemptyString}
 
 /**
  * @author <a href="mailto:dev@davidsoergel.com">David Soergel</a>
@@ -69,7 +70,6 @@ object PatentMultiLanguageAbstractsWriter extends Transformer[StructuredPatent, 
     )
     Some(new StringMetadata(fields.mkString("\t") + "\n"))
   }
-
   def apply(cm: StructuredPatent) = {
 
     val extraLanguageAbstracts: Iterable[Option[String]] = cm.abstractText.map(twl => {
