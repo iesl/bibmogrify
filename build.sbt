@@ -30,7 +30,9 @@ libraryDependencies += "commons-collections" % "commons-collections" % "3.2.1"
 
 libraryDependencies += "org.apache.commons" % "commons-compress" % "1.3"
 
-resolvers += "David Soergel Repo" at "http://dev.davidsoergel.com/artifactory/repo"
+resolvers += "David Soergel Repo" at "http://dev.davidsoergel.com/nexus/content/groups/public"
+
+resolvers += "David Soergel Snapshots" at "http://dev.davidsoergel.com/nexus/content/groups/snapshots"
 
 resolvers += "IESL Repo" at "https://dev-iesl.cs.umass.edu/nexus/content/repositories/releases"
 
