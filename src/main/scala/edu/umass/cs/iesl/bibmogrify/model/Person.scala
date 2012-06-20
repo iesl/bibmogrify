@@ -5,78 +5,6 @@ import collection.immutable.Seq
 import edu.umass.cs.iesl.scalacommons.StringUtils.unwrapNonemptyString
 import edu.umass.cs.iesl.scalacommons.{NonemptyString, StringUtils}
 
-// Don't even try to split author names into components.  First of all, it's a rabbit hole of edge cases.  Second,
-// it's largely useless for our purposes.  We have to do coreference separately
-// anyway, and split author names don't really help with that.  Thu only other thing it might be good for is sort order.  So identifying the last name for
-// that purpose could conceivably be useful.
-// But there's just no use case I can think of that requires knowing someone's first name, or pedigree, etc.
-// OK: these might be needed for styling, e.g. converting names to initials.
-/*case class Person(firstNameInitial: Option[Char] = None, // used only for J. Harrison Ford
-                  firstName: Option[String] = None, // preferred name goes here too, e.g. Harrison
-                  middleName: Option[String] = None, // often just middle initial // combine as "givenNames"?
-                  givenInitials: Option[Seq[Char]] = None, //
-                  lastName: Option[String] = None, //
-                  pedigree: Option[String] = None, //
-                  degree: Option[String] = None, //
-                  // droppingParticle: Option[String] = None, //
-                  nonDroppingParticle: Option[String] = None, //
-                  address: Option[Address] = None, //
-                  email: Option[String] = None, //
-                  phone: Option[String] = None, //
-                  affiliations: Seq[Institution] = Nil, //
-                  homepages: Seq[URL] = Nil) //
-  {
-  // val droppingParticles = Map(("de la" ->("de", "la")))  // ignore for now
-  val particles = List("st", "de", "la", "de la", "du", "des", "del", "di", "van", "van den", "von", "zu", "der", "ter")
-  val authorSplit = "(\\S+ )?(.*? )?((" + particles.mkString("|") + ") )?(\\S+)".r
-  def Person(x: String)
-    {
-    val authorSplit(f: String, m: String, p: String, l: String) = x
-    val solidCaps = (x == x.toUpperCase)
-
-    f.length match
-    {
-      case 0 => // Prufrock
-        {
-        assert(m.isEmpty)
-        }
-      case 1 if m.length > 1 => // J. Alfred X. Prufrock
-        {
-        firstName = Some(f); // we have only the initial, but call it the "name"
-        middleName = Some(m);
-        givenInitials = Some(f.head :: m.split(" .").map(_.head).toList)
-        }
-      case 2 =>
-        {
-        if (solidCaps)
-          {
-          if (m.isEmpty) // JA PRUFROCK.  ED GREEN is interpreted as E.D. Green, not Ed Green.
-            {
-            givenInitials = Some(f.toCharArray.toSeq)
-            }
-          else // AL J PRUFROCK interpreted as Al J. Prufrock
-            {
-            firstName = Some(f);
-            middleName = Some(m);
-            givenInitials = Some(f.head :: m.split(" .").map(_.head).toList)
-            }
-          }
-        }
-      case _ => firstName = Some(f);
-    }
-
-
-
-    /* val tokensR = x.split(" .").reverse;
-    lastName = tokensR.headOption
-    val givenNames = tokensR.tail.reverse
-    val maybeFirstName = givenNames.head
-    if(maybeFirstName.contains()*/
-    }
-  //override def toString = firstName.map(_ + " ").getOrElse("") + lastName
-  def fullName = firstName.map(_ + " " + middleName.map(_ + " ").getOrElse("")).getOrElse(givenInitials.map(_ + " ").getOrElse("")) + lastName
-  }
-*/
 object Person
 	{
 
@@ -92,23 +20,30 @@ object Person
 		}
 
 	def apply(s: String): Person =
-		new Person {
-
-		override val name = StringUtils.emptyStringToNone(PersonNameParser.uninvertName(s)).map(n => PersonNameWithDerivations(n))
-		}
+		new Person
+			{
+			override val name = StringUtils.emptyStringToNone(s).map(n => PersonNameWithDerivations(n))
+			}
 	}
 
-trait Person
+/**an entity that may be an author (i.e., a person or institution or named collaboration)
+ *
+ */
+trait Agent
+
+trait Person extends Agent
 	{
 	val name        : Option[PersonNameWithDerivations] = None
 	val address     : Option[Address]                   = None
-	val email       : Option[NonemptyString]                    = None
-	val phone       : Option[NonemptyString]                    = None
+	val email       : Option[NonemptyString]            = None
+	val phone       : Option[NonemptyString]            = None
 	val affiliations: Seq[Institution]                  = Nil
 	val homepages   : Seq[URL]                          = Nil
 	val identifiers : Seq[PersonIdentifier]             = Nil
 
-	def bestFullName : String = name.flatMap(_.inferFully.bestFullName).map(_.s).getOrElse("")
+//	def bestFullName: String = name.flatMap(_.inferFully.bestFullName).map(_.s).getOrElse("")
+
+	override def toString = name.map(_.toString).getOrElse("") //bestFullName
 	}
 
 trait PersonIdentifier
@@ -126,7 +61,7 @@ case class BasicPerson(override val name: Option[String] = None, //
                        phone: Option[String] = None, //
                        affiliations: Seq[Institution] = Nil, //
                        homepages: Seq[URL] = Nil) extends Person*/
-case class AuthorInRole(person: Person, roles: Seq[AuthorRole])
+case class AuthorInRole(agent: Agent, roles: Seq[AuthorRole])
 	{
 	/*
 	def mergeWithMatching(fullAuthors: Seq[AuthorInRole]): AuthorInRole =
@@ -187,7 +122,7 @@ case object Reviewer extends OtherContributorRole
 
 case object ProgramManager extends OtherContributorRole
 
-trait Institution
+trait Institution extends Agent
 	{
 	val name     : String
 	val address  : Option[Address]
@@ -198,7 +133,8 @@ trait Institution
 	}
 
 case class BasicInstitution(override val name: String, override val address: Option[Address], override val phone: Option[NonemptyString],
-                            override val email: Option[NonemptyString], override val homepages: Seq[URL], override val parent: Option[Institution]) extends Institution
+                            override val email: Option[NonemptyString], override val homepages: Seq[URL], override val parent: Option[Institution])
+		extends Institution
 
 trait IdentifierAuthority extends Institution
 	{

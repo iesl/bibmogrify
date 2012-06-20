@@ -35,7 +35,8 @@ class NLMReaderTestSuite extends FunSuite with BeforeAndAfter with Logging
   {
   assert(c.authors.size === 6)
   assert(c.authors.head.roles.isEmpty)
-  assert(c.authors.head.person.name.flatMap(_.inferFully.bestFullName)  === emptyStringToNone("Heping Zhang"))
+  //assert(c.authors.head.agent.name.flatMap(_.inferFully.bestFullName)  === emptyStringToNone("Heping Zhang"))
+  assert(c.authors.head.agent.toString === "Heping Zhang")
   }
 
   test("Journal is parsed")

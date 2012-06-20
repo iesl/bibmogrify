@@ -10,7 +10,7 @@ import xml.Node
 import java.lang.String
 import edu.umass.cs.iesl.bibmogrify.pipeline.Transformer
 import edu.umass.cs.iesl.bibmogrify.{NamedInputStream, NamedPlugin, BibMogrifyException}
-import edu.umass.cs.iesl.scalacommons.{NonemptyString, StringUtils, XMLIgnoreDTD}
+import edu.umass.cs.iesl.scalacommons.{NonemptyString, XMLIgnoreDTD}
 
 object IEEEReader extends Transformer[NamedInputStream, StructuredCitation] with Logging with NamedPlugin
 	{
@@ -27,9 +27,9 @@ object IEEEReader extends Transformer[NamedInputStream, StructuredCitation] with
 			override val doctype: Option[DocType] = JournalArticle
 
 			override val title: Option[NonemptyString] = (doc \ "title").text
-			override val dates                 = Seq(BasicCitationEvent(date, Published))
-			override val abstractText          = Seq(new TextWithLanguage(None, (doc \ "articleinfo" \ "abstract").stripTags))
-			override val identifiers           =
+			override val dates                         = Seq(BasicCitationEvent(date, Published))
+			override val abstractText                  = Seq(new TextWithLanguage(None, (doc \ "articleinfo" \ "abstract").stripTags))
+			override val identifiers                   =
 				{
 				val id: String = (doc \ "articleinfo" \ "articledoi").text.trim
 				if (id.isEmpty)
@@ -45,8 +45,8 @@ object IEEEReader extends Transformer[NamedInputStream, StructuredCitation] with
 						})
 					}
 				}
-			override val containedIn           = Some(BasicContainmentInfo(journalMention, None, volume, None, None))
-			override val authors               = (doc \ "articleinfo" \ "authorgroup" \ "author").map((c =>
+			override val containedIn                   = Some(BasicContainmentInfo(journalMention, None, volume, None, None))
+			override val authors                       = (doc \ "articleinfo" \ "authorgroup" \ "author").map((c =>
 				new Person()
 					{
 					override val name =
@@ -62,8 +62,11 @@ object IEEEReader extends Transformer[NamedInputStream, StructuredCitation] with
 							{
 							Some(new PersonNameWithDerivations
 								{
-								override val givenNames : Option[NonemptyString] = first
-								override val lastName : Option[NonemptyString] = last
+								override val givenNames: Seq[NonemptyString] = emptyStringToNone(first).toSeq
+								override val surNames  : Set[NonemptyString] = emptyStringToNone(last).toSet
+
+								//** just ignore normname for now
+								override val fullNames: Set[NonemptyString] = emptyStringToNone(first + " " + last).toSet
 								})
 							}
 						}

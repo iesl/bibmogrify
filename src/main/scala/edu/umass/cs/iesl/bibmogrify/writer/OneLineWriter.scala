@@ -4,7 +4,7 @@ import edu.umass.cs.iesl.bibmogrify.model.RichCitationMention._
 import edu.umass.cs.iesl.bibmogrify.NamedPlugin
 import edu.umass.cs.iesl.bibmogrify.pipeline.{StringMetadata, TransformerMetadata, Transformer}
 import edu.umass.cs.iesl.bibmogrify.model.Authorities.{DoiAuthority, PubmedAuthority}
-import edu.umass.cs.iesl.bibmogrify.model.{Identifier, AuthorInRole, StructuredCitation}
+import edu.umass.cs.iesl.bibmogrify.model.{Person, Identifier, AuthorInRole, StructuredCitation}
 import edu.umass.cs.iesl.scalacommons.StringUtils
 
 object OneLineWriter extends Transformer[StructuredCitation, String] with NamedPlugin
@@ -120,7 +120,8 @@ object PaperStatsWriter extends Transformer[StructuredCitation, String] with Nam
 
 	override def metadata: Option[TransformerMetadata] =
 		{
-		val fields = Seq("pmid", "doi", "title", "year", "volume", "numpages", "abstractwords", "totalwords", "category", "license", "numFigures", "numTables")
+		val fields = Seq("pmid", "doi", "title", "year", "volume", "numpages", "abstractwords", "totalwords", "category", "license", "numFigures",
+		                 "numTables")
 		Some(new StringMetadata(fields.mkString("\t") + "\n"))
 		}
 
@@ -153,8 +154,16 @@ object AuthorStatsWriter extends Transformer[StructuredCitation, String] with Na
 
 		def authorToLine(p: Identifier, a: AuthorInRole): String =
 			{
-			p.qualifiedValue + "\t" + a.person.bestFullName + "\t" + a.person.email.getOrElse("") + "\t" +
-			a.person.affiliations.headOption.map(_.name).getOrElse("")
+			a.agent match
+			{
+				case per: Person =>
+					{
+					// per.bestFullName
+					p.qualifiedValue + "\t" + per + "\t" + per.email.getOrElse("") + "\t" +
+					per.affiliations.headOption.map(_.name).getOrElse("")
+					}
+				// ** just drop institutional authors for now
+			}
 			}
 
 

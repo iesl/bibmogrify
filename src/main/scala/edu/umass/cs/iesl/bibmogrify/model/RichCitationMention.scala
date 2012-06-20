@@ -35,7 +35,7 @@ class RichCitationMention(cm: StructuredCitation) extends Logging
 	import RichCitationMention.enrichCitationMention
 	import RichCitationMention.iterableTextWithLanguageToMap
 	import RichCitationMention.cleanup
-import RichCitationMention.cleanupJoined
+	import RichCitationMention.cleanupJoined
 	import RichPerson.enrichPerson
 
 	//val cleanAbstract = paperAbstract.toLowerCase.replaceAll("\\s", " ").replaceAll("[^\\w ]", " ").split(" +").mkString(" ")
@@ -87,15 +87,26 @@ import RichCitationMention.cleanupJoined
 
 	def primaryId = qualifiedIdsInOrder.headOption.getOrElse("adhoc:" + RichCitationMention.adhocIdIncrementor.getAndIncrement)
 
-	def authorFullNames: Seq[String] = cm.authors.map(_.person.bestFullName)
-
+	def authorFullNames: Seq[String] = cm.authors.map(_.agent.toString) //bestFullName)
 	def authorFullNamesWithId: Seq[String] = cm.authors.map(air =>
 		                                                        {
-		                                                        val p: Person = air.person
-		                                                        val id = p.primaryId
+		                                                        val a: Agent = air.agent
+		                                                        a match
+		                                                        {
+			                                                        case p: Person =>
+				                                                        {
+				                                                        val id = p.primaryId
 
-		                                                        val r: String = p.bestFullName + id.map(" [" + _ + "]").getOrElse("")
-		                                                        r
+				                                                        val r: String = p + id.map(" [" + _ + "]").getOrElse("")  // p.bestFullName
+				                                                        r
+				                                                        }
+			                                                        case i: Institution =>
+				                                                        {
+				                                                        // ** institutions don't have identifiers.  Perhaps all the ID stuff should be at the
+				                                                        // Agent level
+				                                                        i.toString
+				                                                        }
+		                                                        }
 		                                                        })
 
 	/*

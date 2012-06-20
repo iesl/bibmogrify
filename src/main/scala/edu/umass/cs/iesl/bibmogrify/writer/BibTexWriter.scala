@@ -44,7 +44,7 @@ object BibTexWriter extends Transformer[StructuredCitation, String] with NamedPl
     val title: Option[(String, NonemptyString)] = cm.title.map(("title", _))
 
     // no need to filter author roles, because editors etc. are otherContributors
-    val authors: Option[(String, NonemptyString)] = Some("author", NonemptyString(cm.authors.map(_.person.bestFullName).mkString(" and ")))
+    val authors: Option[(String, NonemptyString)] = Some("author", NonemptyString(cm.authors.map(_.agent).mkString(" and ")))
     val year: Option[(String, NonemptyString)] = cm.dates.filter(_.eventType == Published).flatMap(_.date.flatMap(_.year)).headOption.map(y => ("year",
 		    NonemptyString(y.toString)))
     val venue: Option[(String, NonemptyString)] = cm.containedIn.flatMap(_.container.title).map(("journal", _))

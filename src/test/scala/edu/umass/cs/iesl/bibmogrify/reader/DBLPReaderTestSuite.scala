@@ -35,7 +35,8 @@ class DBLPReaderTestSuite extends FunSuite with BeforeAndAfter with Logging
 	{
 	assert(c.authors.size === 1)
 	assert(c.authors.head.roles.isEmpty)
-	assert(c.authors.head.person.name.flatMap(_.inferFully.bestFullName) === emptyStringToNone("E. F. Codd"))
+	//assert(c.authors.head.agent.name.flatMap(_.inferFully.bestFullName) === emptyStringToNone("E. F. Codd"))
+	assert(c.authors.head.agent.toString === "E. F. Codd")
 	}
 
 	test("Journal is parsed")

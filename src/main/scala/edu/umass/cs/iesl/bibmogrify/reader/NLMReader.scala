@@ -165,9 +165,9 @@ object NLMReader extends Transformer[NamedInputStream, StructuredCitation] with 
 		val c = new StructuredCitation()
 			{
 			override val doctype   : Option[DocType]        = JournalArticle
-			override val docSubtype: Option[NonemptyString] = ((articlemeta \ "article-categories" \ "subj-group").filter(_.attribute("subj-group-type")
-			                                                                                                              .filter(_.text == "heading").isDefined) \ "subject").text.trim
-			                                                  .removeNewlinesAndTabs
+			override val docSubtype: Option[NonemptyString] = ((articlemeta \ "article-categories" \ "subj-group")
+			                                                   .filter(_.attribute("subj-group-type").filter(_.text == "heading").isDefined) \ "subject").text
+			                                                  .trim.removeNewlinesAndTabs
 
 			// drop superscripts, subscripts, italics, and typewriter styles
 			override val title: Option[NonemptyString] = (articlemeta \ "title-group" \ "article-title").text.trim.removeNewlinesAndTabs
@@ -222,8 +222,14 @@ object NLMReader extends Transformer[NamedInputStream, StructuredCitation] with 
 					{
 					override val name = Some(new PersonNameWithDerivations
 						{
-						override val givenNames: Option[NonemptyString] = StringUtils.emptyStringToNone((c \ "given-names").text.trim.removeNewlinesAndTabs)
-						override val lastName  : Option[NonemptyString] = StringUtils.emptyStringToNone((c \ "surname").text.trim.removeNewlinesAndTabs)
+						val first: String = (c \ "given-names").text.trim.removeNewlinesAndTabs
+						val last          = (c \ "surname").text.trim.removeNewlinesAndTabs
+
+						override val givenNames: Seq[NonemptyString] = StringUtils.emptyStringToNone(first).toSeq
+
+						override val surNames: Set[NonemptyString] = StringUtils.emptyStringToNone(last).toSet
+
+						override val fullNames = emptyStringToNone(first + " " + last).toSet
 						})
 					})).map(new AuthorInRole(_, Nil))
 

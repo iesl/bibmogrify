@@ -35,7 +35,8 @@ class ElsevierReaderTestSuite extends FunSuite with BeforeAndAfter with Logging
   {
   assert(c.authors.size === 2)
   assert(c.authors.head.roles.isEmpty)
-  assert(c.authors.head.person.name.flatMap(_.inferFully.bestFullName) === emptyStringToNone("Kermit T. Frog"))
+  //assert(c.authors.head.agent.name.flatMap(_.inferFully.bestFullName) === emptyStringToNone("Kermit T. Frog"))
+  assert(c.authors.head.agent.toString === "Kermit T. Frog")
   }
 
   test("Journal is parsed")
