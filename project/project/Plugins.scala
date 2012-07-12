@@ -3,10 +3,17 @@ import sbt.Keys._
 
 object IeslPluginLoader extends Build {
 
+/*def addSbtPlugin(dependency: ModuleID): Setting[Seq[ModuleID]] =
+	libraryDependencies <+= (sbtVersion in update,scalaVersion) { (sbtV, scalaV) =>
+		sbtPluginExtra(dependency, sbtV, scalaV)
+
+		def sbtPluginExtra(m: ModuleID, sbtV: String, scalaV: String): ModuleID  =  m.extra("e:sbtVersion" -> sbtV, "e:scalaVersion" -> scalaV).copy(crossVersion = false)
+	*/
+
   lazy val root = Project(id = "plugins", base = file("."))
     .settings(resolvers += "IESL Public Releases" at "https://dev-iesl.cs.umass.edu/nexus/content/groups/public")
-    .settings(resolvers += "IESL Public Snapshots" at "https://dev-iesl.cs.umass.edu/nexus/content/groups/public-snapshots")
-    .settings(addSbtPlugin("edu.umass.cs.iesl" % "iesl-sbt-base" % "latest.integration"))  // optional: latest.release
+    //.settings(resolvers += "IESL Public Snapshots" at "https://dev-iesl.cs.umass.edu/nexus/content/groups/public-snapshots")
+    .settings(addSbtPlugin("edu.umass.cs.iesl" %% "iesl-sbt-base" % "latest.release")) // optional: latest.release, latest.integration changing()
 }
 
 

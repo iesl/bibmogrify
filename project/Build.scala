@@ -19,7 +19,11 @@ val deps = Seq(
 	              jclOverSlf4j(),
 	              commonsVfs2(),
 	              commonsCollections(),
-	              commonsCompress()
+	              commonsCompress(),
+// these should be provided transitively by scalacommons, but somehow they aren't
+	              slf4s(),
+dsutils(),
+commonsLang()
               )
 
 lazy val scalacommons = IeslProject("bibmogrify", vers, deps, Public, WithSnapshotDependencies)
