@@ -22,7 +22,7 @@ object StringToUrl extends Transformer[String, URL] with NamedPlugin
 	def apply(s: String) =
 		{
 		val f = new File(s)
-		if (f.exists) Some(f.toURL)
+		if (f.exists) Some(f.toURI.toURL)
 		else if (s.contains(":"))
 			{
 			Some(new URL(s))
