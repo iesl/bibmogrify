@@ -13,13 +13,13 @@ val deps = Seq(
 	              ieslScalaCommons("latest.integration"),
 	              liftJson(),
 	              scalatest(),
-	              subcut()
-	              /*langdetect(),
+	              subcut(),
+	              langdetect(),
 	              jsonic(),
 	              jclOverSlf4j(),
 	              commonsVfs2(),
 	              commonsCollections(),
-	              commonsCompress()*/
+	              commonsCompress()
               )
 
 lazy val scalacommons = IeslProject("bibmogrify", vers, deps, Public, WithSnapshotDependencies)
