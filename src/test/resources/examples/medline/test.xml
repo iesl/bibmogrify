@@ -1,0 +1,113 @@
+<MedlineCitationSet>
+  <MedlineCitation Owner="NLM" Status="MEDLINE">
+    <PMID Version="1">417990</PMID>
+    <DateCreated>
+      <Year>1978</Year>
+      <Month>07</Month>
+      <Day>15</Day>
+    </DateCreated>
+    <DateCompleted>
+      <Year>1978</Year>
+      <Month>07</Month>
+      <Day>15</Day>
+    </DateCompleted>
+    <DateRevised>
+      <Year>2006</Year>
+      <Month>11</Month>
+      <Day>15</Day>
+    </DateRevised>
+    <Article PubModel="Print">
+      <Journal>
+        <ISSN IssnType="Print">0018-4888</ISSN>
+        <JournalIssue CitedMedium="Print">
+          <Volume>359</Volume>
+          <Issue>4</Issue>
+          <PubDate>
+            <Year>1978</Year>
+            <Month>Apr</Month>
+          </PubDate>
+        </JournalIssue>
+        <Title>Hoppe-Seyler's Zeitschrift fuer physiologische Chemie</Title>
+        <ISOAbbreviation>Hoppe-Seyler's Z. Physiol. Chem.</ISOAbbreviation>
+      </Journal>
+      <ArticleTitle>Comparison of tRNA nucleotidyltransferase from Escherichia coli and Lactobacillus acidophilus.</ArticleTitle>
+      <Pagination>
+        <MedlinePgn>473-80</MedlinePgn>
+      </Pagination>
+      <Abstract>
+        <AbstractText>Purification of tRNa nucleotidyltransferase from Lactobacillus acidophilus ATCC 4963 and Escherichia coli MRE 600 by preparative
+          polyacrylamide gel electrophoresis is described. Both enzymes gave a single band on analytical polyacrylamide-gel electroesis and sodium
+          dodecylsulfate
+          gels. Chromatography of the high speed supernatant from Lactobacillus at low salt concentrations gave three enzyme fractions of molecular weights
+          about
+          45 000, 90 000, and 120 000. At 1M NaCl only the first enzyme fraction was found. Kinetic data for both enzymes are given.
+        </AbstractText>
+      </Abstract>
+      <AuthorList CompleteYN="Y">
+        <Author ValidYN="Y">
+          <LastName>Leineweber</LastName>
+          <ForeName>M</ForeName>
+          <Initials>M</Initials>
+        </Author>
+        <Author ValidYN="Y">
+          <LastName>Philipps</LastName>
+          <ForeName>G R</ForeName>
+          <Initials>GR</Initials>
+        </Author>
+      </AuthorList>
+      <Language>eng</Language>
+      <PublicationTypeList>
+        <PublicationType>Comparative Study</PublicationType>
+        <PublicationType>Journal Article</PublicationType>
+      </PublicationTypeList>
+    </Article>
+    <MedlineJournalInfo>
+      <Country>GERMANY, WEST</Country>
+      <MedlineTA>Hoppe Seylers Z Physiol Chem</MedlineTA>
+      <NlmUniqueID>2985060R</NlmUniqueID>
+      <ISSNLinking>0018-4888</ISSNLinking>
+    </MedlineJournalInfo>
+    <CitationSubset>IM</CitationSubset>
+    <MeshHeadingList>
+      <MeshHeading>
+        <DescriptorName MajorTopicYN="N">Adenosine Triphosphate</DescriptorName>
+        <QualifierName MajorTopicYN="N">metabolism</QualifierName>
+      </MeshHeading>
+      <MeshHeading>
+        <DescriptorName MajorTopicYN="N">Chromatography, Gel</DescriptorName>
+      </MeshHeading>
+      <MeshHeading>
+        <DescriptorName MajorTopicYN="N">Cytidine Triphosphate</DescriptorName>
+        <QualifierName MajorTopicYN="N">metabolism</QualifierName>
+      </MeshHeading>
+      <MeshHeading>
+        <DescriptorName MajorTopicYN="N">Electrophoresis, Polyacrylamide Gel</DescriptorName>
+      </MeshHeading>
+      <MeshHeading>
+        <DescriptorName MajorTopicYN="N">Escherichia coli</DescriptorName>
+        <QualifierName MajorTopicYN="Y">enzymology</QualifierName>
+      </MeshHeading>
+      <MeshHeading>
+        <DescriptorName MajorTopicYN="N">Kinetics</DescriptorName>
+      </MeshHeading>
+      <MeshHeading>
+        <DescriptorName MajorTopicYN="N">Lactobacillus acidophilus</DescriptorName>
+        <QualifierName MajorTopicYN="Y">enzymology</QualifierName>
+      </MeshHeading>
+      <MeshHeading>
+        <DescriptorName MajorTopicYN="N">Macromolecular Substances</DescriptorName>
+      </MeshHeading>
+      <MeshHeading>
+        <DescriptorName MajorTopicYN="N">Molecular Weight</DescriptorName>
+      </MeshHeading>
+      <MeshHeading>
+        <DescriptorName MajorTopicYN="Y">RNA Nucleotidyltransferases</DescriptorName>
+        <QualifierName MajorTopicYN="N">isolation &amp; purification</QualifierName>
+        <QualifierName MajorTopicYN="N">metabolism</QualifierName>
+      </MeshHeading>
+      <MeshHeading>
+        <DescriptorName MajorTopicYN="N">RNA, Transfer</DescriptorName>
+      </MeshHeading>
+    </MeshHeadingList>
+  </MedlineCitation>
+</MedlineCitationSet>

@@ -68,8 +68,6 @@ import StringUtils._
 		val pages: Option[NonemptyString] = (doc \ "pages").text
 		val number: Option[NonemptyString] = (doc \ "number").text
 
-
-
 		val url: Option[NonemptyString] = (doc \ "url").text
 
 		val ee: Option[NonemptyString] = (doc \ "ee").text
