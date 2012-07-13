@@ -2,36 +2,23 @@ import edu.umass.cs.iesl.sbtbase.Dependencies._
 import edu.umass.cs.iesl.sbtbase.IeslProject
 import edu.umass.cs.iesl.sbtbase.IeslProject.{WithSnapshotDependencies, Public}
 import sbt._
+import sbtassembly.Plugin._
 
+// todo: move assembly stuff to iesl-sbt-base
 // this is just an example, to show how simple a build can be once all the boilerplate stuff is factored out.
+object BibmogrifyBuild extends Build
+	{
 
-object BibmogrifyBuild extends Build {
+	val vers = "0.1-SNAPSHOT"
 
-val vers = "0.1-SNAPSHOT"
+	val deps = Seq(ieslScalaCommons("latest.integration"), liftJson(), scalatest(), subcut(), langdetect(), jsonic(), jclOverSlf4j(), commonsVfs2(),
+	               commonsCollections(), commonsCompress(),
+	               // these should be provided transitively by scalacommons, but somehow they aren't
+	               slf4s(), dsutils(), commonsLang(), classutil())
 
-val deps = Seq(
-	              ieslScalaCommons("latest.integration"),
-	              liftJson(),
-	              scalatest(),
-	              subcut(),
-	              langdetect(),
-	              jsonic(),
-	              jclOverSlf4j(),
-	              commonsVfs2(),
-	              commonsCollections(),
-	              commonsCompress(),
-// these should be provided transitively by scalacommons, but somehow they aren't
-	              slf4s(),
-	              dsutils(),
-	              commonsLang(),
-	              classutil()
-              )
-
-lazy val scalacommons = IeslProject("bibmogrify", vers, deps, Public, WithSnapshotDependencies)
-                        .settings(addCompilerPlugin(subcut()))
-
-}
-
+	lazy val scalacommons = IeslProject("bibmogrify", vers, deps, Public, WithSnapshotDependencies).settings(addCompilerPlugin(subcut()))
+	                        .settings(assemblySettings: _*)
+	}
 
 /*
 libraryDependencies +=  "edu.umass.cs.iesl" %% "scalacommons" % "0.1-SNAPSHOT"  changing()
