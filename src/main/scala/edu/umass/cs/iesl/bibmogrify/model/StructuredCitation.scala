@@ -4,7 +4,7 @@ import java.net.URL
 import com.weiglewilczek.slf4s.Logging
 import com.cybozu.labs.langdetect.{LangDetectException, Detector, DetectorFactory}
 import edu.umass.cs.iesl.scalacommons.{StringUtils, NonemptyString}
-import tools.nsc.io.{File, Directory}
+import tools.nsc.io.Directory
 
 // ** add citances with context for sentiment
 trait StructuredCitation
@@ -59,26 +59,26 @@ trait StructuredCitation
 
 object TextWithLanguage extends Logging
 	{
-	def init
+	def init =
 		{
 		val okFilenames = Language.majorLanguages.map(_.name).toList
 		val profileUrl: URL = getClass.getResource("/profiles")
-		val profileDir = new Directory(new java.io.File(profileUrl.toURI)) // hope that there are no competing items with that name on the classpath
+		val profileDir = new Directory(new java.io.File(profileUrl.getFile)) // hope that there are no competing items with that name on the classpath
 
 		profileDir.files.filter(f => okFilenames.contains(f.name)).map(f => DetectorFactory.loadProfile(f.jfile))
+		logger.info("Loaded language profiles")
 		}
 
-	init
-	logger.info("Loaded language profiles")
+	//init
+	//logger.info("Loaded language profiles")
 	}
 
 class TextWithLanguage(val specifiedLanguage: Option[Language], val text: String) extends Logging
 	{
 	def cleanText = RichCitationMention.cleanup(StringUtils.emptyStringToNone(text)) // ** lame, should refactor
-
-	TextWithLanguage
-
 	// just be sure that the initialization runs
+	TextWithLanguage.init
+
 	def language: Option[Language] =
 		{
 		(specifiedLanguage, detectedLanguage) match

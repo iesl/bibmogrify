@@ -49,6 +49,16 @@ object PatentBackgroundWriter extends Transformer[StructuredCitation, String] wi
 		}
 	}
 
+object PatentAbstractAndBackgroundWriter extends Transformer[StructuredCitation, String] with NamedPlugin
+	{
+	val name = "patabsback"
+
+	def apply(cm: StructuredCitation) =
+		{
+		Some(cm.primaryId + "\t" + cm.year.getOrElse("") + "\t" + cm.cleanTitleAndAbstract + " " + cm.cleanFieldAndBackground + "\n")
+		}
+	}
+
 object CorefWriter extends Transformer[StructuredCitation, String] with NamedPlugin
 	{
 	val name = "corefoneline"
