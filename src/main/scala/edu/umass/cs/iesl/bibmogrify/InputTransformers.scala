@@ -138,10 +138,10 @@ object ArchiveToInputStreams extends Transformer[URL, NamedInputStream] with Nam
 		{
 
 		val name = nis.name
-		val extension = name.lastIndexOf('.') match
+		val (baseName, extension) = name.lastIndexOf('.') match
 		{
-			case -1     => None
-			case x: Int => new Some(name.substring(x + 1).toLowerCase)
+			case -1     => (name, None)
+			case x: Int => (name.substring(0,x), new Some(name.substring(x + 1).toLowerCase))
 		}
 
 		extension match
@@ -149,8 +149,7 @@ object ArchiveToInputStreams extends Transformer[URL, NamedInputStream] with Nam
 			case Some("tar") => processTarStream(name, nis.getInputStream).flatMap(getAllInputStreams(_))
 			case Some("xml") => Some(nis)
 
-			//assume .tar.gz for now
-			case Some("gz")  => processTarStream(name, new GZIPInputStream(nis.getInputStream)).flatMap(getAllInputStreams(_))
+			case Some("gz")  => Some(new NamedInputStream(baseName){ def getInputStream = new GZIPInputStream(nis.getInputStream) })
 			case Some("tgz") => processTarStream(name, new GZIPInputStream(nis.getInputStream)).flatMap(getAllInputStreams(_))
 			case Some("zip") => processZipStream(name, nis.getInputStream).flatMap(getAllInputStreams(_))
 			case _ =>
