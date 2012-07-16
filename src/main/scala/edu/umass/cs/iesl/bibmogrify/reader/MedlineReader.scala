@@ -114,7 +114,7 @@ object MedlineReader extends Transformer[NamedInputStream, StructuredCitation] w
 
 			override val abstractText = Seq(new TextWithLanguage(None, (article \ "Abstract" \ "AbstractText").stripTags))
 
-			override val identifiers = Seq(BasicIdentifier((article \ "PMID").text, PubmedAuthority))
+			override val identifiers = Seq(BasicIdentifier((doc \ "PMID").text, PubmedAuthority))
 
 			// TODO implement parsePages, or just store the string
 			def parsePages(s: String): Option[PageRange] = None
@@ -128,8 +128,15 @@ object MedlineReader extends Transformer[NamedInputStream, StructuredCitation] w
 				val ps = pagesS.split("-")
 				if (ps.size == 1)
 					{
+					try
+					{
 					val fpagei: Int = ps(0).trim.toInt
 					Some(BasicNormalPageRange(fpagei, None))
+					}
+					catch
+					{
+					case e: NumberFormatException => None
+					}
 					}
 				else if (ps.size == 2)
 					{
