@@ -59,7 +59,7 @@ trait StructuredCitation
 
 object TextWithLanguage extends Logging
 	{
-	def init =
+	lazy val init =
 		{
 		val okFilenames = Language.majorLanguages.map(_.name).toList
 		val profileUrl: URL = getClass.getResource("/profiles")
