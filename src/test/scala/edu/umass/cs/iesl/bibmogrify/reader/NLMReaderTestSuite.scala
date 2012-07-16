@@ -8,7 +8,7 @@ import edu.umass.cs.iesl.scalacommons.StringUtils._
 
 class NLMReaderTestSuite extends FunSuite with BeforeAndAfter with Logging
   {
-  val file = getClass.getResource("/examples/nlm/test.nxml")
+  val file = getClass.getResource("/examples/NLM/test.nxml")
 
   val citationList = NLMReader(new UrlNamedInputStream(file.toExternalForm,file))
   val c = citationList.toIterator.next()
