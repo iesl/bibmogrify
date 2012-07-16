@@ -173,7 +173,7 @@ object NLMReader extends Transformer[NamedInputStream, StructuredCitation] with 
 			override val title: Option[NonemptyString] = (articlemeta \ "title-group" \ "article-title").text.trim.removeNewlinesAndTabs
 			override val dates                         = Seq(BasicCitationEvent(date, Published))
 
-			override val abstractText = Seq(new TextWithLanguage(None, (articlemeta \ "abstract").stripTags))
+			override val abstractText = Seq(TextWithLanguage(None, (articlemeta \ "abstract").stripTags))
 
 			// todo distinguish section types
 			override val bodyText = (body \ "sec").map(s => UndifferentiatedBodyTextSection(s.stripTags))

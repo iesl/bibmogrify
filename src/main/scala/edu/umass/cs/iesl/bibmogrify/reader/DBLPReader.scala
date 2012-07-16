@@ -1,6 +1,5 @@
 package edu.umass.cs.iesl.bibmogrify.reader
 
-import edu.umass.cs.iesl.scalacommons.StringUtils._
 import edu.umass.cs.iesl.scalacommons.DateUtils._
 import edu.umass.cs.iesl.bibmogrify.model._
 import edu.umass.cs.iesl.bibmogrify.model.Authorities._
@@ -16,7 +15,7 @@ object DBLPReader extends Transformer[NamedInputStream, StructuredCitation] with
 	{
 
 	import ReaderUtils._
-import StringUtils._
+	import StringUtils._
 
 	val name    = "dblp"
 	val baseUrl = "http://www.informatik.uni-trier.de/∼ley/db/"
@@ -78,8 +77,8 @@ import StringUtils._
 		val journalMention = new StructuredCitation
 			{
 			// drop superscripts, subscripts, italics, and typewriter styles
-			override val title  : Option[NonemptyString]  = (doc \ "journal").text
-			override val doctype: Option[DocType] = Journal
+			override val title  : Option[NonemptyString] = (doc \ "journal").text
+			override val doctype: Option[DocType]        = Journal
 			}
 
 		//val authorSplit = "(.+)( .*)? (.+)".r
@@ -89,11 +88,11 @@ import StringUtils._
 
 			// drop superscripts, subscripts, italics, and typewriter styles
 			override val title: Option[NonemptyString] = (doc \ "title").text
-			override val authors               = authorsX map (x => new AuthorInRole( Person(x) , Nil))
-			override val otherContributors     = editorsX map (x => new OtherContributorInRole(Person(x), List(Editor)))
-			override val dates                 = Seq(BasicCitationEvent(date, Published))
+			override val authors                       = authorsX map (x => new AuthorInRole(Person(x), Nil))
+			override val otherContributors             = editorsX map (x => new OtherContributorInRole(Person(x), List(Editor)))
+			override val dates                         = Seq(BasicCitationEvent(date, Published))
 
-			override val abstractText: Iterable[TextWithLanguage] = Seq(new TextWithLanguage(None, (doc \ "abstract").stripTags))
+			override val abstractText: Iterable[TextWithLanguage] = Seq(TextWithLanguage(None, (doc \ "abstract").stripTags))
 
 			override val identifiers = Seq(id)
 

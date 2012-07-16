@@ -90,18 +90,19 @@ object PatentST36Reader extends Transformer[NamedInputStream, StructuredPatent] 
 			val init: List[BodyTextSection] = List[BodyTextSection](new BasicBodyTextSection(GeneralBodyText, "", None))
 			// start the fold with a general block, which may enf up empty if we immediately get a heading
 			val result = n.child.foldLeft(init)((accum: List[BodyTextSection], n: Node) =>
-				                              {
-				                              n match
-				                              {
-					                              case np: Elem if np.label == "heading" =>
-						                              {
-						                              new BasicBodyTextSection(inferBodyTypeFromHeading(np.text.trim, defaultType), None,
-						                                                       np.text.trim) :: accum
-						                              }
-					                              case np: Elem if np.label == "p" => (accum.head ++ np.text.trim) :: accum.tail
-					                              case np => accum //ignore
-				                              }
-				                              })
+				                                    {
+				                                    n match
+				                                    {
+					                                    case np: Elem if np.label == "heading" =>
+						                                    {
+						                                    new BasicBodyTextSection(inferBodyTypeFromHeading(np.text.trim, defaultType), None,
+						                                                             np.text.trim) ::
+						                                    accum
+						                                    }
+					                                    case np: Elem if np.label == "p" => (accum.head ++ np.text.trim) :: accum.tail
+					                                    case np => accum //ignore
+				                                    }
+				                                    })
 			result.filterNot(_.text.isEmpty).reverse
 			// "background of the invention" or "background art" or just "background"
 			//"detailed description of the invention" or "disclosure of the invention" or just "description"
@@ -187,9 +188,9 @@ object PatentST36Reader extends Transformer[NamedInputStream, StructuredPatent] 
 		val c = new StructuredPatent()
 			{
 			//override val doctype: Option[DocType] = Patent
-			override val locations             = Seq(inLocation)
+			override val locations                     = Seq(inLocation)
 			override val title: Option[NonemptyString] = (doc \ "bibliographic-data" \ "invention-title").stripTags
-			override val (identifiers, dates)  = getIdentifiersAndDates
+			override val (identifiers, dates)          = getIdentifiersAndDates
 
 			val abstracts           = (doc \ "abstract")
 			val abstractsByLanguage = abstracts groupBy
@@ -218,7 +219,7 @@ object PatentST36Reader extends Transformer[NamedInputStream, StructuredPatent] 
 				case (l, n) => (l, (n \ "p").stripTags) // exclude headers, as these are likely general uninformative things like "background"
 				}.flatMap
 				{
-				case (l, n) if n.nonEmpty => Some(new TextWithLanguage(l, n))
+				case (l, n) if n.nonEmpty => Some(TextWithLanguage(l, n))
 				case _ => None
 				}
 				//val englishAbstracts: Option[NodeSeq] = abstractsByLanguage.get(Some(English))

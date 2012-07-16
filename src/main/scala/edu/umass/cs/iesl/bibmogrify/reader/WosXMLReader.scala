@@ -101,7 +101,7 @@ object WosXMLReader extends Transformer[NamedInputStream, StructuredCitation] wi
 			override val title: Option[NonemptyString] = (item \ "item_title").text
 			override val dates                         = Seq(BasicCitationEvent(date, Published))
 
-			override val abstractText = Seq(new TextWithLanguage(None, (item \ "abstract").text))
+			override val abstractText = Seq(TextWithLanguage(None, (item \ "abstract").text))
 
 			// todo collect other identifiers?
 			val wosUtId: String = (item \ "ut").text
@@ -204,7 +204,7 @@ object WosXMLReader extends Transformer[NamedInputStream, StructuredCitation] wi
 			}
 		override val containedIn =
 			{
-			val pr =  emptyStringToNone((node \ "@page").text).map(st => new StringPageRange()
+			val pr = emptyStringToNone((node \ "@page").text).map(st => new StringPageRange()
 				{
 				override val start: NonemptyString = st
 				})

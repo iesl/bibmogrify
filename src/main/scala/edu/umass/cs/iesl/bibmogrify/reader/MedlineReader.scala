@@ -112,7 +112,7 @@ object MedlineReader extends Transformer[NamedInputStream, StructuredCitation] w
 			override val title: Option[NonemptyString] = (article \ "ArticleTitle").text.trim
 			override val dates                         = journalMention.dates
 
-			override val abstractText = Seq(new TextWithLanguage(None, (article \ "Abstract" \ "AbstractText").stripTags))
+			override val abstractText = Seq(TextWithLanguage(None, (article \ "Abstract" \ "AbstractText").stripTags))
 
 			override val identifiers = Seq(BasicIdentifier((doc \ "PMID").text, PubmedAuthority))
 

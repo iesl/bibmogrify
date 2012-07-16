@@ -28,7 +28,7 @@ object IEEEReader extends Transformer[NamedInputStream, StructuredCitation] with
 
 			override val title: Option[NonemptyString] = (doc \ "title").text
 			override val dates                         = Seq(BasicCitationEvent(date, Published))
-			override val abstractText                  = Seq(new TextWithLanguage(None, (doc \ "articleinfo" \ "abstract").stripTags))
+			override val abstractText                  = Seq(TextWithLanguage(None, (doc \ "articleinfo" \ "abstract").stripTags))
 			override val identifiers                   =
 				{
 				val id: String = (doc \ "articleinfo" \ "articledoi").text.trim

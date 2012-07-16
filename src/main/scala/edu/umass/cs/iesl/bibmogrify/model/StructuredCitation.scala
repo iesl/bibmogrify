@@ -59,25 +59,31 @@ trait StructuredCitation
 
 object TextWithLanguage extends Logging
 	{
-	lazy val init =
+	val init =
 		{
 		val okFilenames = Language.majorLanguages.map(_.name).toList
 		val profileUrl: URL = getClass.getResource("/profiles")
 		val profileDir = new Directory(new java.io.File(profileUrl.getFile)) // hope that there are no competing items with that name on the classpath
 
-		profileDir.files.filter(f => okFilenames.contains(f.name)).map(f => DetectorFactory.loadProfile(f.jfile))
+		profileDir.files.filter(f => okFilenames.contains(f.name)).map(f =>
+			                                                               {
+			                                                               logger.info("Loading language: " + f)
+			                                                               DetectorFactory.loadProfile(f.jfile)
+			                                                               })
 		logger.info("Loaded language profiles")
 		}
+
+	def apply(specifiedLanguage: Option[Language], text: String) = new TextWithLanguage(specifiedLanguage, text)
 
 	//init
 	//logger.info("Loaded language profiles")
 	}
 
-class TextWithLanguage(val specifiedLanguage: Option[Language], val text: String) extends Logging
+class TextWithLanguage private (val specifiedLanguage: Option[Language], val text: String) extends Logging
 	{
-	def cleanText = RichCitationMention.cleanup(StringUtils.emptyStringToNone(text)) // ** lame, should refactor
-	// just be sure that the initialization runs
-	TextWithLanguage.init
+
+	def cleanText = RichCitationMention.cleanup(StringUtils.emptyStringToNone(text))
+
 
 	def language: Option[Language] =
 		{

@@ -108,9 +108,9 @@ object ElsevierReader extends Transformer[NamedInputStream, StructuredCitation] 
 
 			// drop superscripts, subscripts, italics, and typewriter styles
 			override val title: Option[NonemptyString] = (rdf \ "title").text.trim
-			override val dates                 = Seq(BasicCitationEvent(date, Published))
+			override val dates                         = Seq(BasicCitationEvent(date, Published))
 
-			override val abstractText = Seq(new TextWithLanguage(None, (doc \ "converted-article" \ "head" \ "abstract" \ "abstract-sec").stripTags))
+			override val abstractText = Seq(TextWithLanguage(None, (doc \ "converted-article" \ "head" \ "abstract" \ "abstract-sec").stripTags))
 
 			override val identifiers = Seq(BasicIdentifier((rdf \ "doi").text, DoiAuthority))
 
