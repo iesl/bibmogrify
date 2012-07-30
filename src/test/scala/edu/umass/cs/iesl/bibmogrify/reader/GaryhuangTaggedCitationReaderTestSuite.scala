@@ -5,7 +5,6 @@ import com.weiglewilczek.slf4s.Logging
 import edu.umass.cs.iesl.bibmogrify.tagmodel.{ExtendedLabelXMLReaderHlabeled, ExtendedLabelXMLReader}
 import edu.umass.cs.iesl.scalacommons.NonemptyString
 import edu.umass.cs.iesl.scalacommons.StringUtils._
-import edu.umass.cs.iesl.bibmogrify.model.RichCitationMention
 
 class GaryhuangTaggedCitationReaderTestSuite extends FunSuite with BeforeAndAfter with Logging
 	{
@@ -21,7 +20,7 @@ class GaryhuangTaggedCitationReaderTestSuite extends FunSuite with BeforeAndAfte
 	assert(c.title === emptyStringToNone("Building frameworks through specialisable nested objects."))
 	}
 
-	import RichCitationMention.enrichCitationMention
+	import RichStructuredCitation.enrichCitationMention
 
 	test("Abstract is parsed")
 	{
@@ -120,7 +119,15 @@ class GaryhuangTaggedCitationReaderTestSuite extends FunSuite with BeforeAndAfte
 
 	test("Untagged text gets merged")
 	{
-	val input = <bogus>some text<title>the title</title>some more<squee>more untagged<authors><author>hello</author> <author>world</author></authors></squee>the end</bogus>
+	val input = <bogus>some text
+		<title>the title</title>
+		some more
+		<squee>more untagged
+			<authors>
+				<author>hello</author> <author>world</author>
+			</authors>
+		</squee>
+		the end</bogus>
 	val expected = Seq(("some text", ""), ("the title", "title"), ("some more more untagged", ""), ("hello", "authors/author"), ("world", "authors/author"),
 	                   ("the end", ""))
 	val result = ExtendedLabelXMLReader.parse(input)

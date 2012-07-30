@@ -1,6 +1,6 @@
 package edu.umass.cs.iesl.bibmogrify.writer
 
-import edu.umass.cs.iesl.bibmogrify.model.RichCitationMention._
+import edu.umass.cs.iesl.bibmogrify.model.RichStructuredCitation._
 import edu.umass.cs.iesl.bibmogrify.NamedPlugin
 import edu.umass.cs.iesl.bibmogrify.pipeline.{StringMetadata, TransformerMetadata, Transformer}
 import edu.umass.cs.iesl.bibmogrify.model.Authorities.{DoiAuthority, PubmedAuthority}
@@ -130,8 +130,7 @@ object PaperStatsWriter extends Transformer[StructuredCitation, String] with Nam
 
 	override def metadata: Option[TransformerMetadata] =
 		{
-		val fields = Seq("pmid", "doi", "title", "year", "volume", "numpages", "abstractwords", "totalwords", "category", "license", "numFigures",
-		                 "numTables")
+		val fields = Seq("pmid", "doi", "title", "year", "volume", "numpages", "abstractwords", "totalwords", "category", "license", "numFigures", "numTables")
 		Some(new StringMetadata(fields.mkString("\t") + "\n"))
 		}
 

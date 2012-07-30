@@ -79,11 +79,10 @@ object TextWithLanguage extends Logging
 	//logger.info("Loaded language profiles")
 	}
 
-class TextWithLanguage private (val specifiedLanguage: Option[Language], val text: String) extends Logging
+class TextWithLanguage private(val specifiedLanguage: Option[Language], val text: String) extends Logging
 	{
 
-	def cleanText = RichCitationMention.cleanup(StringUtils.emptyStringToNone(text))
-
+	def cleanText = RichStructuredCitation.cleanup(StringUtils.emptyStringToNone(text))
 
 	def language: Option[Language] =
 		{

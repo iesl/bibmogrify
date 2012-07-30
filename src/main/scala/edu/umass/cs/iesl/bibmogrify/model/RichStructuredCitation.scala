@@ -5,10 +5,10 @@ import com.weiglewilczek.slf4s.Logging
 import edu.umass.cs.iesl.scalacommons.{NonemptyString, StringUtils}
 import StringUtils._
 
-object RichCitationMention
+object RichStructuredCitation
 	{
 	//DetectorFactory.loadProfiles(Language.majorLanguages.map(_.name).toList: _*);
-	implicit def enrichCitationMention(cm: StructuredCitation): RichCitationMention = new RichCitationMention(cm)
+	implicit def enrichCitationMention(cm: StructuredCitation): RichStructuredCitation = new RichStructuredCitation(cm)
 
 	val adhocIdIncrementor: AtomicInteger = new AtomicInteger(0)
 
@@ -29,13 +29,13 @@ object RichCitationMention
 	//def cleanup(ss: Iterable[String]): String = cleanup(wrapNonemptyString(ss.mkString(" ")))
 	}
 
-class RichCitationMention(cm: StructuredCitation) extends Logging
+class RichStructuredCitation(cm: StructuredCitation) extends Logging
 	{
 
-	import RichCitationMention.enrichCitationMention
-	import RichCitationMention.iterableTextWithLanguageToMap
-	import RichCitationMention.cleanup
-	import RichCitationMention.cleanupJoined
+	import RichStructuredCitation.enrichCitationMention
+	import RichStructuredCitation.iterableTextWithLanguageToMap
+	import RichStructuredCitation.cleanup
+	import RichStructuredCitation.cleanupJoined
 	import RichPerson.enrichPerson
 
 	//val cleanAbstract = paperAbstract.toLowerCase.replaceAll("\\s", " ").replaceAll("[^\\w ]", " ").split(" +").mkString(" ")
@@ -85,9 +85,11 @@ class RichCitationMention(cm: StructuredCitation) extends Logging
 		                                                      -sortOrder.getOrElse(0)
 		                                                      }).map(_.qualifiedValue)
 
-	def primaryId = qualifiedIdsInOrder.headOption.getOrElse("adhoc:" + RichCitationMention.adhocIdIncrementor.getAndIncrement)
+	def primaryId = qualifiedIdsInOrder.headOption.getOrElse("adhoc:" + RichStructuredCitation.adhocIdIncrementor.getAndIncrement)
 
-	def authorFullNames: Seq[String] = cm.authors.map(_.agent.toString) //bestFullName)
+	def authorFullNames: Seq[String] = cm.authors.map(_.agent.toString)
+
+	//bestFullName)
 	def authorFullNamesWithId: Seq[String] = cm.authors.map(air =>
 		                                                        {
 		                                                        val a: Agent = air.agent
@@ -97,7 +99,7 @@ class RichCitationMention(cm: StructuredCitation) extends Logging
 				                                                        {
 				                                                        val id = p.primaryId
 
-				                                                        val r: String = p + id.map(" [" + _ + "]").getOrElse("")  // p.bestFullName
+				                                                        val r: String = p + id.map(" [" + _ + "]").getOrElse("") // p.bestFullName
 				                                                        r
 				                                                        }
 			                                                        case i: Institution =>

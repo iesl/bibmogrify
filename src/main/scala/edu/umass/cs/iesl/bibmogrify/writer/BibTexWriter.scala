@@ -5,7 +5,7 @@ import edu.umass.cs.iesl.bibmogrify.pipeline.Transformer
 import edu.umass.cs.iesl.bibmogrify.NamedPlugin
 import edu.umass.cs.iesl.bibmogrify.model._
 
-import RichCitationMention._
+import RichStructuredCitation._
 import edu.umass.cs.iesl.scalacommons.NonemptyString
 import edu.umass.cs.iesl.scalacommons.StringUtils._
 
