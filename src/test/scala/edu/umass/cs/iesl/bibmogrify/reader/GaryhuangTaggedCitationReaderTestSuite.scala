@@ -91,7 +91,7 @@ class GaryhuangTaggedCitationReaderTestSuite extends FunSuite with BeforeAndAfte
 			assert(!r.authors.isEmpty)
 			//val authorName: Option[NonemptyString] = r.authors.head.agent.name.flatMap(_.bestFullName)
 			val authorName: Option[NonemptyString] = r.authors.head.agent.toString
-			logger.info("Reference first author : " + authorName)
+			logger.info("Reference first author : " + authorName + " : " + r.title)
 			}
 		}
 	}

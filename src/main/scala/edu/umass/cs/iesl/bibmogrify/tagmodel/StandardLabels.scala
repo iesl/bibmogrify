@@ -98,7 +98,8 @@ object ExtendedLabelXMLReaderHlabeled
 // todo abstract away cut-and-paste
 class ExtendedLabels(val referenceLabels: Seq[String] = Seq("reference", "reference-hlabeled")) extends LabelSet with Logging
 	{
-	val validLabels = StandardLabels.validLabels ++ Seq("author-affix", "author-first", "author-middle", "author-last", "abstract", "address",
+	val validLabels = StandardLabels.validLabels ++ Seq( // "author-affix", "author-first", "author-middle", "author-last",
+	                                                    "abstract", "address",
 	                                                    //"biblio-hlabeled",
 	                                                    "biblioEpilogue", "biblioPrologue", "body", "email",
 	                                                    //"headers-hlabeled",
@@ -126,11 +127,13 @@ class ExtendedLabels(val referenceLabels: Seq[String] = Seq("reference", "refere
 
 			override val authors =
 				{
+				//** need to parse authors/author/author-first etc., taking the grouping into account
+				//** As a work'round we just ignore the subtags for now by commenting them out above
 				val individualAuthors = (c.get("author") ++ c.get("authors/author")).map(n => new AuthorInRole(Person(n), Nil))
 				val result = if (!individualAuthors.isEmpty) individualAuthors
 				else
 					{
-					val combinedAuthors = c.get("authors").flatMap(s => s.split(" and ").flatMap(_.split(","))).map(n => new AuthorInRole(Person(n), Nil))
+					val combinedAuthors = c.get("authors").flatMap(s => s.split("\\band\\b").flatMap(_.split(","))).map(n => new AuthorInRole(Person(n), Nil))
 					combinedAuthors
 					}
 				result

@@ -15,7 +15,9 @@ import edu.umass.cs.iesl.bibmogrify.NamedPlugin
  *
  * taggedTokens is (text, label)
  *
- * Note there should be an "untagged" label, so that the entire citation is represented by the union of the text, tag pairs.
+ * Note there should be an "untagged" label, so that the entire citation is represented by the union of the (text, tag) pairs.
+ *
+ * Oops: grouping does matter in the case of authors/author/author-first etc.
  */
 case class TaggedCitation(taggedTokens: Seq[(String, String)], labelset: LabelSet)
 	{
