@@ -5,6 +5,7 @@ import com.weiglewilczek.slf4s.Logging
 import edu.umass.cs.iesl.bibmogrify.tagmodel.{ExtendedLabelXMLReaderHlabeled, ExtendedLabelXMLReader}
 import edu.umass.cs.iesl.scalacommons.NonemptyString
 import edu.umass.cs.iesl.scalacommons.StringUtils._
+import edu.umass.cs.iesl.bibmogrify.model.RichStructuredCitation
 
 class GaryhuangTaggedCitationReaderTestSuite extends FunSuite with BeforeAndAfter with Logging
 	{
