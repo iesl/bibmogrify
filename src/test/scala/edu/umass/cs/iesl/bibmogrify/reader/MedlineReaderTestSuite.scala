@@ -56,7 +56,7 @@ class MedlineReaderTestSuite extends FunSuite with BeforeAndAfter with Logging
 	assert(ce.date.get.day === None)
 	}
 
-	import RichCitationMention.enrichCitationMention
+	import RichStructuredCitation.enrichStructuredCitation
 
 	test("Abstract is parsed")
 	{

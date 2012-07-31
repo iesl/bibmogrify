@@ -26,7 +26,7 @@ class PatentST36ReaderTestSuite extends FunSuite with BeforeAndAfter with Loggin
 	assert(c.identifiers.head.authority.get.name === "patent-WO-pub")
 	}
 
-	import RichStructuredCitation.enrichCitationMention
+	import RichStructuredCitation.enrichStructuredCitation
 
 	test("Abstract is parsed")
 	{

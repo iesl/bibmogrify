@@ -8,7 +8,7 @@ import StringUtils._
 object RichStructuredCitation
 	{
 	//DetectorFactory.loadProfiles(Language.majorLanguages.map(_.name).toList: _*);
-	implicit def enrichCitationMention(cm: StructuredCitation): RichStructuredCitation = new RichStructuredCitation(cm)
+	implicit def enrichStructuredCitation(cm: StructuredCitation): RichStructuredCitation = new RichStructuredCitation(cm)
 
 	val adhocIdIncrementor: AtomicInteger = new AtomicInteger(0)
 
@@ -32,7 +32,7 @@ object RichStructuredCitation
 class RichStructuredCitation(cm: StructuredCitation) extends Logging
 	{
 
-	import RichStructuredCitation.enrichCitationMention
+	import RichStructuredCitation.enrichStructuredCitation
 	import RichStructuredCitation.iterableTextWithLanguageToMap
 	import RichStructuredCitation.cleanup
 	import RichStructuredCitation.cleanupJoined

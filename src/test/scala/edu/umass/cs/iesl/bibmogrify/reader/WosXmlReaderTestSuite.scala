@@ -20,7 +20,7 @@ class WosXmlReaderTestSuite extends FunSuite with BeforeAndAfter with Logging
 	assert(c.title === emptyStringToNone("Universal non-equilibrium phenomena at submicrometric surfaces and interfaces"))
 	}
 
-	import RichCitationMention.enrichCitationMention
+	import RichStructuredCitation.enrichStructuredCitation
 
 	test("Abstract is parsed")
 	{

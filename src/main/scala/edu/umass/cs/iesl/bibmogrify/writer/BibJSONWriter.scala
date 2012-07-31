@@ -15,7 +15,7 @@ import collection.immutable.{List, Map}
 object BibJSONWriter extends Transformer[StructuredCitation, String] with NamedPlugin
 	{
 
-	import edu.umass.cs.iesl.bibmogrify.model.RichStructuredCitation.enrichCitationMention
+	import edu.umass.cs.iesl.bibmogrify.model.RichStructuredCitation.enrichStructuredCitation
 
 	val name = "bibjson"
 
@@ -31,14 +31,6 @@ object BibJSONWriter extends Transformer[StructuredCitation, String] with NamedP
 			                                                                                                                           val q = cm.authors map
 			                                                                                                                                   {
 			                                                                                                                                   a => Map((
-
-
-
-
-
-
-
-
 			                                                                                                                                            "name" ->
 			                                                                                                                                            a.agent
 			                                                                                                                                            .toString))

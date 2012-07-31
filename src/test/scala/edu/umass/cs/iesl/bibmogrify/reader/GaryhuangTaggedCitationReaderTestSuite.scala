@@ -20,7 +20,7 @@ class GaryhuangTaggedCitationReaderTestSuite extends FunSuite with BeforeAndAfte
 	assert(c.title === emptyStringToNone("Building frameworks through specialisable nested objects."))
 	}
 
-	import RichStructuredCitation.enrichCitationMention
+	import RichStructuredCitation.enrichStructuredCitation
 
 	test("Abstract is parsed")
 	{
