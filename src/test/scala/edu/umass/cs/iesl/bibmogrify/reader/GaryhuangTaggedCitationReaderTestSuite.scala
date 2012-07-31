@@ -120,15 +120,8 @@ class GaryhuangTaggedCitationReaderTestSuite extends FunSuite with BeforeAndAfte
 
 	test("Untagged text gets merged")
 	{
-	val input = <bogus>some text
-		<title>the title</title>
-		some more
-		<squee>more untagged
-			<authors>
-				<author>hello</author> <author>world</author>
-			</authors>
-		</squee>
-		the end</bogus>
+	val input = <bogus>some text<title>the title</title>some more<squee>more untagged<authors><author>hello</author> <author>world</author></authors></squee>the end</bogus>
+
 	val expected = Seq(("some text", ""), ("the title", "title"), ("some more more untagged", ""), ("hello", "authors/author"), ("world", "authors/author"),
 	                   ("the end", ""))
 	val result = ExtendedLabelXMLReader.parse(input)
