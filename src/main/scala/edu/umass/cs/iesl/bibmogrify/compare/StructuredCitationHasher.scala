@@ -1,6 +1,7 @@
 package edu.umass.cs.iesl.bibmogrify.compare
 
 import edu.umass.cs.iesl.bibmogrify.model.StructuredCitation
+import edu.umass.cs.iesl.bibmogrify.model.RichStructuredCitation._
 import edu.umass.cs.iesl.bibmogrify.pipeline.Transformer
 import edu.umass.cs.iesl.bibmogrify.NamedPlugin
 import edu.umass.cs.iesl.scalacommons.NonemptyString
@@ -32,11 +33,9 @@ object AminoAcidTitleHash extends Transformer[StructuredCitation, NonemptyString
 		// therefore map WXYZ -> Z, J->W, O->X, U->Y
 		def aaize(s: String): String = s.removeAllButWord.toUpperCase.replaceAll("WXY", "Z").replaceAll("J", "W").replaceAll("O", "X").replaceAll("U", "Y")
 
-		// waiting for robust last name extraction
-		//+ cm.authors.headOption.map(_.)
-
 		// implicit emptyStringToNone didn't work right; just be verbose
-		val result: Option[NonemptyString] = emptyStringToNone(cm.title.map(aaize(_)).getOrElse("[ERROR: EMPTY TITLE]"))
+		// waiting for robust last name extraction
+		val result: Option[NonemptyString] = emptyStringToNone(aaize(cm.title.getOrElse("[ERROR: EMPTY TITLE]") +cm.firstAuthorLastName))
 		result
 		}
 	}

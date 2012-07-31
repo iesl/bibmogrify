@@ -89,6 +89,11 @@ class RichStructuredCitation(cm: StructuredCitation) extends Logging
 
 	def authorFullNames: Seq[String] = cm.authors.map(_.agent.toString)
 
+	// get the first author if it is a person
+	def personFirstAuthor: Option[Person] = cm.authors.map(_.agent).filter(_.isInstanceOf[Person]).headOption.asInstanceOf[Option[Person]]
+
+	def firstAuthorLastName: Option[NonemptyString] = personFirstAuthor.flatMap(_.name).flatMap(_.longestSurName)
+
 	//bestFullName)
 	def authorFullNamesWithId: Seq[String] = cm.authors.map(air =>
 		                                                        {
