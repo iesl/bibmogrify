@@ -31,17 +31,22 @@ object AminoAcidTitleHash extends Transformer[StructuredCitation, NonemptyString
 		// AA codes are all uppercase letters except J, O, and U.
 		// but we want to consider those.
 		// therefore map WXYZ -> Z, J->W, O->X, U->Y
-		def aaize(s: String): String = s.removeAllButWord.toUpperCase.replaceAll("WXY", "Z").replaceAll("J", "W").replaceAll("O", "X").replaceAll("U", "Y")
+		def aaize(s: String): String = s.removeAllButWord.replaceAll(" ","").toUpperCase.replaceAll("WXY", "Z").replaceAll("J", "W").replaceAll("O",
+		                                                                                                                              "X").replaceAll("U",
+		                                                                                                                                               "Y")
+
+		//def limit(s:String, len: Int) = s.substring(0,math.max(s.length, len)-1)
 
 		// implicit emptyStringToNone didn't work right; just be verbose
 		// waiting for robust last name extraction
-		val result: Option[NonemptyString] = emptyStringToNone(aaize(cm.title.getOrElse("[ERROR: EMPTY TITLE]") +cm.firstAuthorLastName))
+		val result: Option[NonemptyString] = emptyStringToNone(aaize(cm.title.getOrElse("[ERROR: EMPTY TITLE]")+ cm.firstAuthorLastName))
 		result
 		}
 	}
 
 // do manually for now; would be nice to automate
-object ZipAminoAcidTitleHash extends StringZipTransformer(AminoAcidTitleHash) with NamedPlugin
+object ZipAminoAcidTitleHash
+		extends StringZipTransformer(AminoAcidTitleHash) with Transformer[StructuredCitation, (NonemptyString, StructuredCitation)] with NamedPlugin
 	{
 	val name = "zipAAHash"
 	}
