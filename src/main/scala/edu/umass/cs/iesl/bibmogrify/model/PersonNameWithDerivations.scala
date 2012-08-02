@@ -15,7 +15,7 @@ object PersonNameWithDerivations
 		}
 
 	/**
-	 * Make a new PersonNameWithDerivations.  Generally we should take the local values as primary, and back off to the values provided in the argument.
+	 * Make a new PersonNameWithDerivations.  Generally we should prefer the "primary" values, and back off to the secondary values.
 	 * However sometimes we may judge that the backup value is superior (e.g., full name vs initial).
 
 	 * @return
@@ -85,6 +85,10 @@ trait PersonNameWithDerivations extends PersonName
 
 	final def bestFullName = preferredFullName.orElse(longestFullName)
 
+/**
+ * Propagate info around all the fields.
+ * @return
+ */
 	def inferFully: PersonNameWithDerivations =
 		{
 		// first infer canonical fields only from derived fields
@@ -119,7 +123,8 @@ override val middleNames: Seq[NonemptyString] =
 	}*/
 	}
 
-/**derive all derivable fields solely from provided canonical fields
+/**
+ * Derive all derivable fields solely from provided canonical fields.
  *
  * @param n
  */

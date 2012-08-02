@@ -25,21 +25,21 @@ object AminoAcidTitleHash extends Transformer[StructuredCitation, NonemptyString
 	{
 	val name = "AAHash"
 
+	// could also remove stopwords, etc.
+	// AA codes are all uppercase letters except J, O, and U.
+	// but we want to consider those.
+	// therefore map WXYZ -> Z, J->W, O->X, U->Y
+	//private def aaize(s: String): String = s.toUpperCase.deAccent.removeWhitespace.replaceAll("[^A-Z]", "").replaceAll("WXY", "Z").replaceAll("J", "W")
+	//                                       .replaceAll("O", "X").replaceAll("U", "Y")
+	// by removing vowels, O and U are gone anyway, so we can just map J to A and be done with tit
+	private def aaize(s: String): String = s.toUpperCase.deAccent.removeWhitespace.replaceAll("[^A-Z]", "").removeVowels.replaceAll("J", "A")
+
+	//private def limit(s:String, len: Int) = s.substring(0,math.max(s.length, len)-1)
 	def apply(cm: StructuredCitation) =
 		{
-		// could also remove stopwords, etc.
-		// AA codes are all uppercase letters except J, O, and U.
-		// but we want to consider those.
-		// therefore map WXYZ -> Z, J->W, O->X, U->Y
-		def aaize(s: String): String = s.removeAllButWord.replaceAll(" ","").toUpperCase.replaceAll("WXY", "Z").replaceAll("J", "W").replaceAll("O",
-		                                                                                                                              "X").replaceAll("U",
-		                                                                                                                                               "Y")
-
-		//def limit(s:String, len: Int) = s.substring(0,math.max(s.length, len)-1)
-
 		// implicit emptyStringToNone didn't work right; just be verbose
 		// waiting for robust last name extraction
-		val result: Option[NonemptyString] = emptyStringToNone(aaize(cm.title.getOrElse("[ERROR: EMPTY TITLE]")+ cm.firstAuthorLastName))
+		val result: Option[NonemptyString] = emptyStringToNone(aaize(cm.title.getOrElse("[ERROR: EMPTY TITLE]") + cm.firstAuthorLastName))
 		result
 		}
 	}

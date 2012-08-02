@@ -160,11 +160,21 @@ object MedlineReader extends Transformer[NamedInputStream, StructuredCitation] w
 
 			//override val keywords = subjectCodes map (new BasicKeyword(WOSKeywordAuthority, _))
 			override val locations = Seq(inLocation)
+
+
+			override val authors   = (article \ "AuthorList" \ "Author").map(a =>
+				                                                                 {
+				                                                                 new AuthorInRole(Person((a \ "ForeName").text.trim,(a \ "LastName").text.trim), Nil)
+				                                                                 		                                                                 })
+
+			// in this variant we just make a full-name string and then parse it again downstream
+		/*
 			override val authors   = (article \ "AuthorList" \ "Author").map(a =>
 				                                                                 {
 				                                                                 val fullname = (a \ "ForeName").text.trim + " " + (a \ "LastName").text.trim
 				                                                                 new AuthorInRole(Person(fullname), Nil)
 				                                                                 })
+				                                                                 */
 			}
 		c
 		}

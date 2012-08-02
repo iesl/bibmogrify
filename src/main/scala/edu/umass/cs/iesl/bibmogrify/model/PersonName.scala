@@ -35,7 +35,7 @@ object PersonName
 
 	def combineGivenNames(set: Set[Seq[NonemptyString]]): Seq[NonemptyString] =
 		{
-		// align all the sequences, allowing initials to align with full names, and output the consensus sequence
+		// ** align all the sequences, allowing initials to align with full names, and output the consensus sequence
 		throw new NotImplementedException
 		}
 	}
@@ -45,16 +45,18 @@ object PersonName
  * cultural variations and ambiguities.  Still this should cover most of the cases we care about re authorship of journal articles.
  *
  * A name is not a fixed thing; it is a probabilistic cloud of strings, all denoting the same person.  Here we don't cover the case that a person changes
- * names completely; in that case there two disjoint clouds of strings, so that should be modeled by allowing a Person to have multiple PersonNames.
+ * names completely; in that case there are two disjoint clouds of strings, so that should be modeled by allowing a Person to have multiple PersonNames.
  *
  * Here we try to model different representations of "the same name".  Variations may include: omitting some components; using initials for some components;
  * reordering; etc.  The most "different" case to model is that of married names vs. maiden names.  Since one or both of these may appear,
  * but the other name components are not affected, we consider this a case of multiple surnames within one name.
  *
- * Subclasses propagate name fragments around the various representations,
- * in an attempt to provide some reasonable value for
- * each field.
+ * Subclasses propagate name fragments around the various representations, in an attempt to provide some reasonable value for each field.
+ *
+ * Here we want to take multiple name variants as input and coordinate them into a single record.  For instance,
+ * if we assert that Amanda Jones and A. Jones-Archer are the same person, then we should later recognize Amanda Archer as a valid variant.
  */
+
 trait PersonName
 	{
 	/**Out of the cloud of possible name representations, the person probably prefers one variant.  This is how we know to use the first-initial form,
@@ -72,7 +74,8 @@ trait PersonName
 
 	final def nickNamesInQuotes: Option[NonemptyString] = nickNames.map(s => NonemptyString("'" + s.toString + "'")).mkString(" ")
 
-	/**Each element of this list should be a complete and valid surname (i.e., using only one should produce a valid full name)
+	/**
+	 * Each element of this list should be a complete and valid surname (i.e., using only one should produce a valid full name)
 	 *
 	 * Includes single surnames, multiple sequential surnames (in joined form), hyphenated names (in joined form), maiden names, and married names.
 	 *
@@ -96,15 +99,21 @@ trait PersonName
 	def degrees: Set[NonemptyString] = Set.empty
 	}
 
-// allow declaring a record canonical, to ensure that there are no explicit derivations
+/**
+ * allow declaring a record canonical, to ensure that there are no explicit derivations
+  */
 trait CanonicalPersonName extends PersonName
 	{
 	def withDerivations = new CanonicalPersonNameWithDerivations(this)
+	def inferFully = withDerivations.inferFully
 	}
 
 /**
- * Infer any empty canonical fields, if possible, from provided derived fields.  Note this requires some amount of "parsing",
- * so should be coordinated with PersonNameParser.
+ * Infer any empty canonical fields, if possible, from provided derived fields.
+ *
+ * The approach is to generate full names from the derived fields, and then parse those full names back to canonical fields.  On the one hand,
+ * that risks losing information.  On the other hand, this is generally used upstream of a merge where the "correct" derived fields will take priority anyway.
+ * Also, this may help clean up mistagged data.
  *
  * In cases of single-value fields, nonempty explicit data overrides implicit data resulting from full-name parsing.  Thus, e.g.,
  * an explicit Mr. overrides an implicit Dr.  Should there be precedence rules?
@@ -121,11 +130,14 @@ class InferredCanonicalPersonName(n: PersonNameWithDerivations) extends Canonica
 	{
 	private lazy val nParsedFullNames = n.fullNames.map(n => PersonNameParser.parseFullName(n))
 
+// ** if the prefix is populated in more than one input, pick a random one.  Better: emit warning, choose best (?)
 	override val prefix            = nParsedFullNames.map(_.prefix).flatten.headOption
 	override val givenNames        = PersonName.combineGivenNames(nParsedFullNames.map(_.givenNames))
 	override val nickNames         = nParsedFullNames.map(_.nickNames).flatten
 	override val surNames          = nParsedFullNames.map(_.surNames).flatten.toSet
 	// e.g., Jr. or III
+
+// ** if the hereditySuffix is populated in more than one input, pick a random one.  Better: emit warning, choose best (?)
 	override val hereditySuffix    = nParsedFullNames.map(_.hereditySuffix).flatten.headOption
 	override val degrees           = nParsedFullNames.toSeq.map(_.degrees).flatten.toSet
 	}

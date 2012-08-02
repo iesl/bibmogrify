@@ -2,8 +2,8 @@ package edu.umass.cs.iesl.bibmogrify.model
 
 import java.net.URL
 import collection.immutable.Seq
-import edu.umass.cs.iesl.scalacommons.StringUtils.unwrapNonemptyString
-import edu.umass.cs.iesl.scalacommons.{NonemptyString, StringUtils}
+import edu.umass.cs.iesl.scalacommons.{StringUtils, NonemptyString}
+import StringUtils.emptyStringToNone
 
 object Person
 	{
@@ -19,10 +19,24 @@ object Person
 		override val identifiers  = newIds ++ p.identifiers
 		}
 
-	def apply(s: String): Person =
+	def apply(fullname: String): Person =
 		new Person
 			{
-			override val name = StringUtils.emptyStringToNone(s).map(n => PersonNameWithDerivations(n))
+			override val name = PersonNameWithDerivations(fullname)
+			//StringUtils.emptyStringToNone(fullname).map(n => PersonNameWithDerivations(n))
+			}
+
+	def apply(givenNames: String, surName: String): Person =
+		new Person
+			{
+			val f: Option[NonemptyString] = givenNames
+			val l: Option[NonemptyString] = surName
+
+			override val name = new CanonicalPersonName()
+				{
+				override val givenNames = f
+				override val surNames   = l.toSet
+				}
 			}
 	}
 
@@ -41,8 +55,7 @@ trait Person extends Agent
 	val homepages   : Seq[URL]                          = Nil
 	val identifiers : Seq[PersonIdentifier]             = Nil
 
-//	def bestFullName: String = name.flatMap(_.inferFully.bestFullName).map(_.s).getOrElse("")
-
+	//	def bestFullName: String = name.flatMap(_.inferFully.bestFullName).map(_.s).getOrElse("")
 	override def toString = name.map(_.toString).getOrElse("") //bestFullName
 	}
 
