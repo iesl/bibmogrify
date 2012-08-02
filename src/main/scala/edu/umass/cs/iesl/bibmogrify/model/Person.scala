@@ -2,8 +2,9 @@ package edu.umass.cs.iesl.bibmogrify.model
 
 import java.net.URL
 import collection.immutable.Seq
-import edu.umass.cs.iesl.scalacommons.{StringUtils, NonemptyString}
-import StringUtils.emptyStringToNone
+import edu.umass.cs.iesl.scalacommons.NonemptyString
+import edu.umass.cs.iesl.scalacommons.StringUtils.emptyStringToNone
+import scala.collection
 
 object Person
 	{
@@ -22,21 +23,23 @@ object Person
 	def apply(fullname: String): Person =
 		new Person
 			{
-			override val name = PersonNameWithDerivations(fullname)
+			override val name = Some(PersonNameWithDerivations(fullname))
 			//StringUtils.emptyStringToNone(fullname).map(n => PersonNameWithDerivations(n))
 			}
 
 	def apply(givenNames: String, surName: String): Person =
 		new Person
 			{
-			val f: Option[NonemptyString] = givenNames
+			val fs: collection.Seq[String] = givenNames.split(" ").toSeq
+			val f   = fs.flatMap(t => emptyStringToNone(t))
+
 			val l: Option[NonemptyString] = surName
 
-			override val name = new CanonicalPersonName()
+			override val name = Some((new CanonicalPersonName()
 				{
 				override val givenNames = f
 				override val surNames   = l.toSet
-				}
+				}).withDerivations)
 			}
 	}
 
