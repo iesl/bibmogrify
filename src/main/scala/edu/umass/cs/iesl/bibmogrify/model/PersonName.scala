@@ -105,7 +105,7 @@ trait PersonName
 trait CanonicalPersonName extends PersonName
 	{
 	def withDerivations = new CanonicalPersonNameWithDerivations(this)
-	def inferFully = withDerivations.inferFully
+	//def inferFully: PersonNameWithDerivations = withDerivations.inferFully
 	}
 
 /**
