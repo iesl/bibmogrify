@@ -18,7 +18,7 @@ object BibmogrifyBuild extends Build
 	val deps = Seq(ieslScalaCommons("latest.integration"), liftJson(), scalatest(), subcut(), langdetect(), jsonic(), commonsVfs2(), commonsCollections(),
 	               commonsCompress(),
 	               // these should be provided transitively by scalacommons, but they aren't because it's defined "notTransitive"
-	               dsutils(), commonsLang(), classutil())
+	               dsutils(), commonsLang(), classutil(),"com.mongodb.casbah" % "casbah_2.9.0-1" % "2.1.5.0")
 
 	lazy val bibmogrify = IeslProject("bibmogrify", vers, deps, Public, WithSnapshotDependencies).settings(addCompilerPlugin(subcut()))
 	                      .settings(assemblySettings: _*).settings(net.virtualvoid.sbt.graph.Plugin.graphSettings: _*).cleanLogging.standardLogging
