@@ -62,46 +62,19 @@ class FUSEPaperCorefBundle(val entityId:String, val mentionId:String, val citati
 object FUSEPaperCorefHash extends Transformer[StructuredCitation, NonemptyString] with NamedPlugin{
 	val name = "FPCHash"
 	def apply(cm: StructuredCitation) ={
-    if(cm.authors.size>0){
-      //println("last name: "+cm.authors.head.agent.longestSurName)
-
-      cm.authors.head.agent match{
-        case a:Person =>{
-          /*
-          if(a.name!=None)println("NAME: "+a.name.get.longestSurName) else println("Name is none.")
-          println("Email: "+a.email)
-          println("Phone: "+a.phone)
-          println("Affiliations: "+a.affiliations)
-          println("Homepages: "+a.homepages)
-          println("Identifiers: "+a.identifiers)
-          */
-          /*
-	val address     : Option[Address]                   = None
-	val email       : Option[NonemptyString]            = None
-	val phone       : Option[NonemptyString]            = None
-	val affiliations: Seq[Institution]                  = Nil
-	val homepages   : Seq[URL]                          = Nil
-	val identifiers : Seq[PersonIdentifier]             = Nil
-
-           */
-        }
-        case _ => throw new Exception("WHy isn't htis an author? "+cm.authors.head.agent.getClass())
-      }
-
+    def limit(s:String,len:Int):String = s.substring(0,math.min(s.length-1,len))
+		def project(s: String): String ={
+      limit(
+        s.removeAllButWord.replaceAll(" ","")
+          .toUpperCase
+          .deAccent
+          .replaceAll("[^A-Z]","")
+          .removeVowels,20
+      )
     }
-		// could also remove stopwords, etc.
-		// AA codes are all uppercase letters except J, O, and U.
-		// but we want to consider those.
-		// therefore map WXYZ -> Z, J->W, O->X, U->Y
-		def aaize(s: String): String ={
-      val result =
-      s.removeAllButWord.replaceAll(" ","")
-        .toUpperCase.replaceAll("WXY", "Z")
-        .replaceAll("J", "W").replaceAll("O","X")
-        .replaceAll("U","Y")
-        result.substring(0,math.min(result.length-1,20))  }
+    //	private def aaize(s: String): String = s.toUpperCase.deAccent.removeWhitespace.replaceAll("[^A-Z]", "").removeVowels.replaceAll("J", "A")
  //def limit(s:String, len: Int) = s.substring(0,math.max(s.length, len)-1)
-		val result: Option[NonemptyString] = emptyStringToNone(aaize(cm.title.getOrElse("[ERROR: EMPTY TITLE]")+ cm.firstAuthorLastName))
+		val result: Option[NonemptyString] = emptyStringToNone(project(cm.title.getOrElse("[ERROR: EMPTY TITLE]")+ cm.firstAuthorLastName))
 		result
 		}
 	}
