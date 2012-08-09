@@ -62,15 +62,17 @@ class FUSEPaperCorefBundle(val entityId:String, val mentionId:String, val citati
 object FUSEPaperCorefHash extends Transformer[StructuredCitation, NonemptyString] with NamedPlugin{
 	val name = "FPCHash"
 	def apply(cm: StructuredCitation) ={
-    def limit(s:String,len:Int):String = s.substring(0,math.min(s.length-1,len))
+    def limit(s:String,len:Int):String = s.substring(0,math.min(s.length,len))
 		def project(s: String): String ={
-      limit(
+      val r = limit(
         s.removeAllButWord.replaceAll(" ","")
           .toUpperCase
           .deAccent
           .replaceAll("[^A-Z]","")
           .removeVowels,20
       )
+      //println("title hash: "+r)
+      r
     }
     //	private def aaize(s: String): String = s.toUpperCase.deAccent.removeWhitespace.replaceAll("[^A-Z]", "").removeVowels.replaceAll("J", "A")
  //def limit(s:String, len: Int) = s.substring(0,math.max(s.length, len)-1)
