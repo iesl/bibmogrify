@@ -149,13 +149,13 @@ object ArchiveToInputStreams extends Transformer[URL, NamedInputStream] with Nam
 			case Some("tar") => processTarStream(name, nis.getInputStream).flatMap(getAllInputStreams(_))
 			case Some("xml") => Some(nis)
 
-			case Some("gz")  => Some(new NamedInputStream(baseName){ def getInputStream = new GZIPInputStream(nis.getInputStream) })
+			case Some("gz")  => Some(new NamedInputStream(baseName){ def getInputStream = new GZIPInputStream(nis.getInputStream) }).flatMap(getAllInputStreams(_))
 			case Some("tgz") => processTarStream(name, new GZIPInputStream(nis.getInputStream)).flatMap(getAllInputStreams(_))
 			case Some("zip") => processZipStream(name, nis.getInputStream).flatMap(getAllInputStreams(_))
 			case _ =>
 				{
 				logger.warn("Unknown file extension: " + name)
-				Nil
+				Some(nis)
 				}
 		}
 		}
