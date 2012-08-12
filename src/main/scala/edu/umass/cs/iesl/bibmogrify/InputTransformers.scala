@@ -10,7 +10,6 @@ import sun.net.www.{MimeEntry, MimeTable}
 import org.apache.commons.compress.archivers.tar.{TarArchiveInputStream, TarArchiveEntry}
 import java.io.{ByteArrayInputStream, InputStream, File}
 import java.util.zip.{ZipEntry, ZipInputStream, GZIPInputStream}
-import collection.parallel.ParSeq
 import collection.GenTraversableOnce
 
 /**
@@ -83,7 +82,7 @@ object VfsToInputStreams extends Transformer[String, NamedInputStream] with Name
 		val m = new StandardFileSystemManager
 		m.setFilesCache(new
 						                LRUFilesCache()) // if a directory has more than 100 entries (or n, if we set it ourselves) this fails; but we
-						                // don't want to cache all that
+		// don't want to cache all that
 		m.init()
 		m
 		}
@@ -140,16 +139,24 @@ object ArchiveToInputStreams extends Transformer[URL, NamedInputStream] with Nam
 		val name = nis.name
 		val (baseName, extension) = name.lastIndexOf('.') match
 		{
-			case -1     => (name, None)
-			case x: Int => (name.substring(0,x), new Some(name.substring(x + 1).toLowerCase))
+			case -1 => (name, None)
+			case x: Int => (name.substring(0, x), new Some(name.substring(x + 1).toLowerCase))
 		}
 
 		extension match
 		{
 			case Some("tar") => processTarStream(name, nis.getInputStream).flatMap(getAllInputStreams(_))
 			case Some("xml") => Some(nis)
-
-			case Some("gz")  => Some(new NamedInputStream(baseName){ def getInputStream = new GZIPInputStream(nis.getInputStream) }).flatMap(getAllInputStreams(_))
+			case Some("gz") =>
+				{
+				// compiler didn't like implicit types?
+				val x: Some[NamedInputStream] = Some(new NamedInputStream(baseName)
+					{
+					def getInputStream = new GZIPInputStream(nis.getInputStream)
+					})
+				val r : Iterable[NamedInputStream] = x.flatMap(getAllInputStreams(_))
+				r
+				}
 			case Some("tgz") => processTarStream(name, new GZIPInputStream(nis.getInputStream)).flatMap(getAllInputStreams(_))
 			case Some("zip") => processZipStream(name, nis.getInputStream).flatMap(getAllInputStreams(_))
 			case _ =>
