@@ -149,13 +149,11 @@ object ArchiveToInputStreams extends Transformer[URL, NamedInputStream] with Nam
 			case Some("xml") => Some(nis)
 			case Some("gz") =>
 				{
-				// compiler didn't like implicit types?
 				val x: Option[NamedInputStream] = Some(new NamedInputStream(baseName)
 					{
 					def getInputStream = new GZIPInputStream(nis.getInputStream)
 					})
-				val r : Iterable[NamedInputStream] = x.flatMap(getAllInputStreams)
-				r
+				x.map(getAllInputStreams).getOrElse(Nil)
 				}
 			case Some("tgz") => processTarStream(name, new GZIPInputStream(nis.getInputStream)).flatMap(getAllInputStreams)
 			case Some("zip") => processZipStream(name, nis.getInputStream).flatMap(getAllInputStreams)
