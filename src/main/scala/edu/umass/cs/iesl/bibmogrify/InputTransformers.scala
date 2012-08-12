@@ -145,20 +145,20 @@ object ArchiveToInputStreams extends Transformer[URL, NamedInputStream] with Nam
 
 		extension match
 		{
-			case Some("tar") => processTarStream(name, nis.getInputStream).flatMap(getAllInputStreams(_))
+			case Some("tar") => processTarStream(name, nis.getInputStream).flatMap(getAllInputStreams)
 			case Some("xml") => Some(nis)
 			case Some("gz") =>
 				{
 				// compiler didn't like implicit types?
-				val x: Some[NamedInputStream] = Some(new NamedInputStream(baseName)
+				val x: Option[NamedInputStream] = Some(new NamedInputStream(baseName)
 					{
 					def getInputStream = new GZIPInputStream(nis.getInputStream)
 					})
-				val r : Iterable[NamedInputStream] = x.flatMap(getAllInputStreams(_))
+				val r : Iterable[NamedInputStream] = x.flatMap(getAllInputStreams)
 				r
 				}
-			case Some("tgz") => processTarStream(name, new GZIPInputStream(nis.getInputStream)).flatMap(getAllInputStreams(_))
-			case Some("zip") => processZipStream(name, nis.getInputStream).flatMap(getAllInputStreams(_))
+			case Some("tgz") => processTarStream(name, new GZIPInputStream(nis.getInputStream)).flatMap(getAllInputStreams)
+			case Some("zip") => processZipStream(name, nis.getInputStream).flatMap(getAllInputStreams)
 			case _ =>
 				{
 				logger.warn("Unknown file extension: " + name)
