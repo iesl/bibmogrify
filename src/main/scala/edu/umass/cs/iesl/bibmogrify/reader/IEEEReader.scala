@@ -11,6 +11,7 @@ import java.lang.String
 import edu.umass.cs.iesl.bibmogrify.pipeline.Transformer
 import edu.umass.cs.iesl.bibmogrify.{NamedInputStream, NamedPlugin, BibMogrifyException}
 import edu.umass.cs.iesl.scalacommons.{NonemptyString, XMLIgnoreDTD}
+import edu.umass.cs.iesl.namejuggler.PersonNameWithDerivations
 
 object IEEEReader extends Transformer[NamedInputStream, StructuredCitation] with Logging with NamedPlugin
 	{

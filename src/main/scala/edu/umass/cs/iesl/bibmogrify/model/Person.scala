@@ -5,6 +5,7 @@ import collection.immutable.Seq
 import edu.umass.cs.iesl.scalacommons.NonemptyString
 import edu.umass.cs.iesl.scalacommons.StringUtils.emptyStringToNone
 import scala.collection
+import edu.umass.cs.iesl.namejuggler.{PersonNameWithDerivations, CanonicalPersonName}
 
 object Person
 	{

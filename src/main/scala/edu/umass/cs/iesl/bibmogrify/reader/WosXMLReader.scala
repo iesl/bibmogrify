@@ -10,6 +10,7 @@ import xml.Node
 import collection.immutable.Seq
 import edu.umass.cs.iesl.bibmogrify.{NamedInputStream, NamedPlugin, BibMogrifyException}
 import edu.umass.cs.iesl.scalacommons.{NonemptyString, StringUtils, XmlUtils}
+import edu.umass.cs.iesl.namejuggler.PersonNameWithDerivations
 
 object WosXMLReader extends Transformer[NamedInputStream, StructuredCitation] with Logging with NamedPlugin
 	{

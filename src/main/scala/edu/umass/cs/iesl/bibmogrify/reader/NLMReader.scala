@@ -9,6 +9,7 @@ import xml.{NodeSeq, Node}
 import edu.umass.cs.iesl.bibmogrify.pipeline.Transformer
 import edu.umass.cs.iesl.bibmogrify.{NamedInputStream, NamedPlugin, BibMogrifyException}
 import edu.umass.cs.iesl.scalacommons.{NonemptyString, StringUtils, XMLIgnoreDTD}
+import edu.umass.cs.iesl.namejuggler.PersonNameWithDerivations
 
 /**
  * @author <a href="mailto:dev@davidsoergel.com">David Soergel</a>
