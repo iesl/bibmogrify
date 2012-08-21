@@ -18,7 +18,7 @@ class GaryhuangTaggedCitationReaderTestSuite extends FunSuite with BeforeAndAfte
 	val citationList = ExtendedLabelXMLReader(file)
 	val tagged = citationList.toIterator.next()
 	val c = tagged.toStructuredCitation
-	assert(c.title === emptyStringToNone("Building frameworks through specialisable nested objects."))
+	assert(c.title === "Building frameworks through specialisable nested objects.".opt)
 	}
 
 	import RichStructuredCitation.enrichStructuredCitation
@@ -41,7 +41,6 @@ class GaryhuangTaggedCitationReaderTestSuite extends FunSuite with BeforeAndAfte
    }
  */
 
-	import edu.umass.cs.iesl.scalacommons.StringUtils.emptyStringToNone
 
 	test("Journal is parsed")
 	{
@@ -49,7 +48,7 @@ class GaryhuangTaggedCitationReaderTestSuite extends FunSuite with BeforeAndAfte
 	val tagged = citationList.toIterator.next()
 	val c = tagged.toStructuredCitation
 	val cont = c.containedIn.get
-	assert(cont.container.title === emptyStringToNone("Vrije Universiteit Brussel Faculteit Wetenschappen"))
+	assert(cont.container.title === "Vrije Universiteit Brussel Faculteit Wetenschappen".opt)
 	//assert(cont.volume === Some("146"))
 	}
 

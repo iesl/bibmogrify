@@ -1,11 +1,9 @@
 package edu.umass.cs.iesl.bibmogrify.model
 
 import java.net.URL
-import collection.immutable.Seq
 import edu.umass.cs.iesl.scalacommons.NonemptyString
-import edu.umass.cs.iesl.scalacommons.StringUtils.emptyStringToNone
-import scala.collection
 import edu.umass.cs.iesl.namejuggler.{PersonNameWithDerivations, CanonicalPersonName}
+import edu.umass.cs.iesl.scalacommons.StringUtils._
 
 object Person
 	{
@@ -31,14 +29,14 @@ object Person
 	def apply(givenNames: String, surName: String): Person =
 		new Person
 			{
-			val fs: collection.Seq[String] = givenNames.split(" ").toSeq
-			val f   = fs.flatMap(t => emptyStringToNone(t))
+			val fs = givenNames.split(" ").toSeq
+			//val f   = fs.flatMap(t => emptyStringToNone(t))
 
 			val l: Option[NonemptyString] = surName
 
 			override val name = Some((new CanonicalPersonName()
 				{
-				override val givenNames = f
+				override val givenNames : Seq[NonemptyString] = fs
 				override val surNames   = l.toSet
 				}).withDerivations)
 			}

@@ -63,11 +63,11 @@ object IEEEReader extends Transformer[NamedInputStream, StructuredCitation] with
 							{
 							Some(new PersonNameWithDerivations
 								{
-								override val givenNames: Seq[NonemptyString] = emptyStringToNone(first).toSeq
-								override val surNames  : Set[NonemptyString] = emptyStringToNone(last).toSet
+								override val givenNames: Seq[NonemptyString] = first.split(" ").toSeq
+								override val surNames  : Set[NonemptyString] = last.just
 
 								//** just ignore normname for now
-								override val fullNames: Set[NonemptyString] = emptyStringToNone(first + " " + last).toSet
+								override val fullNames: Set[NonemptyString] = (first + " " + last).just
 								})
 							}
 						}

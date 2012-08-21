@@ -28,7 +28,7 @@ class ElsevierReaderTestSuite extends FunSuite with BeforeAndAfter with Logging
 		 */
 	test("Title is parsed")
 	{
-	assert(c.title === emptyStringToNone("Effects of excessive cookie consumption in garbage-can-dwelling shagbeasts"))
+	assert(c.title === "Effects of excessive cookie consumption in garbage-can-dwelling shagbeasts".opt)
 	}
 
 	test("Authors are parsed")
@@ -42,8 +42,8 @@ class ElsevierReaderTestSuite extends FunSuite with BeforeAndAfter with Logging
 	test("Journal is parsed")
 	{
 	val cont = c.containedIn.get
-	assert(cont.container.title === emptyStringToNone("Acta Sesamae"))
-	assert(cont.volume === emptyStringToNone("50"))
+	assert(cont.container.title === "Acta Sesamae".opt)
+	assert(cont.volume === "50".opt)
 	}
 
 	test("Partial date is parsed")

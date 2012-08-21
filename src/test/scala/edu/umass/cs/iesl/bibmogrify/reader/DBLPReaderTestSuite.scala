@@ -28,7 +28,7 @@ class DBLPReaderTestSuite extends FunSuite with BeforeAndAfter with Logging
 		 */
 	test("Title is parsed")
 	{
-	assert(c.title === emptyStringToNone("Further Normalization of the Data Base Relational Model."))
+	assert(c.title === "Further Normalization of the Data Base Relational Model.".opt)
 	}
 
 	test("Authors are parsed")
@@ -42,8 +42,8 @@ class DBLPReaderTestSuite extends FunSuite with BeforeAndAfter with Logging
 	test("Journal is parsed")
 	{
 	val cont = c.containedIn.get
-	assert(cont.container.title === emptyStringToNone("IBM Research Report, San Jose, California"))
-	assert(cont.volume === emptyStringToNone("RJ909"))
+	assert(cont.container.title === "IBM Research Report, San Jose, California".opt)
+	assert(cont.volume === "RJ909".opt)
 	}
 
 	test("Partial date is parsed")

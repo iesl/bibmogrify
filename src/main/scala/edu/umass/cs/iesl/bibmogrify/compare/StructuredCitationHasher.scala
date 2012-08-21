@@ -32,14 +32,14 @@ object AminoAcidTitleHash extends Transformer[StructuredCitation, NonemptyString
 	//private def aaize(s: String): String = s.toUpperCase.deAccent.removeWhitespace.replaceAll("[^A-Z]", "").replaceAll("WXY", "Z").replaceAll("J", "W")
 	//                                       .replaceAll("O", "X").replaceAll("U", "Y")
 	// by removing vowels, O and U are gone anyway, so we can just map J to A and be done with tit
-	private def aaize(s: String): String = s.toUpperCase.deAccent.removeWhitespace.replaceAll("[^A-Z]", "").removeVowels.replaceAll("J", "A")
+	private def aaize(s: String): String = s.toUpperCase.deAccent.stripWhitespace.replaceAll("[^A-Z]", "").stripVowels.replaceAll("J", "A")
 
 	//private def limit(s:String, len: Int) = s.substring(0,math.max(s.length, len)-1)
 	def apply(cm: StructuredCitation) =
 		{
 		// implicit emptyStringToNone didn't work right; just be verbose
 		// waiting for robust last name extraction
-		val result: Option[NonemptyString] = emptyStringToNone(aaize(cm.title.getOrElse("[ERROR: EMPTY TITLE]") + cm.firstAuthorLastName))
+		val result: Option[NonemptyString] = aaize(cm.title.getOrElse("[ERROR: EMPTY TITLE]") + cm.firstAuthorLastName)
 		result
 		}
 	}
@@ -65,18 +65,18 @@ object FUSEPaperCorefHash extends Transformer[StructuredCitation, NonemptyString
     def limit(s:String,len:Int):String = s.substring(0,math.min(s.length,len))
 		def project(s: String): String ={
       val r = limit(
-        s.removeAllButWord.replaceAll(" ","")
+        s.maskAllButWord.replaceAll(" ","")
           .toUpperCase
           .deAccent
           .replaceAll("[^A-Z]","")
-          .removeVowels,20
+          .stripVowels,20
       )
       //println("title hash: "+r)
       r
     }
     //	private def aaize(s: String): String = s.toUpperCase.deAccent.removeWhitespace.replaceAll("[^A-Z]", "").removeVowels.replaceAll("J", "A")
  //def limit(s:String, len: Int) = s.substring(0,math.max(s.length, len)-1)
-		val result: Option[NonemptyString] = emptyStringToNone(project(cm.title.getOrElse("[ERROR: EMPTY TITLE]")+ cm.firstAuthorLastName))
+		val result: Option[NonemptyString] = project(cm.title.getOrElse("[ERROR: EMPTY TITLE]")+ cm.firstAuthorLastName)
 		result
 		}
 	}

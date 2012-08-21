@@ -18,7 +18,7 @@ class PatentST36ReaderTestSuite extends FunSuite with BeforeAndAfter with Loggin
 
 	test("Title is parsed")
 	{
-	assert(c.title === emptyStringToNone("GOLF TEE DEVICE"))
+	assert(c.title === "GOLF TEE DEVICE".opt)
 	}
 
 	test("ID is parsed")

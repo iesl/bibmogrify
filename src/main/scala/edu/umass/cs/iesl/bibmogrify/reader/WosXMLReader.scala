@@ -11,6 +11,7 @@ import collection.immutable.Seq
 import edu.umass.cs.iesl.bibmogrify.{NamedInputStream, NamedPlugin, BibMogrifyException}
 import edu.umass.cs.iesl.scalacommons.{NonemptyString, StringUtils, XmlUtils}
 import edu.umass.cs.iesl.namejuggler.PersonNameWithDerivations
+import StringUtils._
 
 object WosXMLReader extends Transformer[NamedInputStream, StructuredCitation] with Logging with NamedPlugin
 	{
@@ -196,7 +197,7 @@ object WosXMLReader extends Transformer[NamedInputStream, StructuredCitation] wi
 
 		override val authors: Seq[AuthorInRole] = Seq(new AuthorInRole(new Person()
 			{
-			override val name: Option[PersonNameWithDerivations] = StringUtils.emptyStringToNone((node \ "@auth").text).map(n => PersonNameWithDerivations(n))
+			override val name: Option[PersonNameWithDerivations] = ((node \ "@auth").text).opt.map(n => PersonNameWithDerivations(n))
 			}, List(FirstAuthor)))
 
 		val venueMention = new StructuredCitation
@@ -205,7 +206,7 @@ object WosXMLReader extends Transformer[NamedInputStream, StructuredCitation] wi
 			}
 		override val containedIn =
 			{
-			val pr = emptyStringToNone((node \ "@page").text).map(st => new StringPageRange()
+			val pr = ((node \ "@page").text).opt.map(st => new StringPageRange()
 				{
 				override val start: NonemptyString = st
 				})

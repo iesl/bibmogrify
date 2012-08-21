@@ -5,6 +5,7 @@ import com.weiglewilczek.slf4s.Logging
 import com.cybozu.labs.langdetect.{LangDetectException, Detector, DetectorFactory}
 import edu.umass.cs.iesl.scalacommons.{StringUtils, NonemptyString}
 import tools.nsc.io.Directory
+import StringUtils._
 
 // ** add citances with context for sentiment
 trait StructuredCitation
@@ -82,7 +83,7 @@ object TextWithLanguage extends Logging
 class TextWithLanguage private(val specifiedLanguage: Option[Language], val text: String) extends Logging
 	{
 
-	def cleanText = RichStructuredCitation.cleanup(StringUtils.emptyStringToNone(text))
+	def cleanText = RichStructuredCitation.cleanup(text)
 
 	def language: Option[Language] =
 		{

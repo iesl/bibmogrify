@@ -17,7 +17,7 @@ class WosXmlReaderTestSuite extends FunSuite with BeforeAndAfter with Logging
 
 	test("Title is parsed")
 	{
-	assert(c.title === emptyStringToNone("Universal non-equilibrium phenomena at submicrometric surfaces and interfaces"))
+	assert(c.title === "Universal non-equilibrium phenomena at submicrometric surfaces and interfaces".opt)
 	}
 
 	import RichStructuredCitation.enrichStructuredCitation
@@ -39,7 +39,7 @@ class WosXmlReaderTestSuite extends FunSuite with BeforeAndAfter with Logging
 	test("Journal is parsed")
 	{
 	val cont = c.containedIn.get
-	assert(cont.container.title === emptyStringToNone("EUROPEAN PHYSICAL JOURNAL-SPECIAL TOPICS"))
+	assert(cont.container.title === "EUROPEAN PHYSICAL JOURNAL-SPECIAL TOPICS".opt)
 	//assert(cont.volume === Some("146"))
 	}
 

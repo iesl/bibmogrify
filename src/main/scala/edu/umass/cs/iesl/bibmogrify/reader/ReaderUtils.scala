@@ -25,7 +25,7 @@ object ReaderUtils
 
 		import edu.umass.cs.iesl.scalacommons.StringUtils._
 
-		def stripTags: String = n.collectText.map(_.text.trim).mkString(" ").trim.removeNewlinesAndTabs
+		def stripTags: String = n.collectText.map(_.text.trim).mkString(" ").trim.maskNewlinesAndTabs
 		}
 
 	}

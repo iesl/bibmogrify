@@ -3,7 +3,9 @@ package edu.umass.cs.iesl.bibmogrify.model
 import actors.threadpool.AtomicInteger
 import com.weiglewilczek.slf4s.Logging
 import edu.umass.cs.iesl.scalacommons.{NonemptyString, StringUtils}
-import StringUtils._
+import StringUtils.unwrapNonemptyString
+import StringUtils.enrichString
+import StringUtils.toOptionNonempty
 
 object RichStructuredCitation
 	{
@@ -20,11 +22,11 @@ object RichStructuredCitation
 		}.toMap
 		}
 
-	def cleanup(s: NonemptyString): String = s.toLowerCase.removePunctuation.removeNewlines.collapseWhitespace.trim
+	def cleanup(s: NonemptyString): String = s.toLowerCase.maskPunctuation.maskNewlines.collapseWhitespace.trim
 
 	def cleanup(os: Option[NonemptyString]): String = os.map(cleanup).getOrElse("")
 
-	def cleanupJoined(ss: Iterable[NonemptyString]): String = cleanup(emptyStringToNone(ss.mkString(" ")))
+	def cleanupJoined(ss: Iterable[NonemptyString]): String = cleanup(ss.mkString(" "))
 
 	//def cleanup(ss: Iterable[String]): String = cleanup(wrapNonemptyString(ss.mkString(" ")))
 	}
@@ -43,7 +45,7 @@ class RichStructuredCitation(cm: StructuredCitation) extends Logging
 	lazy val cleanTitle = cleanup(cm.title)
 	val englishAbstract: String = cm.abstractText.get(Some(English)).getOrElse(cm.abstractText.get(None).getOrElse(""))
 
-	lazy val cleanAbstract      = cleanup(emptyStringToNone(englishAbstract))
+	lazy val cleanAbstract      = cleanup(englishAbstract)
 	lazy val cleanAbstractWords = cleanAbstract.split(" ").filter(_.nonEmpty).length
 
 	lazy val cleanTitleAndAbstract = (cleanTitle + " " + cleanAbstract).trim
@@ -59,7 +61,9 @@ class RichStructuredCitation(cm: StructuredCitation) extends Logging
 	//lazy val cleanIntro = cm.textOfType(IntroductionAndBackground).map(_.replaceAll("\\s", " ")).mkString("").trim
 	lazy val cleanBody        = cleanupJoined(cm.bodyText.map(_.text).flatten)
 
-	lazy val cleanBodyWords = cleanBody.split(" ").filter(_.nonEmpty).length
+	lazy val cleanBodyWords = {
+		val words = cleanBody.split(" ").filter(_.nonEmpty).length
+	}
 	lazy val cleanTotal     = (cleanTitleAndAbstract + " " + cleanSummary + " " + cleanBody).trim
 
 	def totalTextSize = cleanTotal.size

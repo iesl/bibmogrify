@@ -1,6 +1,5 @@
 package edu.umass.cs.iesl.bibmogrify.reader
 
-import edu.umass.cs.iesl.scalacommons.StringUtils._
 import edu.umass.cs.iesl.scalacommons.DateUtils._
 import edu.umass.cs.iesl.bibmogrify.model._
 import edu.umass.cs.iesl.bibmogrify.model.Authorities._
@@ -8,7 +7,11 @@ import com.weiglewilczek.slf4s.Logging
 import edu.umass.cs.iesl.bibmogrify.pipeline.Transformer
 import edu.umass.cs.iesl.bibmogrify.{NamedInputStream, NamedPlugin, BibMogrifyException}
 import xml.{Elem, NodeSeq, Node}
-import edu.umass.cs.iesl.scalacommons.{NonemptyString, XMLIgnoreDTD}
+import edu.umass.cs.iesl.scalacommons.{StringUtils, NonemptyString, XMLIgnoreDTD}
+
+import StringUtils.unwrapNonemptyString
+import StringUtils.enrichString
+import StringUtils.toOptionNonempty
 
 object PatentST36Reader extends Transformer[NamedInputStream, StructuredPatent] with Logging with NamedPlugin
 	{

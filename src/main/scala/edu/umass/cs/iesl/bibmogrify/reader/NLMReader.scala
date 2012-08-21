@@ -148,16 +148,16 @@ object NLMReader extends Transformer[NamedInputStream, StructuredCitation] with 
 					val pmidNodes: NodeSeq = idNodes.filter(_.attribute("pub-id-type").filter(_.text == "pmid").isDefined)
 					val doiNodes: NodeSeq = idNodes.filter(_.attribute("pub-id-type").filter(_.text == "doi").isDefined)
 
-					val pmids = pmidNodes.map(pm => BasicIdentifier(pm.text.trim.removeNewlinesAndTabs, PubmedAuthority))
-					val dois = doiNodes.map(pm => BasicIdentifier(pm.text.trim.removeNewlinesAndTabs, DoiAuthority))
+					val pmids = pmidNodes.map(pm => BasicIdentifier(pm.text.trim.maskNewlinesAndTabs, PubmedAuthority))
+					val dois = doiNodes.map(pm => BasicIdentifier(pm.text.trim.maskNewlinesAndTabs, DoiAuthority))
 
 					pmids ++ dois
 					}
 
-				override val refMarker: Option[NonemptyString] = (ref \ "label").text.trim.removeNewlinesAndTabs
+				override val refMarker: Option[NonemptyString] = (ref \ "label").text.trim.maskNewlinesAndTabs
 
 				// ** sometimes these are tagged; we just ignore that for now
-				override val unstructuredString: Option[NonemptyString] = (ref \ "citation").filter(_.label != "pub-id").text.trim.removeNewlinesAndTabs
+				override val unstructuredString: Option[NonemptyString] = (ref \ "citation").filter(_.label != "pub-id").text.trim.maskNewlinesAndTabs
 				}
 			})
 
@@ -168,10 +168,10 @@ object NLMReader extends Transformer[NamedInputStream, StructuredCitation] with 
 			override val doctype   : Option[DocType]        = JournalArticle
 			override val docSubtype: Option[NonemptyString] = ((articlemeta \ "article-categories" \ "subj-group")
 			                                                   .filter(_.attribute("subj-group-type").filter(_.text == "heading").isDefined) \ "subject").text
-			                                                  .trim.removeNewlinesAndTabs
+			                                                  .trim.maskNewlinesAndTabs
 
 			// drop superscripts, subscripts, italics, and typewriter styles
-			override val title: Option[NonemptyString] = (articlemeta \ "title-group" \ "article-title").text.trim.removeNewlinesAndTabs
+			override val title: Option[NonemptyString] = (articlemeta \ "title-group" \ "article-title").text.trim.maskNewlinesAndTabs
 			override val dates                         = Seq(BasicCitationEvent(date, Published))
 
 			override val abstractText = Seq(TextWithLanguage(None, (articlemeta \ "abstract").stripTags))
@@ -182,26 +182,26 @@ object NLMReader extends Transformer[NamedInputStream, StructuredCitation] with 
 			// todo check that these don't double-count, and that they catch all the cases
 			override val numFigures                          = Some((body \\ "fig").size + (back \\ "fig").size)
 			override val numTables                           = Some((body \\ "table-wrap").size + (back \\ "table-wrap").size)
-			override val licenseType: Option[NonemptyString] = (front \ "permissions" \ "license" \ "@license-type").text.trim.removeNewlinesAndTabs
+			override val licenseType: Option[NonemptyString] = (front \ "permissions" \ "license" \ "@license-type").text.trim.maskNewlinesAndTabs
 
 			override val identifiers =
 				{
 				val pmidNodes: NodeSeq = idNodes.filter(_.attribute("pub-id-type").filter(_.text == "pmid").isDefined)
 				val doiNodes: NodeSeq = idNodes.filter(_.attribute("pub-id-type").filter(_.text == "doi").isDefined)
 
-				val pmids = pmidNodes.map(pm => BasicIdentifier(pm.text.trim.removeNewlinesAndTabs, PubmedAuthority))
+				val pmids = pmidNodes.map(pm => BasicIdentifier(pm.text.trim.maskNewlinesAndTabs, PubmedAuthority))
 				//val dois = doiNodes.map(pm => BasicIdentifier(pm.text, DoiAuthority))
 
 				pmids
 				}
 
-			val volume = (articlemeta \ "volume").text.trim.removeNewlinesAndTabs
-			val number = (articlemeta \ "issue").text.trim.removeNewlinesAndTabs
+			val volume = (articlemeta \ "volume").text.trim.maskNewlinesAndTabs
+			val number = (articlemeta \ "issue").text.trim.maskNewlinesAndTabs
 
 			val pages: Option[PageRange] =
 				{
-				val fpage: Option[NonemptyString] = (articlemeta \ "fpage").text.trim.removeNewlinesAndTabs
-				val lpage: Option[NonemptyString] = (articlemeta \ "lpage").text.trim.removeNewlinesAndTabs
+				val fpage: Option[NonemptyString] = (articlemeta \ "fpage").text.trim.maskNewlinesAndTabs
+				val lpage: Option[NonemptyString] = (articlemeta \ "lpage").text.trim.maskNewlinesAndTabs
 				try
 				{
 				val fpagei = fpage.map(_.s.toInt)
@@ -223,14 +223,14 @@ object NLMReader extends Transformer[NamedInputStream, StructuredCitation] with 
 					{
 					override val name = Some(new PersonNameWithDerivations
 						{
-						val first: String = (c \ "given-names").text.trim.removeNewlinesAndTabs
-						val last          = (c \ "surname").text.trim.removeNewlinesAndTabs
+						val first: String = (c \ "given-names").text.trim.maskNewlinesAndTabs
+						val last          = (c \ "surname").text.trim.maskNewlinesAndTabs
 
-						override val givenNames: Seq[NonemptyString] = StringUtils.emptyStringToNone(first).toSeq
+						override val givenNames: Seq[NonemptyString] = first.split(" ").toSeq
 
-						override val surNames: Set[NonemptyString] = StringUtils.emptyStringToNone(last).toSet
+						override val surNames: Set[NonemptyString] = last.just
 
-						override val fullNames = emptyStringToNone(first + " " + last).toSet
+						override val fullNames: Set[NonemptyString] = (first + " " + last).just
 						})
 					})).map(new AuthorInRole(_, Nil))
 

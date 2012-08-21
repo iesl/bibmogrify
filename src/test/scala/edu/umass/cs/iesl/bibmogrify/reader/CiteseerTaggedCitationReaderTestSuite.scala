@@ -16,7 +16,7 @@ class CiteseerTaggedCitationReaderTestSuite extends FunSuite with BeforeAndAfter
     val tagged = citationList.toIterator.next()
     val c = tagged.toStructuredCitation
 
-    assert(c.title === emptyStringToNone("Implementation issues in the development of the parsec parser ."))
+    assert(c.title === "Implementation issues in the development of the parsec parser .".opt)
   }
   /* test("Abstract is parsed") {
     assert(c.abstractText.get.size > 50)
@@ -37,7 +37,7 @@ class CiteseerTaggedCitationReaderTestSuite extends FunSuite with BeforeAndAfter
     val c = tagged.toStructuredCitation
 
     val cont = c.containedIn.get
-    assert(cont.container.title === emptyStringToNone("SOFTWARE - Practice and Experience"))
+    assert(cont.container.title === "SOFTWARE - Practice and Experience".opt)
     //assert(cont.volume === Some("146"))
   }
 

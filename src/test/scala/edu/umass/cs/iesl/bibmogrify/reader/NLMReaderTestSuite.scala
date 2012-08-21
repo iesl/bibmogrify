@@ -28,7 +28,7 @@ class NLMReaderTestSuite extends FunSuite with BeforeAndAfter with Logging
 		 */
 	test("Title is parsed")
 	{
-	assert(c.title === emptyStringToNone("Regulation of dopamine transporter activity by carboxypeptidase E"))
+	assert(c.title === "Regulation of dopamine transporter activity by carboxypeptidase E".opt)
 	}
 
 	test("Authors are parsed")
@@ -42,8 +42,8 @@ class NLMReaderTestSuite extends FunSuite with BeforeAndAfter with Logging
 	test("Journal is parsed")
 	{
 	val cont = c.containedIn.get
-	assert(cont.container.title === emptyStringToNone("Molecular Brain"))
-	assert(cont.volume === emptyStringToNone("2"))
+	assert(cont.container.title === "Molecular Brain".opt)
+	assert(cont.volume === "2".opt)
 	}
 
 	test("Partial date is parsed")

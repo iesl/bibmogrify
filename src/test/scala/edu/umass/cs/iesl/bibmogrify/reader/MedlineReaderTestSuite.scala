@@ -28,7 +28,7 @@ class MedlineReaderTestSuite extends FunSuite with BeforeAndAfter with Logging
 		 */
 	test("Title is parsed")
 	{
-	assert(c.title === emptyStringToNone("Comparison of tRNA nucleotidyltransferase from Escherichia coli and Lactobacillus acidophilus."))
+	assert(c.title === "Comparison of tRNA nucleotidyltransferase from Escherichia coli and Lactobacillus acidophilus.".opt)
 	}
 
 	test("Authors are parsed")
@@ -43,8 +43,8 @@ class MedlineReaderTestSuite extends FunSuite with BeforeAndAfter with Logging
 	test("Journal is parsed")
 	{
 	val cont = c.containedIn.get
-	assert(cont.container.title === emptyStringToNone("Hoppe-Seyler's Zeitschrift fuer physiologische Chemie"))
-	assert(cont.volume === emptyStringToNone("359"))
+	assert(cont.container.title === "Hoppe-Seyler's Zeitschrift fuer physiologische Chemie".opt)
+	assert(cont.volume === "359".opt)
 	}
 
 	test("Partial date is parsed")
