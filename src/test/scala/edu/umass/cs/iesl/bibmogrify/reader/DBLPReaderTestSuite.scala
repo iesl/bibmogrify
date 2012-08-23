@@ -10,7 +10,7 @@ class DBLPReaderTestSuite extends FunSuite with BeforeAndAfter with Logging
 	{
 	val file = getClass.getResource("/examples/dblp/dblp.xml")
 
-	val citationList = DBLPReader(new UrlNamedInputStream(file.toExternalForm, file))
+	val citationList = DBLPReader(new UrlNamedInputStream(file.toExternalForm.n, file))
 	val c            = citationList.toIterator.next()
 
 	// todo: detailed tests of all fields
@@ -57,7 +57,7 @@ class DBLPReaderTestSuite extends FunSuite with BeforeAndAfter with Logging
 
 	test("Every record has a title")
 	{
-	val citationList = DBLPReader(new UrlNamedInputStream(file.toExternalForm, file))
+	val citationList = DBLPReader(new UrlNamedInputStream(file.toExternalForm.n, file))
 	for (c <- citationList)
 		{
 		assert(!c.title.isEmpty)

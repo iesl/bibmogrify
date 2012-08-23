@@ -10,7 +10,7 @@ class NLMReaderTestSuite extends FunSuite with BeforeAndAfter with Logging
 	{
 	val file = getClass.getResource("/examples/NLM/test.nxml")
 
-	val citationList = NLMReader(new UrlNamedInputStream(file.toExternalForm, file))
+	val citationList = NLMReader(new UrlNamedInputStream(file.toExternalForm.n, file))
 	val c            = citationList.toIterator.next()
 
 	// todo: detailed tests of all fields
@@ -60,7 +60,7 @@ class NLMReaderTestSuite extends FunSuite with BeforeAndAfter with Logging
 	test("Abstract is parsed")
 	{
 	val ce = c.englishAbstract
-	val ab = ce.replaceAll("\\s", " ").split(" ")
+	val ab = ce.unwrap.replaceAll("\\s", " ").split(" ")
 	assert(ab.head === "Background")
 	assert(ab.last === "obesity.")
 	}

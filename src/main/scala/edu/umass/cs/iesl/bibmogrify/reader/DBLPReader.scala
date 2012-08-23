@@ -42,7 +42,7 @@ object DBLPReader extends Transformer[NamedInputStream, StructuredCitation] with
 
 
 		val key = (doc \ "@key").text
-		val id = new BasicIdentifier(key, DblpAuthority)
+		val id = BasicIdentifier(key, DblpAuthority)
 
 
 		// these "X" variables may be empty Strings; they are implicitly converted to Option[String]
@@ -92,9 +92,9 @@ object DBLPReader extends Transformer[NamedInputStream, StructuredCitation] with
 			override val otherContributors             = editorsX map (x => new OtherContributorInRole(Person(x), List(Editor)))
 			override val dates                         = Seq(BasicCitationEvent(date, Published))
 
-			override val abstractText: Iterable[TextWithLanguage] = Seq(TextWithLanguage(None, (doc \ "abstract").stripTags))
+			override val abstractText: Iterable[TextWithLanguage] = TextWithLanguage(None, (doc \ "abstract").stripTags)
 
-			override val identifiers = Seq(id)
+			override val identifiers: Iterable[Identifier] = id
 
 			// TODO implement parsePages, or just store the string
 			def parsePages(s: String): Option[PageRange] = None

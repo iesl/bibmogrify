@@ -67,7 +67,7 @@ object CorefWriter extends Transformer[StructuredCitation, String] with NamedPlu
 
 	def apply(cm: StructuredCitation) =
 		{
-		val venue: String = unwrapNonemptyString(cm.rootContainedInNotSelf.flatMap(_.title))
+		val venue: String = cm.rootContainedInNotSelf.flatMap(_.title).unwrap
 		Some(cm.primaryId + "\t" + cm.year.getOrElse("") + "\t" + cm.authorFullNamesWithId.mkString(", ") + "\t" + cm.title.getOrElse("") + "\t" + venue +
 		     "\n")
 		}

@@ -10,7 +10,7 @@ class WosXmlReaderTestSuite extends FunSuite with BeforeAndAfter with Logging
 	{
 	val file = getClass.getResource("/examples/wosxml/wosxml.xml")
 
-	val citationList = WosXMLReader(new UrlNamedInputStream(file.toExternalForm, file))
+	val citationList = WosXMLReader(new UrlNamedInputStream(file.toExternalForm.n, file))
 	val c            = citationList.toIterator.next()
 
 	// todo: detailed tests of all fields
@@ -24,7 +24,7 @@ class WosXmlReaderTestSuite extends FunSuite with BeforeAndAfter with Logging
 
 	test("Abstract is parsed")
 	{
-	assert(c.englishAbstract.size > 50)
+	assert(c.englishAbstract.unwrap.size > 50)
 	}
 
 	/*  test("Authors are parsed")

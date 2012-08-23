@@ -39,7 +39,7 @@ object AminoAcidTitleHash extends Transformer[StructuredCitation, NonemptyString
 		{
 		// implicit emptyStringToNone didn't work right; just be verbose
 		// waiting for robust last name extraction
-		val result: Option[NonemptyString] = aaize(cm.title.getOrElse("[ERROR: EMPTY TITLE]") + cm.firstAuthorLastName)
+		val result: Option[NonemptyString] = aaize(cm.title.getOrElse("[ERROR: EMPTY TITLE]") + cm.firstAuthorLastName.unwrap)
 		result
 		}
 	}
@@ -76,7 +76,7 @@ object FUSEPaperCorefHash extends Transformer[StructuredCitation, NonemptyString
     }
     //	private def aaize(s: String): String = s.toUpperCase.deAccent.removeWhitespace.replaceAll("[^A-Z]", "").removeVowels.replaceAll("J", "A")
  //def limit(s:String, len: Int) = s.substring(0,math.max(s.length, len)-1)
-		val result: Option[NonemptyString] = project(cm.title.getOrElse("[ERROR: EMPTY TITLE]")+ cm.firstAuthorLastName)
+		val result: Option[NonemptyString] = project(cm.title.getOrElse("[ERROR: EMPTY TITLE]")+ cm.firstAuthorLastName.unwrap)
 		result
 		}
 	}

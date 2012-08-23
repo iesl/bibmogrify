@@ -28,7 +28,7 @@ class GaryhuangTaggedCitationReaderTestSuite extends FunSuite with BeforeAndAfte
 	val citationList = ExtendedLabelXMLReader(file)
 	val tagged = citationList.toIterator.next()
 	val c = tagged.toStructuredCitation
-	assert(c.englishAbstract.size > 50)
+	assert(c.englishAbstract.unwrap.size > 50)
 	}
 
 	/*  test("Authors are parsed")

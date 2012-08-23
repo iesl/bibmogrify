@@ -6,6 +6,7 @@ import com.cybozu.labs.langdetect.{LangDetectException, Detector, DetectorFactor
 import edu.umass.cs.iesl.scalacommons.{StringUtils, NonemptyString}
 import tools.nsc.io.Directory
 import StringUtils._
+import com.mongodb.casbah.commons.conversions.scala.OptionSerializer
 
 // ** add citances with context for sentiment
 trait StructuredCitation
@@ -74,13 +75,15 @@ object TextWithLanguage extends Logging
 		logger.info("Loaded language profiles")
 		}
 
-	def apply(specifiedLanguage: Option[Language], text: String) = new TextWithLanguage(specifiedLanguage, text)
-
+	def apply(specifiedLanguage: Option[Language], text: Option[NonemptyString]) : Option[TextWithLanguage] =
+		text.map(new TextWithLanguage(specifiedLanguage, _))
+	def apply(specifiedLanguage: Option[Language], text: NonemptyString) : TextWithLanguage =
+		new TextWithLanguage(specifiedLanguage, text)
 	//init
 	//logger.info("Loaded language profiles")
 	}
 
-class TextWithLanguage private(val specifiedLanguage: Option[Language], val text: String) extends Logging
+class TextWithLanguage private(val specifiedLanguage: Option[Language], val text: NonemptyString) extends Logging
 	{
 
 	def cleanText = RichStructuredCitation.cleanup(text)
@@ -129,7 +132,8 @@ trait StructuredPatent extends StructuredCitation
 
 trait BodyTextSection
 	{
-	def ++(s: String) = new BasicBodyTextSection(sectionType, Some(NonemptyString(text + " " + s)), header)
+	import StringUtils.enrichString
+	def ++(s: String) : BodyTextSection = s.opt.map(x => new BasicBodyTextSection(sectionType,(text +" "+ x).opt,header)).getOrElse(this)
 
 	val sectionType: BodyTextSectionType
 	val header     : Option[NonemptyString]
@@ -191,11 +195,11 @@ object CitationUtils
 trait Keyword
 	{
 	val authority: Option[KeywordAuthority] = None
-	val word: String
+	val word: NonemptyString
 	}
 
 // don't model hierarchical keywords, just leave them slash-delimited in the string
-case class BasicKeyword(override val word: String, override val authority: Option[KeywordAuthority] = None) extends Keyword
+case class BasicKeyword(override val word: NonemptyString, override val authority: Option[KeywordAuthority] = None) extends Keyword
 	{
 	require(!word.contains("\n"))
 	require(!word.contains("\t"))
@@ -236,12 +240,18 @@ sealed class Country
 trait Identifier
 	{
 	val authority: Option[IdentifierAuthority] = None
-	val value: String
+	val value: NonemptyString
 
 	def qualifiedValue = authority.map(_.shortName).getOrElse("Unknown") + ":" + value
 	}
 
-case class BasicIdentifier(override val value: String, override val authority: Option[IdentifierAuthority] = None) extends Identifier
+object BasicIdentifier
+	{
+	def apply(value: Option[NonemptyString], authority: Option[IdentifierAuthority] = None): Option[BasicIdentifier] =
+		value.map(new BasicIdentifier(_, authority))
+	}
+
+case class BasicIdentifier(override val value: NonemptyString, override val authority: Option[IdentifierAuthority]) extends Identifier
 
 trait Location
 	{
@@ -258,22 +268,22 @@ trait UrlLocation extends Location
 
 trait StringLocation extends Location
 	{
-	val name: String
+	val name: NonemptyString
 
 	override def toString: String = name
 	}
 
 case class BasicUrlLocation(override val url: URL, override val hashes: Seq[Hash]) extends UrlLocation
 
-case class BasicStringLocation(override val name: String, override val hashes: Seq[Hash]) extends StringLocation
+case class BasicStringLocation(override val name: NonemptyString, override val hashes: Seq[Hash]) extends StringLocation
 
 trait Hash
 	{
 	val hashType : HashType
-	val hashValue: String
+	val hashValue: NonemptyString
 	}
 
-case class BasicHash(override val hashType: HashType, override val hashValue: String) extends Hash
+case class BasicHash(override val hashType: HashType, override val hashValue: NonemptyString) extends Hash
 
 sealed class HashType
 
@@ -330,24 +340,24 @@ case class BasicStringPageRange(override val start: NonemptyString, override val
  * @param primaryPriority indicates the order in which entries should be consulted to determine the "primary" date of the document.  A value of zero
  *                        indicates that the date cannot be primary.
  */
-sealed class EventType(val primaryPriority: Int, val shortName: String)
+sealed class EventType(val primaryPriority: Int, val shortName: NonemptyString)
 
-case object Received extends EventType(6, "rec")
+case object Received extends EventType(6, "rec".n)
 
-case object Revised extends EventType(7, "rev")
+case object Revised extends EventType(7, "rev".n)
 
-case object Epub extends EventType(8, "epub")
+case object Epub extends EventType(8, "epub".n)
 
-case object Published extends EventType(9, "pub")
+case object Published extends EventType(9, "pub".n)
 
-case object Retracted extends EventType(0, "retr")
+case object Retracted extends EventType(0, "retr".n)
 
-case object Captured extends EventType(0, "capt")
+case object Captured extends EventType(0, "capt".n)
 
-case object Begin extends EventType(10, "beg")
+case object Begin extends EventType(10, "beg".n)
 
 // for grants, patents
-case object End extends EventType(0, "end")
+case object End extends EventType(0, "end".n)
 
 trait CitationEvent
 	{

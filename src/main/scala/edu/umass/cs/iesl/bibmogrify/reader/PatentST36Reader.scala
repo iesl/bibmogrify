@@ -7,14 +7,11 @@ import com.weiglewilczek.slf4s.Logging
 import edu.umass.cs.iesl.bibmogrify.pipeline.Transformer
 import edu.umass.cs.iesl.bibmogrify.{NamedInputStream, NamedPlugin, BibMogrifyException}
 import xml.{Elem, NodeSeq, Node}
-import edu.umass.cs.iesl.scalacommons.{StringUtils, NonemptyString, XMLIgnoreDTD}
+import edu.umass.cs.iesl.scalacommons.{NonemptyString, XMLIgnoreDTD}
 
-import StringUtils.unwrapNonemptyString
-import StringUtils.enrichString
-import StringUtils.toOptionNonempty
+import edu.umass.cs.iesl.scalacommons.StringUtils._
 
-object PatentST36Reader extends Transformer[NamedInputStream, StructuredPatent] with Logging with NamedPlugin
-	{
+object PatentST36Reader extends Transformer[NamedInputStream, StructuredPatent] with Logging with NamedPlugin {
 
 	val name = "st36"
 
@@ -34,29 +31,23 @@ object PatentST36Reader extends Transformer[NamedInputStream, StructuredPatent] 
 			  }
 			}
 		  }*/
-	private def parseIdentifierAndDate(d: Option[Node], ct: EventType): (Option[Identifier], Option[CitationEvent]) =
-		{
-		(d map ((c: Node) =>
-			{
-			val id = new BasicIdentifier((c \ "doc-number").text,
-			                             Some(new BasicIdentifierAuthority("patent-" + (c \ "country").text.trim + "-" + ct.shortName)))
+	private def parseIdentifierAndDate(d: Option[Node], ct: EventType): (Option[Identifier], Option[CitationEvent]) = {
+		(d map ((c: Node) => {
+			val id = BasicIdentifier((c \ "doc-number").text, Some(new BasicIdentifierAuthority("patent-" + (c \ "country").text.trim + "-" + ct.shortName)))
 			val date = parseDate(c)
 			val event = new BasicCitationEvent(date, ct)
-			(Some(id), Some(event))
-			})).getOrElse((None, None))
-		}
+			(id, Some(event))
+		})).getOrElse((None, None))
+	}
 
 	private val parseDateR = "(....)(..)(..)".r
 
-	private def parseDate(c: Node): Option[BasicPartialDate] =
-		{
+	private def parseDate(c: Node): Option[BasicPartialDate] = {
 		val dateString: String = (c \ "date").text.trim
 
-		dateString match
-		{
+		dateString match {
 			case "" => None
-			case d =>
-				{
+			case d => {
 				val parseDateR(yearS, monthS, dayS) = d
 
 				val year: Option[Int] = Some(yearS.toInt)
@@ -64,14 +55,12 @@ object PatentST36Reader extends Transformer[NamedInputStream, StructuredPatent] 
 				// val day: Option[Int] = dayS.map(_.toInt)
 
 				Some(BasicPartialDate(year, Some(parseMonthOneBased(monthS)), Some(dayS.toInt)))
-				}
+			}
 		}
-		}
+	}
 
-	def inferBodyTypeFromHeading(s: String, defaultType: BodyTextSectionType): BodyTextSectionType =
-		{
-		s match
-		{
+	def inferBodyTypeFromHeading(s: String, defaultType: BodyTextSectionType): BodyTextSectionType = {
+		s match {
 			case q: String if q.toLowerCase.contains("field") => TechnicalField
 			case q: String if q.toLowerCase.contains("background") => IntroductionAndBackground
 			case q: String if q.toLowerCase.contains("introduction") => IntroductionAndBackground
@@ -81,37 +70,31 @@ object PatentST36Reader extends Transformer[NamedInputStream, StructuredPatent] 
 			case q: String => defaultType
 			//** could add more here if needed
 		}
-		}
+	}
 
-	def parse(inLocation: Location, doc: Node): StructuredPatent =
-		{
+	def parse(inLocation: Location, doc: Node): StructuredPatent = {
 
 		import ReaderUtils._
 
-		def splitBodyText(n: Node, defaultType: BodyTextSectionType): Seq[BodyTextSection] =
-			{
+		def splitBodyText(n: Node, defaultType: BodyTextSectionType): Seq[BodyTextSection] = {
 			val init: List[BodyTextSection] = List[BodyTextSection](new BasicBodyTextSection(GeneralBodyText, "", None))
 			// start the fold with a general block, which may enf up empty if we immediately get a heading
-			val result = n.child.foldLeft(init)((accum: List[BodyTextSection], n: Node) =>
-				                                    {
-				                                    n match
-				                                    {
-					                                    case np: Elem if np.label == "heading" =>
-						                                    {
-						                                    new BasicBodyTextSection(inferBodyTypeFromHeading(np.text.trim, defaultType), None,
-						                                                             np.text.trim) ::
-						                                    accum
-						                                    }
-					                                    case np: Elem if np.label == "p" => (accum.head ++ np.text.trim) :: accum.tail
-					                                    case np => accum //ignore
-				                                    }
-				                                    })
+			val result = n.child.foldLeft(init)((accum: List[BodyTextSection], n: Node) => {
+				n match {
+					case np: Elem if np.label == "heading" => {
+						new BasicBodyTextSection(inferBodyTypeFromHeading(np.text.trim, defaultType), None, np.text.trim) ::
+						accum
+					}
+					case np: Elem if np.label == "p" => (accum.head ++ np.text.trim) :: accum.tail
+					case np => accum //ignore
+				}
+			})
 			result.filterNot(_.text.isEmpty).reverse
 			// "background of the invention" or "background art" or just "background"
 			//"detailed description of the invention" or "disclosure of the invention" or just "description"
 			//"summary"
 			//"brief description of the figures"
-			}
+		}
 
 		/**
 		 * Descriptions may contain paragraphs and headers, and/or subsections like "summary" which in turn contain paragraphs and headers.  Here we just
@@ -119,8 +102,7 @@ object PatentST36Reader extends Transformer[NamedInputStream, StructuredPatent] 
 		 * @param n
 		 * @return
 		 */
-		def parseDescription(n: Node): Seq[BodyTextSection] =
-			{
+		def parseDescription(n: Node): Seq[BodyTextSection] = {
 			/*
 			<xs:element ref="summary" />
                                                 <xs:element ref="related-apps" />
@@ -141,30 +123,26 @@ object PatentST36Reader extends Transformer[NamedInputStream, StructuredPatent] 
 			                              "mode-for-inventions" -> GeneralBodyText,
 			                              "industrial-applicability" -> GeneralBodyText)
 
-			val result = descriptionElements.toSeq.flatMap
-			             {case (k, v) => (n \ k) flatMap (c => splitBodyText(c, v))}
+			val result = descriptionElements.toSeq.flatMap {case (k, v) => (n \ k) flatMap (c => splitBodyText(c, v))}
 
 			val nt = splitBodyText(n, GeneralBodyText)
 
 			Seq(result, nt).flatten
-			}
+		}
 
-		def getBodyText: Seq[BodyTextSection] =
-			{
+		def getBodyText: Seq[BodyTextSection] = {
 			// ignore "invention-title" here
 			val desc = (doc \ "description") flatMap parseDescription
 
-			val claims = (doc \ "claims").text match
-			{
+			val claims = (doc \ "claims").text match {
 				case "" => None
 				case t => Some(new BasicBodyTextSection(Claims, t, None))
 			}
 			desc ++ Seq(claims).flatten
-			}
+		}
 
 		// IDs and dates are confounded in the source data; we separate and regroup them
-		def getIdentifiersAndDates: (Seq[Identifier], Seq[CitationEvent]) =
-			{
+		def getIdentifiersAndDates: (Seq[Identifier], Seq[CitationEvent]) = {
 			val (pubId, pubEvent) = parseIdentifierAndDate((doc \ "bibliographic-data" \ "publication-reference" \ "document-id").headOption,
 			                                               Published) // assume exactly one
 			val (recId, recEvent) = parseIdentifierAndDate((doc \ "bibliographic-data" \ "application-reference" \ "document-id").headOption,
@@ -173,115 +151,99 @@ object PatentST36Reader extends Transformer[NamedInputStream, StructuredPatent] 
 			val ids = Seq(pubId, recId).flatten
 			val events = Seq(pubEvent, recEvent).flatten
 			(ids, events)
-			}
+		}
 
 		// ** legal info, e.g. new owner
-		def parseKeywordGroup(seq: NodeSeq, auth: KeywordAuthority): Seq[Keyword] =
-			{
-			seq map ((n: Node) =>
-				{
-				new Keyword
-					{
-					override val authority = Some(auth)
-					override val word      = (n \ "text").stripTags //** ignoring lots of structured data in here
-					}
-				})
-			}
+		def parseKeywordGroup(seq: NodeSeq, auth: KeywordAuthority): Seq[Keyword] = {
+			seq flatMap ((n: Node) => {
+				val word : Option[NonemptyString] = (n \ "text").stripTags //** ignoring lots of structured data in here
+				word.map(x => new BasicKeyword(x,Some(auth)))
+			})
+		}
 
-		val c = new StructuredPatent()
-			{
+		val c = new StructuredPatent() {
 			//override val doctype: Option[DocType] = Patent
 			override val locations                     = Seq(inLocation)
 			override val title: Option[NonemptyString] = (doc \ "bibliographic-data" \ "invention-title").stripTags
 			override val (identifiers, dates)          = getIdentifiersAndDates
 
 			val abstracts           = (doc \ "abstract")
-			val abstractsByLanguage = abstracts groupBy
-			                          {
-			                          n: Node =>
-				                          {
-				                          val langName = (n \ "@lang").text
-				                          val lang = Language.get(langName)
-				                          if (lang == None)
-					                          {
-					                          logger.warn("Unknown language: " + langName)
-					                          }
-				                          lang
-				                          }
-			                          }
+			val abstractsByLanguage = abstracts groupBy {
+				n: Node => {
+					val langName = (n \ "@lang").text
+					val lang = Language.get(langName)
+					if (lang == None) {
+						logger.warn("Unknown language: " + langName)
+					}
+					lang
+				}
+			}
 
 			// override val abstractLanguages: Seq[Option[Language]] = abstractsByLanguage.keys.toSeq
-			override val abstractText: Iterable[TextWithLanguage] =
-				{
-				for ((lang, abs) <- abstractsByLanguage)
-					{
+			override val abstractText: Iterable[TextWithLanguage] = {
+				for ((lang, abs) <- abstractsByLanguage) {
 					if (abs.length != 1) logger.error(abs.length + " abstracts for language " + lang.getOrElse("None"))
-					}
-				abstractsByLanguage.map
-				{
-				case (l, n) => (l, (n \ "p").stripTags) // exclude headers, as these are likely general uninformative things like "background"
-				}.flatMap
-				{
-				case (l, n) if n.nonEmpty => Some(TextWithLanguage(l, n))
-				case _ => None
 				}
+				val withoutHeaders: Map[Option[Language], Option[NonemptyString]] = abstractsByLanguage.map {
+					                                                                                            case (l, n) => (l, (n \ "p").stripTags
+					                                                                                                               .opt) // exclude headers,
+					                                                                                            // as these are likely general
+					                                                                                            // uninformative things like "background"
+				                                                                                            }
+
+				withoutHeaders.flatMap {
+					                       case (l, Some(n)) => Some(TextWithLanguage(l, n))
+					                       case _ => None
+				                       }
 				//val englishAbstracts: Option[NodeSeq] = abstractsByLanguage.get(Some(English))
 				//val s = englishAbstracts.map(ns => Some(ns.text.trim)).getOrElse(abstractsByLanguage.get(None).map(_.text.trim))
 				//s
-				}
+			}
 			override val sourceLanguage                           = Language.get((doc \ "bibliographic-data" \ "language-of-filing").text.trim)
 			override val language                                 = Language.get((doc \ "bibliographic-data" \ "language-of-publication").text.trim)
 
-			def parseReferenceGroup(seq: NodeSeq): Seq[StructuredPatent] =
-				{
-				seq map ((n: Node) =>
-					{
+			def parseReferenceGroup(seq: NodeSeq): Seq[StructuredPatent] = {
+				seq map ((n: Node) => {
 					val (id, event) = parseIdentifierAndDate(Some(n), Published) // ** Hmm: do priority claims refer to the filing date?
-					new StructuredPatent
-						{
+					new StructuredPatent {
 						override val identifiers = Seq(id).flatten
 						override val dates       = Seq(event).flatten
-						}
-					})
-				}
+					}
+				})
+			}
 
-			def parseFamily(seq: NodeSeq): Seq[StructuredPatent] =
-				{
-				(seq \ "family-member") map ((n: Node) =>
-					{
+			def parseFamily(seq: NodeSeq): Seq[StructuredPatent] = {
+				(seq \ "family-member") map ((n: Node) => {
 					val d = (n \ "document-id").headOption
 
 					val (id, pubEvent) = parseIdentifierAndDate(d, Published)
 					val recEvent: Option[CitationEvent] = d.map(r => (r \ "application-date").headOption
 					                                                 .map(q => new BasicCitationEvent(parseDate(q), Received))).getOrElse(None)
 
-					new StructuredPatent
-						{
+					new StructuredPatent {
 						override val identifiers = Seq(id).flatten
 						override val dates       = Seq(pubEvent, recEvent).flatten
-						}
-					})
-				}
+					}
+				})
+			}
 
-			override val keywords =
-				{
+			override val keywords = {
 				val ipc = parseKeywordGroup(doc \\ "classification-ipc", IpcKeywordAuthority)
 				val ipcr = parseKeywordGroup(doc \\ "classification-ipcr", IpcrKeywordAuthority)
 				val ecla = parseKeywordGroup(doc \\ "classification-ecla", EclaKeywordAuthority)
 				val fterm = parseKeywordGroup(doc \\ "classification-f-term", FtermKeywordAuthority)
 
 				val nationalNodes: NodeSeq = doc \\ "classification-national"
-				val nationalKeywords = for (c <- nationalNodes) yield
-					{
+				val nationalKeywords = for (c <- nationalNodes) yield {
 					val country = (c \ "country").text.trim
 					val auth = new BasicKeywordAuthority(country)
 					val ks = parseKeywordGroup(c, auth)
 					ks
-					}
+				}
 
 				var result = Seq(ipc, ipcr, ecla, fterm).flatten ++ nationalKeywords.flatten.toSeq
 				result
-				}
+			}
 
 			override val priorityClaims         = parseReferenceGroup(doc \ "bibliographic-data" \ "priority-claims" \ "priority-claim")
 			override val references             = parseReferenceGroup(doc \\ "bibliographic-data" \\ "patcit") ++
@@ -291,23 +253,20 @@ object PatentST36Reader extends Transformer[NamedInputStream, StructuredPatent] 
 			override val completeFamily         = parseFamily(doc \ "bibliographic-data" \ "patent-family" \ "complete-family")
 
 			override val bodyText = getBodyText
-			}
+		}
 		c
-		}
+	}
 
-	def parseDroppingErrors(inLocation: Location, doc: Node): Option[StructuredPatent] =
-		{
-		try
-		{
-		val c = parse(inLocation, doc)
-		Some(c)
+	def parseDroppingErrors(inLocation: Location, doc: Node): Option[StructuredPatent] = {
+		try {
+			val c = parse(inLocation, doc)
+			Some(c)
 		}
-		catch
-		{
-		case e: BibMogrifyException => logger.error(e.getMessage)
-		None
+		catch {
+			case e: BibMogrifyException => logger.error(e.getMessage)
+			None
 		}
-		}
+	}
 
 	/*  def apply(s: InputStream): TraversableOnce[CitationMention] =
 	  {
@@ -319,8 +278,7 @@ object PatentST36Reader extends Transformer[NamedInputStream, StructuredPatent] 
 	  parseDroppingErrors(xmlloader.load(s))
 	  //XmlUtils.firstLevelNodes(s).flatMap(node => (node \\ "wopatent-document").flatMap(parseDroppingErrors(_)))
 	  }*/
-	def apply(nis: NamedInputStream): TraversableOnce[StructuredPatent] =
-		{
+	def apply(nis: NamedInputStream): TraversableOnce[StructuredPatent] = {
 		//val xml = scala.xml.XML.load(f)
 		// val xml = XMLIgnoreDTD.load(f)  // can't, because we need the entity declarations
 		//XMLMapDTD.setGlobalXMLCatalogDir(getClass.getResource("/dblp.dtd").getPath)
@@ -329,21 +287,17 @@ object PatentST36Reader extends Transformer[NamedInputStream, StructuredPatent] 
 		//XmlUtils.firstLevelNodes(s).flatMap(node => (node \\ "REC").flatMap(parseDroppingErrors(_)))
 		val s = nis.getInputStream
 		val inLocation = new BasicStringLocation(nis.name, Nil)
-		try
-		{
-		XMLIgnoreDTD.load(s).flatMap(parseDroppingErrors(inLocation, _))
+		try {
+			XMLIgnoreDTD.load(s).flatMap(parseDroppingErrors(inLocation, _))
 		}
-		catch
-		{
-		case e =>
-			{
-			logger.error("Failed to parse " + nis.name, e);
-			Nil
+		catch {
+			case e => {
+				logger.error("Failed to parse " + nis.name, e);
+				Nil
 			}
 		}
-		finally
-			{
+		finally {
 			s.close()
-			}
 		}
 	}
+}

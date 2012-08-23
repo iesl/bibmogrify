@@ -10,7 +10,7 @@ class ElsevierReaderTestSuite extends FunSuite with BeforeAndAfter with Logging
 	{
 	val file = getClass.getResource("/examples/elsevier/example.xml")
 
-	val citationList = ElsevierReader(new UrlNamedInputStream(file.toExternalForm, file))
+	val citationList = ElsevierReader(new UrlNamedInputStream(file.toExternalForm.n, file))
 	val c            = citationList.toIterator.next()
 
 	// todo: detailed tests of all fields
@@ -60,8 +60,8 @@ class ElsevierReaderTestSuite extends FunSuite with BeforeAndAfter with Logging
 	test("Abstract is parsed")
 	{
 	val ce = c.englishAbstract
-	assert(ce.split(" ").head === "Domestication")
-	assert(ce.split(" ").last === "cans.")
+	assert(ce.unwrap.split(" ").head === "Domestication")
+	assert(ce.unwrap.split(" ").last === "cans.")
 	}
 
 	test("Every record has a title")

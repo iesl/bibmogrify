@@ -10,7 +10,7 @@ class PatentST36ReaderTestSuite extends FunSuite with BeforeAndAfter with Loggin
 	{
 	val file = getClass.getResource("/examples/patentST36/patentST36.xml")
 
-	val citationList = PatentST36Reader(new UrlNamedInputStream(file.toExternalForm, file))
+	val citationList = PatentST36Reader(new UrlNamedInputStream(file.toExternalForm.n, file))
 	val c            = citationList.toIterator.next()
 
 	// todo: detailed tests of all fieldstest
@@ -30,7 +30,7 @@ class PatentST36ReaderTestSuite extends FunSuite with BeforeAndAfter with Loggin
 
 	test("Abstract is parsed")
 	{
-	assert(c.englishAbstract.size > 50)
+	assert(c.englishAbstract.unwrap.size > 50)
 	}
 
 	/*

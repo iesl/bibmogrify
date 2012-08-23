@@ -14,7 +14,7 @@ object RichStructuredCitation
 
 	val adhocIdIncrementor: AtomicInteger = new AtomicInteger(0)
 
-	implicit def iterableTextWithLanguageToMap(i: Iterable[TextWithLanguage]): Map[Option[Language], String] =
+	implicit def iterableTextWithLanguageToMap(i: Iterable[TextWithLanguage]): Map[Option[Language], NonemptyString] =
 		{
 		i.map
 		{
@@ -43,7 +43,7 @@ class RichStructuredCitation(cm: StructuredCitation) extends Logging
 	//val cleanAbstract = paperAbstract.toLowerCase.replaceAll("\\s", " ").replaceAll("[^\\w ]", " ").split(" +").mkString(" ")
 	//val cleanBody = body.toLowerCase.replaceAll("\\s", " ").replaceAll("[^\\w ]", " ").split(" +").mkString(" ")
 	lazy val cleanTitle = cleanup(cm.title)
-	val englishAbstract: String = cm.abstractText.get(Some(English)).getOrElse(cm.abstractText.get(None).getOrElse(""))
+	val englishAbstract: Option[NonemptyString] = cm.abstractText.get(Some(English)).orElse(cm.abstractText.get(None).orElse(None))
 
 	lazy val cleanAbstract      = cleanup(englishAbstract)
 	lazy val cleanAbstractWords = cleanAbstract.split(" ").filter(_.nonEmpty).length

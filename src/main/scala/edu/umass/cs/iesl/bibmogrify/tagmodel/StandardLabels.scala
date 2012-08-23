@@ -7,6 +7,7 @@ import edu.umass.cs.iesl.bibmogrify.model._
 import com.weiglewilczek.slf4s.Logging
 import edu.umass.cs.iesl.scalacommons.NonemptyString
 
+import edu.umass.cs.iesl.scalacommons.StringUtils._
 /**
  * @author <a href="mailto:dev@davidsoergel.com">David Soergel</a>
  * @version $Id$
@@ -54,8 +55,7 @@ object StandardLabels extends LabelSet with Logging
 					           }
 					           })
 				}
-
-			override val abstractText: Iterable[TextWithLanguage] = c.get("abstract").headOption.map(TextWithLanguage(None, _))
+			override val abstractText: Iterable[TextWithLanguage] = c.get("abstract").headOption.flatMap(x=>TextWithLanguage(None, x.opt))
 
 			override val dates = Seq(new BasicCitationEvent(Some(new BasicPartialDate(year, None, None)), Published))
 
@@ -160,7 +160,7 @@ class ExtendedLabels(val referenceLabels: Seq[String] = Seq("reference", "refere
 					           })
 				}
 
-			override val abstractText: Iterable[TextWithLanguage] = c.get("abstract").headOption.map(TextWithLanguage(None, _))
+			override val abstractText: Iterable[TextWithLanguage] = c.get("abstract").headOption.flatMap(x=>TextWithLanguage(None, x.opt))
 
 			override val dates = year.map(y => new BasicCitationEvent(Some(new BasicPartialDate(Some(y), None, None)), Published)).toSeq
 

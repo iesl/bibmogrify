@@ -11,6 +11,8 @@ import org.apache.commons.compress.archivers.tar.{TarArchiveInputStream, TarArch
 import java.io.{ByteArrayInputStream, InputStream, File}
 import java.util.zip.{ZipEntry, ZipInputStream, GZIPInputStream}
 import collection.GenTraversableOnce
+import edu.umass.cs.iesl.scalacommons.NonemptyString
+import edu.umass.cs.iesl.scalacommons.StringUtils._
 
 /**
  * @author <a href="mailto:dev@davidsoergel.com">David Soergel</a>
@@ -56,7 +58,7 @@ object ParallelLineReader extends Transformer[URL, String] with NamedPlugin
 
 object UrlToStream extends Transformer[URL, NamedInputStream] with NamedPlugin
 	{
-	def apply(u: URL): TraversableOnce[NamedInputStream] = Some(new UrlNamedInputStream(u.toExternalForm, u))
+	def apply(u: URL): TraversableOnce[NamedInputStream] = Some(new UrlNamedInputStream(u.toExternalForm.n, u))
 
 	val name = "urlToStream"
 	}
@@ -106,7 +108,7 @@ object VfsToInputStreams extends Transformer[String, NamedInputStream] with Name
 		else
 			{
 			logger.info("Reading file: " + fileObject.getName.getFriendlyURI)
-			Some(new VfsNamedInputStream(fileObject.getName.getFriendlyURI, fileObject.getContent))
+			Some(new VfsNamedInputStream(fileObject.getName.getFriendlyURI.n, fileObject.getContent))
 			}
 		}
 
@@ -137,17 +139,17 @@ object ArchiveToInputStreams extends Transformer[URL, NamedInputStream] with Nam
 		{
 
 		val name = nis.name
-		val (baseName, extension) = name.lastIndexOf('.') match
+		val (baseName:NonemptyString, extension:NonemptyString) = name.lastIndexOf('.') match
 		{
 			case -1 => (name, None)
 			case x: Int => (name.substring(0, x), new Some(name.substring(x + 1).toLowerCase))
 		}
 
-		extension match
+		extension.s match
 		{
-			case Some("tar") => processTarStream(name, nis.getInputStream).flatMap(getAllInputStreams)
-			case Some("xml") => Some(nis)
-			case Some("gz") =>
+			case "tar" => processTarStream(name, nis.getInputStream).flatMap(getAllInputStreams)
+			case "xml" => Some(nis)
+			case "gz" =>
 				{
 				val x: Option[NamedInputStream] = Some(new NamedInputStream(baseName)
 					{
@@ -155,8 +157,8 @@ object ArchiveToInputStreams extends Transformer[URL, NamedInputStream] with Nam
 					})
 				x.map(getAllInputStreams).getOrElse(Nil)
 				}
-			case Some("tgz") => processTarStream(name, new GZIPInputStream(nis.getInputStream)).flatMap(getAllInputStreams)
-			case Some("zip") => processZipStream(name, nis.getInputStream).flatMap(getAllInputStreams)
+			case "tgz" => processTarStream(name, new GZIPInputStream(nis.getInputStream)).flatMap(getAllInputStreams)
+			case "zip" => processZipStream(name, nis.getInputStream).flatMap(getAllInputStreams)
 			case _ =>
 				{
 				logger.warn("Unknown file extension: " + name)
@@ -167,7 +169,7 @@ object ArchiveToInputStreams extends Transformer[URL, NamedInputStream] with Nam
 
 	def apply(v1: URL): TraversableOnce[NamedInputStream] =
 		{
-		val result = getAllInputStreams(new UrlNamedInputStream(v1.toString, v1))
+		val result = getAllInputStreams(new UrlNamedInputStream(v1.toString.n, v1))
 		//fsManager.close
 		result
 		}
@@ -204,7 +206,7 @@ object ArchiveToInputStreams extends Transformer[URL, NamedInputStream] with Nam
 							}
 
 						// don't put the stream-reading part inside getInputStream, because there's no guarantee in what order those will be called
-						Some(new NamedInputStream(baseName + "#" + entry.getName)
+						Some(new NamedInputStream((baseName + "#" + entry.getName).n)
 							{
 							def getInputStream = new ByteArrayInputStream(content)
 							})
@@ -254,7 +256,7 @@ object ArchiveToInputStreams extends Transformer[URL, NamedInputStream] with Nam
 							}
 
 						// don't put the stream-reading part inside getInputStream, because there's no guarantee in what order those will be called
-						Some(new NamedInputStream(baseName + "#" + entry.getName)
+						Some(new NamedInputStream((baseName + "#" + entry.getName).n)
 							{
 							def getInputStream = new ByteArrayInputStream(content)
 							})
@@ -273,17 +275,17 @@ object ArchiveToInputStreams extends Transformer[URL, NamedInputStream] with Nam
 		}
 	}
 
-abstract class NamedInputStream(val name: String)
+abstract class NamedInputStream(val name: NonemptyString)
 	{
 	def getInputStream: InputStream
 	}
 
-class VfsNamedInputStream(name: String, content: FileContent) extends NamedInputStream(name)
+class VfsNamedInputStream(name: NonemptyString, content: FileContent) extends NamedInputStream(name)
 	{
 	def getInputStream = content.getInputStream
 	}
 
-class UrlNamedInputStream(name: String, content: URL) extends NamedInputStream(name)
+class UrlNamedInputStream(name: NonemptyString, content: URL) extends NamedInputStream(name)
 	{
 	def getInputStream = content.openStream()
 	}

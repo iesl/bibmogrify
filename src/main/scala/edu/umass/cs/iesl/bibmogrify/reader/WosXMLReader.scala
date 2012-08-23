@@ -30,7 +30,7 @@ object WosXMLReader extends Transformer[NamedInputStream, StructuredCitation] wi
 			{
 			def ff(rec: Node)
 				{
-				assert(rec.label.equals("REC"));
+				assert(rec.label.equals("REC"))
 				val result = parseDroppingErrors(inLocation, rec)
 				result.foreach(f)
 				}
@@ -40,7 +40,7 @@ object WosXMLReader extends Transformer[NamedInputStream, StructuredCitation] wi
 			{
 			case e =>
 				{
-				logger.error("Failed to parse " + nis.name, e);
+				logger.error("Failed to parse " + nis.name, e)
 				Nil
 				}
 			}
@@ -71,7 +71,7 @@ object WosXMLReader extends Transformer[NamedInputStream, StructuredCitation] wi
 		val issue = doc \ "issue"
 		val item = doc \ "item"
 
-		val subjectCodes = (issue \ "subjects" \ "subject" \ "@code") map (_.text)
+		val subjectCodes = ((issue \ "subjects" \ "subject" \ "@code")).flatMap(_.text.opt)
 
 
 		val date: Some[BasicPartialDate] =
@@ -103,17 +103,16 @@ object WosXMLReader extends Transformer[NamedInputStream, StructuredCitation] wi
 			override val title: Option[NonemptyString] = (item \ "item_title").text
 			override val dates                         = Seq(BasicCitationEvent(date, Published))
 
-			override val abstractText = Seq(TextWithLanguage(None, (item \ "abstract").text))
+			override val abstractText : Iterable[TextWithLanguage] = TextWithLanguage(None, (item \ "abstract").text)
 
 			// todo collect other identifiers?
 			val wosUtId: String = (item \ "ut").text
 			val wosDoi : String = (item \ "article_nos" \ "article_no").text
 
-			override val identifiers = Seq(BasicIdentifier(wosUtId, WosUtAuthority), new BasicIdentifier((item \ "@recid").text, WosRecidAuthority),
-			                               new BasicIdentifier((item \ "@refkey").text, WosRefkeyAuthority),
-			                               new BasicIdentifier((item \ "@refid").text, WosRefidAuthority),
-			                               new BasicIdentifier((item \ "i_cid").text, WosCidAuthority), new BasicIdentifier(wosDoi, DoiAuthority))
-			                           .filter(!_.value.isEmpty)
+			override val identifiers = Seq(BasicIdentifier(wosUtId, WosUtAuthority),  BasicIdentifier((item \ "@recid").text, WosRecidAuthority),
+			                                BasicIdentifier((item \ "@refkey").text, WosRefkeyAuthority),
+			                                BasicIdentifier((item \ "@refid").text, WosRefidAuthority),
+			                                BasicIdentifier((item \ "i_cid").text, WosCidAuthority),  BasicIdentifier(wosDoi, DoiAuthority)).flatten
 
 			/*
 				  override val authors = {
@@ -225,11 +224,11 @@ object WosXMLReader extends Transformer[NamedInputStream, StructuredCitation] wi
 			Some(BasicPartialDate(year, None, None))
 			}
 		override val dates       = Seq(BasicCitationEvent(date, Published))
-		override val identifiers = Seq(new BasicIdentifier(node.text), new BasicIdentifier(idBasis + "-ref-" + index, WosUtRefIndexAuthority),
-		                               new BasicIdentifier((node \ "@recid").text, WosRecidAuthority),
-		                               new BasicIdentifier((node \ "@refkey").text, WosRefkeyAuthority),
-		                               new BasicIdentifier((node \ "@refid").text, WosRefidAuthority),
-		                               new BasicIdentifier((node \ "@cid").text, WosCidAuthority), new BasicIdentifier((node \ "@artno").text, DoiAuthority))
-		                           .filter(!_.value.isEmpty)
+		override val identifiers = Seq( BasicIdentifier(node.text),  BasicIdentifier(idBasis + "-ref-" + index, WosUtRefIndexAuthority),
+		                                BasicIdentifier((node \ "@recid").text, WosRecidAuthority),
+		                                BasicIdentifier((node \ "@refkey").text, WosRefkeyAuthority),
+		                                BasicIdentifier((node \ "@refid").text, WosRefidAuthority),
+		                                BasicIdentifier((node \ "@cid").text, WosCidAuthority),  BasicIdentifier((node \ "@artno").text, DoiAuthority)).flatten
+
 		}
 	}

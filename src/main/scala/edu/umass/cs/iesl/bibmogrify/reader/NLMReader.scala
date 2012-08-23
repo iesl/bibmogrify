@@ -143,13 +143,13 @@ object NLMReader extends Transformer[NamedInputStream, StructuredCitation] with 
 			val idNodes = (ref \ "citation" \ "pub-id")
 			new StructuredCitation()
 				{
-				override val identifiers =
+				override val identifiers: Iterable[Identifier]    =
 					{
 					val pmidNodes: NodeSeq = idNodes.filter(_.attribute("pub-id-type").filter(_.text == "pmid").isDefined)
 					val doiNodes: NodeSeq = idNodes.filter(_.attribute("pub-id-type").filter(_.text == "doi").isDefined)
 
-					val pmids = pmidNodes.map(pm => BasicIdentifier(pm.text.trim.maskNewlinesAndTabs, PubmedAuthority))
-					val dois = doiNodes.map(pm => BasicIdentifier(pm.text.trim.maskNewlinesAndTabs, DoiAuthority))
+					val pmids = pmidNodes.flatMap(pm => BasicIdentifier(pm.text.trim.maskNewlinesAndTabs, PubmedAuthority))
+					val dois = doiNodes.flatMap(pm => BasicIdentifier(pm.text.trim.maskNewlinesAndTabs, DoiAuthority))
 
 					pmids ++ dois
 					}
@@ -174,7 +174,7 @@ object NLMReader extends Transformer[NamedInputStream, StructuredCitation] with 
 			override val title: Option[NonemptyString] = (articlemeta \ "title-group" \ "article-title").text.trim.maskNewlinesAndTabs
 			override val dates                         = Seq(BasicCitationEvent(date, Published))
 
-			override val abstractText = Seq(TextWithLanguage(None, (articlemeta \ "abstract").stripTags))
+			override val abstractText : Iterable[TextWithLanguage] = TextWithLanguage(None, (articlemeta \ "abstract").stripTags)
 
 			// todo distinguish section types
 			override val bodyText = (body \ "sec").map(s => UndifferentiatedBodyTextSection(s.stripTags))
@@ -184,12 +184,12 @@ object NLMReader extends Transformer[NamedInputStream, StructuredCitation] with 
 			override val numTables                           = Some((body \\ "table-wrap").size + (back \\ "table-wrap").size)
 			override val licenseType: Option[NonemptyString] = (front \ "permissions" \ "license" \ "@license-type").text.trim.maskNewlinesAndTabs
 
-			override val identifiers =
+			override val identifiers : Iterable[Identifier] =
 				{
 				val pmidNodes: NodeSeq = idNodes.filter(_.attribute("pub-id-type").filter(_.text == "pmid").isDefined)
 				val doiNodes: NodeSeq = idNodes.filter(_.attribute("pub-id-type").filter(_.text == "doi").isDefined)
 
-				val pmids = pmidNodes.map(pm => BasicIdentifier(pm.text.trim.maskNewlinesAndTabs, PubmedAuthority))
+				val pmids = pmidNodes.flatMap(pm => BasicIdentifier(pm.text.trim.maskNewlinesAndTabs, PubmedAuthority))
 				//val dois = doiNodes.map(pm => BasicIdentifier(pm.text, DoiAuthority))
 
 				pmids

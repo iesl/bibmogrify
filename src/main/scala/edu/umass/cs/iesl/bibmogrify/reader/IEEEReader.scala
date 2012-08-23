@@ -29,22 +29,11 @@ object IEEEReader extends Transformer[NamedInputStream, StructuredCitation] with
 
 			override val title: Option[NonemptyString] = (doc \ "title").text
 			override val dates                         = Seq(BasicCitationEvent(date, Published))
-			override val abstractText                  = Seq(TextWithLanguage(None, (doc \ "articleinfo" \ "abstract").stripTags))
-			override val identifiers                   =
+			override val abstractText       : Iterable[TextWithLanguage]           = TextWithLanguage(None, (doc \ "articleinfo" \ "abstract").stripTags)
+			override val identifiers         : Iterable[Identifier]          =
 				{
 				val id: String = (doc \ "articleinfo" \ "articledoi").text.trim
-				if (id.isEmpty)
-					{
-					Nil
-					}
-				else
-					{
-					List(new Identifier
-						{
-						override val authority = Some(DoiAuthority)
-						override val value     = id
-						})
-					}
+				id.opt.map(BasicIdentifier(_,Some(DoiAuthority)))
 				}
 			override val containedIn                   = Some(BasicContainmentInfo(journalMention, None, volume, None, None))
 			override val authors                       = (doc \ "articleinfo" \ "authorgroup" \ "author").map((c =>
