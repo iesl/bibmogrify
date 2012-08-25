@@ -1,15 +1,13 @@
 package edu.umass.cs.iesl.bibmogrify.model
 
 import java.net.URL
-import edu.umass.cs.iesl.scalacommons.NonemptyString
+import edu.umass.cs.iesl.scalacommons.{OptionUtils, NonemptyString}
 import edu.umass.cs.iesl.namejuggler.{PersonNameWithDerivations, CanonicalPersonName}
 import edu.umass.cs.iesl.scalacommons.StringUtils._
 
-object Person
-	{
+object Person {
 
-	def withIdentifiers(p: Person, newIds: Seq[PersonIdentifier]): Person = new Person
-		{
+	def withIdentifiers(p: Person, newIds: Seq[PersonIdentifier]): Person = new Person {
 		override val name         = p.name
 		override val address      = p.address
 		override val email        = p.email
@@ -17,38 +15,58 @@ object Person
 		override val affiliations = p.affiliations
 		override val homepages    = p.homepages
 		override val identifiers  = newIds ++ p.identifiers
-		}
+	}
 
 	def apply(fullname: String): Person =
-		new Person
-			{
+		new Person {
 			override val name = Some(PersonNameWithDerivations(fullname))
 			//StringUtils.emptyStringToNone(fullname).map(n => PersonNameWithDerivations(n))
-			}
+		}
 
 	def apply(givenNames: String, surName: String): Person =
-		new Person
-			{
-			val fs = givenNames.split(" ").toSeq
+		new Person {
+			val fs                        = givenNames.split(" ").toSeq
 			//val f   = fs.flatMap(t => emptyStringToNone(t))
-
 			val l: Option[NonemptyString] = surName
 
-			override val name = Some((new CanonicalPersonName()
-				{
-				override val givenNames : Seq[NonemptyString] = fs
-				override val surNames   = l.toSet
-				}).withDerivations)
-			}
+			override val name = Some((new CanonicalPersonName() {
+				override val givenNames: Seq[NonemptyString] = fs
+				override val surNames                        = l.toSet
+			}).withDerivations)
+		}
+
+	def merge(primary: Person, secondary: Person) = new Person {
+		override val name         = OptionUtils.merge(primary.name, secondary.name, PersonNameWithDerivations.merge)
+		override val address      = OptionUtils.mergeWarn(primary.address, secondary.address)
+		override val email        = OptionUtils.mergeWarn(primary.email, secondary.email)
+		override val phone        = OptionUtils.mergeWarn(primary.phone, secondary.phone)
+		override val affiliations = primary.affiliations ++ secondary.affiliations
+		override val homepages    = primary.homepages ++ secondary.homepages
+		override val identifiers  = primary.identifiers ++ secondary.identifiers
 	}
+}
 
 /**an entity that may be an author (i.e., a person or institution or named collaboration)
  *
  */
-trait Agent
+trait Agent {
+	type Self <: Agent
 
-trait Person extends Agent
-	{
+	/**
+	 * Could this agent and the other agent possibly be the same?  Generally this will depend on name compatibility only,
+	 * since addresses and whatnot could easily change.
+	 * @param other
+	 */
+	def compatibleWith(other: Agent): Boolean
+
+	//** in the case of PersonNameWithDerivations we just put the merge function in the companion; but here we want this subtyping fanciness.
+	def mergeWith[T <: Self](other: T): Self
+
+	def hasName: Boolean
+}
+
+trait Person extends Agent {
+	override type Self = Person
 	val name        : Option[PersonNameWithDerivations] = None
 	val address     : Option[Address]                   = None
 	val email       : Option[NonemptyString]            = None
@@ -57,17 +75,29 @@ trait Person extends Agent
 	val homepages   : Seq[URL]                          = Nil
 	val identifiers : Seq[PersonIdentifier]             = Nil
 
+	def hasName: Boolean = name.isDefined
+
 	//	def bestFullName: String = name.flatMap(_.inferFully.bestFullName).map(_.s).getOrElse("")
-	override def toString = name.map(_.toString).getOrElse("") //bestFullName
+	override def toString = name.map(_.toString).getOrElse("")
+
+	//bestFullName
+	override def compatibleWith(other: Agent): Boolean = other match {
+		case p: Person => (name, p.name) match {
+			case (Some(a), Some(b)) => a.toCanonical.compatibleWith(b.toCanonical)
+			case _ => true // a Person with an empty name is compatible with all others
+		}
+		case _ => false // a Person can only be compatible with a Person
 	}
 
-trait PersonIdentifier
-	{
+	override def mergeWith[T <: Person](secondary: T): Person = Person.merge(this, secondary)
+}
+
+trait PersonIdentifier {
 	val authority: Option[PersonIdentifierAuthority] = None
 	val value: String
 
 	def qualifiedValue = authority.map(_.shortName).getOrElse("Unknown") + ":" + value
-	}
+}
 
 /*
 case class BasicPerson(override val name: Option[String] = None, //
@@ -76,25 +106,25 @@ case class BasicPerson(override val name: Option[String] = None, //
                        phone: Option[String] = None, //
                        affiliations: Seq[Institution] = Nil, //
                        homepages: Seq[URL] = Nil) extends Person*/
-case class AuthorInRole(agent: Agent, roles: Seq[AuthorRole])
-	{
-	/*
-	def mergeWithMatching(fullAuthors: Seq[AuthorInRole]): AuthorInRole =
-		{
-		val matches = fullAuthors.filter(other => PersonName.compatibleName(person.name, other.person.name))
-		if (matches.size == 1)
-			{
-			// assume the "full" record is more complete, but merge the role and id info
-			val full: AuthorInRole = matches.head
-			new AuthorInRole(Person.withIdentifiers(full.person, person.identifiers), roles ++ full.roles)
+case class AuthorInRole(agent: Agent, roles: Seq[AuthorRole]) {
+
+	def mergeWithMatching(fullAuthors: Seq[AuthorInRole]): AuthorInRole = {
+		val matches = fullAuthors.filter(other => agent.compatibleWith(other.agent))
+		if (matches.size == 1) {
+			val other: AuthorInRole = matches.head
+			other.agent match {
+				//** this sucks: it's not typesafe due to erasure
+				// this test will always pass because agent.compatibleWith checked it already, but we need it for type safety
+				case otherAgent: agent.Self => new AuthorInRole(agent mergeWith otherAgent, roles ++ other.roles)
+				case _ => throw new Error("impossible")
 			}
-		else
-			{
+		}
+		else {
 			// if there are no matches or ambiguous matches, just drop it
 			this
-			}
-		}*/
+		}
 	}
+}
 
 case class OtherContributorInRole(person: Person, roles: Seq[OtherContributorRole])
 
@@ -137,34 +167,58 @@ case object Reviewer extends OtherContributorRole
 
 case object ProgramManager extends OtherContributorRole
 
-trait Institution extends Agent
-	{
-	val name     : String
+object Institution {
+	def merge(primary: Institution, secondary: Institution): Institution = new Institution {
+		override val name      = OptionUtils.mergeWarn(primary.name, secondary.name)
+		override val address   = OptionUtils.mergeWarn(primary.address, secondary.address)
+		override val email     = OptionUtils.mergeWarn(primary.email, secondary.email)
+		override val phone     = OptionUtils.mergeWarn(primary.phone, secondary.phone)
+		override val parent    = OptionUtils.mergeWarn(primary.parent, secondary.parent)
+		override val homepages = primary.homepages ++ secondary.homepages
+	}
+}
+
+trait Institution extends Agent {
+	override type Self = Institution
+	val name     : Option[NonemptyString]
 	val address  : Option[Address]
 	val phone    : Option[NonemptyString]
 	val email    : Option[NonemptyString]
 	val homepages: Seq[URL]
 	val parent   : Option[Institution]
+
+	def hasName: Boolean = name.isDefined
+
+	override def compatibleWith(other: Agent): Boolean = other match {
+		case p: Institution => (name, p.name) match {
+			case (Some(a), Some(b)) => a == b
+			case _ => true // an Institution with an empty name is compatible with all others
+		}
+		case _ => false // an Institution can only be compatible with an Institution
 	}
 
-case class BasicInstitution(override val name: String, override val address: Option[Address], override val phone: Option[NonemptyString],
+	// sensible naming to access shadowed variables
+	var primary = this
+
+	override def mergeWith[T <: Institution](secondary: T): Institution = Institution.merge(this, secondary)
+}
+
+case class BasicInstitution(override val name: Option[NonemptyString], override val address: Option[Address], override val phone: Option[NonemptyString],
                             override val email: Option[NonemptyString], override val homepages: Seq[URL], override val parent: Option[Institution])
 		extends Institution
 
-trait IdentifierAuthority extends Institution
-	{
-	val shortName: String // for prefixing the ID to establish uniqueness in some string context, e.g. "pubmed:838387"
-	}
+trait IdentifierAuthority extends Institution {
+	val shortName: NonemptyString // for prefixing the ID to establish uniqueness in some string context, e.g. "pubmed:838387"
+}
 
-case class BasicIdentifierAuthority(override val shortName: String) extends IdentifierAuthority
-	{
+case class BasicIdentifierAuthority(override val shortName: NonemptyString) extends IdentifierAuthority {
 	val address   = None
 	val email     = None
 	val homepages = Nil
-	val name      = shortName
+	val name      = Some(shortName)
 	val parent    = None
 	val phone     = None
-	}
+}
 
 trait InstitutionIdentifierAuthority extends IdentifierAuthority with Institution
 
@@ -173,43 +227,38 @@ trait InstitutionIdentifierAuthority extends IdentifierAuthority with Institutio
  */
 trait LocationIdentifierAuthority extends IdentifierAuthority with Location
 
-trait KeywordAuthority extends Institution
-	{
-	val shortName: String // for prefixing the ID to establish uniqueness in some string context, e.g. "pubmed:838387"
-	}
+trait KeywordAuthority extends Institution {
+	val shortName: NonemptyString // for prefixing the ID to establish uniqueness in some string context, e.g. "pubmed:838387"
+}
 
-case class BasicKeywordAuthority(override val shortName: String) extends KeywordAuthority
-	{
+case class BasicKeywordAuthority(override val shortName: NonemptyString) extends KeywordAuthority {
 	val address   = None
 	val email     = None
 	val homepages = Nil
-	val name      = shortName
+	val name      = Some(shortName)
 	val parent    = None
 	val phone     = None
-	}
+}
 
-trait Address
-	{
+trait Address {
 	val streetLines: Seq[String]
 	val city       : String
 	val country    : Country
-	}
+}
 
 case class BasicAddress(override val streetLines: Seq[String], override val city: String, override val country: Country) extends Address
 
-trait PersonIdentifierAuthority extends Institution
-	{
-	val shortName: String // for prefixing the ID to establish uniqueness in some string context, e.g. "pubmed:838387"
-	}
+trait PersonIdentifierAuthority extends Institution {
+	val shortName: NonemptyString // for prefixing the ID to establish uniqueness in some string context, e.g. "pubmed:838387"
+}
 
-case class BasicPersonIdentifierAuthority(override val shortName: String) extends PersonIdentifierAuthority
-	{
+case class BasicPersonIdentifierAuthority(override val shortName: NonemptyString) extends PersonIdentifierAuthority {
 	val address   = None
 	val email     = None
 	val homepages = Nil
-	val name      = shortName
+	val name      = Some(shortName)
 	val parent    = None
 	val phone     = None
-	}
+}
 
 case class BasicPersonIdentifier(override val value: String, override val authority: Option[PersonIdentifierAuthority] = None) extends PersonIdentifier

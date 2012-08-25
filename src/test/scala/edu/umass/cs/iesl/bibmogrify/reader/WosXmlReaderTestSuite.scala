@@ -3,7 +3,7 @@ package edu.umass.cs.iesl.bibmogrify.reader
 import org.scalatest.{BeforeAndAfter, FunSuite}
 import com.weiglewilczek.slf4s.Logging
 import edu.umass.cs.iesl.bibmogrify.UrlNamedInputStream
-import edu.umass.cs.iesl.bibmogrify.model.{RichStructuredCitation, Published}
+import edu.umass.cs.iesl.bibmogrify.model.{FirstAuthor, RichStructuredCitation, Published}
 import edu.umass.cs.iesl.scalacommons.StringUtils._
 
 class WosXmlReaderTestSuite extends FunSuite with BeforeAndAfter with Logging
@@ -27,15 +27,14 @@ class WosXmlReaderTestSuite extends FunSuite with BeforeAndAfter with Logging
 	assert(c.englishAbstract.unwrap.size > 50)
 	}
 
-	/*  test("Authors are parsed")
+	  test("Authors are parsed")
    {
-   val citationList = WosXMLReader(Source.fromURL(file))
-   val c = citationList.toIterator.next()
-   assert(c.authors.size === 1)
-   assert(c.authors.head.roles.isEmpty)
-   assert(c.authors.head.person.name === Some("E. F. Codd"))
+   assert(c.authors.size === 5)
+   assert(c.authors.head.roles.size == 1)
+   assert(c.authors.head.roles.head == FirstAuthor )
+   assert(c.authors.head.agent.toString === "RoTEST R. Q. Cuerno")  // note initials -> given names merging is not done yet
    }
- */
+
 	test("Journal is parsed")
 	{
 	val cont = c.containedIn.get

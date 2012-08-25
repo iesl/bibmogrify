@@ -85,7 +85,7 @@ class RichStructuredCitation(cm: StructuredCitation) extends Logging
 
 	def qualifiedIdsInOrder = cm.identifiers.toSeq.sortBy(x =>
 		                                                      {
-		                                                      val sortOrder: Option[Int] = authorityPriority.get(x.authority.map(_.shortName).getOrElse(""))
+		                                                      val sortOrder: Option[Int] = authorityPriority.get(x.authority.map(_.shortName.s).getOrElse(""))
 		                                                      -sortOrder.getOrElse(0)
 		                                                      }).map(_.qualifiedValue)
 
@@ -213,7 +213,7 @@ class RichPerson(p: Person)
 
 	def qualifiedIdsInOrder = p.identifiers.sortBy(x =>
 		                                               {
-		                                               val sortOrder: Option[Int] = authorityPriority.get(x.authority.map(_.shortName).getOrElse(""))
+		                                               val sortOrder: Option[Int] = authorityPriority.get(x.authority.map(_.shortName.s).getOrElse(""))
 		                                               -sortOrder.getOrElse(0)
 		                                               }).map(_.qualifiedValue)
 

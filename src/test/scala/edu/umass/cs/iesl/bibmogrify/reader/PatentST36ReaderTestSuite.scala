@@ -23,7 +23,7 @@ class PatentST36ReaderTestSuite extends FunSuite with BeforeAndAfter with Loggin
 
 	test("ID is parsed")
 	{
-	assert(c.identifiers.head.authority.get.name === "patent-WO-pub")
+	assert(c.identifiers.head.authority.get.name === "patent-WO-pub".opt)
 	}
 
 	import RichStructuredCitation.enrichStructuredCitation

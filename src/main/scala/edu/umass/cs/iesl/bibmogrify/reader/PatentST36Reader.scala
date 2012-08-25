@@ -33,7 +33,8 @@ object PatentST36Reader extends Transformer[NamedInputStream, StructuredPatent] 
 		  }*/
 	private def parseIdentifierAndDate(d: Option[Node], ct: EventType): (Option[Identifier], Option[CitationEvent]) = {
 		(d map ((c: Node) => {
-			val id = BasicIdentifier((c \ "doc-number").text, Some(new BasicIdentifierAuthority("patent-" + (c \ "country").text.trim + "-" + ct.shortName)))
+			val id = BasicIdentifier((c \ "doc-number").text,
+			                         Some(new BasicIdentifierAuthority(("patent-" + (c \ "country").text.trim + "-" + ct.shortName).n)))
 			val date = parseDate(c)
 			val event = new BasicCitationEvent(date, ct)
 			(id, Some(event))
@@ -156,8 +157,8 @@ object PatentST36Reader extends Transformer[NamedInputStream, StructuredPatent] 
 		// ** legal info, e.g. new owner
 		def parseKeywordGroup(seq: NodeSeq, auth: KeywordAuthority): Seq[Keyword] = {
 			seq flatMap ((n: Node) => {
-				val word : Option[NonemptyString] = (n \ "text").stripTags //** ignoring lots of structured data in here
-				word.map(x => new BasicKeyword(x,Some(auth)))
+				val word: Option[NonemptyString] = (n \ "text").stripTags //** ignoring lots of structured data in here
+				word.map(x => new BasicKeyword(x, Some(auth)))
 			})
 		}
 
@@ -234,12 +235,13 @@ object PatentST36Reader extends Transformer[NamedInputStream, StructuredPatent] 
 				val fterm = parseKeywordGroup(doc \\ "classification-f-term", FtermKeywordAuthority)
 
 				val nationalNodes: NodeSeq = doc \\ "classification-national"
-				val nationalKeywords = for (c <- nationalNodes) yield {
-					val country = (c \ "country").text.trim
-					val auth = new BasicKeywordAuthority(country)
-					val ks = parseKeywordGroup(c, auth)
-					ks
-				}
+
+				val nationalKeywords = for {c <- nationalNodes
+				                             country <- (c \ "country").text.opt  // if country isn't given the node is dropped
+				                             auth <- new BasicKeywordAuthority(country)}
+				yield parseKeywordGroup(c, auth)
+
+
 
 				var result = Seq(ipc, ipcr, ecla, fterm).flatten ++ nationalKeywords.flatten.toSeq
 				result

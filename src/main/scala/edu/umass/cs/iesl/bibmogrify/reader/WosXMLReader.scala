@@ -114,7 +114,7 @@ object WosXMLReader extends Transformer[NamedInputStream, StructuredCitation] wi
 			                                BasicIdentifier((item \ "@refid").text, WosRefidAuthority),
 			                                BasicIdentifier((item \ "i_cid").text, WosCidAuthority),  BasicIdentifier(wosDoi, DoiAuthority)).flatten
 
-			/*
+
 				  override val authors = {
 					val authorsNode = item \ "authors"
 
@@ -125,7 +125,7 @@ object WosXMLReader extends Transformer[NamedInputStream, StructuredCitation] wi
 					val basicAuthors: Seq[AuthorInRole] = primaryAuthorNodes.map(x => {
 
 					  new AuthorInRole(new Person() {
-						override val name: Option[String] = Person.cleanupName(x.text)
+						override val name: Option[PersonNameWithDerivations] = x.text.opt.map(PersonNameWithDerivations(_))
 						override val identifiers: Seq[PersonIdentifier] = {
 						  val key = (x \ "@key").text
 						  if (!key.isEmpty) {
@@ -136,7 +136,7 @@ object WosXMLReader extends Transformer[NamedInputStream, StructuredCitation] wi
 					  )
 					}) ++ basicAuthorNodes.map(x => {
 					  new AuthorInRole(new Person() {
-						override val name: Option[String] = Person.cleanupName(x.text)
+						override val name: Option[PersonNameWithDerivations] = x.text.opt.map(PersonNameWithDerivations(_))
 						override val identifiers: Seq[PersonIdentifier] = {
 						  val key = (x \ "@key").text
 						  if (!key.isEmpty) {
@@ -153,14 +153,16 @@ object WosXMLReader extends Transformer[NamedInputStream, StructuredCitation] wi
 					val fullAuthors = fullAuthorNodes.map(x => {
 					  val first = (x \ "AuFirstName").text
 					  val last = (x \ "AuLastName").text
-					  val assembled = Person.cleanupName(first + " " + last)
-					  val collective = Person.cleanupName((x \ "AuCollectiveName").text)
+					  val assembled = new PersonNameWithDerivations(){
+					  override val givenNames = first.opt.toSeq
+					  override val surNames = last.opt.toSet
+					  }
+					  val collective = PersonNameWithDerivations((x \ "AuCollectiveName").text)
 
-					  // choose the longer of the assembled vs collective names, on the assumption that it's more informative
-					  val chosenFullName = if (assembled.length() >= collective.length()) assembled else collective;
+					val mergedName = PersonNameWithDerivations.merge(assembled,collective)
 
 					  new AuthorInRole(new Person() {
-						override val name: Option[String] = chosenFullName
+						override val name = Some(mergedName) // it is possible to have a completely empty PersonName
 						// override val address:
 					  }, Nil
 					  )
@@ -168,13 +170,13 @@ object WosXMLReader extends Transformer[NamedInputStream, StructuredCitation] wi
 
 					val m = basicAuthors.map(_.mergeWithMatching(fullAuthors))
 
-					assert(!m.head.person.name.isEmpty)
+					assert(m.head.agent.hasName)
 
 					m
 
 
 				  }
-				*/
+
 			// TODO implement parsePages, or just store the string
 			def parsePages(s: String): Option[PageRange] = None
 

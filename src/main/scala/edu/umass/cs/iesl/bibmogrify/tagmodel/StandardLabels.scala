@@ -8,6 +8,7 @@ import com.weiglewilczek.slf4s.Logging
 import edu.umass.cs.iesl.scalacommons.NonemptyString
 
 import edu.umass.cs.iesl.scalacommons.StringUtils._
+
 /**
  * @author <a href="mailto:dev@davidsoergel.com">David Soergel</a>
  * @version $Id$
@@ -33,7 +34,7 @@ object StandardLabels extends LabelSet with Logging
 		new StructuredCitation
 			{
 			override val title   = c.get("title").headOption.map(NonemptyString(_))
-			override val authors = c.get("author").map(n => new AuthorInRole(Person(n), Nil))
+			override val authors = c.get("author").map(n => new AuthorInRole(Person(n.trimPunctuation), Nil))
 
 			val year: Option[Int] =
 				{
@@ -129,11 +130,12 @@ class ExtendedLabels(val referenceLabels: Seq[String] = Seq("reference", "refere
 				{
 				//** need to parse authors/author/author-first etc., taking the grouping into account
 				//** As a work'round we just ignore the subtags for now by commenting them out above
-				val individualAuthors = (c.get("author") ++ c.get("authors/author")).map(n => new AuthorInRole(Person(n), Nil))
+				val individualAuthors = (c.get("author") ++ c.get("authors/author")).map(n => new AuthorInRole(Person(n.trimPunctuation), Nil))
 				val result = if (!individualAuthors.isEmpty) individualAuthors
 				else
 					{
-					val combinedAuthors = c.get("authors").flatMap(s => s.split("\\band\\b").flatMap(_.split(","))).map(n => new AuthorInRole(Person(n), Nil))
+					val combinedAuthors = c.get("authors").flatMap(s => s.split("\\band\\b").flatMap(_.split(","))).map(n => new AuthorInRole(Person(n.trimPunctuation),
+					                                                                                                                          Nil))
 					combinedAuthors
 					}
 				result
