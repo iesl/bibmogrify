@@ -6,7 +6,35 @@ import edu.umass.cs.iesl.scalacommons.NonemptyString
 import com.mongodb.{Mongo, BasicDBObject, BasicDBList}
 import com.weiglewilczek.slf4s.Logging
 import edu.umass.cs.iesl.bibmogrify.model.StructuredCitation
+import java.io.{PrintWriter,File}
 import edu.umass.cs.iesl.bibmogrify.model.RichStructuredCitation._
+
+
+object Mongo2TextExporter{
+  def main(args:Array[String]) ={
+    val pw = new PrintWriter(new File("paper-mapping.txt"))
+    val papers = FUSEMongoSink.paperCollection.find//.hint("$natural")
+    //val papers = FUSEMongoSink.paperCollection.find.hint("$natural")
+    //println("Mongo conn: "+FUSEMongoSink.mongoConn+" MongoDB:"+FUSEMongoSink.mongoDB+" col: "+FUSEMongoSink.paperCollection)
+    while(papers.hasNext){
+      val paper = papers.next
+      val mentions = paper.get("ms").asInstanceOf[BasicDBList]
+      if(mentions.size>1){
+        var i = 0
+        while(i<mentions.size){
+          var j = i+1
+          while(j<mentions.size){
+            pw.println(mentions.get(i).toString+" "+mentions.get(j).toString)
+            j+=1
+          }
+          i+=1
+        }
+      }
+    }
+    pw.flush()
+    pw.close()
+  }
+}
 
 object FUSEMongoSink extends Sink[(NonemptyString, StructuredCitation)] with NamedPlugin with Logging {
 	var citationCount: Long = 0L
@@ -86,6 +114,8 @@ object FUSEMongoSink extends Sink[(NonemptyString, StructuredCitation)] with Nam
 		                  }
 	}
 }
+
+
 
 /*
 class FileSink(filename:String) extends Sink[String] with NamedPlugin {
