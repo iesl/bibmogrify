@@ -31,11 +31,10 @@ object Mongo2TextExporter {
 				}
 			  }
 			}*/
-
 		// above pairwise approch prints n^2 lines-- bad for large clusters.  Print all on one line instead:
 		for (paper <- papers) {
 			val mentions = paper.get("ms").asInstanceOf[BasicDBList]
-			if (mentions.nonEmpty) {
+			if (mentions.size > 1) {
 				pw.println(mentions.mkString(" "))
 			}
 		}
