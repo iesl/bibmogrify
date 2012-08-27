@@ -3,37 +3,46 @@ package edu.umass.cs.iesl.bibmogrify.sink
 import edu.umass.cs.iesl.bibmogrify.NamedPlugin
 import edu.umass.cs.iesl.bibmogrify.pipeline.{TransformerMetadata, Sink}
 import edu.umass.cs.iesl.scalacommons.NonemptyString
-import com.mongodb.{Mongo, BasicDBObject, BasicDBList}
+import com.mongodb.{DBObject, Mongo, BasicDBObject, BasicDBList}
 import com.weiglewilczek.slf4s.Logging
 import edu.umass.cs.iesl.bibmogrify.model.StructuredCitation
-import java.io.{PrintWriter,File}
+import java.io.{PrintWriter, File}
 import edu.umass.cs.iesl.bibmogrify.model.RichStructuredCitation._
+import scala.collection.JavaConversions._
 
+object Mongo2TextExporter {
+	def main(args: Array[String]) = {
+		val pw = new PrintWriter(new File("paper-mapping.txt"))
+		val papers: Iterable[DBObject] = FUSEMongoSink.paperCollection.find //.hint("$natural")
+		//val papers = FUSEMongoSink.paperCollection.find.hint("$natural")
+		//println("Mongo conn: "+FUSEMongoSink.mongoConn+" MongoDB:"+FUSEMongoSink.mongoDB+" col: "+FUSEMongoSink.paperCollection)
+		/*  while(papers.hasNext){
+			  val paper = papers.next
+			  val mentions = paper.get("ms").asInstanceOf[BasicDBList]
+			  if(mentions.size>1){
+				var i = 0
+				while(i<mentions.size){
+				  var j = i+1
+				  while(j<mentions.size){
+					pw.println(mentions.get(i).toString+" "+mentions.get(j).toString)
+					j+=1
+				  }
+				  i+=1
+				}
+			  }
+			}*/
 
-object Mongo2TextExporter{
-  def main(args:Array[String]) ={
-    val pw = new PrintWriter(new File("paper-mapping.txt"))
-    val papers = FUSEMongoSink.paperCollection.find//.hint("$natural")
-    //val papers = FUSEMongoSink.paperCollection.find.hint("$natural")
-    //println("Mongo conn: "+FUSEMongoSink.mongoConn+" MongoDB:"+FUSEMongoSink.mongoDB+" col: "+FUSEMongoSink.paperCollection)
-    while(papers.hasNext){
-      val paper = papers.next
-      val mentions = paper.get("ms").asInstanceOf[BasicDBList]
-      if(mentions.size>1){
-        var i = 0
-        while(i<mentions.size){
-          var j = i+1
-          while(j<mentions.size){
-            pw.println(mentions.get(i).toString+" "+mentions.get(j).toString)
-            j+=1
-          }
-          i+=1
-        }
-      }
-    }
-    pw.flush()
-    pw.close()
-  }
+		// above pairwise approch prints n^2 lines-- bad for large clusters.  Print all on one line instead:
+		for (paper <- papers) {
+			val mentions = paper.get("ms").asInstanceOf[BasicDBList]
+			if (mentions.nonEmpty) {
+				pw.println(mentions.mkString(" "))
+			}
+		}
+
+		pw.flush()
+		pw.close()
+	}
 }
 
 object FUSEMongoSink extends Sink[(NonemptyString, StructuredCitation)] with NamedPlugin with Logging {
@@ -44,7 +53,6 @@ object FUSEMongoSink extends Sink[(NonemptyString, StructuredCitation)] with Nam
 	lazy val mongoDB         = mongoConn.getDB("bibmogrify")
 	lazy val paperCollection = mongoDB.getCollection("papers")
 	//paperCollection.ensureIndex(new BasicDBObject("_id",1))
-
 	//size
 	//	val writer: BufferedWriter = new BufferedWriter(new OutputStreamWriter(scala.Console.out))
 	//** use monadic IO
@@ -98,7 +106,6 @@ object FUSEMongoSink extends Sink[(NonemptyString, StructuredCitation)] with Nam
 
 	def putMetadata(m: Option[TransformerMetadata]) {
 		lock.synchronized {
-
 			                  paperCollection.ensureIndex(new BasicDBObject("ms", 1)) //mentions
 			                  paperCollection.ensureIndex(new BasicDBObject("sz", 1))
 			                  //throw new Exception("Error, not yet implemented.")
@@ -115,14 +122,12 @@ object FUSEMongoSink extends Sink[(NonemptyString, StructuredCitation)] with Nam
 	}
 }
 
-
-
 /*
 class FileSink(filename:String) extends Sink[String] with NamedPlugin {
   val writer: BufferedWriter = new BufferedWriter(new FileWriter(filename))
 
   def put(c: String) {
-    writer.write(c)
+	writer.write(c)
   }
 
   val name = "console"
