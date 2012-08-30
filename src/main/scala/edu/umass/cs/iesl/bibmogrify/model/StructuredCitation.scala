@@ -57,6 +57,9 @@ trait StructuredCitation
 	val numFigures : Option[Int]            = None
 	val numTables  : Option[Int]            = None
 	val licenseType: Option[NonemptyString] = None
+
+	// addresses that are not linked to authors
+	val addresses : Seq[Address] = Nil
 	}
 
 object TextWithLanguage extends Logging

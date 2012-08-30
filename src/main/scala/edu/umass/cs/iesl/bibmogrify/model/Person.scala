@@ -1,9 +1,10 @@
 package edu.umass.cs.iesl.bibmogrify.model
 
 import java.net.URL
-import edu.umass.cs.iesl.scalacommons.{OptionUtils, NonemptyString}
+import edu.umass.cs.iesl.scalacommons.{SeqUtils, Lexicon, OptionUtils, NonemptyString}
 import edu.umass.cs.iesl.namejuggler.{PersonNameWithDerivations, CanonicalPersonName}
 import edu.umass.cs.iesl.scalacommons.StringUtils._
+import com.weiglewilczek.slf4s.Logging
 
 object Person {
 
@@ -63,16 +64,18 @@ trait Agent {
 	def mergeWith[T <: Self](other: T): Self
 
 	def hasName: Boolean
+
+	val address: Option[Address] = None
+
+	val phone    : Option[NonemptyString] = None
+	val email    : Option[NonemptyString] = None
+	val homepages: Seq[URL]               = Nil
 }
 
 trait Person extends Agent {
 	override type Self = Person
 	val name        : Option[PersonNameWithDerivations] = None
-	val address     : Option[Address]                   = None
-	val email       : Option[NonemptyString]            = None
-	val phone       : Option[NonemptyString]            = None
 	val affiliations: Seq[Institution]                  = Nil
-	val homepages   : Seq[URL]                          = Nil
 	val identifiers : Seq[PersonIdentifier]             = Nil
 
 	def hasName: Boolean = name.isDefined
@@ -169,6 +172,7 @@ case object ProgramManager extends OtherContributorRole
 
 object Institution {
 	def merge(primary: Institution, secondary: Institution): Institution = new Institution {
+		//override val institutionType      = OptionUtils.mergeWarn(primary.institutionType, secondary.institutionType)
 		override val name      = OptionUtils.mergeWarn(primary.name, secondary.name)
 		override val address   = OptionUtils.mergeWarn(primary.address, secondary.address)
 		override val email     = OptionUtils.mergeWarn(primary.email, secondary.email)
@@ -180,12 +184,9 @@ object Institution {
 
 trait Institution extends Agent {
 	override type Self = Institution
-	val name     : Option[NonemptyString]
-	val address  : Option[Address]
-	val phone    : Option[NonemptyString]
-	val email    : Option[NonemptyString]
-	val homepages: Seq[URL]
-	val parent   : Option[Institution]
+	//val institutionType : Option[InstitutionType]
+	val name  : Option[NonemptyString]
+	val parent: Option[Institution]
 
 	def hasName: Boolean = name.isDefined
 
@@ -205,6 +206,7 @@ trait Institution extends Agent {
 
 case class BasicInstitution(override val name: Option[NonemptyString], override val address: Option[Address], override val phone: Option[NonemptyString],
                             override val email: Option[NonemptyString], override val homepages: Seq[URL], override val parent: Option[Institution])
+//override val institutionType : Option[Institution])
 		extends Institution
 
 trait IdentifierAuthority extends Institution {
@@ -212,12 +214,8 @@ trait IdentifierAuthority extends Institution {
 }
 
 case class BasicIdentifierAuthority(override val shortName: NonemptyString) extends IdentifierAuthority {
-	val address   = None
-	val email     = None
-	val homepages = Nil
-	val name      = Some(shortName)
-	val parent    = None
-	val phone     = None
+	val name   = Some(shortName)
+	val parent = None
 }
 
 trait InstitutionIdentifierAuthority extends IdentifierAuthority with Institution
@@ -232,33 +230,77 @@ trait KeywordAuthority extends Institution {
 }
 
 case class BasicKeywordAuthority(override val shortName: NonemptyString) extends KeywordAuthority {
-	val address   = None
-	val email     = None
-	val homepages = Nil
-	val name      = Some(shortName)
-	val parent    = None
-	val phone     = None
+	val name   = Some(shortName)
+	val parent = None
+}
+
+sealed class AddressType
+
+case object University extends AddressType
+
+case object Hospital extends AddressType
+
+case object Government extends AddressType
+
+case object Nonprofit extends AddressType
+
+case object Industry extends AddressType
+
+object RichAddress {
+	implicit def toRichAddress(address: Address): RichAddress = new RichAddress(address)
+
+	val universityWords = new Lexicon("university")
+	val hospitalWords   = new Lexicon("hospital")
+	val governmentWords = new Lexicon("government")
+	val nonprofitWords  = new Lexicon("nonprofit")
+	val industryWords   = new Lexicon("industry")
+}
+
+class RichAddress(address: Address) extends Logging {
+
+	import RichAddress._
+
+	// this belongs in some inference module, not in the middle of the model?  Or int RichAddress, at least...
+	def inferredAddressType: Option[AddressType] = address.addressType.orElse(inferAddressType(address.streetLines.mkString(" ")))
+
+	private def inferAddressType(a: String): Option[AddressType] = {
+		val countsByType: Map[AddressType, Map[String, Int]] = Map(
+				University -> universityWords.substringMatchesLC(a), Hospital -> hospitalWords.substringMatchesLC(a), Government ->
+				                                                                                                      governmentWords.substringMatchesLC(a),
+				Nonprofit -> nonprofitWords.substringMatchesLC(a), Industry -> industryWords.substringMatchesLC(a)
+				)
+
+		val populatedTypes: Map[AddressType, Map[String, Int]] = countsByType.filter(!_._2.isEmpty)
+		populatedTypes.size match {
+			case 0 => None
+			case 1 => Some(populatedTypes.head._1)
+			case _ => {
+				val best = SeqUtils.argMax[AddressType,Int](populatedTypes.keys, x=>populatedTypes(x).values.sum)
+				logger.warn("Address type ambiguity: " + populatedTypes + "; chose " + best)
+				None
+			}
+		}
+	}
 }
 
 trait Address {
 	val streetLines: Seq[String]
 	val city       : String
 	val country    : Country
+	val addressType: Option[AddressType]
 }
 
-case class BasicAddress(override val streetLines: Seq[String], override val city: String, override val country: Country) extends Address
+case class BasicAddress(override val streetLines: Seq[String], override val city: String, override val country: Country,
+                        override val addressType: Option[AddressType])
+		extends Address
 
 trait PersonIdentifierAuthority extends Institution {
 	val shortName: NonemptyString // for prefixing the ID to establish uniqueness in some string context, e.g. "pubmed:838387"
 }
 
 case class BasicPersonIdentifierAuthority(override val shortName: NonemptyString) extends PersonIdentifierAuthority {
-	val address   = None
-	val email     = None
-	val homepages = Nil
-	val name      = Some(shortName)
-	val parent    = None
-	val phone     = None
+	val name   = Some(shortName)
+	val parent = None
 }
 
 case class BasicPersonIdentifier(override val value: String, override val authority: Option[PersonIdentifierAuthority] = None) extends PersonIdentifier
