@@ -260,22 +260,23 @@ class RichAddress(address: Address) extends Logging {
 
 	import RichAddress._
 
-	// this belongs in some inference module, not in the middle of the model?  Or int RichAddress, at least...
+	// this belongs in some inference module, not in the middle of the model?  Or in RichAddress, at least...
 	def inferredAddressType: Option[AddressType] = address.addressType.orElse(inferAddressType(address.streetLines.mkString(" ")))
 
 	private def inferAddressType(a: String): Option[AddressType] = {
-		val countsByType: Map[AddressType, Map[String, Int]] = Map(
-				University -> universityWords.substringMatchesLC(a), Hospital -> hospitalWords.substringMatchesLC(a), Government ->
-				                                                                                                      governmentWords.substringMatchesLC(a),
-				Nonprofit -> nonprofitWords.substringMatchesLC(a), Industry -> industryWords.substringMatchesLC(a)
-				)
+		val countsByType: Map[AddressType, Map[String, Int]] = Map(University -> universityWords.substringMatchesLC(a),
+		                                                           Hospital -> hospitalWords.substringMatchesLC(a),
+		                                                           Government -> governmentWords.substringMatchesLC(a),
+		                                                           Nonprofit -> nonprofitWords.substringMatchesLC(a),
+		                                                           Industry -> industryWords.substringMatchesLC(a))
 
 		val populatedTypes: Map[AddressType, Map[String, Int]] = countsByType.filter(!_._2.isEmpty)
+		logger.info(a + ": " + countsByType)
 		populatedTypes.size match {
 			case 0 => None
 			case 1 => Some(populatedTypes.head._1)
 			case _ => {
-				val best = SeqUtils.argMax[AddressType,Int](populatedTypes.keys, x=>populatedTypes(x).values.sum)
+				val best = SeqUtils.argMax[AddressType, Int](populatedTypes.keys, x => populatedTypes(x).values.sum)
 				logger.warn("Address type ambiguity: " + populatedTypes + "; chose " + best)
 				None
 			}
