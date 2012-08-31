@@ -60,6 +60,8 @@ trait StructuredCitation
 
 	// addresses that are not linked to authors
 	val addresses : Seq[Address] = Nil
+
+	val consensusAddressType : Option[AddressType] = None
 	}
 
 object TextWithLanguage extends Logging

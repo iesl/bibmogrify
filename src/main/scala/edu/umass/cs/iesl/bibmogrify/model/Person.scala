@@ -286,12 +286,12 @@ class RichAddress(address: Address) extends Logging {
 
 trait Address {
 	val streetLines: Seq[String]
-	val city       : String
-	val country    : Country
+	val city       : Option[String]
+	val country    : Option[Country]
 	val addressType: Option[AddressType]
 }
 
-case class BasicAddress(override val streetLines: Seq[String], override val city: String, override val country: Country,
+case class BasicAddress(override val streetLines: Seq[String], override val city: Option[String], override val country: Option[Country],
                         override val addressType: Option[AddressType])
 		extends Address
 
