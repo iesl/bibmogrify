@@ -147,12 +147,31 @@ object WosXMLReader extends Transformer[NamedInputStream, StructuredCitation] wi
 					val mergedName = PersonNameWithDerivations.merge(assembled, collective)
 
 					new AuthorInRole(new Person() {
-						override val name = Some(mergedName) // it is possible to have a completely empty PersonName
-						// override val address:
+						override val name = Some(mergedName)
+						// it is possible to have a completely empty PersonName
+						override val addresses : Set[Address] = (x \ "address").map(f => BasicAddress(Seq(f.text))).toSet
 					}, Nil)
 				})
 
-				val m = basicAuthors.map(_.mergeWithMatching(fullAuthors))
+				// there may also be an email block
+				/*
+							<emails count="1">
+				<email>
+				<name>Crystal, RG</name>
+				<email_addr>geneticmedicine@med.cornell.edu</email_addr>
+				</email>
+				</emails>m
+							 */
+				val emailsNode = item \ "emails"
+
+				val emailAuthors = emailsNode.map(x => {
+					new AuthorInRole(new Person() {
+						override val name  = Some(PersonNameWithDerivations((x \ "name").text))
+						override val email = (x \ "email").text.opt
+					}, Nil)
+				})
+
+				val m = basicAuthors.map(_.mergeWithMatching(fullAuthors)).map(_.mergeWithMatching(emailAuthors))
 
 				assert(m.head.agent.hasName)
 
@@ -165,16 +184,18 @@ object WosXMLReader extends Transformer[NamedInputStream, StructuredCitation] wi
 					val streetlines = addrNodes.map(n => {
 						(n \ "rs_address").text
 					})
-					BasicAddress(streetlines, None, None, None)
+					BasicAddress(streetlines)
 				}
 			}
 
 			override val doctype    = decodeDocType((item \ "doctype").text)
 			override val docSubtype = (item \ "doctype").text.opt
 
-			override val consensusAddressType = {
-				val foundAddressTypes = addresses.flatMap(_.inferredAddressType).toSet
-				if (foundAddressTypes.size == 1) foundAddressTypes.headOption else None
+			override val consensusInstitutionType = {
+				val allEmailTypes = authors.map(_.agent).flatMap(_.email).flatMap(InstitutionType.infer(_)).toSet
+				val allAddresses = addresses ++ authors.map(_.agent).flatMap(_.addresses)
+				val foundInstitutionTypes = allAddresses.flatMap(_.inferredInstitutionType).toSet ++ allEmailTypes
+				if (foundInstitutionTypes.size == 1) foundInstitutionTypes.headOption else None
 			}
 
 			// TODO implement parsePages, or just store the string
@@ -225,7 +246,38 @@ object WosXMLReader extends Transformer[NamedInputStream, StructuredCitation] wi
 		                               BasicIdentifier((node \ "@artno").text, DoiAuthority)).flatten
 	}
 
-	private val knownDocTypes: Map[String, DocType] = Map("Article" -> JournalArticle)
+	private val knownDocTypes: Map[String, DocType] = Map("Article" -> JournalArticle, "Review" -> JournalArticle, "Book Review" -> JournalArticle,
+	                                                      "Meeting Abstract" -> Proceedings, "Proceedings Paper" -> ProceedingsArticle, "Book" -> Book)
 
+	/*
+
+	case object JournalArticle extends DocType
+
+	case object Journal extends DocType
+
+	case object ProceedingsArticle extends DocType
+
+	case object Proceedings extends DocType
+
+	case object CollectionArticle extends DocType
+
+	case object CollectionOfArticles extends DocType
+
+	case object BookChapter extends DocType
+
+	case object Book extends DocType
+
+	case object TechnicalReport extends DocType
+
+	case object Patent extends DocType
+
+	case object PhdThesis extends DocType
+
+	case object MastersThesis extends DocType
+
+	case object Grant extends DocType
+
+	case object WwwArticle extends DocType
+	 */
 	private def decodeDocType(s: String): Option[DocType] = knownDocTypes.get(s).orElse({logger.warn("Unknown DocType: " + s); None})
 }

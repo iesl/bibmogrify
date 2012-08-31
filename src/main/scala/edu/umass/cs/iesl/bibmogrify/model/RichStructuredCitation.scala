@@ -171,11 +171,11 @@ class RichStructuredCitation(cm: StructuredCitation) extends Logging
 			                }).mkString(",")
 		}
 
-	def allAddresses: Seq[Address] = cm.addresses ++ cm.authors.flatMap(_.agent.address)
+	def allAddresses: Seq[Address] = cm.addresses ++ cm.authors.flatMap(_.agent.addresses)
 
-	def institutionRatios : Map[AddressType, Double] = {
+	def institutionRatios : Map[InstitutionType, Double] = {
 		import RichAddress._
-		val instTypes : Map[AddressType, Int] = allAddresses.flatMap(_.inferredAddressType).groupBy(x=>x).mapValues(_.size)
+		val instTypes : Map[InstitutionType, Int] = allAddresses.flatMap(_.inferredInstitutionType).groupBy(x=>x).mapValues(_.size)
 		val total : Double = instTypes.values.sum
 		instTypes.mapValues(_ / total)
 		}

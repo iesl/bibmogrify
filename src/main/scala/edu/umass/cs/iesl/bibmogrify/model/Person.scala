@@ -10,7 +10,7 @@ object Person {
 
 	def withIdentifiers(p: Person, newIds: Seq[PersonIdentifier]): Person = new Person {
 		override val name         = p.name
-		override val address      = p.address
+		override val addresses    = p.addresses
 		override val email        = p.email
 		override val phone        = p.phone
 		override val affiliations = p.affiliations
@@ -38,7 +38,7 @@ object Person {
 
 	def merge(primary: Person, secondary: Person) = new Person {
 		override val name         = OptionUtils.merge(primary.name, secondary.name, PersonNameWithDerivations.merge)
-		override val address      = OptionUtils.mergeWarn(primary.address, secondary.address)
+		override val addresses    = primary.addresses ++ secondary.addresses
 		override val email        = OptionUtils.mergeWarn(primary.email, secondary.email)
 		override val phone        = OptionUtils.mergeWarn(primary.phone, secondary.phone)
 		override val affiliations = primary.affiliations ++ secondary.affiliations
@@ -65,11 +65,15 @@ trait Agent {
 
 	def hasName: Boolean
 
-	val address: Option[Address] = None
-
+	val addresses: Set[Address]           = Set.empty
 	val phone    : Option[NonemptyString] = None
 	val email    : Option[NonemptyString] = None
 	val homepages: Seq[URL]               = Nil
+
+/*
+def inferInstitutionType : Option[InstitutionType] = {
+
+}*/
 }
 
 trait Person extends Agent {
@@ -174,7 +178,7 @@ object Institution {
 	def merge(primary: Institution, secondary: Institution): Institution = new Institution {
 		//override val institutionType      = OptionUtils.mergeWarn(primary.institutionType, secondary.institutionType)
 		override val name      = OptionUtils.mergeWarn(primary.name, secondary.name)
-		override val address   = OptionUtils.mergeWarn(primary.address, secondary.address)
+		override val addresses   = primary.addresses ++ secondary.addresses
 		override val email     = OptionUtils.mergeWarn(primary.email, secondary.email)
 		override val phone     = OptionUtils.mergeWarn(primary.phone, secondary.phone)
 		override val parent    = OptionUtils.mergeWarn(primary.parent, secondary.parent)
@@ -204,7 +208,7 @@ trait Institution extends Agent {
 	override def mergeWith[T <: Institution](secondary: T): Institution = Institution.merge(this, secondary)
 }
 
-case class BasicInstitution(override val name: Option[NonemptyString], override val address: Option[Address], override val phone: Option[NonemptyString],
+case class BasicInstitution(override val name: Option[NonemptyString], override val addresses: Set[Address], override val phone: Option[NonemptyString],
                             override val email: Option[NonemptyString], override val homepages: Seq[URL], override val parent: Option[Institution])
 //override val institutionType : Option[Institution])
 		extends Institution
@@ -234,49 +238,27 @@ case class BasicKeywordAuthority(override val shortName: NonemptyString) extends
 	val parent = None
 }
 
-sealed class AddressType
-
-case object University extends AddressType
-
-case object Hospital extends AddressType
-
-case object Government extends AddressType
-
-case object Nonprofit extends AddressType
-
-case object Industry extends AddressType
-
-object RichAddress {
-	implicit def toRichAddress(address: Address): RichAddress = new RichAddress(address)
-
+object InstitutionType extends Logging {
 	val universityWords = new Lexicon("university")
 	val hospitalWords   = new Lexicon("hospital")
 	val governmentWords = new Lexicon("government")
 	val nonprofitWords  = new Lexicon("nonprofit")
 	val industryWords   = new Lexicon("industry")
-}
 
-class RichAddress(address: Address) extends Logging {
+	def infer(a: String): Option[InstitutionType] = {
+		val countsByType: Map[InstitutionType, Int] = Map(University -> universityWords.countTokenMatchesLC(a),
+		                                                  Hospital -> hospitalWords.countTokenMatchesLC(a),
+		                                                  Government -> governmentWords.countTokenMatchesLC(a),
+		                                                  Nonprofit -> nonprofitWords.countTokenMatchesLC(a),
+		                                                  Industry -> industryWords.countTokenMatchesLC(a))
 
-	import RichAddress._
-
-	// this belongs in some inference module, not in the middle of the model?  Or in RichAddress, at least...
-	def inferredAddressType: Option[AddressType] = address.addressType.orElse(inferAddressType(address.streetLines.mkString(" ")))
-
-	private def inferAddressType(a: String): Option[AddressType] = {
-		val countsByType: Map[AddressType, Int] = Map(University -> universityWords.countTokenMatchesLC(a),
-		                                                           Hospital -> hospitalWords.countTokenMatchesLC(a),
-		                                                           Government -> governmentWords.countTokenMatchesLC(a),
-		                                                           Nonprofit -> nonprofitWords.countTokenMatchesLC(a),
-		                                                           Industry -> industryWords.countTokenMatchesLC(a))
-
-		val populatedTypes: Map[AddressType, Int] = countsByType.filterNot(_._2 == 0)
+		val populatedTypes: Map[InstitutionType, Int] = countsByType.filterNot(_._2 == 0)
 		logger.info(a + ": " + populatedTypes)
 		populatedTypes.size match {
 			case 0 => None
 			case 1 => Some(populatedTypes.head._1)
 			case _ => {
-				val best = SeqUtils.argMax[AddressType, Int](populatedTypes.keys, x => populatedTypes(x))
+				val best = SeqUtils.argMax[InstitutionType, Int](populatedTypes.keys, x => populatedTypes(x))
 				logger.warn("Address type ambiguity: " + populatedTypes + "; chose " + best)
 				None
 			}
@@ -284,15 +266,37 @@ class RichAddress(address: Address) extends Logging {
 	}
 }
 
+sealed class InstitutionType
+
+case object University extends InstitutionType
+
+case object Hospital extends InstitutionType
+
+case object Government extends InstitutionType
+
+case object Nonprofit extends InstitutionType
+
+case object Industry extends InstitutionType
+
+object RichAddress {
+	implicit def toRichAddress(address: Address): RichAddress = new RichAddress(address)
+}
+
+class RichAddress(address: Address) extends Logging {
+
+	// this belongs in some inference module, not in the middle of the model?
+	def inferredInstitutionType: Option[InstitutionType] = address.addressType.orElse(InstitutionType.infer(address.streetLines.mkString(" ")))
+}
+
 trait Address {
 	val streetLines: Seq[String]
 	val city       : Option[String]
 	val country    : Option[Country]
-	val addressType: Option[AddressType]
+	val addressType: Option[InstitutionType]
 }
 
-case class BasicAddress(override val streetLines: Seq[String], override val city: Option[String], override val country: Option[Country],
-                        override val addressType: Option[AddressType])
+case class BasicAddress(override val streetLines: Seq[String], override val city: Option[String] = None, override val country: Option[Country] = None,
+                        override val addressType: Option[InstitutionType] = None)
 		extends Address
 
 trait PersonIdentifierAuthority extends Institution {

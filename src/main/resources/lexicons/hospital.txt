@@ -1,5 +1,6 @@
 hospital
 hosp
+med
 medical
 medicine
 radiology

@@ -1,3 +1,4 @@
+edu
 univ
 college
 # things like institute and department could just as well be in government or industry
