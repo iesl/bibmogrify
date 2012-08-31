@@ -1,0 +1,7 @@
+hospital
+medical
+medicine
+radiology
+gastroenterology
+surgery
+pediatrics
