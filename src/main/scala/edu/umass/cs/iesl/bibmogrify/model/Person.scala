@@ -256,10 +256,11 @@ object InstitutionType extends Logging {
 
 		val populatedTypes: Map[InstitutionType, Int] = countsByType.filterNot(_._2 == 0)
 
+		logger.debug(a + " : " + populatedTypes)
+
 		// just report them all
 		populatedTypes.keySet
 		/*
-		logger.info(a + " : " + populatedTypes)
 		populatedTypes.size match {
 			case 0 => None
 			case 1 => Some(populatedTypes.head._1)
