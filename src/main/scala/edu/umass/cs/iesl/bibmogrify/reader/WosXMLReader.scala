@@ -147,9 +147,9 @@ object WosXMLReader extends Transformer[NamedInputStream, StructuredCitation] wi
 					val mergedName = PersonNameWithDerivations.merge(assembled, collective)
 
 					new AuthorInRole(new Person() {
-						override val name = Some(mergedName)
+						override val name                    = Some(mergedName)
 						// it is possible to have a completely empty PersonName
-						override val addresses : Set[Address] = (x \ "address").map(f => BasicAddress(Seq(f.text))).toSet
+						override val addresses: Set[Address] = (x \ "address").map(f => BasicAddress(Seq(f.text))).toSet
 					}, Nil)
 				})
 
@@ -195,7 +195,11 @@ object WosXMLReader extends Transformer[NamedInputStream, StructuredCitation] wi
 				val allEmailTypes = authors.map(_.agent).flatMap(_.email).flatMap(InstitutionType.infer(_)).toSet
 				val allAddresses = addresses ++ authors.map(_.agent).flatMap(_.addresses)
 				val foundInstitutionTypes = allAddresses.flatMap(_.inferredInstitutionType).toSet ++ allEmailTypes
-				if (foundInstitutionTypes.size == 1) foundInstitutionTypes.headOption else None
+				foundInstitutionTypes.size match {
+					case 0 => None
+					case 1 => foundInstitutionTypes.headOption
+					case _ => Some(Mixed)
+				}
 			}
 
 			// TODO implement parsePages, or just store the string

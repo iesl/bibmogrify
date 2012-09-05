@@ -70,10 +70,10 @@ trait Agent {
 	val email    : Option[NonemptyString] = None
 	val homepages: Seq[URL]               = Nil
 
-/*
-def inferInstitutionType : Option[InstitutionType] = {
+	/*
+ def inferInstitutionType : Option[InstitutionType] = {
 
-}*/
+ }*/
 }
 
 trait Person extends Agent {
@@ -178,7 +178,7 @@ object Institution {
 	def merge(primary: Institution, secondary: Institution): Institution = new Institution {
 		//override val institutionType      = OptionUtils.mergeWarn(primary.institutionType, secondary.institutionType)
 		override val name      = OptionUtils.mergeWarn(primary.name, secondary.name)
-		override val addresses   = primary.addresses ++ secondary.addresses
+		override val addresses = primary.addresses ++ secondary.addresses
 		override val email     = OptionUtils.mergeWarn(primary.email, secondary.email)
 		override val phone     = OptionUtils.mergeWarn(primary.phone, secondary.phone)
 		override val parent    = OptionUtils.mergeWarn(primary.parent, secondary.parent)
@@ -249,8 +249,8 @@ object InstitutionType extends Logging {
 		val countsByType: Map[InstitutionType, Int] = Map(University -> universityWords.countTokenMatchesLC(a),
 		                                                  Hospital -> hospitalWords.countTokenMatchesLC(a),
 		                                                  Government -> governmentWords.countTokenMatchesLC(a),
-		                                                  Nonprofit -> nonprofitWords.countTokenMatchesLC(a),
-		                                                  Industry -> industryWords.countTokenMatchesLC(a))
+		                                                  Nonprofit -> nonprofitWords.countTokenMatchesLC(a), Industry -> industryWords.countTokenMatchesLC
+		                                                                                                                  (a))
 
 		val populatedTypes: Map[InstitutionType, Int] = countsByType.filterNot(_._2 == 0)
 		logger.info(a + ": " + populatedTypes)
@@ -259,53 +259,61 @@ object InstitutionType extends Logging {
 			case 1 => Some(populatedTypes.head._1)
 			case _ => {
 				val best = SeqUtils.argMax[InstitutionType, Int](populatedTypes.keys, x => populatedTypes(x))
-				logger.warn("Address type ambiguity: " + populatedTypes + "; chose " + best)
-				None
+				if (best.size == 1) {
+					logger.warn("Address type ambiguity: " + populatedTypes + "; chose " + best)
+					//Some(Mixed)
+					Some(best.head)
+				}
+				else {
+					logger.warn("Address type extremely ambiguous: " + populatedTypes + "; report mixed")
+					Some(Mixed)
+				}
 			}
 		}
+	}}
+
+	sealed class InstitutionType
+
+	case object University extends InstitutionType
+
+	case object Hospital extends InstitutionType
+
+	case object Government extends InstitutionType
+
+	case object Nonprofit extends InstitutionType
+
+	case object Industry extends InstitutionType
+
+	case object Mixed extends InstitutionType
+
+	object RichAddress {
+		implicit def toRichAddress(address: Address): RichAddress = new RichAddress(address)
 	}
-}
 
-sealed class InstitutionType
+	class RichAddress(address: Address) extends Logging {
 
-case object University extends InstitutionType
+		// this belongs in some inference module, not in the middle of the model?
+		def inferredInstitutionType: Option[InstitutionType] = address.addressType.orElse(InstitutionType.infer(address.streetLines.mkString(" ")))
+	}
 
-case object Hospital extends InstitutionType
+	trait Address {
+		val streetLines: Seq[String]
+		val city       : Option[String]
+		val country    : Option[Country]
+		val addressType: Option[InstitutionType]
+	}
 
-case object Government extends InstitutionType
+	case class BasicAddress(override val streetLines: Seq[String], override val city: Option[String] = None, override val country: Option[Country] = None,
+	                        override val addressType: Option[InstitutionType] = None)
+			extends Address
 
-case object Nonprofit extends InstitutionType
+	trait PersonIdentifierAuthority extends Institution {
+		val shortName: NonemptyString // for prefixing the ID to establish uniqueness in some string context, e.g. "pubmed:838387"
+	}
 
-case object Industry extends InstitutionType
+	case class BasicPersonIdentifierAuthority(override val shortName: NonemptyString) extends PersonIdentifierAuthority {
+		val name   = Some(shortName)
+		val parent = None
+	}
 
-object RichAddress {
-	implicit def toRichAddress(address: Address): RichAddress = new RichAddress(address)
-}
-
-class RichAddress(address: Address) extends Logging {
-
-	// this belongs in some inference module, not in the middle of the model?
-	def inferredInstitutionType: Option[InstitutionType] = address.addressType.orElse(InstitutionType.infer(address.streetLines.mkString(" ")))
-}
-
-trait Address {
-	val streetLines: Seq[String]
-	val city       : Option[String]
-	val country    : Option[Country]
-	val addressType: Option[InstitutionType]
-}
-
-case class BasicAddress(override val streetLines: Seq[String], override val city: Option[String] = None, override val country: Option[Country] = None,
-                        override val addressType: Option[InstitutionType] = None)
-		extends Address
-
-trait PersonIdentifierAuthority extends Institution {
-	val shortName: NonemptyString // for prefixing the ID to establish uniqueness in some string context, e.g. "pubmed:838387"
-}
-
-case class BasicPersonIdentifierAuthority(override val shortName: NonemptyString) extends PersonIdentifierAuthority {
-	val name   = Some(shortName)
-	val parent = None
-}
-
-case class BasicPersonIdentifier(override val value: String, override val authority: Option[PersonIdentifierAuthority] = None) extends PersonIdentifier
+	case class BasicPersonIdentifier(override val value: String, override val authority: Option[PersonIdentifierAuthority] = None) extends PersonIdentifier
