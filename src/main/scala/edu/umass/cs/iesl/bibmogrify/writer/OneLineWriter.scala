@@ -54,8 +54,8 @@ object InstitutionTypeWriter extends Transformer[StructuredCitation, String] wit
 
 	def apply(cm: StructuredCitation) = {
 		//val ir = cm.institutionRatios
-		Some(cm.primaryId + "\t" + cm.doctype.getOrElse("") + "\t" + cm.docSubtype.getOrElse("") + "\t" + cm.consensusInstitutionType.getOrElse("") + "\t" +
-		     cm.keywords.map(_.word).mkString(";") + "\n")
+		Some(cm.primaryId + "\t" + cm.doctype.getOrElse("") + "\t" + cm.docSubtype.getOrElse("") + "\t" + cm.institutionTypes.mkString("; ") + "\t" +
+		     cm.keywords.map(_.word).mkString("; ") + "\n")
 	}
 }
 

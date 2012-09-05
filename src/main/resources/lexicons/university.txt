@@ -1,4 +1,12 @@
 edu
 univ
 college
+coll
+sch
+school
+ecole
+fac
+fak
+acad
+akad
 # things like institute and department could just as well be in government or industry

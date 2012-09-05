@@ -7,3 +7,6 @@ radiology
 gastroenterology
 surgery
 pediatrics
+clin
+canc
+hlth

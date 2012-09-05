@@ -1,7 +1,7 @@
 package edu.umass.cs.iesl.bibmogrify.model
 
 import java.net.URL
-import edu.umass.cs.iesl.scalacommons.{SeqUtils, Lexicon, OptionUtils, NonemptyString}
+import edu.umass.cs.iesl.scalacommons.{Lexicon, OptionUtils, NonemptyString}
 import edu.umass.cs.iesl.namejuggler.{PersonNameWithDerivations, CanonicalPersonName}
 import edu.umass.cs.iesl.scalacommons.StringUtils._
 import com.weiglewilczek.slf4s.Logging
@@ -240,20 +240,26 @@ case class BasicKeywordAuthority(override val shortName: NonemptyString) extends
 
 object InstitutionType extends Logging {
 	val universityWords = new Lexicon("university")
+		val universityPhrases = new Lexicon("universityPhrases")
 	val hospitalWords   = new Lexicon("hospital")
 	val governmentWords = new Lexicon("government")
 	val nonprofitWords  = new Lexicon("nonprofit")
 	val industryWords   = new Lexicon("industry")
 
-	def infer(a: String): Option[InstitutionType] = {
-		val countsByType: Map[InstitutionType, Int] = Map(University -> universityWords.countTokenMatchesLC(a),
+	def infer(a: String): Set[InstitutionType] = {
+		val countsByType: Map[InstitutionType, Int] = Map(University -> (universityWords.countTokenMatchesLC(a) +
+		                                                                 universityPhrases.countSubstringMatchesLC(a)),
 		                                                  Hospital -> hospitalWords.countTokenMatchesLC(a),
 		                                                  Government -> governmentWords.countTokenMatchesLC(a),
-		                                                  Nonprofit -> nonprofitWords.countTokenMatchesLC(a), Industry -> industryWords.countTokenMatchesLC
-		                                                                                                                  (a))
+		                                                  Nonprofit -> nonprofitWords.countTokenMatchesLC(a),
+		                                                  Industry -> industryWords.countTokenMatchesLC(a))
 
 		val populatedTypes: Map[InstitutionType, Int] = countsByType.filterNot(_._2 == 0)
-		logger.info(a + ": " + populatedTypes)
+
+		// just report them all
+		populatedTypes.keySet
+		/*
+		logger.info(a + " : " + populatedTypes)
 		populatedTypes.size match {
 			case 0 => None
 			case 1 => Some(populatedTypes.head._1)
@@ -269,51 +275,55 @@ object InstitutionType extends Logging {
 					Some(Mixed)
 				}
 			}
-		}
-	}}
-
-	sealed class InstitutionType
-
-	case object University extends InstitutionType
-
-	case object Hospital extends InstitutionType
-
-	case object Government extends InstitutionType
-
-	case object Nonprofit extends InstitutionType
-
-	case object Industry extends InstitutionType
-
-	case object Mixed extends InstitutionType
-
-	object RichAddress {
-		implicit def toRichAddress(address: Address): RichAddress = new RichAddress(address)
+		}*/
 	}
+}
 
-	class RichAddress(address: Address) extends Logging {
+sealed class InstitutionType
 
-		// this belongs in some inference module, not in the middle of the model?
-		def inferredInstitutionType: Option[InstitutionType] = address.addressType.orElse(InstitutionType.infer(address.streetLines.mkString(" ")))
-	}
+case object University extends InstitutionType
 
-	trait Address {
-		val streetLines: Seq[String]
-		val city       : Option[String]
-		val country    : Option[Country]
-		val addressType: Option[InstitutionType]
-	}
+case object Hospital extends InstitutionType
 
-	case class BasicAddress(override val streetLines: Seq[String], override val city: Option[String] = None, override val country: Option[Country] = None,
-	                        override val addressType: Option[InstitutionType] = None)
-			extends Address
+case object Government extends InstitutionType
 
-	trait PersonIdentifierAuthority extends Institution {
-		val shortName: NonemptyString // for prefixing the ID to establish uniqueness in some string context, e.g. "pubmed:838387"
-	}
+case object Nonprofit extends InstitutionType
 
-	case class BasicPersonIdentifierAuthority(override val shortName: NonemptyString) extends PersonIdentifierAuthority {
-		val name   = Some(shortName)
-		val parent = None
-	}
+case object Industry extends InstitutionType
 
-	case class BasicPersonIdentifier(override val value: String, override val authority: Option[PersonIdentifierAuthority] = None) extends PersonIdentifier
+case object Mixed extends InstitutionType
+
+object RichAddress {
+	implicit def toRichAddress(address: Address): RichAddress = new RichAddress(address)
+}
+
+class RichAddress(address: Address) extends Logging {
+
+	// this belongs in some inference module, not in the middle of the model?
+	def inferredInstitutionType: Set[InstitutionType] = if (address.addressType.isEmpty)
+		InstitutionType.infer(address.streetLines.mkString(" "))
+	else
+		address.addressType.toSet
+}
+
+trait Address {
+	val streetLines: Seq[String]
+	val city       : Option[String]
+	val country    : Option[Country]
+	val addressType: Option[InstitutionType]
+}
+
+case class BasicAddress(override val streetLines: Seq[String], override val city: Option[String] = None, override val country: Option[Country] = None,
+                        override val addressType: Option[InstitutionType] = None)
+		extends Address
+
+trait PersonIdentifierAuthority extends Institution {
+	val shortName: NonemptyString // for prefixing the ID to establish uniqueness in some string context, e.g. "pubmed:838387"
+}
+
+case class BasicPersonIdentifierAuthority(override val shortName: NonemptyString) extends PersonIdentifierAuthority {
+	val name   = Some(shortName)
+	val parent = None
+}
+
+case class BasicPersonIdentifier(override val value: String, override val authority: Option[PersonIdentifierAuthority] = None) extends PersonIdentifier

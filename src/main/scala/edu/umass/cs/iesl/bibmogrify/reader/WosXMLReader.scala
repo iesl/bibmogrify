@@ -191,15 +191,10 @@ object WosXMLReader extends Transformer[NamedInputStream, StructuredCitation] wi
 			override val doctype    = decodeDocType((item \ "doctype").text)
 			override val docSubtype = (item \ "doctype").text.opt
 
-			override val consensusInstitutionType = {
+			override val institutionTypes = {
 				val allEmailTypes = authors.map(_.agent).flatMap(_.email).flatMap(InstitutionType.infer(_)).toSet
 				val allAddresses = addresses ++ authors.map(_.agent).flatMap(_.addresses)
-				val foundInstitutionTypes = allAddresses.flatMap(_.inferredInstitutionType).toSet ++ allEmailTypes
-				foundInstitutionTypes.size match {
-					case 0 => None
-					case 1 => foundInstitutionTypes.headOption
-					case _ => Some(Mixed)
-				}
+				allAddresses.flatMap(_.inferredInstitutionType).toSet ++ allEmailTypes
 			}
 
 			// TODO implement parsePages, or just store the string
@@ -250,38 +245,126 @@ object WosXMLReader extends Transformer[NamedInputStream, StructuredCitation] wi
 		                               BasicIdentifier((node \ "@artno").text, DoiAuthority)).flatten
 	}
 
-	private val knownDocTypes: Map[String, DocType] = Map("Article" -> JournalArticle, "Review" -> JournalArticle, "Book Review" -> JournalArticle,
-	                                                      "Meeting Abstract" -> Proceedings, "Proceedings Paper" -> ProceedingsArticle, "Book" -> Book)
+	private val knownDocTypes: Map[String, DocType] = Map("Article" -> JournalArticle,
+	                                                      "Review" -> JournalArticle,
+	                                                      "Book Review" -> JournalArticle,
+	                                                      "Meeting Abstract" -> ProceedingsArticle,
+	                                                      "Meeting Abstr" -> ProceedingsArticle,
+	                                                      "Proceedings Paper" -> ProceedingsArticle,
+	                                                      "Book" -> Book,
+	                                                      "Art Exhibit Review" -> CriticalReview,
+	                                                      "Biographical-Item" -> Biographical,
+	                                                      "Book Review" -> BookReview,
+	                                                      "Chronology" -> Other,
+	                                                      "Correction, Addition" -> Correction,
+	                                                      "Dance Performance Review" -> CriticalReview,
+	                                                      "Discussion" -> Editorial,
+	                                                      "Editorial Material" -> Editorial,
+	                                                      "Excerpt" -> Other,
+	                                                      "Fiction, Creative Prose" -> Creative,
+	                                                      "Film Review" -> CriticalReview,
+	                                                      "Hardware Review" -> ProductReview,
+	                                                      "Item About an Individual" -> Biographical,
+	                                                      "Letter" -> Letter,
+	                                                      "Music Performance Review" -> CriticalReview,
+	                                                      "Note" -> NoteArticle,
+	                                                      "Poetry" -> Creative,
+	                                                      "Record Review" -> CriticalReview,
+	                                                      "Review" -> ReviewArticle,
+	                                                      "Script" -> Creative,
+	                                                      "Software Review" -> ProductReview,
+	                                                      "Theater Review" -> CriticalReview,
+	                                                      "Bibliography" -> Bibliography
+
+
+	                                                     )
 
 	/*
 
-	case object JournalArticle extends DocType
 
-	case object Journal extends DocType
+case object JournalArticle extends DocType
 
-	case object ProceedingsArticle extends DocType
+case object ResearchArticle extends DocType(Some(JournalArticle))
 
-	case object Proceedings extends DocType
+case object ReviewArticle extends DocType(Some(JournalArticle))
 
-	case object CollectionArticle extends DocType
+case object NoteArticle extends DocType(Some(JournalArticle))
 
-	case object CollectionOfArticles extends DocType
+case object Biographical extends DocType(Some(JournalArticle))
 
-	case object BookChapter extends DocType
+case object Correction extends DocType(Some(JournalArticle))
 
-	case object Book extends DocType
+case object Letter extends DocType(Some(JournalArticle))  // possibly ambiguous: a Science "letter" is really a ResearchArticle, not a letter to the editor
 
-	case object TechnicalReport extends DocType
+case object CriticalReview extends DocType  // theater, music, etc.
 
-	case object Patent extends DocType
+case object BookReview  extends DocType(Some(CriticalReview))
 
-	case object PhdThesis extends DocType
+case object ProductReview extends DocType
 
-	case object MastersThesis extends DocType
+case object Creative extends DocType  // poetry, fiction etc.
 
-	case object Grant extends DocType
+case object Journal extends DocType
 
-	case object WwwArticle extends DocType
+case object ProceedingsArticle extends DocType
+
+case object Proceedings extends DocType
+
+case object CollectionArticle extends DocType
+
+case object CollectionOfArticles extends DocType
+
+case object BookChapter extends DocType
+
+case object Book extends DocType
+
+case object TechnicalReport extends DocType
+
+case object Patent extends DocType
+
+case object PhdThesis extends DocType
+
+case object MastersThesis extends DocType
+
+case object Grant extends DocType
+
+case object WwwArticle extends DocType
+
+case object Other extends DocType
+
 	 */
+
+/* From Wos data:
+
+Art Exhibit Review
+Article
+Biographical-Item
+Book Review
+Chronology
+Correction, Addition
+Dance Performance Review
+Discussion
+Editorial Material
+Excerpt
+Fiction, Creative Prose
+Film Review
+Hardware Review
+Item About an Individual
+Letter
+Meeting Abstr
+Meeting Abstract
+Music Performance Review
+Note
+Poetry
+Record Review
+Review
+Script
+Software Review
+Theater Review
+Bibliography
+Proceedings Paper
+
+ */
+
 	private def decodeDocType(s: String): Option[DocType] = knownDocTypes.get(s).orElse({logger.warn("Unknown DocType: " + s); None})
 }

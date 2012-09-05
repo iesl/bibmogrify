@@ -6,11 +6,9 @@ import com.cybozu.labs.langdetect.{LangDetectException, Detector, DetectorFactor
 import edu.umass.cs.iesl.scalacommons.{StringUtils, NonemptyString}
 import tools.nsc.io.Directory
 import StringUtils._
-import com.mongodb.casbah.commons.conversions.scala.OptionSerializer
 
 // ** add citances with context for sentiment
-trait StructuredCitation
-	{
+trait StructuredCitation {
 	val doctype               : Option[DocType]             = None
 	val docSubtype            : Option[NonemptyString]      = None
 	// for journal articles: Letter; Application Note; Research Article, etc.  For grants: R01, K99, etc.
@@ -59,101 +57,92 @@ trait StructuredCitation
 	val licenseType: Option[NonemptyString] = None
 
 	// addresses that are not linked to authors
-	val addresses : Seq[Address] = Nil
+	val addresses: Seq[Address] = Nil
 
-	val consensusInstitutionType : Option[InstitutionType] = None
-	}
+	val institutionTypes: Set[InstitutionType] = Set.empty
+}
 
-object TextWithLanguage extends Logging
-	{
-	val init =
-		{
+object TextWithLanguage extends Logging {
+	val init = {
 		val okFilenames = Language.majorLanguages.map(_.name).toList
 		val profileUrl: URL = getClass.getResource("/profiles")
 		val profileDir = new Directory(new java.io.File(profileUrl.getFile)) // hope that there are no competing items with that name on the classpath
 
-		profileDir.files.filter(f => okFilenames.contains(f.name)).map(f =>
-			                                                               {
-			                                                               logger.info("Loading language: " + f)
-			                                                               DetectorFactory.loadProfile(f.jfile)
-			                                                               })
+		profileDir.files.filter(f => okFilenames.contains(f.name)).map(f => {
+			logger.info("Loading language: " + f)
+			DetectorFactory.loadProfile(f.jfile)
+		})
 		logger.info("Loaded language profiles")
-		}
-
-	def apply(specifiedLanguage: Option[Language], text: Option[NonemptyString]) : Option[TextWithLanguage] =
-		text.map(new TextWithLanguage(specifiedLanguage, _))
-	def apply(specifiedLanguage: Option[Language], text: NonemptyString) : TextWithLanguage =
-		new TextWithLanguage(specifiedLanguage, text)
-	//init
-	//logger.info("Loaded language profiles")
 	}
 
-class TextWithLanguage private(val specifiedLanguage: Option[Language], val text: NonemptyString) extends Logging
-	{
+	def apply(specifiedLanguage: Option[Language], text: Option[NonemptyString]): Option[TextWithLanguage] =
+		text.map(new TextWithLanguage(specifiedLanguage, _))
+
+	def apply(specifiedLanguage: Option[Language], text: NonemptyString): TextWithLanguage =
+		new TextWithLanguage(specifiedLanguage, text)
+
+	//init
+	//logger.info("Loaded language profiles")
+}
+
+class TextWithLanguage private(val specifiedLanguage: Option[Language], val text: NonemptyString) extends Logging {
 
 	def cleanText = RichStructuredCitation.cleanup(text)
 
-	def language: Option[Language] =
-		{
-		(specifiedLanguage, detectedLanguage) match
-		{
+	def language: Option[Language] = {
+		(specifiedLanguage, detectedLanguage) match {
 			case (None, None) => None
 			case (Some(a), None) => Some(a)
 			case (None, Some(b)) => Some(b)
 			case (Some(a), Some(b)) if a == b => Some(a)
-			case (Some(a), Some(b)) =>
-				{
+			case (Some(a), Some(b)) => {
 				logger.warn("Language disagreement. Using specified " + a + ", but detected " + b + ".")
 				Some(a)
-				}
-		}
-		}
-
-	def detectedLanguage: Option[Language] =
-		{
-		try
-		{
-		val detector: Detector = DetectorFactory.create()
-		detector.append(text)
-		val l = detector.detect()
-		Language.get(l)
-		}
-		catch
-		{
-		case e: LangDetectException => None
-		}
+			}
 		}
 	}
 
-trait StructuredPatent extends StructuredCitation
-	{
+	def detectedLanguage: Option[Language] = {
+		try {
+			val detector: Detector = DetectorFactory.create()
+			detector.append(text)
+			val l = detector.detect()
+			Language.get(l)
+		}
+		catch {
+			case e: LangDetectException => None
+		}
+	}
+}
+
+trait StructuredPatent extends StructuredCitation {
 
 	override val doctype = Some(Patent)
 	val priorityClaims        : Seq[StructuredCitation] = Nil
 	val mainFamily            : Seq[StructuredCitation] = Nil
 	val completeFamily        : Seq[StructuredCitation] = Nil
 	val searchReportReferences: Seq[StructuredCitation] = Nil
-	}
+}
 
-trait BodyTextSection
-	{
+trait BodyTextSection {
+
 	import StringUtils.enrichString
-	def ++(s: String) : BodyTextSection = s.opt.map(x => new BasicBodyTextSection(sectionType,(text +" "+ x).opt,header)).getOrElse(this)
+
+	def ++(s: String): BodyTextSection = s.opt.map(x => new BasicBodyTextSection(sectionType, (text + " " + x).opt, header)).getOrElse(this)
 
 	val sectionType: BodyTextSectionType
 	val header     : Option[NonemptyString]
 	val text       : Option[NonemptyString]
-	}
+}
 
 case class BasicBodyTextSection(override val sectionType: BodyTextSectionType, override val text: Option[NonemptyString],
                                 override val header: Option[NonemptyString])
 		extends BodyTextSection
 
-case class UndifferentiatedBodyTextSection(override val text: Option[NonemptyString]) extends BodyTextSection
-	{
+case class UndifferentiatedBodyTextSection(override val text: Option[NonemptyString]) extends BodyTextSection {
 	val sectionType = GeneralBodyText
 	val header      = None
-	}
+}
 
 sealed class BodyTextSectionType
 
@@ -185,8 +174,7 @@ case object Claims extends BodyTextSectionType
 
 case object TechnicalField extends BodyTextSectionType
 
-object CitationUtils
-	{
+object CitationUtils {
 
 	implicit def docTypeToOption(a: DocType) = Some(a)
 
@@ -195,25 +183,50 @@ object CitationUtils
 	implicit def containmentInfoToOption(a: ContainmentInfo) = Some(a)
 
 	implicit def institutionToOption(a: Institution) = Some(a)
-	}
+}
 
-trait Keyword
-	{
+trait Keyword {
 	val authority: Option[KeywordAuthority] = None
 	val word: NonemptyString
-	}
+}
 
 // don't model hierarchical keywords, just leave them slash-delimited in the string
-case class BasicKeyword(override val word: NonemptyString, override val authority: Option[KeywordAuthority] = None) extends Keyword
-	{
+case class BasicKeyword(override val word: NonemptyString, override val authority: Option[KeywordAuthority] = None) extends Keyword {
 	require(!word.contains("\n"))
 	require(!word.contains("\t"))
-	}
+}
 
-sealed abstract class DocType
+sealed abstract class DocType(parent: Option[DocType] = None)
 
 case object JournalArticle extends DocType
 
+case object ResearchArticle extends DocType(Some(JournalArticle))
+
+case object ReviewArticle extends DocType(Some(JournalArticle))
+
+case object NoteArticle extends DocType(Some(JournalArticle))
+
+case object Biographical extends DocType(Some(JournalArticle))
+
+case object Correction extends DocType(Some(JournalArticle))
+
+case object Bibliography extends DocType(Some(JournalArticle))
+
+case object Editorial extends DocType(Some(JournalArticle))
+
+case object Letter extends DocType(Some(JournalArticle))
+
+// possibly ambiguous: a Science "letter" is really a ResearchArticle, not a letter to the editor
+case object CriticalReview extends DocType
+
+// theater, music, etc.
+case object BookReview extends DocType(Some(CriticalReview))
+
+case object ProductReview extends DocType
+
+case object Creative extends DocType
+
+// poetry, fiction etc.
 case object Journal extends DocType
 
 case object ProceedingsArticle extends DocType
@@ -240,53 +253,49 @@ case object Grant extends DocType
 
 case object WwwArticle extends DocType
 
+case object Other extends DocType
+
 sealed class Country
 
-trait Identifier
-	{
+trait Identifier {
 	val authority: Option[IdentifierAuthority] = None
 	val value: NonemptyString
 
 	def qualifiedValue = authority.map(_.shortName).getOrElse("Unknown") + ":" + value
-	}
+}
 
-object BasicIdentifier
-	{
+object BasicIdentifier {
 	def apply(value: Option[NonemptyString], authority: Option[IdentifierAuthority] = None): Option[BasicIdentifier] =
 		value.map(new BasicIdentifier(_, authority))
-	}
+}
 
 case class BasicIdentifier(override val value: NonemptyString, override val authority: Option[IdentifierAuthority]) extends Identifier
 
-trait Location
-	{
+trait Location {
 	// are there other kinds of locations?  e.g., call numbers
 	val hashes: Seq[Hash]
-	}
+}
 
-trait UrlLocation extends Location
-	{
+trait UrlLocation extends Location {
 	val url: URL
 
 	override def toString: String = url.toExternalForm
-	}
+}
 
-trait StringLocation extends Location
-	{
+trait StringLocation extends Location {
 	val name: NonemptyString
 
 	override def toString: String = name
-	}
+}
 
 case class BasicUrlLocation(override val url: URL, override val hashes: Seq[Hash]) extends UrlLocation
 
 case class BasicStringLocation(override val name: NonemptyString, override val hashes: Seq[Hash]) extends StringLocation
 
-trait Hash
-	{
+trait Hash {
 	val hashType : HashType
 	val hashValue: NonemptyString
-	}
+}
 
 case class BasicHash(override val hashType: HashType, override val hashValue: NonemptyString) extends Hash
 
@@ -300,42 +309,38 @@ case object SHA256 extends HashType
 
 case object MD5 extends HashType
 
-trait ContainmentInfo
-	{
+trait ContainmentInfo {
 	val container: StructuredCitation
 	val series   : Option[NonemptyString]
 	val volume   : Option[NonemptyString]
 	val number   : Option[NonemptyString]
 	// journal number, or chapter number.  Not necessarily integer?
 	val pages    : Option[PageRange]
-	}
+}
 
 case class BasicContainmentInfo(override val container: StructuredCitation, override val series: Option[NonemptyString],
                                 override val volume: Option[NonemptyString], override val number: Option[NonemptyString], override val pages: Option[PageRange])
 		extends ContainmentInfo
 
-trait PageRange
-	{
+trait PageRange {
 	def numPages: Option[Int]
-	}
+}
 
-trait NormalPageRange extends PageRange
-	{
+trait NormalPageRange extends PageRange {
 	val start: Int
 	val end: Option[Int] = None
 
 	def numPages = end.map(_ - start + 1).filter(_ > 0)
-	}
+}
 
 case class BasicNormalPageRange(override val start: Int, override val end: Option[Int]) extends NormalPageRange
 
-trait StringPageRange extends PageRange
-	{
+trait StringPageRange extends PageRange {
 	val start: NonemptyString
 	val end: Option[NonemptyString] = None
 
 	def numPages = None
-	}
+}
 
 case class BasicStringPageRange(override val start: NonemptyString, override val end: Option[NonemptyString]) extends StringPageRange
 
@@ -364,66 +369,57 @@ case object Begin extends EventType(10, "beg".n)
 // for grants, patents
 case object End extends EventType(0, "end".n)
 
-trait CitationEvent
-	{
+trait CitationEvent {
 	val eventType: EventType
 	val date     : Option[PartialDate] // possibly we know that a given event type occurred but we don't know when
-	}
+}
 
 case class BasicCitationEvent(override val date: Option[PartialDate], override val eventType: EventType) extends CitationEvent
 
-trait PartialDate extends Ordered[PartialDate]
-	{
+trait PartialDate extends Ordered[PartialDate] {
 	// this could be a lot fancier
 	val year : Option[Int]
 	val month: Option[Int]
 	val day  : Option[Int]
 
-	def compare(that: PartialDate): Int =
-		{
-		(year, that.year) match
-		{
+	def compare(that: PartialDate): Int = {
+		(year, that.year) match {
 			case (None, None) => compareMonth(that)
 			case (Some(x), None) => 1
 			case (None, Some(y)) => -1
 			case (Some(x), Some(y)) if x == y => compareMonth(that)
 			case (Some(x), Some(y)) if x != y => x.compare(y)
 		}
-		}
+	}
 
-	private def compareMonth(that: PartialDate): Int =
-		{
-		(month, that.month) match
-		{
+	private def compareMonth(that: PartialDate): Int = {
+		(month, that.month) match {
 			case (None, None) => compareDay(that)
 			case (Some(x), None) => 1
 			case (None, Some(y)) => -1
 			case (Some(x), Some(y)) if x == y => compareDay(that)
 			case (Some(x), Some(y)) if x != y => x.compare(y)
 		}
-		}
+	}
 
-	private def compareDay(that: PartialDate): Int =
-		{
-		(month, that.month) match
-		{
+	private def compareDay(that: PartialDate): Int = {
+		(month, that.month) match {
 			case (None, None) => 0
 			case (Some(x), None) => 1
 			case (None, Some(y)) => -1
 			case (Some(x), Some(y)) => x.compare(y)
 		}
-		}
 	}
+}
 
 case class BasicPartialDate(override val year: Option[Int], override val month: Option[Int], override val day: Option[Int]) extends PartialDate
 
-trait GrantInfo
-	{
+trait GrantInfo {
 	//val institution: Option[Institution] // no point in recording the grant without this?
 	//val identifier: Option[String]
 	val grant   : StructuredCitation
 	val grantees: Seq[AuthorInRole] // could also have a GrantRecipient role?
-	}
+}
 
 case class BasicGrantInfo(override val grant: StructuredCitation, override val grantees: Seq[AuthorInRole]) extends GrantInfo
 
