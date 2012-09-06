@@ -8,11 +8,21 @@ import edu.umass.cs.iesl.bibmogrify.pipeline.Transformer
 import xml.Node
 import collection.immutable.Seq
 import edu.umass.cs.iesl.bibmogrify.{NamedInputStream, NamedPlugin, BibMogrifyException}
-import edu.umass.cs.iesl.scalacommons.{NonemptyString, StringUtils, XmlUtils}
+import edu.umass.cs.iesl.scalacommons.{StringUtils, XmlUtils}
 import edu.umass.cs.iesl.namejuggler.PersonNameWithDerivations
 import StringUtils._
 import RichAddress._
-import edu.umass.cs.iesl.bibmogrify.model.DocType
+import scala.Predef._
+import edu.umass.cs.iesl.bibmogrify.model.BasicPersonIdentifier
+import edu.umass.cs.iesl.bibmogrify.model.BasicCitationEvent
+import scala.Some
+import edu.umass.cs.iesl.bibmogrify.model.BasicContainmentInfo
+import edu.umass.cs.iesl.bibmogrify.model.BasicKeyword
+import edu.umass.cs.iesl.bibmogrify.model.BasicAddress
+import edu.umass.cs.iesl.bibmogrify.model.AuthorInRole
+import edu.umass.cs.iesl.scalacommons.NonemptyString
+import edu.umass.cs.iesl.bibmogrify.model.BasicStringLocation
+import edu.umass.cs.iesl.bibmogrify.model.BasicPartialDate
 
 object WosXMLReader extends Transformer[NamedInputStream, StructuredCitation] with Logging with NamedPlugin {
 
@@ -44,24 +54,51 @@ object WosXMLReader extends Transformer[NamedInputStream, StructuredCitation] wi
 		}
 	}
 
-	def parseDroppingErrors(inLocation: Location, doc: Node): Option[StructuredCitation] = {
+	def parseDroppingErrors(inLocation: Location, doc: Node): Seq[StructuredCitation] = {
 		try {
-			val c = parse(inLocation, doc)
-			Some(c)
+			val c = parseRec(inLocation, doc)
+			c
 		}
 		catch {
 			case e: BibMogrifyException => logger.error(e.getMessage)
-			None
+			Nil
 		}
 	}
 
-	def parse(inLocation: Location, doc: Node): StructuredCitation = {
+	/**
+	 * A rec may have multiple issues and items in it
+	 * @param inLocation
+	 * @param doc
+	 * @return
+	 */
+	def parseRec(inLocation: Location, doc: Node): Seq[StructuredCitation] = {
 
-		val issue = doc \ "issue"
-		val item = doc \ "item"
+		val issues = doc \ "issue"
+		val items = doc \ "item"
+
+		val issueRecords: Map[String, StructuredCitation] = (for (issue <- issues) yield parseIssue(inLocation, issue)).toMap
+		val itemRecords = for (item <- items) yield parseItem(inLocation, item, issueRecords)
+		itemRecords
+	}
+
+	def parseIssue(inLocation: Location, issue: Node): (String, StructuredCitation) = {
 
 		val subjectCodes = ((issue \ "subjects" \ "subject" \ "@code")).flatMap(_.text.opt)
+		val issueId = (issue \ "@recid").text
+		val c = new StructuredCitation() {
+			override val keywords                      = subjectCodes map (new BasicKeyword(_, WosKeywordAuthority))
+			override val title: Option[NonemptyString] = (issue \ "issue_title").text
+		}
+		(issueId, c)
+	}
 
+	def parseItem(inLocation: Location, item: Node, issuesById: Map[String, StructuredCitation]): StructuredCitation = {
+
+		val issueRef = (item \ "@issue").text
+		val venueMention = issuesById.get(issueRef)
+		if (venueMention.isEmpty) {
+			logger.warn("Unresolved issue reference: " + issueRef + " for item " + (item \ "ut").text)
+		}
 
 		val date: Some[BasicPartialDate] = {
 			val month: Option[NonemptyString] = None //(doc \ "bib_date" \ "@month").text
@@ -73,18 +110,17 @@ object WosXMLReader extends Transformer[NamedInputStream, StructuredCitation] wi
 			Some(BasicPartialDate(year, month.map(parseMonthOneBased(_)), None))
 		}
 
-		val venueMention = new StructuredCitation {
+		val localVenueMention = (item \ "source_title").text.opt map (venueTitle => new StructuredCitation {
 			// drop superscripts, subscripts, italics, and typewriter styles
-			override val title: Option[NonemptyString] = (item \ "source_title").text
+			override val title: Option[NonemptyString] = Some(venueTitle)
 
 			// todo interpret pubtype field in associated issue
 			//val doctype = Journal
-		}
+		})
 
 		//val authorSplit = "(.+)( .*)? (.+)".r
 		val c = new StructuredCitation() {
-			// todo interpret pubtype field
-			//val doctype = JournalArticle
+
 			// drop superscripts, subscripts, italics, and typewriter styles
 			override val title: Option[NonemptyString] = (item \ "item_title").text
 			override val dates                         = Seq(BasicCitationEvent(date, Published))
@@ -200,10 +236,9 @@ object WosXMLReader extends Transformer[NamedInputStream, StructuredCitation] wi
 			// TODO implement parsePages, or just store the string
 			def parsePages(s: String): Option[PageRange] = None
 
-			override val containedIn = Some(BasicContainmentInfo(venueMention, None, None, None, None))
+			override val containedIn = venueMention.orElse(localVenueMention).map(vm => BasicContainmentInfo(vm, None, None, None, None))
 
-			override val keywords = subjectCodes map (new BasicKeyword(_, WosKeywordAuthority))
-
+			//override val keywords = issueKeywords  // subjectCodes map (new BasicKeyword(_, WosKeywordAuthority))
 			override val locations = Seq(inLocation)
 
 			override val references = (item \ "refs" \ "ref").zipWithIndex.map(parseRef(_, wosUtId))
@@ -245,39 +280,18 @@ object WosXMLReader extends Transformer[NamedInputStream, StructuredCitation] wi
 		                               BasicIdentifier((node \ "@artno").text, DoiAuthority)).flatten
 	}
 
-	private val knownDocTypes: Map[String, DocType] = Map("Article" -> JournalArticle,
-	                                                      "Review" -> JournalArticle,
-	                                                      "Book Review" -> JournalArticle,
-	                                                      "Meeting Abstract" -> ProceedingsArticle,
-	                                                      "Meeting Abstr" -> ProceedingsArticle,
-	                                                      "Proceedings Paper" -> ProceedingsArticle,
-	                                                      "Book" -> Book,
-	                                                      "Art Exhibit Review" -> CriticalReview,
-	                                                      "Biographical-Item" -> Biographical,
-	                                                      "Book Review" -> BookReview,
-	                                                      "Chronology" -> Other,
-	                                                      "Correction, Addition" -> Correction,
-	                                                      "Dance Performance Review" -> CriticalReview,
-	                                                      "Discussion" -> Editorial,
-	                                                      "Editorial Material" -> Editorial,
-	                                                      "Excerpt" -> Other,
-	                                                      "Fiction, Creative Prose" -> Creative,
-	                                                      "Film Review" -> CriticalReview,
-	                                                      "Hardware Review" -> ProductReview,
-	                                                      "Item About an Individual" -> Biographical,
-	                                                      "Letter" -> Letter,
-	                                                      "Music Performance Review" -> CriticalReview,
-	                                                      "Note" -> NoteArticle,
-	                                                      "Poetry" -> Creative,
-	                                                      "Record Review" -> CriticalReview,
-	                                                      "Review" -> ReviewArticle,
-	                                                      "Script" -> Creative,
-	                                                      "Software Review" -> ProductReview,
-	                                                      "Theater Review" -> CriticalReview,
-	                                                      "Bibliography" -> Bibliography
-
-
-	                                                     )
+	private val knownDocTypes: Map[String, DocType] = Map("Article" -> JournalArticle, "Review" -> JournalArticle, "Book Review" -> JournalArticle,
+	                                                      "Meeting Abstract" -> ProceedingsArticle, "Meeting Abstr" -> ProceedingsArticle,
+	                                                      "Proceedings Paper" -> ProceedingsArticle, "Book" -> Book, "Art Exhibit Review" -> CriticalReview,
+	                                                      "Biographical-Item" -> Biographical, "Book Review" -> BookReview, "Chronology" -> Other,
+	                                                      "Correction, Addition" -> Correction, "Dance Performance Review" -> CriticalReview,
+	                                                      "Discussion" -> Editorial, "Editorial Material" -> Editorial, "Excerpt" -> Other,
+	                                                      "Fiction, Creative Prose" -> Creative, "Film Review" -> CriticalReview,
+	                                                      "Hardware Review" -> ProductReview, "Item About an Individual" -> Biographical, "Letter" -> Letter,
+	                                                      "Music Performance Review" -> CriticalReview, "Note" -> NoteArticle, "Poetry" -> Creative,
+	                                                      "Record Review" -> CriticalReview, "Review" -> ReviewArticle, "Script" -> Creative,
+	                                                      "Software Review" -> ProductReview, "Theater Review" -> CriticalReview,
+	                                                      "Bibliography" -> Bibliography)
 
 	/*
 
@@ -333,38 +347,36 @@ case object WwwArticle extends DocType
 case object Other extends DocType
 
 	 */
+	/* From Wos data:
 
-/* From Wos data:
+	Art Exhibit Review
+	Article
+	Biographical-Item
+	Book Review
+	Chronology
+	Correction, Addition
+	Dance Performance Review
+	Discussion
+	Editorial Material
+	Excerpt
+	Fiction, Creative Prose
+	Film Review
+	Hardware Review
+	Item About an Individual
+	Letter
+	Meeting Abstr
+	Meeting Abstract
+	Music Performance Review
+	Note
+	Poetry
+	Record Review
+	Review
+	Script
+	Software Review
+	Theater Review
+	Bibliography
+	Proceedings Paper
 
-Art Exhibit Review
-Article
-Biographical-Item
-Book Review
-Chronology
-Correction, Addition
-Dance Performance Review
-Discussion
-Editorial Material
-Excerpt
-Fiction, Creative Prose
-Film Review
-Hardware Review
-Item About an Individual
-Letter
-Meeting Abstr
-Meeting Abstract
-Music Performance Review
-Note
-Poetry
-Record Review
-Review
-Script
-Software Review
-Theater Review
-Bibliography
-Proceedings Paper
-
- */
-
+	 */
 	private def decodeDocType(s: String): Option[DocType] = knownDocTypes.get(s).orElse({logger.warn("Unknown DocType: " + s); None})
 }

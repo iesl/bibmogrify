@@ -2,25 +2,22 @@ package edu.umass.cs.iesl.bibmogrify.model
 
 import actors.threadpool.AtomicInteger
 import com.weiglewilczek.slf4s.Logging
-import edu.umass.cs.iesl.scalacommons.{NonemptyString, StringUtils}
+import edu.umass.cs.iesl.scalacommons.{StringUtils, NonemptyString}
 import StringUtils.unwrapNonemptyString
 import StringUtils.enrichString
 import StringUtils.toOptionNonempty
 
-object RichStructuredCitation
-	{
+object RichStructuredCitation {
 	//DetectorFactory.loadProfiles(Language.majorLanguages.map(_.name).toList: _*);
 	implicit def enrichStructuredCitation(cm: StructuredCitation): RichStructuredCitation = new RichStructuredCitation(cm)
 
 	val adhocIdIncrementor: AtomicInteger = new AtomicInteger(0)
 
-	implicit def iterableTextWithLanguageToMap(i: Iterable[TextWithLanguage]): Map[Option[Language], NonemptyString] =
-		{
-		i.map
-		{
-		x => (x.language, x.text)
-		}.toMap
-		}
+	implicit def iterableTextWithLanguageToMap(i: Iterable[TextWithLanguage]): Map[Option[Language], NonemptyString] = {
+		i.map {
+			      x => (x.language, x.text)
+		      }.toMap
+	}
 
 	def cleanup(s: NonemptyString): String = s.toLowerCase.maskPunctuation.maskNewlines.collapseWhitespace.trim
 
@@ -29,10 +26,9 @@ object RichStructuredCitation
 	def cleanupJoined(ss: Iterable[NonemptyString]): String = cleanup(ss.mkString(" "))
 
 	//def cleanup(ss: Iterable[String]): String = cleanup(wrapNonemptyString(ss.mkString(" ")))
-	}
+}
 
-class RichStructuredCitation(cm: StructuredCitation) extends Logging
-	{
+class RichStructuredCitation(cm: StructuredCitation) extends Logging {
 
 	import RichStructuredCitation.enrichStructuredCitation
 	import RichStructuredCitation.iterableTextWithLanguageToMap
@@ -83,11 +79,10 @@ class RichStructuredCitation(cm: StructuredCitation) extends Logging
 	// todo parameterize/refactor authority short names; attach priorities directly to authorities; etc
 	val authorityPriority: Map[String, Int] = Map("wos-ut" -> 200, "wos-ut-ref" -> 190, "wos-cid" -> 180, "doi" -> 100, "pubmed" -> 10, "" -> 0)
 
-	def qualifiedIdsInOrder = cm.identifiers.toSeq.sortBy(x =>
-		                                                      {
-		                                                      val sortOrder: Option[Int] = authorityPriority.get(x.authority.map(_.shortName.s).getOrElse(""))
-		                                                      -sortOrder.getOrElse(0)
-		                                                      }).map(_.qualifiedValue)
+	def qualifiedIdsInOrder = cm.identifiers.toSeq.sortBy(x => {
+		val sortOrder: Option[Int] = authorityPriority.get(x.authority.map(_.shortName.s).getOrElse(""))
+		-sortOrder.getOrElse(0)
+	}).map(_.qualifiedValue)
 
 	def primaryId = qualifiedIdsInOrder.headOption.getOrElse("adhoc:" + RichStructuredCitation.adhocIdIncrementor.getAndIncrement)
 
@@ -99,26 +94,22 @@ class RichStructuredCitation(cm: StructuredCitation) extends Logging
 	def firstAuthorLastName: Option[NonemptyString] = personFirstAuthor.flatMap(_.name).flatMap(_.longestSurName)
 
 	//bestFullName)
-	def authorFullNamesWithId: Seq[String] = cm.authors.map(air =>
-		                                                        {
-		                                                        val a: Agent = air.agent
-		                                                        a match
-		                                                        {
-			                                                        case p: Person =>
-				                                                        {
-				                                                        val id = p.primaryId
+	def authorFullNamesWithId: Seq[String] = cm.authors.map(air => {
+		val a: Agent = air.agent
+		a match {
+			case p: Person => {
+				val id = p.primaryId
 
-				                                                        val r: String = p + id.map(" [" + _ + "]").getOrElse("") // p.bestFullName
-				                                                        r
-				                                                        }
-			                                                        case i: Institution =>
-				                                                        {
-				                                                        // ** institutions don't have identifiers.  Perhaps all the ID stuff should be at the
-				                                                        // Agent level
-				                                                        i.toString
-				                                                        }
-		                                                        }
-		                                                        })
+				val r: String = p + id.map(" [" + _ + "]").getOrElse("") // p.bestFullName
+				r
+			}
+			case i: Institution => {
+				// ** institutions don't have identifiers.  Perhaps all the ID stuff should be at the
+				// Agent level
+				i.toString
+			}
+		}
+	})
 
 	/*
 		def detectAbstractLanguages: Iterable[String] = {
@@ -143,62 +134,54 @@ class RichStructuredCitation(cm: StructuredCitation) extends Logging
 		  }).sorted.mkString(",")
 		}
 	  */
-	def keywordsCountByAuthority: String =
-		{
-		val counts = cm.keywords.groupBy(k => k.authority).map
-		             {
-		             case (auth, ks) => (auth.get.name, ks.size)
-		             }
+	def allKeywordsCountByAuthority: String = {
+		val counts = cm.allKeywords.groupBy(k => k.authority).map {
+			                                                       case (auth, ks) => (auth.get.name, ks.size)
+		                                                       }
 		counts.map(x => x._1 + ":" + x._2).mkString(",")
-		}
+	}
 
-	def keywordsByAuthority: String =
-		{
-		cm.keywords.map(x =>
-			                {
-			                val w = x.word
-			                // ensure result is easy to parse
-			                val v = if (w.contains(":") || w.contains(","))
-				                {
-				                if (w.contains("\"") || w.contains("'"))
-					                {
-					                logger.warn("Keyword contains quotes: " + w)
-					                }
-				                "'" + w + "'"
-				                }
-			                else w
-			                x.authority.get.name + ":" + v
-			                }).mkString(",")
-		}
+	def allKeywordsByAuthority: String = {
+		cm.allKeywords.map(x => {
+			val w = x.word
+			// ensure result is easy to parse
+			val v = if (w.contains(":") || w.contains(",")) {
+				if (w.contains("\"") || w.contains("'")) {
+					logger.warn("Keyword contains quotes: " + w)
+				}
+				"'" + w + "'"
+			}
+			else w
+			x.authority.get.name + ":" + v
+		}).mkString(",")
+	}
+
+	def allKeywords: Iterable[Keyword] = cm.keywords ++ (cm.containedIn.map(_.container.allKeywords).flatten)
 
 	def allAddresses: Seq[Address] = cm.addresses ++ cm.authors.flatMap(_.agent.addresses)
 
-	def institutionRatios : Map[InstitutionType, Double] = {
+	def institutionRatios: Map[InstitutionType, Double] = {
 		import RichAddress._
-		val instTypes : Map[InstitutionType, Int] = allAddresses.flatMap(_.inferredInstitutionType).groupBy(x=>x).mapValues(_.size)
-		val total : Double = instTypes.values.sum
+		val instTypes: Map[InstitutionType, Int] = allAddresses.flatMap(_.inferredInstitutionType).groupBy(x => x).mapValues(_.size)
+		val total: Double = instTypes.values.sum
 		instTypes.mapValues(_ / total)
-		}
+	}
 
-	def rootContainedIn: StructuredCitation =
-		{
+	def rootContainedIn: StructuredCitation = {
 		cm.containedIn.map(_.container.rootContainedIn).getOrElse(cm)
-		}
+	}
 
-	def rootContainedInNotSelf: Option[StructuredCitation] =
-		{
+	def rootContainedInNotSelf: Option[StructuredCitation] = {
 		cm.containedIn.map(x => Some(x.container.rootContainedIn)).getOrElse(None)
-		}
+	}
 
-	def volume: Option[NonemptyString] =
-		{
+	def volume: Option[NonemptyString] = {
 		cm.containedIn.flatMap(_.volume)
-		}
+	}
 
-	def numPages: Option[Int] =
-		{
+	def numPages: Option[Int] = {
 		cm.containedIn.flatMap(_.pages.flatMap(_.numPages))
-		}
+	}
 
 	/*
 		public void init(String profileDirectory) throws LangDetectException {
@@ -206,27 +189,24 @@ class RichStructuredCitation(cm: StructuredCitation) extends Logging
 		}
 	  */
 	// + "\t" + referenceIds.mkString(", ")
-	}
+}
 
-object RichPerson
-	{
+object RichPerson {
 
 	implicit def enrichPerson(p: Person): RichPerson = new RichPerson(p)
 
 	val adhocIdIncrementor: AtomicInteger = new AtomicInteger(0)
-	}
+}
 
-class RichPerson(p: Person)
-	{
+class RichPerson(p: Person) {
 	val authorityPriority: Map[String, Int] = Map("wos-author" -> 200, "" -> 0)
 
-	def qualifiedIdsInOrder = p.identifiers.sortBy(x =>
-		                                               {
-		                                               val sortOrder: Option[Int] = authorityPriority.get(x.authority.map(_.shortName.s).getOrElse(""))
-		                                               -sortOrder.getOrElse(0)
-		                                               }).map(_.qualifiedValue)
+	def qualifiedIdsInOrder = p.identifiers.sortBy(x => {
+		val sortOrder: Option[Int] = authorityPriority.get(x.authority.map(_.shortName.s).getOrElse(""))
+		-sortOrder.getOrElse(0)
+	}).map(_.qualifiedValue)
 
 	def primaryId = qualifiedIdsInOrder.headOption
 
 	//.getOrElse("adhoc:" + RichPerson.adhocIdIncrementor.getAndIncrement)
-	}
+}

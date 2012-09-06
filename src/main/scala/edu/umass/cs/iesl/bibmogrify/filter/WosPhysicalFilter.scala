@@ -4,6 +4,7 @@ import edu.umass.cs.iesl.bibmogrify.model.StructuredCitation
 import com.weiglewilczek.slf4s.Logging
 import edu.umass.cs.iesl.bibmogrify.pipeline.Transformer
 import edu.umass.cs.iesl.bibmogrify.NamedPlugin
+import edu.umass.cs.iesl.bibmogrify.model.RichStructuredCitation._
 
 object WosPhysicalFilter extends Transformer[StructuredCitation, StructuredCitation] with NamedPlugin with Logging {
   val name = "wosphysical"
@@ -15,7 +16,7 @@ object WosPhysicalFilter extends Transformer[StructuredCitation, StructuredCitat
   )
 
   def apply(cm: StructuredCitation) = {
-    val result = !cm.keywords.map(_.word).toSeq.intersect(okKeywords).isEmpty
+    val result = !cm.allKeywords.map(_.word).toSeq.intersect(okKeywords).isEmpty
     logger.debug("Filter " + (if (result) "PASSED" else "FAILED") + ": " + cm.locations.head.toString)
     if (result) {
       Some(cm)

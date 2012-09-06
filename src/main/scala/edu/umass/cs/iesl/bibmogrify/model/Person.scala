@@ -47,9 +47,8 @@ object Person {
 	}
 }
 
-/**an entity that may be an author (i.e., a person or institution or named collaboration)
- *
- */
+/** an entity that may be an author (i.e., a person or institution or named collaboration)
+  * */
 trait Agent {
 	type Self <: Agent
 
@@ -239,26 +238,25 @@ case class BasicKeywordAuthority(override val shortName: NonemptyString) extends
 }
 
 object InstitutionType extends Logging {
-	val universityWords = new Lexicon("university")
-		val universityPhrases = new Lexicon("universityPhrases")
-	val hospitalWords   = new Lexicon("hospital")
-	val governmentWords = new Lexicon("government")
-	val nonprofitWords  = new Lexicon("nonprofit")
-	val industryWords   = new Lexicon("industry")
+	val universityWords   = new Lexicon("university")
+	val universityPhrases = new Lexicon("universityPhrases")
+	val hospitalWords     = new Lexicon("hospital")
+	val governmentWords   = new Lexicon("government")
+	val nonprofitWords    = new Lexicon("nonprofit")
+	val industryWords     = new Lexicon("industry")
 
 	def infer(a: String): Set[InstitutionType] = {
 		val countsByType: Map[InstitutionType, Int] = Map(University -> (universityWords.countTokenMatchesLC(a) +
 		                                                                 universityPhrases.countSubstringMatchesLC(a)),
 		                                                  Hospital -> hospitalWords.countTokenMatchesLC(a),
 		                                                  Government -> governmentWords.countTokenMatchesLC(a),
-		                                                  Nonprofit -> nonprofitWords.countTokenMatchesLC(a),
-		                                                  Industry -> industryWords.countTokenMatchesLC(a))
+		                                                  Nonprofit -> nonprofitWords.countTokenMatchesLC(a), Industry -> industryWords.countTokenMatchesLC
+		                                                                                                                  (a))
 
 		val populatedTypes: Map[InstitutionType, Int] = countsByType.filterNot(_._2 == 0)
 
 		logger.debug(a + " : " + populatedTypes)
 
-		// just report them all
 		populatedTypes.keySet
 		/*
 		populatedTypes.size match {
@@ -301,8 +299,17 @@ object RichAddress {
 class RichAddress(address: Address) extends Logging {
 
 	// this belongs in some inference module, not in the middle of the model?
-	def inferredInstitutionType: Set[InstitutionType] = if (address.addressType.isEmpty)
-		InstitutionType.infer(address.streetLines.mkString(" "))
+	def inferredInstitutionType: Set[InstitutionType] = if (address.addressType.isEmpty) {
+		val result = InstitutionType.infer(address.streetLines.mkString(" "))
+
+		if (result.isEmpty) {
+			// grep for these is the log to suggest new keywords
+			logger.debug("No Institution Type: " + address.streetLines.headOption.getOrElse("NO ADDRESS"))
+		}
+
+		// just report them all
+		result
+	}
 	else
 		address.addressType.toSet
 }

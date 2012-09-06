@@ -26,7 +26,7 @@ object PatentStatsWriter extends Transformer[StructuredPatent, String] with Name
 
 		val fields = Seq(cm.locations.headOption.map(_.toString), Some(cm.primaryId), cm.year, cm.sourceLanguage, cm.language, Some(cm.listAbstractLanguages),
 		                 Some(cm.priorityClaims.length), Some(cm.mainFamily.length), Some(cm.completeFamily.length), Some(cm.references.length),
-		                 Some(cm.searchReportReferences.length), Some(cm.keywordsCountByAuthority))
+		                 Some(cm.searchReportReferences.length), Some(cm.allKeywordsCountByAuthority))
 		val fieldsUnpacked = fields.map(_.getOrElse(""))
 		Some(fieldsUnpacked.mkString("\t") + "\n")
 		}
@@ -57,7 +57,8 @@ object PatentMultiLanguageAbstractsWriter extends Transformer[StructuredPatent, 
 
 
 		val fields: Iterable[Option[String]] =
-			Seq(cm.locations.headOption.map(_.toString), Some(cm.primaryId), cm.year.map(_.toString), Some(cm.keywordsByAuthority), Some(cm.cleanAbstract)) ++
+			Seq(cm.locations.headOption.map(_.toString), Some(cm.primaryId), cm.year.map(_.toString), Some(cm.allKeywordsByAuthority),
+			    Some(cm.cleanAbstract)) ++
 			extraLanguageAbstracts
 
 		val fieldsUnpacked = fields.map(_.getOrElse(""))
