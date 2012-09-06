@@ -83,7 +83,10 @@ object WosXMLReader extends Transformer[NamedInputStream, StructuredCitation] wi
 
 	def parseIssue(inLocation: Location, issue: Node): (String, StructuredCitation) = {
 
-		val subjectCodes = ((issue \ "subjects" \ "subject" \ "@code")).flatMap(_.text.opt)
+		val subjectNodes = (issue \ "subjects" \ "subject")
+
+		logger.debug("Found issue " + issueId + " with " + subjectNodes.size + " subject nodes")
+		val subjectCodes = subjectNodes.flatMap(n=> n \ "@code").flatMap(_.text.opt)
 		val issueId = (issue \ "@recid").text
 		logger.debug("Found issue " + issueId + " with subject codes " + subjectCodes.mkString(", "))
 		val c = new StructuredCitation() {
