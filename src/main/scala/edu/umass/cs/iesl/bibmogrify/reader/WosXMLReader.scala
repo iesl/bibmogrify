@@ -85,10 +85,10 @@ object WosXMLReader extends Transformer[NamedInputStream, StructuredCitation] wi
 
 		val subjectNodes = (issue \ "subjects" \ "subject")
 		val issueId = (issue \ "@recid").text
-		logger.debug("Found issue " + issueId + " with " + subjectNodes.size + " subject nodes")
+		//logger.debug("Found issue " + issueId + " with " + subjectNodes.size + " subject nodes")
 		val subjectCodes = subjectNodes.flatMap(n=> n \ "@code").flatMap(_.text.opt)
 
-		logger.debug("Found issue " + issueId + " with subject codes " + subjectCodes.mkString(", "))
+		//logger.debug("Found issue " + issueId + " with subject codes " + subjectCodes.mkString(", "))
 		val c = new StructuredCitation() {
 			override val keywords                      = subjectCodes map (new BasicKeyword(_, WosKeywordAuthority))
 			override val title: Option[NonemptyString] = (issue \ "issue_title").text
@@ -103,9 +103,9 @@ object WosXMLReader extends Transformer[NamedInputStream, StructuredCitation] wi
 		if (venueMention.isEmpty) {
 			logger.warn("Unresolved issue reference: " + issueRef + " for item " + (item \ "ut").text)
 		}
-		else {
-			logger.debug("Resolved issue reference " + issueRef + " with keywords " + venueMention.get.keywords.mkString(" "))
-		}
+		//else {
+		//	logger.debug("Resolved issue reference " + issueRef + " with keywords " + venueMention.get.keywords.mkString(" "))
+		//}
 
 		val date: Some[BasicPartialDate] = {
 			val month: Option[NonemptyString] = None //(doc \ "bib_date" \ "@month").text
