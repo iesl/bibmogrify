@@ -85,6 +85,7 @@ object WosXMLReader extends Transformer[NamedInputStream, StructuredCitation] wi
 
 		val subjectCodes = ((issue \ "subjects" \ "subject" \ "@code")).flatMap(_.text.opt)
 		val issueId = (issue \ "@recid").text
+		logger.debug("Found issue " + issueId + " with subject codes " + subjectCodes.mkString(", "))
 		val c = new StructuredCitation() {
 			override val keywords                      = subjectCodes map (new BasicKeyword(_, WosKeywordAuthority))
 			override val title: Option[NonemptyString] = (issue \ "issue_title").text
@@ -98,6 +99,9 @@ object WosXMLReader extends Transformer[NamedInputStream, StructuredCitation] wi
 		val venueMention = issuesById.get(issueRef)
 		if (venueMention.isEmpty) {
 			logger.warn("Unresolved issue reference: " + issueRef + " for item " + (item \ "ut").text)
+		}
+		else {
+			logger.debug("Resolved issue reference " + issueRef + " with keywords " + venueMention.get.keywords.mkString(" "))
 		}
 
 		val date: Some[BasicPartialDate] = {
@@ -284,14 +288,16 @@ object WosXMLReader extends Transformer[NamedInputStream, StructuredCitation] wi
 	                                                      "Meeting Abstract" -> ProceedingsArticle, "Meeting Abstr" -> ProceedingsArticle,
 	                                                      "Proceedings Paper" -> ProceedingsArticle, "Book" -> Book, "Art Exhibit Review" -> CriticalReview,
 	                                                      "Biographical-Item" -> Biographical, "Book Review" -> BookReview, "Chronology" -> Other,
-	                                                      "Correction, Addition" -> Correction, "Dance Performance Review" -> CriticalReview,
-	                                                      "Discussion" -> Editorial, "Editorial Material" -> Editorial, "Excerpt" -> Other,
-	                                                      "Fiction, Creative Prose" -> Creative, "Film Review" -> CriticalReview,
-	                                                      "Hardware Review" -> ProductReview, "Item About an Individual" -> Biographical, "Letter" -> Letter,
+	                                                      "Correction, Addition" -> Correction, "Correction" -> Correction,
+	                                                      "Dance Performance Review" -> CriticalReview, "Discussion" -> Editorial,
+	                                                      "Editorial Material" -> Editorial, "Excerpt" -> Other, "Fiction, Creative Prose" -> Creative,
+	                                                      "Film Review" -> CriticalReview, "Hardware Review" -> ProductReview,
+	                                                      "Item About an Individual" -> Biographical, "Letter" -> Letter,
 	                                                      "Music Performance Review" -> CriticalReview, "Note" -> NoteArticle, "Poetry" -> Creative,
 	                                                      "Record Review" -> CriticalReview, "Review" -> ReviewArticle, "Script" -> Creative,
-	                                                      "Software Review" -> ProductReview, "Theater Review" -> CriticalReview,
-	                                                      "Bibliography" -> Bibliography)
+	                                                      "Software Review" -> ProductReview, "Database Review" -> ProductReview,
+	                                                      "TV Review, Radio Review, Video" -> CriticalReview, "Music Score Review" -> CriticalReview,
+	                                                      "Theater Review" -> CriticalReview, "Bibliography" -> Bibliography)
 
 	/*
 

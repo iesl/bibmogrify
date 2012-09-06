@@ -304,7 +304,7 @@ class RichAddress(address: Address) extends Logging {
 
 		if (result.isEmpty) {
 			// grep for these is the log to suggest new keywords
-			logger.debug("No Institution Type: " + address.streetLines.headOption.getOrElse("NO ADDRESS"))
+			logger.warn("No Institution Type: " + address.streetLines.headOption.getOrElse("NO ADDRESS"))
 		}
 
 		// just report them all
