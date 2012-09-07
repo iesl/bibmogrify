@@ -17,11 +17,10 @@ object BibJSONWriter extends Transformer[StructuredCitation, String] with NamedP
 
 	import edu.umass.cs.iesl.bibmogrify.model.RichStructuredCitation.enrichStructuredCitation
 
-	val name = "bibjson"
+	val name = "bibjson-broken"
 
 	def apply(cms: TraversableOnce[StructuredCitation], out: BufferedWriter)
 		{
-
 		val json = for (cm <- cms) yield
 			{
 			val qq: List[Option[(String, Object)]] = List(Some(("title" -> cm.title)), Some(("abstract" -> cm.englishAbstract)),

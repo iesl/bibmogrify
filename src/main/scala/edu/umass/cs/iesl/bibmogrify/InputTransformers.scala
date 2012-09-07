@@ -142,7 +142,7 @@ object ArchiveToInputStreams extends Transformer[URL, NamedInputStream] with Nam
 		val (baseName:NonemptyString, extension:NonemptyString) = name.lastIndexOf('.') match
 		{
 			case -1 => (name, None)
-			case x: Int => (name.substring(0, x), new Some(name.substring(x + 1).toLowerCase))
+			case x: Int => (name.substring(0, x), (name.substring(x + 1).toLowerCase))
 		}
 
 		extension.s match
