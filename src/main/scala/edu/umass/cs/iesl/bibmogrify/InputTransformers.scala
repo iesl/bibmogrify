@@ -128,7 +128,7 @@ object ArchiveToInputStreams extends Transformer[URL, NamedInputStream] with Nam
 		val name = nis.name
 		val (baseName: NonemptyString, extension: NonemptyString) = name.lastIndexOf('.') match {
 			case -1 => (name, None)
-			case x: Int => (name.substring(0, x), (name.substring(x + 1).toLowerCase))
+			case x: Int => (name.substring(0, x).n, (name.substring(x + 1).toLowerCase).n)
 		}
 
 		extension.s match {

@@ -69,10 +69,10 @@ object TextWithLanguage extends Logging {
 		val profileDir = new Directory(new java.io.File(profileUrl.getFile)) // hope that there are no competing items with that name on the classpath
 
 		profileDir.files.filter(f => okFilenames.contains(f.name)).map(f => {
-			logger.info("Loading language: " + f)
+			logger.debug("Loading language: " + f)
 			DetectorFactory.loadProfile(f.jfile)
 		})
-		logger.info("Loaded language profiles")
+		logger.debug("Loaded language profiles")
 	}
 
 	def apply(specifiedLanguage: Option[Language], text: Option[NonemptyString]): Option[TextWithLanguage] =

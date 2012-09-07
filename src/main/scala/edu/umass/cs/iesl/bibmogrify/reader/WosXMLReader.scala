@@ -86,7 +86,7 @@ object WosXMLReader extends Transformer[NamedInputStream, StructuredCitation] wi
 		val subjectNodes = (issue \ "subjects" \ "subject")
 		val issueId = (issue \ "@recid").text
 		//logger.debug("Found issue " + issueId + " with " + subjectNodes.size + " subject nodes")
-		val subjectCodes = subjectNodes.flatMap(n=> n \ "@code").flatMap(_.text.opt)
+		val subjectCodes = subjectNodes.flatMap(n => n \ "@code").flatMap(_.text.opt)
 
 		//logger.debug("Found issue " + issueId + " with subject codes " + subjectCodes.mkString(", "))
 		val c = new StructuredCitation() {
@@ -106,7 +106,6 @@ object WosXMLReader extends Transformer[NamedInputStream, StructuredCitation] wi
 		//else {
 		//	logger.debug("Resolved issue reference " + issueRef + " with keywords " + venueMention.get.keywords.mkString(" "))
 		//}
-
 		val date: Some[BasicPartialDate] = {
 			val month: Option[NonemptyString] = None //(doc \ "bib_date" \ "@month").text
 			val yearS: Option[NonemptyString] = (item \ "bib_issue" \ "@year").text
@@ -235,9 +234,17 @@ object WosXMLReader extends Transformer[NamedInputStream, StructuredCitation] wi
 			override val docSubtype = (item \ "doctype").text.opt
 
 			override val institutionTypes = {
-				val allEmailTypes = authors.map(_.agent).flatMap(_.email).flatMap(InstitutionType.infer(_)).toSet
+				val allEmails = authors.map(_.agent).flatMap(_.email)
 				val allAddresses = addresses ++ authors.map(_.agent).flatMap(_.addresses)
-				allAddresses.flatMap(_.inferredInstitutionType).toSet ++ allEmailTypes
+
+				if (allEmails.isEmpty && allAddresses.isEmpty) {Nil}
+				else {
+					val allEmailTypes = allEmails.flatMap(InstitutionType.infer(_)).toSet
+					val allAddressTypes: Set[InstitutionType] = allAddresses.flatMap(_.inferredInstitutionType).toSet
+					val result = allAddressTypes ++ allEmailTypes
+					if (result.isEmpty) {Seq(Ambiguous)}
+					else result
+				}
 			}
 
 			// TODO implement parsePages, or just store the string

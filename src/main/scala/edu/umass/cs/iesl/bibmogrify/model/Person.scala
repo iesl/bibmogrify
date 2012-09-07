@@ -290,7 +290,7 @@ case object Nonprofit extends InstitutionType
 
 case object Industry extends InstitutionType
 
-case object Mixed extends InstitutionType
+case object Ambiguous extends InstitutionType
 
 object RichAddress {
 	implicit def toRichAddress(address: Address): RichAddress = new RichAddress(address)
