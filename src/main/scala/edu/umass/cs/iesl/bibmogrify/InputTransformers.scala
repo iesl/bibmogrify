@@ -68,6 +68,7 @@ object Identity extends Transformer[TraversableOnce[String], String]
 	def apply(u: TraversableOnce[String]): TraversableOnce[String] = u
 	}
 
+/*
 object VfsToInputStreams extends Transformer[String, NamedInputStream] with NamedPlugin with Logging
 	{
 
@@ -95,7 +96,7 @@ object VfsToInputStreams extends Transformer[String, NamedInputStream] with Name
 
 		if (fileObject.getType == FileType.FOLDER)
 			{
-			//** array flatmap is eager; need streaming.  converting to iterator accomplishes that?
+			// ** array flatmap is eager; need streaming.  converting to iterator accomplishes that?
 			fileObject.getChildren.iterator.flatMap(getAllInputStreams)
 			// perhaps that helps conserve memory, but still fileObject.getChildren returns an array and so must read an entire tar or zip file before
 			// returning anything.
@@ -120,6 +121,7 @@ object VfsToInputStreams extends Transformer[String, NamedInputStream] with Name
 		result
 		}
 	}
+*/
 
 /*
 case "zip" => {

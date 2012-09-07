@@ -17,7 +17,8 @@ object BibmogrifyBuild extends Build {
 	import allDeps._
 
 	val deps = Seq(ieslScalaCommons("latest.integration"), namejuggler("latest.integration"), liftJson(), scalatest(), subcut(), langdetect(), jsonic(),
-	               commonsVfs2(), commonsCollections(), commonsCompress(),
+	               //commonsVfs2(),
+	               commonsCollections(), commonsCompress(),
 	               // these should be provided transitively by scalacommons, but they aren't because it's defined "notTransitive"
 	               dsutils(), commonsLang(), classutil(), "com.mongodb.casbah" % "casbah_2.9.0-1" % "2.1.5.0")
 
