@@ -52,11 +52,12 @@ object IEEEReader extends Transformer[NamedInputStream, StructuredCitation] with
 							{
 							Some(new PersonNameWithDerivations
 								{
-								override val givenNames: Seq[NonemptyString] = first.split(" ").toSeq
+								// separate J.A. cases but keep periods, e.g. J. A.
+								override val givenNames: Seq[NonemptyString] = first.split(" ").flatMap(_.split("\\.").map(_+". ")).toSeq
 								override val surNames  : Set[NonemptyString] = last.just
 
-								//** just ignore normname for now
-								override val fullNames: Set[NonemptyString] = (first + " " + last).just
+								// name inference will either confirm that normanme is compatible, or reconcile the two
+								override val fullNames: Set[NonemptyString] = Set(norm.n, (first + " " + last).n)
 								})
 							}
 						}
