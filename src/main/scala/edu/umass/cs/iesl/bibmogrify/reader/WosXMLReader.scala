@@ -233,16 +233,16 @@ object WosXMLReader extends Transformer[NamedInputStream, StructuredCitation] wi
 			override val doctype    = decodeDocType((item \ "doctype").text)
 			override val docSubtype = (item \ "doctype").text.opt
 
-			override val institutionTypes = {
+			override val institutionTypes : Set[InstitutionType] = {
 				val allEmails = authors.map(_.agent).flatMap(_.email)
 				val allAddresses = addresses ++ authors.map(_.agent).flatMap(_.addresses)
 
-				if (allEmails.isEmpty && allAddresses.isEmpty) {Nil}
+				if (allEmails.isEmpty && allAddresses.isEmpty) {Set.empty}
 				else {
 					val allEmailTypes = allEmails.flatMap(InstitutionType.infer(_)).toSet
 					val allAddressTypes: Set[InstitutionType] = allAddresses.flatMap(_.inferredInstitutionType).toSet
 					val result = allAddressTypes ++ allEmailTypes
-					if (result.isEmpty) {Seq(Ambiguous)}
+					if (result.isEmpty) {Set[InstitutionType](Ambiguous)}
 					else result
 				}
 			}
