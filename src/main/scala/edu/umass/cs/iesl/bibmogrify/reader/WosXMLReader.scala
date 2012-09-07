@@ -86,12 +86,12 @@ object WosXMLReader extends Transformer[NamedInputStream, StructuredCitation] wi
 		val subjectNodes = (issue \ "subjects" \ "subject")
 		val issueId = (issue \ "@recid").text
 		//logger.debug("Found issue " + issueId + " with " + subjectNodes.size + " subject nodes")
-		val subjectCodes = subjectNodes.flatMap(n => n \ "@code").flatMap(_.text.opt)
+		val subjectCodes = subjectNodes.flatMap(n => n \ "@code").flatMap(_.text.opt).toSet
 
 		//logger.debug("Found issue " + issueId + " with subject codes " + subjectCodes.mkString(", "))
 		val c = new StructuredCitation() {
-			override val keywords                      = subjectCodes map (new BasicKeyword(_, WosKeywordAuthority))
-			override val title: Option[NonemptyString] = (issue \ "issue_title").text
+			override val keywords: Set[Keyword]           = subjectCodes map (new BasicKeyword(_, WosKeywordAuthority))
+			override val title   : Option[NonemptyString] = (issue \ "issue_title").text
 		}
 		(issueId, c)
 	}
@@ -233,7 +233,7 @@ object WosXMLReader extends Transformer[NamedInputStream, StructuredCitation] wi
 			override val doctype    = decodeDocType((item \ "doctype").text)
 			override val docSubtype = (item \ "doctype").text.opt
 
-			override val institutionTypes : Set[InstitutionType] = {
+			override val institutionTypes: Set[InstitutionType] = {
 				val allEmails = authors.map(_.agent).flatMap(_.email)
 				val allAddresses = addresses ++ authors.map(_.agent).flatMap(_.addresses)
 

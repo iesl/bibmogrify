@@ -255,8 +255,12 @@ object InstitutionType extends Logging {
 
 		val populatedTypes: Map[InstitutionType, Int] = countsByType.filterNot(_._2 == 0)
 
-		logger.debug(a + " : " + populatedTypes)
-
+		if (populatedTypes.isEmpty) {
+			logger.warn("Ambiguous institution type : " + a)
+		}
+		else {
+			logger.debug(a + " : " + populatedTypes)
+		}
 		populatedTypes.keySet
 		/*
 		populatedTypes.size match {

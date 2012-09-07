@@ -243,7 +243,7 @@ object PatentST36Reader extends Transformer[NamedInputStream, StructuredPatent] 
 
 
 
-				var result = Seq(ipc, ipcr, ecla, fterm).flatten ++ nationalKeywords.flatten.toSeq
+				var result = Set(ipc, ipcr, ecla, fterm).flatten ++ nationalKeywords.flatten
 				result
 			}
 

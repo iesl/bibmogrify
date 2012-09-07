@@ -36,7 +36,7 @@ trait StructuredCitation {
 	//val referenceStrings: Seq[String] = Nil
 	val references: Seq[StructuredCitation] = Nil
 	// could include context here
-	val keywords  : Iterable[Keyword]       = Nil
+	val keywords  : Set[Keyword]       = Set.empty
 
 	//val abstractLanguages: Seq[Option[Language]] = Nil
 	val abstractText: Iterable[TextWithLanguage] = Nil
