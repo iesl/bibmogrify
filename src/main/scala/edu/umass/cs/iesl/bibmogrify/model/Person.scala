@@ -18,7 +18,7 @@ object Person {
 		override val identifiers  = newIds ++ p.identifiers
 	}
 
-	def apply(fullname: String): Person =
+	def apply(fullname: NonemptyString): Person =
 		new Person {
 			override val name = Some(PersonNameWithDerivations(fullname))
 			//StringUtils.emptyStringToNone(fullname).map(n => PersonNameWithDerivations(n))

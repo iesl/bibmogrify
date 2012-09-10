@@ -123,7 +123,7 @@ object ElsevierReader extends Transformer[NamedInputStream, StructuredCitation] 
 
 			//override val keywords = subjectCodes map (new BasicKeyword(WOSKeywordAuthority, _))
 			override val locations = Seq(inLocation)
-			override val authors   = (rdf \ "creator" \ "Seq" \ "li").map(nameS => Person(nameS.text)).map(new AuthorInRole(_, Nil))
+			override val authors   = (rdf \ "creator" \ "Seq" \ "li").flatMap(nameS => nameS.text.opt).map(n => new AuthorInRole(Person(n), Nil))
 			}
 		c
 		}

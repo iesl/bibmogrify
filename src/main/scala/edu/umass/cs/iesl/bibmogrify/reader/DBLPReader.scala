@@ -44,11 +44,9 @@ object DBLPReader extends Transformer[NamedInputStream, StructuredCitation] with
 		val key = (doc \ "@key").text
 		val id = BasicIdentifier(key, DblpAuthority)
 
+		val authorsX: Seq[NonemptyString] = (doc \ "author").flatMap(_.text.opt)
 
-		// these "X" variables may be empty Strings; they are implicitly converted to Option[String]
-		val authorsX: Seq[String] = (doc \ "author").map(_.text)
-
-		val editorsX: Seq[String] = (doc \ "editor").map(_.text)
+		val editorsX: Seq[NonemptyString] = (doc \ "editor").flatMap(_.text.opt)
 
 		// todo modify dtd to constrain some fields to appear only once?
 		val date: Some[BasicPartialDate] =

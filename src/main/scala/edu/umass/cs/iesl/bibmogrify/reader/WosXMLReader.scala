@@ -184,9 +184,9 @@ object WosXMLReader extends Transformer[NamedInputStream, StructuredCitation] wi
 						override val givenNames = first.opt.toSeq
 						override val surNames   = last.opt.toSet
 					}
-					val collective = PersonNameWithDerivations((x \ "AuCollectiveName").text)
+					val collective =(x \ "AuCollectiveName").text.opt.map(PersonNameWithDerivations(_))
 
-					val mergedName = PersonNameWithDerivations.merge(assembled, collective)
+					val mergedName = collective.map(PersonNameWithDerivations.merge(assembled, _)).getOrElse(assembled)
 
 					new AuthorInRole(new Person() {
 						override val name                    = Some(mergedName)
@@ -208,7 +208,7 @@ object WosXMLReader extends Transformer[NamedInputStream, StructuredCitation] wi
 
 				val emailAuthors = emailsNode.map(x => {
 					new AuthorInRole(new Person() {
-						override val name  = Some(PersonNameWithDerivations((x \ "name").text))
+						override val name  = (x \ "name").text.opt.map(PersonNameWithDerivations(_))
 						override val email = (x \ "email").text.opt
 					}, Nil)
 				})

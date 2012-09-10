@@ -41,12 +41,12 @@ object IEEEReader extends Transformer[NamedInputStream, StructuredCitation] with
 					{
 					override val name =
 						{
-						val first: String = (c \ "firstname").text
-						val last: String = (c \ "surname").text
-						val norm: String = (c \ "normname").text
-						if (first == last && last == norm) // broken name records, especially asian
+						val first = (c \ "firstname").text.opt
+						val last = (c \ "surname").text.opt
+						val norm = (c \ "normname").text.opt
+						if (first == last && last == norm && norm.isDefined) // broken name records, especially asian
 							{
-							Some(PersonNameWithDerivations(norm))
+							Some(PersonNameWithDerivations(norm.get))
 							}
 						else
 							{
@@ -54,12 +54,14 @@ object IEEEReader extends Transformer[NamedInputStream, StructuredCitation] with
 								{
 								override val givenNames: Seq[NonemptyString] = {
 									// separate J.A. cases but keep periods, e.g. J. A.
-									first.replace("\\.",". ").split(" ").flatMap(_.opt)
+									val result: Seq[NonemptyString]  = first.toSeq.flatMap(_.replace("\\.",". ").split(" ").flatMap(_.opt).toSeq)
+								result
 								}
-								override val surNames  : Set[NonemptyString] = last.just
+								override val surNames  : Set[NonemptyString] = last.toSet
 
-								// name inference will either confirm that normanme is compatible, or reconcile the two
-								override val fullNames: Set[NonemptyString] = Set(norm.n, (first + " " + last).n)
+								// name inference will either confirm that normname is compatible, or reconcile the two
+							    // have to unwap the Option[NonemptyString] values explicitly to avoid "Some(foobar)"
+								override val fullNames: Set[NonemptyString] = Set(norm, (first.getOrElse("") + " " + last.getOrElse("")).trim.opt).flatten
 								})
 							}
 						}
