@@ -51,10 +51,6 @@ object ZipAminoAcidTitleHash
 	val name = "zipAAHash"
 	}
 
-
-
-
-
 class FUSEPaperCorefBundle(val entityId:String, val mentionId:String, val citation:StructuredCitation)
 /**
  * render the title in a normalized form using only characters from the IUPAC amino acid alphabet, as a hack to allow comparing titles with usearch.

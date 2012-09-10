@@ -23,6 +23,7 @@ import edu.umass.cs.iesl.bibmogrify.model.AuthorInRole
 import edu.umass.cs.iesl.scalacommons.NonemptyString
 import edu.umass.cs.iesl.bibmogrify.model.BasicStringLocation
 import edu.umass.cs.iesl.bibmogrify.model.BasicPartialDate
+import edu.umass.cs.iesl.namejuggler.PersonNameParser.PersonNameParsingException
 
 object WosXMLReader extends Transformer[NamedInputStream, StructuredCitation] with Logging with NamedPlugin {
 
@@ -60,8 +61,14 @@ object WosXMLReader extends Transformer[NamedInputStream, StructuredCitation] wi
 			c
 		}
 		catch {
-			case e: BibMogrifyException => logger.error(e.getMessage)
-			Nil
+			case e: BibMogrifyException => {
+				logger.error(e.getMessage)
+				Nil
+			}
+			case e: PersonNameParsingException => {
+				logger.error(e.getMessage)
+				Nil
+			}
 		}
 	}
 
@@ -184,7 +191,7 @@ object WosXMLReader extends Transformer[NamedInputStream, StructuredCitation] wi
 						override val givenNames = first.opt.toSeq
 						override val surNames   = last.opt.toSet
 					}
-					val collective =(x \ "AuCollectiveName").text.opt.map(PersonNameWithDerivations(_))
+					val collective = (x \ "AuCollectiveName").text.opt.map(PersonNameWithDerivations(_))
 
 					val mergedName = collective.map(PersonNameWithDerivations.merge(assembled, _)).getOrElse(assembled)
 
