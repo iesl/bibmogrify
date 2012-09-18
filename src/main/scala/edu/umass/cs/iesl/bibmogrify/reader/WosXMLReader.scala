@@ -83,12 +83,13 @@ object WosXMLReader extends Transformer[NamedInputStream, StructuredCitation] wi
 		val issues = doc \ "issue"
 		val items = doc \ "item"
 
-		val issueRecords: Map[String, StructuredCitation] = (for (issue <- issues) yield parseIssue(inLocation, issue)).toMap
+		val issueRecords: Map[String, (StructuredCitation,Option[NonemptyString],Option[NonemptyString] )] =
+			(for (issue <- issues) yield parseIssue(inLocation, issue)).toMap
 		val itemRecords = for (item <- items) yield parseItem(inLocation, item, issueRecords)
 		itemRecords
 	}
 
-	def parseIssue(inLocation: Location, issue: Node): (String, StructuredCitation) = {
+	def parseIssue(inLocation: Location, issue: Node): (String, (StructuredCitation,Option[NonemptyString] ,Option[NonemptyString] )) = {
 
 		val subjectNodes = (issue \ "subjects" \ "subject")
 		val issueId = (issue \ "@recid").text
@@ -100,16 +101,21 @@ object WosXMLReader extends Transformer[NamedInputStream, StructuredCitation] wi
 			override val keywords: Set[Keyword]           = subjectCodes map (new BasicKeyword(_, WosKeywordAuthority))
 			override val title   : Option[NonemptyString] = (issue \ "issue_title").text
 		}
-		(issueId, c)
+
+		val volumeNumber : Option[NonemptyString] = (issue \ "bib_vol" \ "@volume").text
+		val issueNumber : Option[NonemptyString] = (issue \ "bib_vol" \ "@issue").text
+
+		(issueId, (c,volumeNumber,issueNumber))
 	}
 
-	def parseItem(inLocation: Location, item: Node, issuesById: Map[String, StructuredCitation]): StructuredCitation = {
+	def parseItem(inLocation: Location, item: Node, issuesById: Map[String, (StructuredCitation,Option[NonemptyString] ,Option[NonemptyString] )]): StructuredCitation = {
 
 		val issueRef = (item \ "@issue").text
-		val venueMention = issuesById.get(issueRef)
-		if (venueMention.isEmpty) {
+		val issueInfo : Option[(StructuredCitation,Option[NonemptyString] ,Option[NonemptyString] )] = issuesById.get(issueRef)
+		if (issueInfo.isEmpty) {
 			logger.warn("Unresolved issue reference: " + issueRef + " for item " + (item \ "ut").text)
 		}
+
 		//else {
 		//	logger.debug("Resolved issue reference " + issueRef + " with keywords " + venueMention.get.keywords.mkString(" "))
 		//}
@@ -123,7 +129,7 @@ object WosXMLReader extends Transformer[NamedInputStream, StructuredCitation] wi
 			Some(BasicPartialDate(year, month.map(parseMonthOneBased(_)), None))
 		}
 
-		val localVenueMention = (item \ "source_title").text.opt map (venueTitle => new StructuredCitation {
+		val localVenueMention : Option[StructuredCitation] = (item \ "source_title").text.opt map (venueTitle => new StructuredCitation {
 			// drop superscripts, subscripts, italics, and typewriter styles
 			override val title: Option[NonemptyString] = Some(venueTitle)
 
@@ -254,10 +260,30 @@ object WosXMLReader extends Transformer[NamedInputStream, StructuredCitation] wi
 				}
 			}
 
-			// TODO implement parsePages, or just store the string
-			def parsePages(s: String): Option[PageRange] = None
+			override val containedIn = {
 
-			override val containedIn = venueMention.orElse(localVenueMention).map(vm => BasicContainmentInfo(vm, None, None, None, None))
+				val pages: Option[PageRange] = {
+					val b = item \ "bib_pages"
+					val providedStringRange = b.text
+					val start = (b \ "@begin").text.opt
+					val result: Option[PageRange] = start.map(s => {
+						val end = (b \ "@end").text.opt
+						val inferredStringRange = s + end.map("-" + _)
+						if (providedStringRange != inferredStringRange) {logger.warn(providedStringRange + " != " + inferredStringRange)}
+
+						Some(PageRange(s, end))
+					}).getOrElse(PageRange(providedStringRange))
+					result
+				}
+
+				val localIssueInfo = localVenueMention.map((_, (item \ "bib_issue" \ "@vol").text.opt, None))
+				issueInfo.orElse(localIssueInfo).map({
+
+					case (venueMention:StructuredCitation, volumeNumber:Option[NonemptyString], issueNumber:Option[NonemptyString]) =>
+
+					BasicContainmentInfo(venueMention, None, volumeNumber, issueNumber, pages)
+				})
+			}
 
 			//override val keywords = issueKeywords  // subjectCodes map (new BasicKeyword(_, WosKeywordAuthority))
 			override val locations = Seq(inLocation)

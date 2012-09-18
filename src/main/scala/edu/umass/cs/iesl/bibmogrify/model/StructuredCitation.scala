@@ -36,7 +36,7 @@ trait StructuredCitation {
 	//val referenceStrings: Seq[String] = Nil
 	val references: Seq[StructuredCitation] = Nil
 	// could include context here
-	val keywords  : Set[Keyword]       = Set.empty
+	val keywords  : Set[Keyword]            = Set.empty
 
 	//val abstractLanguages: Seq[Option[Language]] = Nil
 	val abstractText: Iterable[TextWithLanguage] = Nil
@@ -309,18 +309,46 @@ case object SHA256 extends HashType
 
 case object MD5 extends HashType
 
+/**
+ * We don't model issues in their own right (in which case volume and issue numbers would have to go in StructuredCitation).
+ * Instead the container is considered to be the journal as a whole, and the volume and issue numbers act similarly to page numbers.
+ */
 trait ContainmentInfo {
 	val container: StructuredCitation
 	val series   : Option[NonemptyString]
 	val volume   : Option[NonemptyString]
-	val number   : Option[NonemptyString]
 	// journal number, or chapter number.  Not necessarily integer?
+	val number   : Option[NonemptyString]
 	val pages    : Option[PageRange]
 }
 
 case class BasicContainmentInfo(override val container: StructuredCitation, override val series: Option[NonemptyString],
                                 override val volume: Option[NonemptyString], override val number: Option[NonemptyString], override val pages: Option[PageRange])
 		extends ContainmentInfo
+
+object PageRange extends Logging {
+	def apply(start: NonemptyString, end: Option[NonemptyString]): PageRange = {
+		try {
+			new BasicNormalPageRange(start.s.toInt, end.map(_.s.toInt))
+		}
+		catch {
+			case e: NumberFormatException => new BasicStringPageRange(start, end)
+		}
+	}
+
+	def apply(s: String): Option[PageRange] = {
+		val tokens = s.split("-").map(_.trim.opt).filter(_.isDefined)
+		tokens.size match {
+			case 0 => None
+			case 1 => Some(PageRange(tokens(1).get, None))
+			case 2 => Some(PageRange(tokens(1).get, tokens(2)))
+			case _ => {
+				logger.warn("Can't parse page range: " + s)
+				None
+			}
+		}
+	}
+}
 
 trait PageRange {
 	def numPages: Option[Int]
@@ -331,6 +359,8 @@ trait NormalPageRange extends PageRange {
 	val end: Option[Int] = None
 
 	def numPages = end.map(_ - start + 1).filter(_ > 0)
+
+	override def toString = start + end.map("-" + _).getOrElse("")
 }
 
 case class BasicNormalPageRange(override val start: Int, override val end: Option[Int]) extends NormalPageRange
@@ -340,6 +370,8 @@ trait StringPageRange extends PageRange {
 	val end: Option[NonemptyString] = None
 
 	def numPages = None
+
+	override def toString = start + end.map("-" + _).getOrElse("")
 }
 
 case class BasicStringPageRange(override val start: NonemptyString, override val end: Option[NonemptyString]) extends StringPageRange

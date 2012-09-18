@@ -115,11 +115,12 @@ object ElsevierReader extends Transformer[NamedInputStream, StructuredCitation] 
 
 			override val identifiers : Iterable[Identifier]= BasicIdentifier((rdf \ "doi").text, DoiAuthority)
 
-			// TODO implement parsePages, or just store the string
-			def parsePages(s: String): Option[PageRange] = None
+			val pages: Option[PageRange] = (rdf \ "startingPage").text.opt.map(PageRange(_,(rdf \ "endingPage").text.opt)).orElse(PageRange((rdf \ "pageRange")
+			                                                                                                                          .text))
 
 			val volume = (rdf \ "volume").text
-			override val containedIn = Some(BasicContainmentInfo(journalMention, None, volume, None, None))
+			val issueNumber = (rdf \ "number").text
+			override val containedIn = Some(BasicContainmentInfo(journalMention, None, volume, issueNumber, pages))
 
 			//override val keywords = subjectCodes map (new BasicKeyword(WOSKeywordAuthority, _))
 			override val locations = Seq(inLocation)
