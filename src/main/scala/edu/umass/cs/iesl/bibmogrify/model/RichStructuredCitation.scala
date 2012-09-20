@@ -84,8 +84,8 @@ class RichStructuredCitation(cm: StructuredCitation) extends Logging {
 		-sortOrder.getOrElse(0)
 	}).map(_.qualifiedValue)
 
-	def primaryId = {
-		qualifiedIdsInOrder.headOption.orElse(cm.locations.headOption).getOrElse("adhoc:" + UUID.randomUUID())
+	def primaryId : String = {
+		qualifiedIdsInOrder.headOption.orElse(cm.locations.headOption).getOrElse("adhoc:" + UUID.randomUUID()).toString
 	}
 
 	def authorFullNames: Seq[String] = cm.authors.map(_.agent.toString)
