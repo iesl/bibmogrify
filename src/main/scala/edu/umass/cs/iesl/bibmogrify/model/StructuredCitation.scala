@@ -262,6 +262,8 @@ trait Identifier {
 	val value: NonemptyString
 
 	def qualifiedValue = authority.map(_.shortName).getOrElse("Unknown") + ":" + value
+
+	override def toString = qualifiedValue
 }
 
 object BasicIdentifier {
