@@ -17,6 +17,15 @@ object OneLineWriter extends Transformer[StructuredCitation, String] with NamedP
 	}
 }
 
+
+object IdMapWriter extends Transformer[StructuredCitation, String] with NamedPlugin {
+	val name = "idmap"
+
+	def apply(cm: StructuredCitation) = {
+		Some(cm.identifiers.mkString("\t")  + "\t" + cm.locations.mkString("\t")+ "\n")
+	}
+}
+
 object MalletAbstractWriter extends Transformer[StructuredCitation, String] with NamedPlugin {
 	val name = "mallet"
 

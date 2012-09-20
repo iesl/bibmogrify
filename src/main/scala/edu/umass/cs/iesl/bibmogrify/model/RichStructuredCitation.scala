@@ -6,12 +6,11 @@ import edu.umass.cs.iesl.scalacommons.{StringUtils, NonemptyString}
 import StringUtils.unwrapNonemptyString
 import StringUtils.enrichString
 import StringUtils.toOptionNonempty
+import java.util.UUID
 
 object RichStructuredCitation {
 	//DetectorFactory.loadProfiles(Language.majorLanguages.map(_.name).toList: _*);
 	implicit def enrichStructuredCitation(cm: StructuredCitation): RichStructuredCitation = new RichStructuredCitation(cm)
-
-	val adhocIdIncrementor: AtomicInteger = new AtomicInteger(0)
 
 	implicit def iterableTextWithLanguageToMap(i: Iterable[TextWithLanguage]): Map[Option[Language], NonemptyString] = {
 		i.map {
@@ -77,14 +76,17 @@ class RichStructuredCitation(cm: StructuredCitation) extends Logging {
 	def year: Option[Int] = primaryDate.flatMap(_.year)
 
 	// todo parameterize/refactor authority short names; attach priorities directly to authorities; etc
-	val authorityPriority: Map[String, Int] = Map("wos-ut" -> 200, "wos-ut-ref" -> 190, "wos-cid" -> 180, "doi" -> 100, "pubmed" -> 10, "" -> 0)
+	val authorityPriority: Map[String, Int] = Map("wos-ut" -> 200, "wos-ut-ref" -> 190, "wos-cid" -> 180, "doi" -> 100, "pii" -> 90, "dc" -> 1,
+	                                              "pubmed" -> 10, "" -> 0)
 
 	def qualifiedIdsInOrder = cm.identifiers.toSeq.sortBy(x => {
 		val sortOrder: Option[Int] = authorityPriority.get(x.authority.map(_.shortName.s).getOrElse(""))
 		-sortOrder.getOrElse(0)
 	}).map(_.qualifiedValue)
 
-	def primaryId = qualifiedIdsInOrder.headOption.getOrElse("adhoc:" + RichStructuredCitation.adhocIdIncrementor.getAndIncrement)
+	def primaryId = {
+		qualifiedIdsInOrder.headOption.orElse(cm.locations.headOption).getOrElse("adhoc:" + UUID.randomUUID())
+	}
 
 	def authorFullNames: Seq[String] = cm.authors.map(_.agent.toString)
 

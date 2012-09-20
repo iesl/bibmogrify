@@ -4,44 +4,45 @@ package edu.umass.cs.iesl.bibmogrify.model
  * @author <a href="mailto:dev@davidsoergel.com">David Soergel</a>
  * @version $Id$
  */
-
 object Authorities {
-import edu.umass.cs.iesl.scalacommons.StringUtils._
+
+	import edu.umass.cs.iesl.scalacommons.StringUtils._
+
 	object DblpAuthority extends BasicIdentifierAuthority("dblp".n)
 
-  object WosUtAuthority extends BasicIdentifierAuthority("wos-ut".n)
+	object WosUtAuthority extends BasicIdentifierAuthority("wos-ut".n)
 
-  object WosCidAuthority extends BasicIdentifierAuthority("wos-cid".n)
+	object WosCidAuthority extends BasicIdentifierAuthority("wos-cid".n)
 
-  object WosRecidAuthority extends BasicIdentifierAuthority("wos-recid".n)
+	object WosRecidAuthority extends BasicIdentifierAuthority("wos-recid".n)
 
-  object WosRefidAuthority extends BasicIdentifierAuthority("wos-refid".n)
+	object WosRefidAuthority extends BasicIdentifierAuthority("wos-refid".n)
 
-  object WosRefkeyAuthority extends BasicIdentifierAuthority("wos-refkey".n)
+	object WosRefkeyAuthority extends BasicIdentifierAuthority("wos-refkey".n)
 
-  object WosAuthorAuthority extends BasicPersonIdentifierAuthority("wos-author".n)
+	object WosAuthorAuthority extends BasicPersonIdentifierAuthority("wos-author".n)
 
-  object WosUtRefIndexAuthority extends BasicIdentifierAuthority("wos-ut-ref".n)
+	object WosUtRefIndexAuthority extends BasicIdentifierAuthority("wos-ut-ref".n)
 
-  object WosKeywordAuthority extends BasicKeywordAuthority("wos-subject-code".n)
+	object WosKeywordAuthority extends BasicKeywordAuthority("wos-subject-code".n)
 
-  object IpcKeywordAuthority extends BasicKeywordAuthority("ipc".n)
+	object IpcKeywordAuthority extends BasicKeywordAuthority("ipc".n)
 
-  object IpcrKeywordAuthority extends BasicKeywordAuthority("ipcr".n)
+	object IpcrKeywordAuthority extends BasicKeywordAuthority("ipcr".n)
 
-  object EclaKeywordAuthority extends BasicKeywordAuthority("ecla".n)
+	object EclaKeywordAuthority extends BasicKeywordAuthority("ecla".n)
 
-  object FtermKeywordAuthority extends BasicKeywordAuthority("f-term".n)
+	object FtermKeywordAuthority extends BasicKeywordAuthority("f-term".n)
 
-  object DoiAuthority extends BasicIdentifierAuthority("doi".n)
+	object DoiAuthority extends BasicIdentifierAuthority("doi".n)
 
-  object PubmedAuthority extends BasicIdentifierAuthority("pubmed".n)
+	object PiiAuthority extends BasicIdentifierAuthority("pii".n)
 
-  implicit def personAuthorityToOption(a: PersonIdentifierAuthority) = Some(a)
+	object PubmedAuthority extends BasicIdentifierAuthority("pubmed".n)
 
-  implicit def idAuthorityToOption(a: IdentifierAuthority) = Some(a)
+	implicit def personAuthorityToOption(a: PersonIdentifierAuthority) = Some(a)
 
-  implicit def keywondAuthorityToOption(a: KeywordAuthority) = Some(a)
+	implicit def idAuthorityToOption(a: IdentifierAuthority) = Some(a)
 
-
+	implicit def keywondAuthorityToOption(a: KeywordAuthority) = Some(a)
 }
