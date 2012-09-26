@@ -5,7 +5,7 @@ import net.liftweb.json.JsonAST._
 import net.liftweb.json.Extraction._
 import net.liftweb.json.Printer._
 import java.lang.String
-import collection.TraversableOnce
+import collection.{GenTraversableOnce, TraversableOnce}
 import edu.umass.cs.iesl.bibmogrify.pipeline.Transformer
 import edu.umass.cs.iesl.bibmogrify.NamedPlugin
 import collection.immutable.{List, Map}
@@ -17,7 +17,7 @@ object BibJSONWriter extends Transformer[StructuredCitation, String] with NamedP
 
   val name = "bibjson"
 
-  def apply(cm: StructuredCitation) {
+  def apply(cm: StructuredCitation) : Iterable[String] = {
     val json =
       //for (cm <- cms) yield
       {
