@@ -116,9 +116,6 @@ object MedlineReader extends Transformer[NamedInputStream, StructuredCitation] w
 
 			override val identifiers : Iterable[Identifier]   = BasicIdentifier((doc \ "PMID").text, PubmedAuthority)
 
-			// TODO implement parsePages, or just store the string
-			def parsePages(s: String): Option[PageRange] = None
-
 			val volume = (journal \ "JournalIssue" \ "Volume").text
 			val issue  = (journal \ "JournalIssue" \ "Issue").text
 			val pagesS = (article \ "Pagination" \ "MedlinePgn").text.trim
