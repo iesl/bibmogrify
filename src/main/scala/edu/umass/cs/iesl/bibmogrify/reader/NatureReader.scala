@@ -59,6 +59,8 @@ object NatureReader extends Transformer[NamedInputStream, StructuredCitation] wi
     }
   }
 
+  private val datere = "(????)(??)".r
+
   def parse(inLocation: Location, doc: Node): StructuredCitation = {
 
     val article: NodeSeq = doc \ "article"
@@ -68,16 +70,28 @@ object NatureReader extends Transformer[NamedInputStream, StructuredCitation] wi
 
     val journalMention = new StructuredCitation {
 
-      val date: Some[BasicPartialDate] = {
+      val date: Option[BasicPartialDate] = {
         val d = (pubfm \ "idt").text
-        val yearS: Option[NonemptyString] = d.substring(4)
-        val year: Option[Int] = yearS.map(_.s.toInt)
-        val monthS: Option[NonemptyString] = d.substring(4, 6)
-        val month: Option[Int] = monthS.map(parseMonthOneBased(_))
-        //val dayS: Option[NonemptyString] = (d \ "Day").text
-        val day: Option[Int] = None // dayS.map(_.s.toInt)
 
-        Some(BasicPartialDate(year, month, day))
+        try {
+          val datere(yearS, monthS) = d
+          //val yearS: Option[NonemptyString] = d.substring(4)
+          val year: Option[Int] = yearS.opt.map(_.s.toInt)
+          //val monthS: Option[NonemptyString] = d.substring(4, 6)
+          val month: Option[Int] = monthS.opt.map(parseMonthOneBased(_))
+          //val dayS: Option[NonemptyString] = (d \ "Day").text
+          val day: Option[Int] = None // dayS.map(_.s.toInt)
+
+          Some(BasicPartialDate(year, month, day))
+        }
+        catch {
+          case e: MatchError =>
+          {
+            logger.warn("Could not parse date: " + d)
+            None
+          }
+        }
+
       }
 
       // drop superscripts, subscripts, italics, and typewriter styles
