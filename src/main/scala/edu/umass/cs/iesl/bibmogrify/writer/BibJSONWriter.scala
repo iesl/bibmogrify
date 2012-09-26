@@ -17,8 +17,10 @@ object BibJSONWriter extends Transformer[StructuredCitation, String] with NamedP
 
   val name = "bibjson"
 
-  def apply(cms: TraversableOnce[StructuredCitation]) {
-    val json = for (cm <- cms) yield {
+  def apply(cm: StructuredCitation) {
+    val json =
+      //for (cm <- cms) yield
+      {
       val qq: List[Option[(String, Object)]] = List(
         Some(("title" -> cm.title)),
         cm.englishAbstract.headOption.map("abstract" -> _),
@@ -39,11 +41,10 @@ object BibJSONWriter extends Transformer[StructuredCitation, String] with NamedP
       m
     }
     val formats = net.liftweb.json.DefaultFormats
-    val j = Map("citations" -> json.toList)
+    val j = json //Map("citations" -> json.toList)
     val d: _root_.net.liftweb.json.JValue = decompose(j)(formats)
     val pr: String = pretty(render(d))
-    pr
+    Some(pr)
   }
 
-  def apply(v1: StructuredCitation) = null
 }

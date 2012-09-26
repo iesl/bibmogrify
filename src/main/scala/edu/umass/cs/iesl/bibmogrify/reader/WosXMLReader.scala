@@ -268,7 +268,7 @@ object WosXMLReader extends Transformer[NamedInputStream, StructuredCitation] wi
 					val start = (b \ "@begin").text.opt
 					val result: Option[PageRange] = start.map(s => {
 						val end = (b \ "@end").text.opt
-						val inferredStringRange = s + end.map("-" + _)
+						val inferredStringRange = s + end.map("-" + _).getOrElse("")
 						if (providedStringRange != inferredStringRange) {logger.warn(providedStringRange + " != " + inferredStringRange)}
 
 						Some(PageRange(s, end))
