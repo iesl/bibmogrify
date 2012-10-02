@@ -59,7 +59,7 @@ object NatureReader extends Transformer[NamedInputStream, StructuredCitation] wi
     }
   }
 
-  private val datere = "(????)(??)".r
+  private val datere = """(\d\d\d\d)(\d\d)""".r
 
   def parse(inLocation: Location, doc: Node): StructuredCitation = {
 
