@@ -26,7 +26,7 @@ object BibJSONWriter extends Transformer[StructuredCitation, String] with NamedP
         cm.englishAbstract.headOption.map("abstract" -> _),
         cm.containedIn.headOption.flatMap(_.container.title.map("journal" -> _.toString)),
         //cm.abstractText.map("abstract" -> _),
-        cm.dates.headOption.flatMap(_.date.get.year.map("year" -> _.toString)),
+        cm.dates.headOption.flatMap(_.date.flatMap(_.year.map("year" -> _.toString))),
         Some("authors" -> {
           val q = cm.authors map {
             a => Map((
