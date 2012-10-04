@@ -21,7 +21,6 @@ import edu.umass.cs.iesl.bibmogrify.model.BasicStringLocation
 import edu.umass.cs.iesl.bibmogrify.model.BasicNormalPageRange
 import edu.umass.cs.iesl.bibmogrify.model.BasicContainmentInfo
 import edu.umass.cs.iesl.bibmogrify.model.BasicPartialDate
-import tools.scalap.scalax.rules.scalasig.ScalaSigPrinter._tf
 
 object NatureReader extends Transformer[NamedInputStream, StructuredCitation] with Logging with NamedPlugin {
 
