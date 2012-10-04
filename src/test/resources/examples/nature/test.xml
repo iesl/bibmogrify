@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<!-- http://www.vbforums.com/archive/index.php/t-672624.html -->
+<article id="474544c" language="eng" publish="issue" relation="no" origsrc="yes">
+    <entity-declarations>
+        <entity id="illus1" url="474544c-i1.0.jpg"/>
+    </entity-declarations>
+    <pubfm>
+        <jtl>Nature</jtl>
+        <vol>474</vol>
+        <iss>7353</iss>
+        <idt>20110630</idt>
+        <section id="this-week"/>
+        <categ id="rhighlts"/>
+        <pp>
+            <spn>544</spn>
+            <epn>544</epn>
+            <cnt>1</cnt>
+        </pp>
+        <issn type="print">0028-0836</issn>
+        <issn type="electronic">1476-4687</issn>
+        <cpg>
+            <cpy>2011</cpy>
+            <cpn>Nature Publishing Group, a division of Macmillan Publishers Limited. All Rights Reserved.</cpn>
+        </cpg>
+        <subject code="npg_subject_326"/>
+        <doi>10.1038/474544c</doi>
+    </pubfm>
+    <fm>
+        <atl>
+            <topic>Biology</topic> Algal synchronized swimming
+        </atl>
+        <aug>
+            <cau><fnm>Kermit</fnm><snm>Frog</snm><inits>K T</inits><orf rid="a1"/><orf rid="a2"/><corf rid="c1"/></cau>
+            <au><fnm>Oscar</fnm><snm>Grouch</snm><inits>O</inits><orf rid="a1"/></au>
+            <au><fnm>Big</fnm><snm>Bird</snm><inits>B</inits><orf rid="a1"/></au>
+            <aff><oid id="a1"/><org>Chemistry and Materials Science Directorate, Lawrence Livermore National Laboratory</org>, <street>7000 East Avenue</street>, <cty>Livermore</cty>, <st>California</st> <zip>94551</zip>, <cny>USA</cny></aff>
+            <aff><oid id="a2"/><org>Graduate Aeronautical Laboratories, California Institute of Technology, 1200 E. California Boulevard</org>, <cty>Pasadena</cty>, <st>California</st> <zip>91125</zip>, <cny>USA</cny></aff>
+            <caff><coid id="c1"/><email>kermit@sesame.edu</email></caff></aug>
+        <hst>
+            <pubdate type="iss" year="2011" month="06" day="29"/>
+        </hst>
+
+    </fm>
+    <bdy>
+        <p>Suspensions of swimming algal cells form intricate mottled patterns that are governed by a complex interplay
+            between light, gravity and fluid dynamics. The patterns (<b>pictured</b>) change with shifting lighting
+            conditions, which could one day be exploited to improve the yields of bioreactors that use algae to produce
+            biofuel.
+        </p>
+        <p>Rosie Williams and Martin Alan Bees of the University of Glasgow, UK, studied the patterns formed by
+            suspensions of
+            <i>Chlamydomonas augustae</i>
+            cells in response to changes in the orientation and intensity of the light source. As overhead white light
+            grew brighter, dense groups of cells first moved apart, then drew closer together. When the algae were lit
+            from below, brighter light resulted in a shortening and then a levelling off of distances between dense cell
+            groups.
+        </p>
+        <p>Such pattern changes could be exploited to increase the penetration of light and nutrients to cell
+            suspensions, and to concentrate cells for harvesting.
+            <illusr rid="i1" align="left"/>
+        </p>
+        <p>
+            <cite id="n1">
+                <jtl>J. Exp. Biol.</jtl>
+                <vid>24</vid>,
+                <ppf>2398</ppf>-<ppl>2408</ppl>
+                (<cd year="2011">2011</cd>)
+                <refdoi display="hide">10.1242/jeb.051094</refdoi>
+            </cite>
+        </p>
+    </bdy>
+    <bm>
+        <objects>
+            <illus id="i1" type="eps" entref="illus1">
+                <credit>M. A. BEES</credit>
+            </illus>
+        </objects>
+    </bm>
+</article>

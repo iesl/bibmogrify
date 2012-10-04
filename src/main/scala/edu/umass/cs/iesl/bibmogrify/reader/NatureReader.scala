@@ -60,11 +60,11 @@ object NatureReader extends Transformer[NamedInputStream, StructuredCitation] wi
     }
   }
 
-  private val datere = """(\d\d\d\d)(\d\d)""".r
+  private val datere = """(\d\d\d\d)(\d\d)?(\d\d)?""".r
 
   def parse(inLocation: Location, doc: Node): StructuredCitation = {
 
-    val article: NodeSeq = doc \ "article"
+    val article: NodeSeq = doc; // \ "article"
 
     val pubfm = article \ "pubfm"
     val fm = article \ "fm"
@@ -75,13 +75,13 @@ object NatureReader extends Transformer[NamedInputStream, StructuredCitation] wi
         val d = (pubfm \ "idt").text
 
         try {
-          val datere(yearS, monthS) = d
+          val datere(yearS, monthS, dayS) = d
           //val yearS: Option[NonemptyString] = d.substring(4)
           val year: Option[Int] = yearS.opt.map(_.s.toInt)
           //val monthS: Option[NonemptyString] = d.substring(4, 6)
-          val month: Option[Int] = monthS.opt.map(parseMonthOneBased(_))
+          val month: Option[Int] = monthS.opt.map(_.s.toInt) //(parseMonthOneBased(_))
           //val dayS: Option[NonemptyString] = (d \ "Day").text
-          val day: Option[Int] = None // dayS.map(_.s.toInt)
+          val day: Option[Int] = dayS.opt.map(_.s.toInt)
 
           Some(BasicPartialDate(year, month, day))
         }
