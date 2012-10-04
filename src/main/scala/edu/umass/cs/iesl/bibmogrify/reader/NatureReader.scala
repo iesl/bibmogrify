@@ -10,10 +10,9 @@ import xml.{NodeSeq, Node}
 import java.lang.String
 import edu.umass.cs.iesl.bibmogrify.pipeline.Transformer
 import edu.umass.cs.iesl.bibmogrify.{NamedInputStream, NamedPlugin, BibMogrifyException}
-import edu.umass.cs.iesl.scalacommons.XMLIgnoreDTD
+import edu.umass.cs.iesl.scalacommons.{XmlUtils, XMLIgnoreDTD, NonemptyString}
 import scala.Predef._
 import edu.umass.cs.iesl.bibmogrify.model.AuthorInRole
-import edu.umass.cs.iesl.scalacommons.NonemptyString
 import edu.umass.cs.iesl.bibmogrify.model.BasicStringPageRange
 import edu.umass.cs.iesl.bibmogrify.model.BasicCitationEvent
 import scala.Some
@@ -111,7 +110,7 @@ object NatureReader extends Transformer[NamedInputStream, StructuredCitation] wi
       override val doctype: Option[DocType] = JournalArticle
 
       // drop superscripts, subscripts, italics, and typewriter styles
-      override val title: Option[NonemptyString] = (fm \ "atl").text.trim
+      override val title: Option[NonemptyString] = XmlUtils.spaceSeparatedText((fm \ "atl").head).trim
       override val dates = journalMention.dates // could grab received, accepted, aop dates too
 
       override val abstractText: Iterable[TextWithLanguage] = TextWithLanguage(None, (article \ "abs").stripTags)
