@@ -54,7 +54,7 @@ object ElsevierReader extends Transformer[NamedInputStream, StructuredCitation] 
 		catch {
 			case e: BibMogrifyException => logger.error(e.getMessage); None
 			case f => {
-				logger.error("Could not parse " + inLocation);
+				logger.error("Could not parse " + inLocation)
 				logger.error(f.getMessage)
 			}
 			None

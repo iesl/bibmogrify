@@ -54,6 +54,7 @@ object NatureReader extends Transformer[NamedInputStream, StructuredCitation] wi
       case f => {
         logger.error("Could not parse " + inLocation)
         logger.error(f.getMessage)
+        logger.error(f.getStackTraceString)
       }
       None
     }
@@ -97,7 +98,7 @@ object NatureReader extends Transformer[NamedInputStream, StructuredCitation] wi
       // drop superscripts, subscripts, italics, and typewriter styles
       override val title: Option[NonemptyString] = (pubfm \ "jtl").text.trim
 
-      // todo interpret pubtype fieldin associated issue
+      // todo interpret pubtype field in associated issue
       override val doctype: Option[DocType] = Journal
 
       override val dates = Seq(BasicCitationEvent(date, Published))
