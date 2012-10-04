@@ -64,9 +64,9 @@ class BibMogrify extends Logging
 			}
 		else
 			{*/
-		Pump(p2(inputStrings), sink.asInstanceOf[Sink[Any]])
+		Pump(p2(inputStrings), sink.asInstanceOf[Sink[Any]], pipeline.before, pipeline.between, pipeline.after)
 		//	}
-		sink.close();
+		sink.close()
 		}
 	}
 

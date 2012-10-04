@@ -5,6 +5,7 @@ import com.weiglewilczek.slf4s.Logging
 import edu.umass.cs.iesl.bibmogrify.UrlNamedInputStream
 import edu.umass.cs.iesl.bibmogrify.model.{FirstAuthor, RichStructuredCitation, Published}
 import edu.umass.cs.iesl.scalacommons.StringUtils._
+import edu.umass.cs.iesl.bibmogrify.writer.BibJSONWriter
 
 class NatureReaderTestSuite extends FunSuite with BeforeAndAfter with Logging
 	{
@@ -65,4 +66,11 @@ class NatureReaderTestSuite extends FunSuite with BeforeAndAfter with Logging
 		logger.info("Title : " + c.title)
 		}
 	}
+
+  test("JSON representation ends with brace")
+  {
+  val result =  BibJSONWriter(c)
+   result.map(logger.info(_))
+    result.map(x=>assert(x.endsWith("}")))
+  }
 	}
