@@ -35,23 +35,23 @@ object Pump extends Logging {
     source.foreach(sink.put(_))
   }
 
-  def apply[T](source: TraversableOnce[T], sink: Sink[T], before:T, between: T, after:T) {
+  def apply[T](source: TraversableOnce[T], sink: Sink[T], before:Option[T], between: Option[T], after:Option[T]) {
     //val x = source.toIterable.par //toSeq // no clue why toSeq is needed here, but otherwise the map below doesn't work ??  BAD memory use.  even
     // toIterable makes a Stream.
     //logger.warn("Pumping...")
 
-    sink.put(before)
+    before.map(sink.put(_))
 
     var first = true
-    source.foreach({
+    source.foreach(x=>{
       if (!first) {
-        sink.put(between)
+        between.map(sink.put(_))
         first = false
       }
-      sink.put(_)
+      sink.put(x)
     })
 
-    sink.put(after)
+    after.map(sink.put(_))
     //logger.warn("Done Pumping!")
   }
 }
