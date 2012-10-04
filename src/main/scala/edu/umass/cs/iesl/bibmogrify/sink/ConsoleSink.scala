@@ -50,11 +50,11 @@ trait GeneralConsoleSink extends Sink[String] with Logging {
   }
 }
 
-object ConsoleSink extends GeneralConsoleSink with NamedPlugin {
+object ConsoleSink extends GeneralConsoleSink with Sink[String] with NamedPlugin {
   val name = "console"
 }
 
-object JsonConsoleSink extends GeneralConsoleSink with NamedPlugin {
+object JsonConsoleSink extends GeneralConsoleSink with Sink[String] with NamedPlugin {
   val name = "jsonconsole"
   override val before = Some("{")
   override val between = Some(",")
