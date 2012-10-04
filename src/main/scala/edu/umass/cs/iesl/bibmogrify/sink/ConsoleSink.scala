@@ -9,7 +9,7 @@ import com.weiglewilczek.slf4s.Logging
  * @author <a href="mailto:dev@davidsoergel.com">David Soergel</a>
  * @version $Id$
  */
-trait GeneralConsoleSink extends Sink[String] with NamedPlugin with Logging {
+trait GeneralConsoleSink extends Sink[String] with Logging {
   val writer: BufferedWriter = new BufferedWriter(new OutputStreamWriter(scala.Console.out))
 
   val before: Option[String] = None
@@ -50,11 +50,11 @@ trait GeneralConsoleSink extends Sink[String] with NamedPlugin with Logging {
   }
 }
 
-object ConsoleSink extends GeneralConsoleSink {
+object ConsoleSink extends GeneralConsoleSink with NamedPlugin {
   val name = "console"
 }
 
-object JsonConsoleSink extends GeneralConsoleSink {
+object JsonConsoleSink extends GeneralConsoleSink with NamedPlugin {
   val name = "jsonconsole"
   override val before = Some("{")
   override val between = Some(",")
