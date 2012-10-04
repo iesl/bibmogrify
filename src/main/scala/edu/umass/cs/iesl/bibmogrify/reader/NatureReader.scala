@@ -21,6 +21,7 @@ import edu.umass.cs.iesl.bibmogrify.model.BasicStringLocation
 import edu.umass.cs.iesl.bibmogrify.model.BasicNormalPageRange
 import edu.umass.cs.iesl.bibmogrify.model.BasicContainmentInfo
 import edu.umass.cs.iesl.bibmogrify.model.BasicPartialDate
+import tools.scalap.scalax.rules.scalasig.ScalaSigPrinter._tf
 
 object NatureReader extends Transformer[NamedInputStream, StructuredCitation] with Logging with NamedPlugin {
 
@@ -77,11 +78,11 @@ object NatureReader extends Transformer[NamedInputStream, StructuredCitation] wi
         try {
           val datere(yearS, monthS, dayS) = d
           //val yearS: Option[NonemptyString] = d.substring(4)
-          val year: Option[Int] = yearS.opt.map(_.s.toInt)
+          val year: Option[Int] = Option(yearS).flatMap(_.opt.map(_.s.toInt))
           //val monthS: Option[NonemptyString] = d.substring(4, 6)
-          val month: Option[Int] = monthS.opt.map(_.s.toInt) //(parseMonthOneBased(_))
+          val month: Option[Int] = Option(monthS).flatMap(_.opt.map(_.s.toInt)) //(parseMonthOneBased(_))
           //val dayS: Option[NonemptyString] = (d \ "Day").text
-          val day: Option[Int] = dayS.opt.map(_.s.toInt)
+          val day: Option[Int] = Option(dayS).flatMap(_.opt.map(_.s.toInt))
 
           Some(BasicPartialDate(year, month, day))
         }
