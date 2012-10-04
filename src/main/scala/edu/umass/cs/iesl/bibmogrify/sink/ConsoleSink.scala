@@ -19,6 +19,7 @@ trait GeneralConsoleSink extends Sink[String] with Logging {
   before.map(writer.write(_))
 
   var first = true
+
   //** use monadic IO
   var lock: AnyRef = new Object()
 
@@ -50,16 +51,16 @@ trait GeneralConsoleSink extends Sink[String] with Logging {
   }
 }
 
-object ConsoleSink extends GeneralConsoleSink with Sink[String] with NamedPlugin {
+object ConsoleSink extends {
   val name = "console"
-}
+} with GeneralConsoleSink with Sink[String] with NamedPlugin
 
-object JsonConsoleSink extends GeneralConsoleSink with Sink[String] with NamedPlugin {
+object JsonConsoleSink extends  {
   val name = "jsonconsole"
   override val before = Some("{")
   override val between = Some(",")
   override val after = Some("}\n")
-}
+} with GeneralConsoleSink with Sink[String] with NamedPlugin
 
 /*
 class FileSink(filename:String) extends Sink[String] with NamedPlugin {
