@@ -131,7 +131,7 @@ object NatureReader extends Transformer[NamedInputStream, StructuredCitation] wi
           Some(BasicNormalPageRange(fpagei, Some(lpagei)))
         }
         catch {
-          case e: NumberFormatException => Some(BasicStringPageRange(NonemptyString(fpage), lpage))
+          case e: NumberFormatException => fpage.opt.map(BasicStringPageRange(_, lpage))
         }
 
       }
