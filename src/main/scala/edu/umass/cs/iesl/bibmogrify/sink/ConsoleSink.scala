@@ -23,12 +23,11 @@ abstract class GeneralConsoleSink(before: Option[String] = None, between: Option
   def put(c: String) {
     lock.synchronized {
       //logger.warn("Writing: " + c)
-
       if (!first) {
         between.map(writer.write(_))
-        first = false
       }
       writer.write(c)
+      first = false
       //writer.flush() // ** testing; actually bad
     }
   }
