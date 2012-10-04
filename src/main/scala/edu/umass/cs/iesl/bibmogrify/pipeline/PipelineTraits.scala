@@ -9,9 +9,6 @@ import collection.GenTraversableOnce
  */
 trait Transformer[S, +T] extends ((S) => GenTraversableOnce[T]) {
   def metadata: Option[TransformerMetadata] = None
-  def before: Option[T] = None
-  def between: Option[T] = None
-  def after: Option[T] = None
 }
 
 trait TransformerMetadata
@@ -35,6 +32,7 @@ object Pump extends Logging {
     source.foreach(sink.put(_))
   }
 
+/*
   def apply[T](source: TraversableOnce[T], sink: Sink[T], before:Option[T], between: Option[T], after:Option[T]) {
     //val x = source.toIterable.par //toSeq // no clue why toSeq is needed here, but otherwise the map below doesn't work ??  BAD memory use.  even
     // toIterable makes a Stream.
@@ -54,6 +52,7 @@ object Pump extends Logging {
     after.map(sink.put(_))
     //logger.warn("Done Pumping!")
   }
+*/
 }
 
 /*
@@ -107,9 +106,6 @@ class CompositeTransformer[T, U, V](first: Transformer[T, U], second: Transforme
       }
     }
   }
-  override def before = second.before
-  override def between = second.between
-  override def after = second.after
 }
 
 class CompositeMetadata(a: Option[TransformerMetadata], b: Option[TransformerMetadata]) extends TransformerMetadata {

@@ -9,41 +9,57 @@ import com.weiglewilczek.slf4s.Logging
  * @author <a href="mailto:dev@davidsoergel.com">David Soergel</a>
  * @version $Id$
  */
-object ConsoleSink extends Sink[String] with NamedPlugin with Logging
-	{
-	val writer: BufferedWriter = new BufferedWriter(new OutputStreamWriter(scala.Console.out))
+trait GeneralConsoleSink extends Sink[String] with NamedPlugin with Logging {
+  val writer: BufferedWriter = new BufferedWriter(new OutputStreamWriter(scala.Console.out))
 
-	//** use monadic IO
-	var lock: AnyRef = new Object()
+  val before: Option[String] = None
+  val between: Option[String] = None
+  val after: Option[String] = None
 
-	def put(c: String)
-		{
-		lock.synchronized
-		{
-		//logger.warn("Writing: " + c)
-		writer.write(c)
-		//writer.flush() // ** testing; actually bad
-		}
-		}
+  before.map(writer.write(_))
 
-	def putMetadata(m: Option[TransformerMetadata])
-		{
-		lock.synchronized
-		{
-		m.map(r => writer.write(r.toString))
-		}
-		}
+  var first = true
+  //** use monadic IO
+  var lock: AnyRef = new Object()
 
-	val name = "console"
+  def put(c: String) {
+    lock.synchronized {
+      //logger.warn("Writing: " + c)
 
-	def close()
-		{
-		lock.synchronized
-		{
-		writer.close()
-		}
-		}
-	}
+      if (!first) {
+        between.map(writer.write(_))
+        first = false
+      }
+      writer.write(c)
+      //writer.flush() // ** testing; actually bad
+    }
+  }
+
+  def putMetadata(m: Option[TransformerMetadata]) {
+    lock.synchronized {
+      m.map(r => writer.write(r.toString))
+    }
+  }
+
+
+  def close() {
+    lock.synchronized {
+      after.map(writer.write(_))
+      writer.close()
+    }
+  }
+}
+
+object ConsoleSink extends GeneralConsoleSink {
+  val name = "console"
+}
+
+object JsonConsoleSink extends GeneralConsoleSink {
+  val name = "jsonconsole"
+  override val before = Some("{")
+  override val between = Some(",")
+  override val after = Some("}\n")
+}
 
 /*
 class FileSink(filename:String) extends Sink[String] with NamedPlugin {

@@ -41,9 +41,4 @@ object BibJSONWriter extends Transformer[StructuredCitation, String] with NamedP
     Some(pr)
   }
 
-  override def before =  Some("{")
-
-  override def between = Some(",")
-
-  override def after = Some("}\n")
 }
