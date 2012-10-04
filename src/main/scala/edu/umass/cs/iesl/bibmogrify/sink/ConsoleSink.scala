@@ -4,17 +4,14 @@ import edu.umass.cs.iesl.bibmogrify.NamedPlugin
 import java.io.{OutputStreamWriter, BufferedWriter}
 import edu.umass.cs.iesl.bibmogrify.pipeline.{TransformerMetadata, Sink}
 import com.weiglewilczek.slf4s.Logging
+import scala.Some
 
 /**
  * @author <a href="mailto:dev@davidsoergel.com">David Soergel</a>
  * @version $Id$
  */
-trait GeneralConsoleSink extends Sink[String] with Logging {
+abstract class GeneralConsoleSink(before: Option[String] = None, between: Option[String] = None, after: Option[String] = None) extends Sink[String] with Logging {
   val writer: BufferedWriter = new BufferedWriter(new OutputStreamWriter(scala.Console.out))
-
-  val before: Option[String] = None
-  val between: Option[String] = None
-  val after: Option[String] = None
 
   before.map(writer.write(_))
 
@@ -51,16 +48,13 @@ trait GeneralConsoleSink extends Sink[String] with Logging {
   }
 }
 
-object ConsoleSink extends {
+object ConsoleSink extends GeneralConsoleSink with Sink[String] with NamedPlugin {
   val name = "console"
-} with GeneralConsoleSink with Sink[String] with NamedPlugin
+}
 
-object JsonConsoleSink extends  {
+object JsonConsoleSink extends GeneralConsoleSink(Some("{"), Some(","), Some("}")) with Sink[String] with NamedPlugin {
   val name = "jsonconsole"
-  override val before = Some("{")
-  override val between = Some(",")
-  override val after = Some("}\n")
-} with GeneralConsoleSink with Sink[String] with NamedPlugin
+}
 
 /*
 class FileSink(filename:String) extends Sink[String] with NamedPlugin {
