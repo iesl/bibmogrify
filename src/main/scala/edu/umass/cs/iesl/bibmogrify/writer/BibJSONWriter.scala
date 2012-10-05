@@ -26,7 +26,7 @@ object BibJSONWriter extends Transformer[StructuredCitation, String] with NamedP
         cm.dates.headOption.flatMap(_.date.flatMap(_.year.map("year" -> _.toString))),
         Some("author" -> (cm.authors map {a => Map(("name" -> a.agent.toString))})),
         Some("link" -> (cm.locations map {a => Map(("url" -> a.toString))})),  // for now just call everything a "url" even if it isn't
-        Some("identifier" -> (cm.identifiers map {a => Map(("type" -> a.authority.toString),("id" -> a.value))}))
+        Some("identifier" -> (cm.identifiers map {a => Map(("type" -> a.authority.map(_.shortName.s).getOrElse("")),("id" -> a.value.s))}))
       )
       val m: Map[String, Object] = qq.flatten.toMap
       //"citationmention" -> m
