@@ -12,6 +12,7 @@ import edu.umass.cs.iesl.bibmogrify.pipeline.Transformer
 import edu.umass.cs.iesl.bibmogrify.{NamedInputStream, NamedPlugin, BibMogrifyException}
 import edu.umass.cs.iesl.scalacommons.{NonemptyString, XMLIgnoreDTD}
 import edu.umass.cs.iesl.namejuggler.PersonNameWithDerivations
+import java.net.URL
 
 object IEEEReader extends Transformer[NamedInputStream, StructuredCitation] with Logging with NamedPlugin
 	{
@@ -20,7 +21,7 @@ object IEEEReader extends Transformer[NamedInputStream, StructuredCitation] with
 
 	val name = "ieee"
 
-	def parse(doc: Node, journalMention: StructuredCitation, volume: Option[NonemptyString], date: Some[BasicPartialDate]): StructuredCitation =
+	def parse(inLocation: Location, doc: Node, journalMention: StructuredCitation, volume: Option[NonemptyString], date: Some[BasicPartialDate]): StructuredCitation =
 		{
 		val c = new StructuredCitation()
 			{
@@ -36,6 +37,7 @@ object IEEEReader extends Transformer[NamedInputStream, StructuredCitation] with
 				id.opt.map(BasicIdentifier(_,Some(DoiAuthority)))
 				}
 			override val containedIn                   = Some(BasicContainmentInfo(journalMention, None, volume, None, None))
+      override val locations = Seq(inLocation)
 			override val authors                       = (doc \ "articleinfo" \ "authorgroup" \ "author").map((c =>
 				new Person()
 					{
@@ -70,7 +72,7 @@ object IEEEReader extends Transformer[NamedInputStream, StructuredCitation] with
 		c
 		}
 
-	def parsePublication(pub: Node): TraversableOnce[StructuredCitation] =
+	def parsePublication(inLocation: Location, pub: Node): TraversableOnce[StructuredCitation] =
 		{
 		// assume only one volume
 		val journalMention = new StructuredCitation
@@ -92,9 +94,10 @@ object IEEEReader extends Transformer[NamedInputStream, StructuredCitation] with
 
 		val volume = (pub \ "volume" \ "volumeinfo" \ "volumenum").text
 
-		for (a <- pub \ "volume" \ "article") yield
+		for ((a,index) <- (pub \ "volume" \ "article").zipWithIndex) yield
 			{
-			parse(a, journalMention, volume, date)
+      val inSubLocation:Location = inLocation + index.toString
+			parse(inSubLocation, a, journalMention, volume, date)
 			}
 		}
 
@@ -103,7 +106,7 @@ object IEEEReader extends Transformer[NamedInputStream, StructuredCitation] with
 		try
 		{
 		//logger.debug(doc.toString())
-		val c = parsePublication(doc)
+		val c = parsePublication(inLocation, doc)
 		c
 		}
 		catch
@@ -111,9 +114,9 @@ object IEEEReader extends Transformer[NamedInputStream, StructuredCitation] with
 		case e: BibMogrifyException => logger.error(e.getMessage); None
 		case f =>
 			{
-			logger.error("Could not parse " + inLocation);
+			logger.error("Could not parse " + inLocation)
 			logger.error(f.getMessage)
-			};
+			}
 			None
 		}
 		}

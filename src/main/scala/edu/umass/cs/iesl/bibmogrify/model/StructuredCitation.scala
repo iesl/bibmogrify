@@ -276,6 +276,7 @@ case class BasicIdentifier(override val value: NonemptyString, override val auth
 trait Location {
 	// are there other kinds of locations?  e.g., call numbers
 	val hashes: Seq[Hash]
+  def +(s:String) : Location
 }
 
 trait UrlLocation extends Location {
@@ -291,8 +292,14 @@ trait StringLocation extends Location {
 }
 
 case class BasicUrlLocation(override val url: URL, override val hashes: Seq[Hash]) extends UrlLocation
+{
+  override def +(s:String) : Location = BasicUrlLocation(new URL(url,s),Nil)
+}
 
 case class BasicStringLocation(override val name: NonemptyString, override val hashes: Seq[Hash]) extends StringLocation
+{
+  override def +(s:String) : Location = BasicStringLocation((name + "/" + s).n ,Nil)
+}
 
 trait Hash {
 	val hashType : HashType

@@ -19,8 +19,8 @@ object BibJSONWriter extends Transformer[StructuredCitation, String] with NamedP
   def apply(cm: StructuredCitation): Iterable[String] = {
     val json = {
       val qq: List[Option[(String, Object)]] = List(
-        cm.title.map(n => "title" -> n.s),
-        cm.englishAbstract.headOption.map("abstract" -> _),
+        cm.title.map("title" -> _.s),
+        cm.englishAbstract.headOption.map("abstract" -> _.s),
         cm.containedIn.headOption.flatMap(_.container.title.map(j => "journal" -> Map("name" ->j.toString))),
         //cm.abstractText.map("abstract" -> _),
         cm.dates.headOption.flatMap(_.date.flatMap(_.year.map("year" -> _.toString))),

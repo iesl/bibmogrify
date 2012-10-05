@@ -51,7 +51,7 @@ object ConsoleSink extends GeneralConsoleSink with Sink[String] with NamedPlugin
   val name = "console"
 }
 
-object JsonConsoleSink extends GeneralConsoleSink(Some("{"), Some(","), Some("}")) with Sink[String] with NamedPlugin {
+object JsonConsoleSink extends GeneralConsoleSink(Some("{"), Some(","), Some("}\n")) with Sink[String] with NamedPlugin {
   val name = "jsonconsole"
 }
 
