@@ -298,7 +298,7 @@ case class BasicUrlLocation(override val url: URL, override val hashes: Seq[Hash
 
 case class BasicStringLocation(override val name: NonemptyString, override val hashes: Seq[Hash]) extends StringLocation
 {
-  override def +(s:String) : Location = BasicStringLocation((name + "/" + s).n ,Nil)
+  override def +(s:String) : Location = BasicStringLocation((name + "#" + s).n ,Nil)
 }
 
 trait Hash {
