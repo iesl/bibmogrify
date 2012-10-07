@@ -10,15 +10,15 @@ import edu.umass.cs.iesl.bibmogrify.model.RichStructuredCitation._
  * @author <a href="mailto:dev@davidsoergel.com">David Soergel</a>
  * @version $Id$
  */
-object FastaWriter extends Transformer[(NonemptyString, StructuredCitation), String] with NamedPlugin
-	{
-	val name = "fasta"
+object FastaWriter extends Transformer[(NonemptyString, StructuredCitation), String] with NamedPlugin {
+  val name = "fasta"
 
-	def apply(x: (NonemptyString, StructuredCitation)) =
-		{
-		x match
-		{
-			case (hash, sc) => Some(">" + sc.primaryId + "\n" + hash + "\n")
-		}
-		}
-	}
+  def apply(x: (NonemptyString, StructuredCitation)) = {
+    x match {
+      case (hash, sc) => {
+        val allIds = (sc.locations.map(_.toString) ++ sc.qualifiedIdsInOrder).mkString(";")
+        Some(">" + allIds + "\n" + hash + "\n")
+      }
+    }
+  }
+}
