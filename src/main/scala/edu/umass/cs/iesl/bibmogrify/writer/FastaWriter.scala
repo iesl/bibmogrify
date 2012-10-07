@@ -16,7 +16,7 @@ object FastaWriter extends Transformer[(NonemptyString, StructuredCitation), Str
   def apply(x: (NonemptyString, StructuredCitation)) = {
     x match {
       case (hash, sc) => {
-        val allIds = (sc.locations.map(_.toString) ++ sc.qualifiedIdsInOrder).mkString(";")
+        val allIds = (sc.locations.map(_.toString) ++ sc.qualifiedIdsInOrder).toSeq.distinct.mkString(";")
         Some(">" + allIds + "\n" + hash + "\n")
       }
     }
