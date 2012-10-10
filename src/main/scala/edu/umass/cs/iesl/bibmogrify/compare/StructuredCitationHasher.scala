@@ -6,6 +6,7 @@ import edu.umass.cs.iesl.bibmogrify.NamedPlugin
 import edu.umass.cs.iesl.scalacommons.NonemptyString
 import edu.umass.cs.iesl.scalacommons.StringUtils._
 import edu.umass.cs.iesl.bibmogrify.model.StructuredCitation
+import com.weiglewilczek.slf4s.Logging
 
 /**
  * @author <a href="mailto:dev@davidsoergel.com">David Soergel</a>
@@ -21,7 +22,7 @@ class StringZipTransformer(trans: Transformer[StructuredCitation, NonemptyString
 /**
  * render the title in a normalized form using only characters from the IUPAC amino acid alphabet, as a hack to allow comparing titles with usearch.
  */
-object AminoAcidTitleHash extends Transformer[StructuredCitation, NonemptyString] with NamedPlugin {
+object AminoAcidTitleHash extends Transformer[StructuredCitation, NonemptyString] with NamedPlugin with Logging {
 	val name = "AAHash"
 
 	// could also remove stopwords, etc.
@@ -47,11 +48,15 @@ object AminoAcidTitleHash extends Transformer[StructuredCitation, NonemptyString
 	private def aaizeYear(y: Int): String = {
 		val c1: Char = aaizeChar(('A' + (y - 1500) / 23).toChar)
 		val c2: Char = aaizeChar(('A' + (y - 1500) % 23).toChar)
-		"" + c1 + c2
+    if(!c1.isLetter || !c2.isLetter) {
+      logger.error("Bad year : " + y)
+      ""
+    }
+    else ("" + c1 + c2)
 	}
 
 	// allow year matches with 0 years (best, matches all three), 1 year (matches two), or 2 years (matches one)
-	private def aaizeYearRange(y: Int): String = aaizeYear(y - 1) + aaizeYear(y) + aaizeYear(y + 1)
+	private def aaizeYearRange(y: Int): String = if(y > 1900) { aaizeYear(y - 1) + aaizeYear(y) + aaizeYear(y + 1) } else ""
 
 	//private def limit(s:String, len: Int) = s.substring(0,math.max(s.length, len)-1)
 	def apply(cm: StructuredCitation) = {

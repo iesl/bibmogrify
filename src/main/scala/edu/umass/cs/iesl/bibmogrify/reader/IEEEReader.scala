@@ -12,144 +12,124 @@ import edu.umass.cs.iesl.bibmogrify.pipeline.Transformer
 import edu.umass.cs.iesl.bibmogrify.{NamedInputStream, NamedPlugin, BibMogrifyException}
 import edu.umass.cs.iesl.scalacommons.{NonemptyString, XMLIgnoreDTD}
 import edu.umass.cs.iesl.namejuggler.PersonNameWithDerivations
-import java.net.URL
 
-object IEEEReader extends Transformer[NamedInputStream, StructuredCitation] with Logging with NamedPlugin
-	{
+object IEEEReader extends Transformer[NamedInputStream, StructuredCitation] with Logging with NamedPlugin {
 
-	import ReaderUtils._
+  import ReaderUtils._
 
-	val name = "ieee"
+  val name = "ieee"
 
-	def parse(inLocation: Location, doc: Node, journalMention: StructuredCitation, volume: Option[NonemptyString], date: Some[BasicPartialDate]): StructuredCitation =
-		{
-		val c = new StructuredCitation()
-			{
-			// todo interpret pubtype field
-			override val doctype: Option[DocType] = JournalArticle
+  def parse(inLocation: Location, doc: Node, journalMention: StructuredCitation, volume: Option[NonemptyString], date: Some[BasicPartialDate]): StructuredCitation = {
+    val c = new StructuredCitation() {
+      // todo interpret pubtype field
+      override val doctype: Option[DocType] = JournalArticle
 
-			override val title: Option[NonemptyString] = (doc \ "title").text
-			override val dates                         = Seq(BasicCitationEvent(date, Published))
-			override val abstractText       : Iterable[TextWithLanguage]           = TextWithLanguage(None, (doc \ "articleinfo" \ "abstract").stripTags)
-			override val identifiers         : Iterable[Identifier]          =
-				{
-				val id: String = (doc \ "articleinfo" \ "articledoi").text.trim
-				id.opt.map(BasicIdentifier(_,Some(DoiAuthority)))
-				}
-			override val containedIn                   = Some(BasicContainmentInfo(journalMention, None, volume, None, None))
+      override val title: Option[NonemptyString] = (doc \ "title").text
+      override val dates = Seq(BasicCitationEvent(date, Published))
+      override val abstractText: Iterable[TextWithLanguage] = TextWithLanguage(None, (doc \ "articleinfo" \ "abstract").stripTags)
+      override val identifiers: Iterable[Identifier] = {
+        val id: String = (doc \ "articleinfo" \ "articledoi").text.trim
+        id.opt.map(BasicIdentifier(_, Some(DoiAuthority)))
+      }
+      override val containedIn = Some(BasicContainmentInfo(journalMention, None, volume, None, None))
       override val locations = Seq(inLocation)
-			override val authors                       = (doc \ "articleinfo" \ "authorgroup" \ "author").map((c =>
-				new Person()
-					{
-					override val name =
-						{
-						val first = (c \ "firstname").text.opt
-						val last = (c \ "surname").text.opt
-						val norm = (c \ "normname").text.opt
-						if (first == last && last == norm && norm.isDefined) // broken name records, especially asian
-							{
-							Some(PersonNameWithDerivations(norm.get))
-							}
-						else
-							{
-							Some(new PersonNameWithDerivations
-								{
-								override val givenNames: Seq[NonemptyString] = {
-									// separate J.A. cases but keep periods, e.g. J. A.
-									val result: Seq[NonemptyString]  = first.toSeq.flatMap(_.replace("\\.",". ").split(" ").flatMap(_.opt).toSeq)
-								result
-								}
-								override val surNames  : Set[NonemptyString] = last.toSet
+      override val authors = (doc \ "articleinfo" \ "authorgroup" \ "author").map((c =>
+        new Person() {
+          override val name = {
+            val first = (c \ "firstname").text.opt
+            val last = (c \ "surname").text.opt
+            val norm = (c \ "normname").text.opt
 
-								// name inference will either confirm that normname is compatible, or reconcile the two
-							    // have to unwap the Option[NonemptyString] values explicitly to avoid "Some(foobar)"
-								override val fullNames: Set[NonemptyString] = Set(norm, (first.getOrElse("") + " " + last.getOrElse("")).trim.opt).flatten
-								})
-							}
-						}
-					})).map(new AuthorInRole(_, Nil))
-			}
-		c
-		}
+            // broken name records, especially asian
+            if (first == last && last == norm && norm.isDefined) {
+              Some(PersonNameWithDerivations(norm.get))
+            }
+            else {
+              Some(new PersonNameWithDerivations {
+                override val givenNames: Seq[NonemptyString] = {
+                  // separate J.A. cases but keep periods, e.g. J. A.
+                  val result: Seq[NonemptyString] = first.toSeq.flatMap(_.replace("\\.", ". ").split(" ").flatMap(_.opt).toSeq)
+                  result
+                }
+                override val surNames: Set[NonemptyString] = last.toSet
 
-	def parsePublication(inLocation: Location, pub: Node): TraversableOnce[StructuredCitation] =
-		{
-		// assume only one volume
-		val journalMention = new StructuredCitation
-			{
-			override val title: Option[NonemptyString] = (pub \ "title").text
+                // name inference will either confirm that normname is compatible, or reconcile the two
+                // have to unwap the Option[NonemptyString] values explicitly to avoid "Some(foobar)"
+                override val fullNames: Set[NonemptyString] = Set(norm, (first.getOrElse("") + " " + last.getOrElse("")).trim.opt).flatten
+              })
+            }
+          }
+        })).map(new AuthorInRole(_, Nil))
+    }
+    c
+  }
 
-			// todo interpret pubtype field
-			override val doctype: Option[DocType] = Journal
-			}
+  def parsePublication(inLocation: Location, pub: Node): TraversableOnce[StructuredCitation] = {
+    // assume only one volume
+    val journalMention = new StructuredCitation {
+      override val title: Option[NonemptyString] = (pub \ "title").text
 
-		val date: Some[BasicPartialDate] =
-			{
-			val month: Option[NonemptyString] = None //(doc \ "bib_date" \ "@month").text
-			val yearS: Option[NonemptyString] = (pub \ "volume" \ "volumeinfo" \ "year").text
-			val year: Option[Int] = yearS.map(_.s.toInt)
+      // todo interpret pubtype field
+      override val doctype: Option[DocType] = Journal
+    }
 
-			Some(BasicPartialDate(year, month.map(parseMonthOneBased(_)), None))
-			}
+    val date: Some[BasicPartialDate] = {
+      val month: Option[NonemptyString] = None //(doc \ "bib_date" \ "@month").text
+      val yearS: Option[NonemptyString] = (pub \ "volume" \ "volumeinfo" \ "year").text
+      val yearI: Option[Int] = yearS.map(_.s.toInt)
+      val year = yearI.flatMap(y => if (y > 1900 && y < 2050) Some(y) else None)
 
-		val volume = (pub \ "volume" \ "volumeinfo" \ "volumenum").text
+      Some(BasicPartialDate(year, month.map(parseMonthOneBased(_)), None))
+    }
 
-		for ((a,index) <- (pub \ "volume" \ "article").zipWithIndex) yield
-			{
-      val inSubLocation:Location = inLocation + index.toString
-			parse(inSubLocation, a, journalMention, volume, date)
-			}
-		}
+    val volume = (pub \ "volume" \ "volumeinfo" \ "volumenum").text
 
-	def parseDroppingErrors(inLocation: Location, doc: Node): TraversableOnce[StructuredCitation] =
-		{
-		try
-		{
-		//logger.debug(doc.toString())
-		val c = parsePublication(inLocation, doc)
-		c
-		}
-		catch
-		{
-		case e: BibMogrifyException => logger.error(e.getMessage); None
-		case f =>
-			{
-			logger.error("Could not parse " + inLocation)
-			logger.error(f.getMessage)
-			}
-			None
-		}
-		}
+    for ((a, index) <- (pub \ "volume" \ "article").zipWithIndex) yield {
+      val inSubLocation: Location = inLocation + index.toString
+      parse(inSubLocation, a, journalMention, volume, date)
+    }
+  }
 
-	//def apply(s: InputStream): TraversableOnce[CitationMention] = XmlUtils.firstLevelNodes(s).flatMap(node => (node \ "publication").flatMap
-	// (parsePublication(_)))
-	def apply(nis: NamedInputStream): TraversableOnce[StructuredCitation] =
-		{
-		//val xml = scala.xml.XML.load(f)
-		// val xml = XMLIgnoreDTD.load(f)  // can't, because we need the entity declarations
-		//XMLMapDTD.setGlobalXMLCatalogDir(getClass.getResource("/dblp.dtd").getPath)
-		//val xmlloader = new XMLFilenameOnlyMappingDTDLoader(Map("dblp.dtd" -> new InputSource(getClass.getResource("/dblp.dtd").getPath)))
-		// val xml = xmlloader.load(f)
-		//XmlUtils.firstLevelNodes(s).flatMap(node => (node \\ "REC").flatMap(parseDroppingErrors(_)))
-		val a = nis.getInputStream
-		val inLocation = new BasicStringLocation(nis.name, Nil)
+  def parseDroppingErrors(inLocation: Location, doc: Node): TraversableOnce[StructuredCitation] = {
+    try {
+      //logger.debug(doc.toString())
+      val c = parsePublication(inLocation, doc)
+      c
+    }
+    catch {
+      case e: BibMogrifyException => logger.error(e.getMessage); None
+      case f => {
+        logger.error("Could not parse " + inLocation)
+        logger.error(f.getMessage)
+      }
+      None
+    }
+  }
 
-		try
-		{
-		//XmlUtils.firstLevelNodes(s).flatMap(node => (node \ "publication").flatMap(parsePublication(_)))
-		parseDroppingErrors(inLocation, XMLIgnoreDTD.load(a))
-		}
-		catch
-		{
-		case e =>
-			{
-			logger.error("Failed to parse " + nis.name, e);
-			Nil
-			}
-		}
-		finally
-			{
-			a.close()
-			}
-		}
-	}
+  //def apply(s: InputStream): TraversableOnce[CitationMention] = XmlUtils.firstLevelNodes(s).flatMap(node => (node \ "publication").flatMap
+  // (parsePublication(_)))
+  def apply(nis: NamedInputStream): TraversableOnce[StructuredCitation] = {
+    //val xml = scala.xml.XML.load(f)
+    // val xml = XMLIgnoreDTD.load(f)  // can't, because we need the entity declarations
+    //XMLMapDTD.setGlobalXMLCatalogDir(getClass.getResource("/dblp.dtd").getPath)
+    //val xmlloader = new XMLFilenameOnlyMappingDTDLoader(Map("dblp.dtd" -> new InputSource(getClass.getResource("/dblp.dtd").getPath)))
+    // val xml = xmlloader.load(f)
+    //XmlUtils.firstLevelNodes(s).flatMap(node => (node \\ "REC").flatMap(parseDroppingErrors(_)))
+    val a = nis.getInputStream
+    val inLocation = new BasicStringLocation(nis.name, Nil)
+
+    try {
+      //XmlUtils.firstLevelNodes(s).flatMap(node => (node \ "publication").flatMap(parsePublication(_)))
+      parseDroppingErrors(inLocation, XMLIgnoreDTD.load(a))
+    }
+    catch {
+      case e => {
+        logger.error("Failed to parse " + nis.name, e);
+        Nil
+      }
+    }
+    finally {
+      a.close()
+    }
+  }
+}
