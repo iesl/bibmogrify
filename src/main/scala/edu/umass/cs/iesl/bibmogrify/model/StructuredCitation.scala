@@ -6,6 +6,7 @@ import com.cybozu.labs.langdetect.{LangDetectException, Detector, DetectorFactor
 import edu.umass.cs.iesl.scalacommons.{StringUtils, NonemptyString}
 import tools.nsc.io.Directory
 import StringUtils._
+import annotation.tailrec
 
 // ** add citances with context for sentiment
 trait StructuredCitation {

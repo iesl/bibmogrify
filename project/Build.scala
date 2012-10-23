@@ -22,7 +22,7 @@ object BibmogrifyBuild extends Build {
     // these should be provided transitively by scalacommons, but they aren't because it's defined "notTransitive"
     dsutils(), commonsLang(), classutil(), "com.mongodb.casbah" % "casbah_2.9.0-1" % "2.1.5.0")
 
-  lazy val bibmogrify = IeslProject("bibmogrify", vers, deps, Public, WithSnapshotDependencies).settings(addCompilerPlugin(subcut()))
+  lazy val bibmogrify = Project("bibmogrify",file(".")).ieslSetup(vers, deps, Public, WithSnapshotDependencies).settings(addCompilerPlugin(subcut()))
     .settings(assemblySettings: _*).settings(firstLogback).settings(mainClass in assembly := Some("edu.umass.cs.iesl.bibmogrify.BibMogrify"))
     .settings(net.virtualvoid.sbt.graph.Plugin.graphSettings: _*).cleanLogging.standardLogging
 
