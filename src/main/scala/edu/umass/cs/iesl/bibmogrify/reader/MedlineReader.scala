@@ -14,7 +14,7 @@ import edu.umass.cs.iesl.bibmogrify.model.BasicIdentifier
 import edu.umass.cs.iesl.bibmogrify.model.AuthorInRole
 import edu.umass.cs.iesl.scalacommons.NonemptyString
 import edu.umass.cs.iesl.bibmogrify.model.BasicCitationEvent
-import scala.Some
+import scala.{Option, Some}
 import edu.umass.cs.iesl.bibmogrify.model.BasicPartialDate
 import edu.umass.cs.iesl.bibmogrify.model.BasicNormalPageRange
 import edu.umass.cs.iesl.bibmogrify.model.BasicStringLocation
@@ -79,7 +79,7 @@ object MedlineReader extends Transformer[NamedInputStream, StructuredCitation] w
 		val journalMention = new StructuredCitation
 			{
 
-			val date: Some[BasicPartialDate] =
+			val date: Option[BasicPartialDate] =
 				{
 				val d = journal \ "JournalIssue" \ "PubDate"
 				val yearS: Option[NonemptyString] = (d \ "Year").text
@@ -89,7 +89,17 @@ object MedlineReader extends Transformer[NamedInputStream, StructuredCitation] w
 				val dayS: Option[NonemptyString] = (d \ "Day").text
 				val day: Option[Int] = dayS.map(_.s.toInt)
 
-				Some(BasicPartialDate(year, month, day))
+        lazy val medlineDate: Option[BasicPartialDate] = {
+          val s = (d \ "MedlineDate").text
+          // if there is a range of years, months, or days, just use the beginning.
+          val x = s.split(" ").map(_.split("-").head).toSeq
+          val yy : Option[Int] = x.lift(0).map(_.toInt)
+          val mm : Option[Int] = x.lift(1).map(parseMonthOneBased(_))
+          val dd : Option[Int] = x.lift(2).map(_.toInt)
+          yy.map(q=>BasicPartialDate(yy,mm,dd))
+        }
+        
+				year.map(q=>BasicPartialDate(year, month, day)).orElse(medlineDate)
 				}
 
 			// drop superscripts, subscripts, italics, and typewriter styles
