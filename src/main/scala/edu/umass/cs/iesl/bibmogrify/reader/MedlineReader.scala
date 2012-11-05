@@ -100,7 +100,7 @@ object MedlineReader extends Transformer[NamedInputStream, StructuredCitation] w
             }
           }*/
 
-          val x = s.split("- ").toSeq
+          val x = s.split("[- ]").toSeq
           def parseYear(s: String): Option[Int] = try {
             val i = s.toInt; if (i > 1500 && i < 2100) Some(i) else None
           } catch {
