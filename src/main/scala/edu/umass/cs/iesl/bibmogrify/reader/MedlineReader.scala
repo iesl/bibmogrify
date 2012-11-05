@@ -100,29 +100,25 @@ object MedlineReader extends Transformer[NamedInputStream, StructuredCitation] w
             }
           }*/
 
-          try {
-            val x = s.split("- ").toSeq
-            def parseYear(s: String): Option[Int] = try {
-              val i = s.toInt; if (i > 1500 && i < 2100) Some(i) else None
-            } catch {
-              case e: NumberFormatException => None
-            }
-            def parseDay(s: String): Option[Int] = try {
-              val i = s.toInt; if (i >= 1 && i <= 31) Some(i) else None
-            } catch {
-              case e: NumberFormatException => None
-            }
-            val yy: Option[Int] = x.flatMap(parseYear).sorted.headOption
-            val mm: Option[Int] = x.flatMap(parseMonthOneBased).sorted.headOption
-            val dd: Option[Int] = x.flatMap(parseDay).sorted.headOption
-            yy.map(q => BasicPartialDate(yy, mm, dd))
+          val x = s.split("- ").toSeq
+          def parseYear(s: String): Option[Int] = try {
+            val i = s.toInt; if (i > 1500 && i < 2100) Some(i) else None
+          } catch {
+            case e: NumberFormatException => None
           }
-          catch {
-            case e => {
-              logger.error("Could not parse MedlineDate " + s); //, e)
-              None
-            }
+          def parseDay(s: String): Option[Int] = try {
+            val i = s.toInt; if (i >= 1 && i <= 31) Some(i) else None
+          } catch {
+            case e: NumberFormatException => None
           }
+          val yy: Option[Int] = x.flatMap(parseYear).sorted.headOption
+          val mm: Option[Int] = x.flatMap(parseMonthOneBased).sorted.headOption
+          val dd: Option[Int] = x.flatMap(parseDay).sorted.headOption
+          val result = yy.map(q => BasicPartialDate(yy, mm, dd))
+
+          result.map(q => logger.error("Could not parse MedlineDate " + s)) //, e)
+
+          result
         }
 
         year.map(q => BasicPartialDate(year, month, day)).orElse(medlineDate)
