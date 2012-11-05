@@ -38,7 +38,8 @@ object MedlineReader extends Transformer[NamedInputStream, StructuredCitation] w
     }
     catch {
       case e => {
-        logger.error("Failed to parse " + nis.name, e); Nil
+        logger.error("Failed to parse " + nis.name, e);
+        Nil
       }
     }
     finally {
@@ -80,6 +81,10 @@ object MedlineReader extends Transformer[NamedInputStream, StructuredCitation] w
 
         lazy val medlineDate: Option[BasicPartialDate] = {
           val s = (d \ "MedlineDate").text
+
+
+          /*
+          // this version assumes a fairly fixed format
           try {
             // if there is a range of years, months, or days, just use the beginning.
             val x = s.split(" ").map(_.split("-").head).toSeq
@@ -90,7 +95,31 @@ object MedlineReader extends Transformer[NamedInputStream, StructuredCitation] w
           }
           catch {
             case e => {
-              logger.error("Could not parse MedlineDate " + s, e)
+              logger.error("Could not parse MedlineDate " + s); //, e)
+              None
+            }
+          }*/
+
+          try {
+            val x = s.split("- ").toSeq
+            def parseYear(s: String): Option[Int] = try {
+              val i = s.toInt; if (i > 1500 && i < 2100) Some(i) else None
+            } catch {
+              case e: NumberFormatException => None
+            }
+            def parseDay(s: String): Option[Int] = try {
+              val i = s.toInt; if (i >= 1 && i <= 31) Some(i) else None
+            } catch {
+              case e: NumberFormatException => None
+            }
+            val yy: Option[Int] = x.flatMap(parseYear).sorted.headOption
+            val mm: Option[Int] = x.flatMap(parseMonthOneBased).sorted.headOption
+            val dd: Option[Int] = x.flatMap(parseDay).sorted.headOption
+            yy.map(q => BasicPartialDate(yy, mm, dd))
+          }
+          catch {
+            case e => {
+              logger.error("Could not parse MedlineDate " + s); //, e)
               None
             }
           }
