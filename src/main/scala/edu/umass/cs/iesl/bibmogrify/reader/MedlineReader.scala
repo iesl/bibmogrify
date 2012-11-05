@@ -100,9 +100,10 @@ object MedlineReader extends Transformer[NamedInputStream, StructuredCitation] w
             }
           }*/
 
-          val x = s.split("[\\- ]").toSeq
+          val x = s.split("[\\- ]").toSeq.map(_.trim)
           def parseYear(s: String): Option[Int] = try {
-            val i = s.toInt; if (i > 1500 && i < 2100) Some(i) else None
+            val i = s.toInt
+            if (i > 1500 && i < 2100) Some(i) else None
           } catch {
             case e: NumberFormatException => None
           }
@@ -116,7 +117,7 @@ object MedlineReader extends Transformer[NamedInputStream, StructuredCitation] w
           val dd: Option[Int] = x.flatMap(parseDay).sorted.headOption
           val result = yy.map(q => BasicPartialDate(yy, mm, dd))
 
-          result.map(q => logger.error("Could not parse MedlineDate " + s + ".  " + x.mkString(", "))) //, e)
+          if(result.isEmpty) { logger.error("Could not parse MedlineDate " + s + ".  " + x.mkString(", ")) } //, e)
 
           result
         }
