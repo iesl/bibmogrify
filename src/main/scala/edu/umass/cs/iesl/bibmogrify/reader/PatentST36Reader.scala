@@ -55,7 +55,7 @@ object PatentST36Reader extends Transformer[NamedInputStream, StructuredPatent] 
 				// val dayS: Option[String] = (doc \ "day").text
 				// val day: Option[Int] = dayS.map(_.toInt)
 
-				Some(BasicPartialDate(year, Some(parseMonthOneBased(monthS)), Some(dayS.toInt)))
+				Some(BasicPartialDate(year, parseMonthOneBased(monthS), Some(dayS.toInt)))
 			}
 		}
 	}

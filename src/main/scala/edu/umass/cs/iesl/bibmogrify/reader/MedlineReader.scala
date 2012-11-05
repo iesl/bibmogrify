@@ -75,7 +75,7 @@ object MedlineReader extends Transformer[NamedInputStream, StructuredCitation] w
         val yearS: Option[NonemptyString] = (d \ "Year").text
         val year: Option[Int] = yearS.map(_.s.toInt)
         val monthS: Option[NonemptyString] = (d \ "Month").text
-        val month: Option[Int] = monthS.map(parseMonthOneBased(_))
+        val month: Option[Int] = monthS.flatMap(parseMonthOneBased(_))
         val dayS: Option[NonemptyString] = (d \ "Day").text
         val day: Option[Int] = dayS.map(_.s.toInt)
 

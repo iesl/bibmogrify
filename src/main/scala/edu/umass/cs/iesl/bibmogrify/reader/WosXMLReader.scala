@@ -126,7 +126,7 @@ object WosXMLReader extends Transformer[NamedInputStream, StructuredCitation] wi
 			// val dayS: Option[String] = (doc \ "day").text
 			// val day: Option[Int] = dayS.map(_.toInt)
 
-			Some(BasicPartialDate(year, month.map(parseMonthOneBased(_)), None))
+			Some(BasicPartialDate(year, month.flatMap(parseMonthOneBased(_)), None))
 		}
 
 		val localVenueMention : Option[StructuredCitation] = (item \ "source_title").text.opt map (venueTitle => new StructuredCitation {

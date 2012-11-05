@@ -57,7 +57,7 @@ object DBLPReader extends Transformer[NamedInputStream, StructuredCitation] with
 			val dayS: Option[NonemptyString] = (doc \ "day").text
 			val day: Option[Int] = dayS.map(_.s.toInt)
 
-			Some(BasicPartialDate(year, month.map(parseMonthOneBased(_)), day))
+			Some(BasicPartialDate(year, month.flatMap(parseMonthOneBased(_)), day))
 			}
 
 		val volume: Option[NonemptyString] = (doc \ "volume").text

@@ -79,7 +79,7 @@ object IEEEReader extends Transformer[NamedInputStream, StructuredCitation] with
       val yearI: Option[Int] = yearS.map(_.s.toInt)
       val year = yearI.flatMap(y => if (y > 1900 && y < 2050) Some(y) else None)
 
-      Some(BasicPartialDate(year, month.map(parseMonthOneBased(_)), None))
+      Some(BasicPartialDate(year, month.flatMap(parseMonthOneBased(_)), None))
     }
 
     val volume = (pub \ "volume" \ "volumeinfo" \ "volumenum").text
