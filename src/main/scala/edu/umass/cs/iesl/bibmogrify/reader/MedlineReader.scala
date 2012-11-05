@@ -116,7 +116,7 @@ object MedlineReader extends Transformer[NamedInputStream, StructuredCitation] w
           val dd: Option[Int] = x.flatMap(parseDay).sorted.headOption
           val result = yy.map(q => BasicPartialDate(yy, mm, dd))
 
-          result.map(q => logger.error("Could not parse MedlineDate " + s)) //, e)
+          result.map(q => logger.error("Could not parse MedlineDate " + s + ".  " + x.mkString(", "))) //, e)
 
           result
         }
