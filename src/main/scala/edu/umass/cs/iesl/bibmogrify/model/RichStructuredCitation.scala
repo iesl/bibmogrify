@@ -18,7 +18,7 @@ object RichStructuredCitation {
 		      }.toMap
 	}
 
-	def cleanup(s: NonemptyString): String = s.toLowerCase.maskPunctuation.maskNewlines.collapseWhitespace.trim
+	def cleanup(s: NonemptyString): String = s.toLowerCase.maskAllButWord.maskNewlines.collapseWhitespace.trim
 
 	def cleanup(os: Option[NonemptyString]): String = os.map(cleanup).getOrElse("")
 
