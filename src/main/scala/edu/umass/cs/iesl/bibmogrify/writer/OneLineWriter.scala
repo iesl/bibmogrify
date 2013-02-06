@@ -34,6 +34,15 @@ object MalletAbstractWriter extends Transformer[StructuredCitation, String] with
 	}
 }
 
+
+object MalletAntonAbstractWriter extends Transformer[StructuredCitation, String] with NamedPlugin {
+  val name = "malletAnton"
+
+  def apply(cm: StructuredCitation) = {
+    Some(cm.primaryId + "\t" + cm.year.getOrElse("") + "\t" + cm.cleanTitleAndAbstractAnton + "\n")
+  }
+}
+
 object MalletFullWriter extends Transformer[StructuredCitation, String] with NamedPlugin {
 	val name = "malletfull"
 

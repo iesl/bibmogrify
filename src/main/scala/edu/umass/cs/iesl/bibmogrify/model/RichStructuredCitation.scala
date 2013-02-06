@@ -20,7 +20,11 @@ object RichStructuredCitation {
 
 	def cleanup(s: NonemptyString): String = s.toLowerCase.maskAllButWord.maskNewlines.collapseWhitespace.trim
 
+  def cleanupAnton(s: NonemptyString): String = s.s.maskNewlines.collapseWhitespace.trim
+
 	def cleanup(os: Option[NonemptyString]): String = os.map(cleanup).getOrElse("")
+
+  def cleanupAnton(os: Option[NonemptyString]): String = os.map(cleanupAnton).getOrElse("")
 
 	def cleanupJoined(ss: Iterable[NonemptyString]): String = cleanup(ss.mkString(" "))
 
@@ -32,6 +36,7 @@ class RichStructuredCitation(cm: StructuredCitation) extends Logging {
 	import RichStructuredCitation.enrichStructuredCitation
 	import RichStructuredCitation.iterableTextWithLanguageToMap
 	import RichStructuredCitation.cleanup
+  import RichStructuredCitation.cleanupAnton
 	import RichStructuredCitation.cleanupJoined
 	import RichPerson.enrichPerson
 
@@ -44,6 +49,9 @@ class RichStructuredCitation(cm: StructuredCitation) extends Logging {
 	lazy val cleanAbstractWords = cleanAbstract.split(" ").filter(_.nonEmpty).length
 
 	lazy val cleanTitleAndAbstract = (cleanTitle + " " + cleanAbstract).trim
+
+
+  lazy val cleanTitleAndAbstractAnton = (cleanupAnton(cm.title) + " " + cleanupAnton(englishAbstract)).trim
 
 	lazy val cleanSummary = cleanupJoined(cm.textOfType(Summary))
 	lazy val cleanClaims  = cleanupJoined(cm.textOfType(Claims))
