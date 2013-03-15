@@ -6,6 +6,7 @@ import edu.umass.cs.iesl.bibmogrify.UrlNamedInputStream
 import edu.umass.cs.iesl.bibmogrify.model.{RichStructuredCitation, FirstAuthor, Published}
 import edu.umass.cs.iesl.scalacommons.StringUtils._
 import edu.umass.cs.iesl.bibmogrify.compare.AminoAcidTitleHash
+import edu.umass.cs.iesl.bibmogrify.writer.BibTexWriter
 
 class WosXmlReaderTestSuite extends FunSuite with BeforeAndAfter with Logging {
 	val file = getClass.getResource("/examples/wosxml/wosxml.xml")
@@ -81,4 +82,8 @@ class WosXmlReaderTestSuite extends FunSuite with BeforeAndAfter with Logging {
 		                                               assert(AminoAcidTitleHash.apply(c).head.s ===
 		                                               "NVRSLNNQLBRMPHNMNTSBMCRMTRCSRFCSNDNTRFCSCRNSMRPNPHYSCLARNLSPCLTPCSWAWBWC")
 	                                               }
+  test("Keywords end up in BibTex note field") {
+    val s = BibTexWriter(c)
+    s.map(logger.info(_))
+  }
 }

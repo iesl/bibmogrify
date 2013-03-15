@@ -53,7 +53,10 @@ object BibTexWriter extends Transformer[StructuredCitation, String] with NamedPl
 
 		val closer = "},\n"
     
-    val note: Option[(String, NonemptyString)] = cm.containedIn.flatMap(_.container.keywords.mkString(", ").opt).map(("note", _))
+    val keywords : Iterable[NonemptyString] = cm.containedIn.map(x => x.container.keywords.map(y=>y.word)).flatten
+    val keywordsString = keywords.mkString(", ").opt
+    
+    val note: Option[(String, NonemptyString)] = keywordsString.map(("note", _)) // cm.containedIn.map(_.container.keywords.map(_.word).mkString(", ")).map(("note", _))
 
 		val fields: Seq[(String, NonemptyString)] = Seq(title, authors, year, venue, note).flatten
 		val fieldsString = fields.map(x => "\t" + x._1 + " = {" + x._2.s.replace("{", "\\{").replace("}", "\\}") + "}").mkString(",\n")
