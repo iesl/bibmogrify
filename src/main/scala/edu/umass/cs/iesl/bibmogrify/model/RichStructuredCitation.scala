@@ -69,6 +69,8 @@ class RichStructuredCitation(cm: StructuredCitation) extends Logging {
 	}
 	lazy val cleanTotal     = (cleanTitleAndAbstract + " " + cleanSummary + " " + cleanBody).trim
 
+  lazy val cleanVenue = cleanup(rootContainedInNotSelf.flatMap(_.title))
+  
 	def totalTextSize = cleanTotal.size
 
 	def allPrimaryEvents = cm.dates.filter(e => (e.eventType.primaryPriority != 0)).toSeq.sortBy(e => -e.eventType.primaryPriority)
