@@ -17,7 +17,6 @@ object OneLineWriter extends Transformer[StructuredCitation, String] with NamedP
   }
 }
 
-
 object IdMapWriter extends Transformer[StructuredCitation, String] with NamedPlugin {
   val name = "idmap"
 
@@ -34,6 +33,17 @@ object MalletAbstractWriter extends Transformer[StructuredCitation, String] with
   }
 }
 
+object MalletAbstractNotShortWriter extends Transformer[StructuredCitation, String] with NamedPlugin {
+  val name = "malletNotShort"
+
+  def apply(cm: StructuredCitation) = {
+    val ca = cm.cleanTitleAndAbstract
+    if(cm.cleanAbstractWords == 0 || ca.split(" ").length < 20) 
+      None 
+    else
+      Some(cm.primaryId + "\t" + cm.year.getOrElse("") + "\t" + ca + "\n")
+  }
+}
 
 object MalletAntonAbstractWriter extends Transformer[StructuredCitation, String] with NamedPlugin {
   val name = "malletAnton"
@@ -43,7 +53,6 @@ object MalletAntonAbstractWriter extends Transformer[StructuredCitation, String]
   }
 }
 
-
 object MalletMikeAbstractWriter extends Transformer[StructuredCitation, String] with NamedPlugin {
   val name = "malletMike"
 
@@ -51,7 +60,6 @@ object MalletMikeAbstractWriter extends Transformer[StructuredCitation, String] 
     Some(cm.primaryId + "\t" + cm.year.getOrElse("") + "\t" + cm.cleanVenue + "\t" + cm.cleanTitle + "\t" + cm.cleanAbstract + "\n")
   }
 }
-
 
 object MalletFullWriter extends Transformer[StructuredCitation, String] with NamedPlugin {
   val name = "malletfull"
