@@ -15,7 +15,7 @@ par=$(dirname "$pth")
 
     #-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005 \
 cd $par
-java -DPluginClasspath=/Users/lorax/iesl/bibmogrify-project/pdf2meta/target/scala-2.9.1/pdf2meta_2.9.1-0.1-SNAPSHOT.jar \
+java -DPluginClasspath=/Users/lorax/iesl/src/pdf2meta/target/scala-2.9.2/pdf2meta_2.9.2-0.1-SNAPSHOT.jar \
     -cp $par/target/bibmogrify-assembly-0.1-SNAPSHOT.jar \
     -Dlogback.configurationFile=$par/logback.xml \
     edu.umass.cs.iesl.bibmogrify.BibMogrify $*
