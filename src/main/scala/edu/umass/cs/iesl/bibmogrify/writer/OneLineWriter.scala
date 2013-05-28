@@ -33,6 +33,20 @@ object MalletAbstractWriter extends Transformer[StructuredCitation, String] with
   }
 }
 
+// redundant computation, but more reusable
+object abstractNotShort extends Transformer[StructuredCitation, StructuredCitation] with NamedPlugin {
+  val name = "notShort"
+  def apply(cm: StructuredCitation) = {
+    val ca = cm.cleanTitleAndAbstract
+    if(cm.cleanAbstractWords == 0 || ca.split(" ").length < 20)
+      None
+    else
+      Some(cm)
+  }
+}
+
+// use notShort, mallet
+/*
 object MalletAbstractNotShortWriter extends Transformer[StructuredCitation, String] with NamedPlugin {
   val name = "malletNotShort"
 
@@ -44,6 +58,7 @@ object MalletAbstractNotShortWriter extends Transformer[StructuredCitation, Stri
       Some(cm.primaryId + "\t" + cm.year.getOrElse("") + "\t" + ca + "\n")
   }
 }
+*/
 
 object MalletAntonAbstractWriter extends Transformer[StructuredCitation, String] with NamedPlugin {
   val name = "malletAnton"
