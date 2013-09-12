@@ -10,6 +10,7 @@ import xml.{Elem, NodeSeq, Node}
 import edu.umass.cs.iesl.scalacommons.{NonemptyString, XMLIgnoreDTD}
 
 import edu.umass.cs.iesl.scalacommons.StringUtils._
+import edu.umass.cs.iesl.namejuggler.PersonNameWithDerivations
 
 object PatentST36Reader extends Transformer[NamedInputStream, StructuredPatent] with Logging with NamedPlugin {
 
@@ -163,7 +164,7 @@ object PatentST36Reader extends Transformer[NamedInputStream, StructuredPatent] 
 		}
 
 		val c = new StructuredPatent() {
-			//override val doctype: Option[DocType] = Patent
+      //override val doctype: Option[DocType] = Patent
 			override val locations                     = Seq(inLocation)
 			override val title: Option[NonemptyString] = (doc \ "bibliographic-data" \ "invention-title").stripTags
 			override val (identifiers, dates)          = getIdentifiersAndDates
@@ -227,6 +228,17 @@ object PatentST36Reader extends Transformer[NamedInputStream, StructuredPatent] 
 					}
 				})
 			}
+
+      override val authors = (doc \\ "inventors" \ "inventor").map { inventorNode =>
+        new AuthorInRole(new Person() {
+          override val name = "%s %s".format((inventorNode \\ "first-name").text, (inventorNode \\ "last-name").text).opt.map{PersonNameWithDerivations(_)}
+          // this was giving me grief so I changed it (empty iterator on PersonName.combineGivenNames)
+          /*Some(new PersonNameWithDerivations {
+            override val firstName = (inventorNode \ "first-name").text.opt
+            override val surNames = (inventorNode \ "last-name").text.opt.toSet
+          })                    */
+        }, Nil)
+      }
 
 			override val keywords = {
 				val ipc = parseKeywordGroup(doc \\ "classification-ipc", IpcKeywordAuthority)
