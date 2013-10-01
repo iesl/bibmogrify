@@ -14,7 +14,7 @@ object IeslPluginLoader extends Build
 	                .settings(resolvers +=
 	                          Resolver.url("artifactory", url("http://scalasbt.artifactoryonline.com/scalasbt/sbt-plugin-releases"))(Resolver
 	                                                                                                                                 .ivyStylePatterns))
-	                .settings(addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "0.8.4"))
+	                .settings(addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "0.10.0"))
 	                .settings(addSbtPlugin("net.virtual-void" % "sbt-dependency-graph" % "0.6.0"))
 			.settings(addSbtPlugin("com.github.mpeltonen" % "sbt-idea" % "1.1.0"))
 	}
