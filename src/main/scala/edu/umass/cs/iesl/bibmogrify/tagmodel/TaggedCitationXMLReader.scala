@@ -3,7 +3,7 @@ package edu.umass.cs.iesl.bibmogrify.tagmodel
 import java.net.URL
 import edu.umass.cs.iesl.scalacommons.XmlUtils
 import edu.umass.cs.iesl.bibmogrify.BibMogrifyException
-import com.weiglewilczek.slf4s.Logging
+import com.typesafe.scalalogging.slf4j.Logging
 import edu.umass.cs.iesl.bibmogrify.pipeline.Transformer
 import collection.TraversableOnce
 import xml.{Elem, Text, Node}

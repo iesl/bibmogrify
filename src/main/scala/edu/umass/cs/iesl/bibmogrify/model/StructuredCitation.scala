@@ -1,7 +1,7 @@
 package edu.umass.cs.iesl.bibmogrify.model
 
 import java.net.URL
-import com.weiglewilczek.slf4s.Logging
+import com.typesafe.scalalogging.slf4j.Logging
 import com.cybozu.labs.langdetect.{LangDetectException, Detector, DetectorFactory}
 import edu.umass.cs.iesl.scalacommons.{StringUtils, NonemptyString}
 import tools.nsc.io.Directory

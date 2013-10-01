@@ -5,7 +5,7 @@ import edu.umass.cs.iesl.scalacommons.DateUtils._
 import edu.umass.cs.iesl.bibmogrify.model._
 import edu.umass.cs.iesl.bibmogrify.model.Authorities._
 import edu.umass.cs.iesl.bibmogrify.model.CitationUtils._
-import com.weiglewilczek.slf4s.Logging
+import com.typesafe.scalalogging.slf4j.Logging
 import xml.Node
 import java.net.URL
 import edu.umass.cs.iesl.bibmogrify.pipeline.Transformer

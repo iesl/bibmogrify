@@ -6,7 +6,7 @@ import edu.umass.cs.iesl.bibmogrify.NamedPlugin
 import edu.umass.cs.iesl.scalacommons.NonemptyString
 import edu.umass.cs.iesl.scalacommons.StringUtils._
 import edu.umass.cs.iesl.bibmogrify.model.StructuredCitation
-import com.weiglewilczek.slf4s.Logging
+import com.typesafe.scalalogging.slf4j.Logging
 
 /**
  * @author <a href="mailto:dev@davidsoergel.com">David Soergel</a>

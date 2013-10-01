@@ -8,6 +8,7 @@ import edu.umass.cs.iesl.bibmogrify.model._
 import RichStructuredCitation._
 import edu.umass.cs.iesl.scalacommons.NonemptyString
 import edu.umass.cs.iesl.scalacommons.StringUtils._
+import scala.collection.GenIterable
 
 /**
  * just writes the fields needed for Rexa2 import for now
@@ -53,7 +54,7 @@ object BibTexWriter extends Transformer[StructuredCitation, String] with NamedPl
 
 		val closer = "},\n"
     
-    val keywords : Iterable[NonemptyString] = cm.containedIn.map(x => x.container.keywords.map(y=>y.word)).flatten
+    val keywords : GenIterable[NonemptyString] = cm.containedIn.map(x => x.container.keywords.map(y=>y.word)).getOrElse(Nil)
     val keywordsString = keywords.mkString(", ").opt
     
     val note: Option[(String, NonemptyString)] = keywordsString.map(("note", _)) // cm.containedIn.map(_.container.keywords.map(_.word).mkString(", ")).map(("note", _))

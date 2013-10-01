@@ -4,7 +4,7 @@ import edu.umass.cs.iesl.bibmogrify.pipeline.Transformer
 import java.net.URL
 import edu.umass.cs.iesl.bibmogrify.NamedPlugin
 import edu.umass.cs.iesl.bibmogrify.model._
-import com.weiglewilczek.slf4s.Logging
+import com.typesafe.scalalogging.slf4j.Logging
 import edu.umass.cs.iesl.scalacommons.NonemptyString
 
 import edu.umass.cs.iesl.scalacommons.StringUtils._
