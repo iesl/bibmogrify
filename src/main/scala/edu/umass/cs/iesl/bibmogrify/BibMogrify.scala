@@ -1,30 +1,35 @@
 package edu.umass.cs.iesl.bibmogrify
 
 import pipeline._
-import scala.tools.cmd._
-import program.Simple
-import com.weiglewilczek.slf4s.Logging
+//import scala.tools.cmd._
+//import program.Simple
+import com.typesafe.scalalogging.slf4j.Logging
+
+import org.rogach.scallop._;
+
+class Conf(args:Seq[String]) extends ScallopConf(args) {
+  version("bibmogrify")
+  banner("""Usage:  bibmogrify [options] <path1 path2 ...>
+           |    
+           |Options:
+           |""".stripMargin)
+  footer("\nFor all other tricks, consult the documentation!")
+  
+  val transforms : ScallopOption[List[String] ] = opt[List[String]]("xform",'x',"transforms (" + BibMogrify.pm.transformers.keys.mkString(", ") + ")")
+  val sink : ScallopOption[String] =  opt[String]("sink",'s',"sinks (" + BibMogrify.pm.sinks.keys.mkString(", ") + ")")
+
+  val inputs : ScallopOption[List[String]] = trailArg[List[String]](required = false)
+
+}
 
 object BibMogrify extends Logging
 	{
 
 	val pm = new BibMogrifyPlugins()
 
-	private val tokensUsage = "Usage: bibmogrify [options] <path1 path2 ...>\n\nOptions:"
-	private val tokensUnary = List()
-	//"par" -> "enable parallelism"
-	//"verbose" -> "be more verbose")
-	private      val tokensBinary = List("xform" -> ("transforms (" + pm.transformers.keys.mkString(", ") + ")"),
-	                                     "sink" -> ("sinks (" + pm.sinks.keys.mkString(", ") + ")"))
-	//, "input" -> "a text file, or - for stdin")
-	private      val tokensInfo   = Spec.Info("bibmogrify", tokensUsage, "edu.umass.cs.iesl.bibmogrify.BibMogrify")
-	private lazy val TokensSpec   = Simple(tokensInfo, tokensUnary, tokensBinary, null)
-
 	def main(args: Array[String])
 		{
-		if (args.isEmpty)
-			return println(TokensSpec.helpMsg)
-		val cl: CommandLine = (TokensSpec instance args).parsed
+		val cl: Conf = new Conf(args)
 		new BibMogrify().run(cl)
 		}
 	}
@@ -35,22 +40,22 @@ class BibMogrify extends Logging
 	  def inferFileType(file: JFile): CitationMentionStreamReader = {
 		DBLPReader
 	  }*/
-	def run(cl: CommandLine)
+	def run(cl: Conf)
 		{
 
 		// the most basic input is a string.  Likely a filename, but could be a URL, a pubmed ID, etc.
-		val inputStrings = if (cl.residualArgs.isEmpty)
+		val inputStrings = if (cl.inputs().isEmpty)
 			{
 			io.Source.stdin.getLines()
 			}
-		else cl.residualArgs
+		else cl.inputs()
 
-		val transforms = cl.get("--xform").get.split(",")
+		val transforms = cl.transforms()
 		                 .map(name => BibMogrify.pm.transformers.getOrElse(name, throw new BibMogrifyException(name + " not found")))
 		val pipeline = transforms.reduce((a: Transformer[Any, Any], b: Transformer[Any, Any]) => new CompositeTransformer(a, b))
 
 
-		val sinkName = cl.get("--sink").getOrElse("console")
+		val sinkName = cl.sink.get.getOrElse("console")
 
 		val sink = BibMogrify.pm.sinks.getOrElse(sinkName, throw new BibMogrifyException(sinkName + " not found"))
 

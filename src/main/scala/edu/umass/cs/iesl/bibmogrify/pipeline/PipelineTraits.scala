@@ -1,6 +1,6 @@
 package edu.umass.cs.iesl.bibmogrify.pipeline
 
-import com.weiglewilczek.slf4s.Logging
+import com.typesafe.scalalogging.slf4j.Logging
 import collection.GenTraversableOnce
 
 /**

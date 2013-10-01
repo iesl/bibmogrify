@@ -3,7 +3,7 @@ package edu.umass.cs.iesl.bibmogrify.sink
 import edu.umass.cs.iesl.bibmogrify.NamedPlugin
 import java.io.{OutputStreamWriter, BufferedWriter}
 import edu.umass.cs.iesl.bibmogrify.pipeline.{TransformerMetadata, Sink}
-import com.weiglewilczek.slf4s.Logging
+import com.typesafe.scalalogging.slf4j.Logging
 import scala.Some
 
 /**

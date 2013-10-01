@@ -1,7 +1,7 @@
 package edu.umass.cs.iesl.bibmogrify.filter
 
 import edu.umass.cs.iesl.bibmogrify.model._
-import com.weiglewilczek.slf4s.Logging
+import com.typesafe.scalalogging.slf4j.Logging
 import edu.umass.cs.iesl.bibmogrify.NamedPlugin
 import edu.umass.cs.iesl.bibmogrify.pipeline.Transformer
 

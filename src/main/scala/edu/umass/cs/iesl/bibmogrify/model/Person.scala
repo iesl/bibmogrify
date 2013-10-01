@@ -4,7 +4,7 @@ import java.net.URL
 import edu.umass.cs.iesl.scalacommons.{Lexicon, OptionUtils, NonemptyString}
 import edu.umass.cs.iesl.namejuggler.{PersonNameWithDerivations, CanonicalPersonName}
 import edu.umass.cs.iesl.scalacommons.StringUtils._
-import com.weiglewilczek.slf4s.Logging
+import com.typesafe.scalalogging.slf4j.Logging
 
 object Person {
 

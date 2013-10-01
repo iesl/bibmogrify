@@ -1,12 +1,14 @@
 package edu.umass.cs.iesl.bibmogrify.model
 
-import actors.threadpool.AtomicInteger
-import com.weiglewilczek.slf4s.Logging
+import com.typesafe.scalalogging.slf4j.Logging
 import edu.umass.cs.iesl.scalacommons.{StringUtils, NonemptyString}
 import StringUtils.unwrapNonemptyString
 import StringUtils.enrichString
 import StringUtils.toOptionNonempty
+
 import java.util.UUID
+import java.util.concurrent.atomic.AtomicInteger
+import scala.collection.GenIterable
 
 object RichStructuredCitation {
 	//DetectorFactory.loadProfiles(Language.majorLanguages.map(_.name).toList: _*);
@@ -46,7 +48,7 @@ class RichStructuredCitation(cm: StructuredCitation) extends Logging {
 	val englishAbstract: Option[NonemptyString] = cm.abstractText.get(Some(English)).orElse(cm.abstractText.get(None).orElse(None))
 
 	lazy val cleanAbstract      = cleanup(englishAbstract)
-	lazy val cleanAbstractWords = cleanAbstract.split(" ").filter(_.nonEmpty).length
+	lazy val cleanAbstractWords = cleanAbstract.split(" ").filter(_.opt.nonEmpty).length
 
 	lazy val cleanTitleAndAbstract = (cleanTitle + " " + cleanAbstract).trim
 
@@ -65,7 +67,7 @@ class RichStructuredCitation(cm: StructuredCitation) extends Logging {
 	lazy val cleanBody        = cleanupJoined(cm.bodyText.map(_.text).flatten)
 
 	lazy val cleanBodyWords = {
-		val words = cleanBody.split(" ").filter(_.nonEmpty).length
+		val words = cleanBody.split(" ").filter(_.opt.nonEmpty).length
 	}
 	lazy val cleanTotal     = (cleanTitleAndAbstract + " " + cleanSummary + " " + cleanBody).trim
 
@@ -168,7 +170,10 @@ class RichStructuredCitation(cm: StructuredCitation) extends Logging {
 		}).mkString(",")
 	}
 
-	def allKeywords: Iterable[Keyword] = cm.keywords ++ (cm.containedIn.map(_.container.allKeywords).flatten)
+	def allKeywords: GenIterable[Keyword] = {
+    val m = cm.containedIn.map(_.container.allKeywords).getOrElse(Nil)
+    cm.keywords ++ m
+  }
 
 	def allAddresses: Seq[Address] = cm.addresses ++ cm.authors.flatMap(_.agent.addresses)
 

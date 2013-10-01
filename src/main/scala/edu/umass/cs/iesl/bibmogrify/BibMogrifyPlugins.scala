@@ -2,7 +2,7 @@ package edu.umass.cs.iesl.bibmogrify
 
 import edu.umass.cs.iesl.scalacommons.PluginManager
 import pipeline._
-import com.weiglewilczek.slf4s.Logging
+import com.typesafe.scalalogging.slf4j.Logging
 
 
 trait NamedPlugin { val name: String }

@@ -4,7 +4,7 @@ import edu.umass.cs.iesl.bibmogrify.NamedPlugin
 import edu.umass.cs.iesl.bibmogrify.pipeline.{TransformerMetadata, Sink}
 import edu.umass.cs.iesl.scalacommons.NonemptyString
 import com.mongodb.{DBObject, Mongo, BasicDBObject, BasicDBList}
-import com.weiglewilczek.slf4s.Logging
+import com.typesafe.scalalogging.slf4j.Logging
 import edu.umass.cs.iesl.bibmogrify.model.StructuredCitation
 import java.io.{PrintWriter, File}
 import edu.umass.cs.iesl.bibmogrify.model.RichStructuredCitation._

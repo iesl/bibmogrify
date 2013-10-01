@@ -1,7 +1,7 @@
 package edu.umass.cs.iesl.bibmogrify
 
 import pipeline.Transformer
-import com.weiglewilczek.slf4s.Logging
+import com.typesafe.scalalogging.slf4j.Logging
 import java.net.URL
 import org.apache.commons.compress.archivers.tar.{TarArchiveInputStream, TarArchiveEntry}
 import java.io.{ByteArrayInputStream, InputStream, File}

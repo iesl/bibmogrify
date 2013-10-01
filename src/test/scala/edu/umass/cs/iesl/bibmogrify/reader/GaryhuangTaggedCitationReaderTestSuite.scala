@@ -1,7 +1,7 @@
 package edu.umass.cs.iesl.bibmogrify.reader
 
 import org.scalatest.{BeforeAndAfter, FunSuite}
-import com.weiglewilczek.slf4s.Logging
+import com.typesafe.scalalogging.slf4j.Logging
 import edu.umass.cs.iesl.bibmogrify.tagmodel.{ExtendedLabelXMLReaderHlabeled, ExtendedLabelXMLReader}
 import edu.umass.cs.iesl.scalacommons.NonemptyString
 import edu.umass.cs.iesl.scalacommons.StringUtils._
