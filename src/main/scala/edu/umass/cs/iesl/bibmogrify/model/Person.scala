@@ -69,6 +69,8 @@ trait Agent {
 	val email    : Option[NonemptyString] = None
 	val homepages: Seq[URL]               = Nil
 
+  def compactStringForHashing : String = toString.stripWhitespace.stripPunctuation
+  
 	/*
  def inferInstitutionType : Option[InstitutionType] = {
 
@@ -85,6 +87,9 @@ trait Person extends Agent {
 
 	//	def bestFullName: String = name.flatMap(_.inferFully.bestFullName).map(_.s).getOrElse("")
 	override def toString = name.map(_.toString).getOrElse("")
+  
+  override def compactStringForHashing = name.map(x=>(x.firstInitial + x.longestSurName.get).stripWhitespace.stripPunctuation
+  ).getOrElse("")
 
 	//bestFullName
 	override def compatibleWith(other: Agent): Boolean = other match {

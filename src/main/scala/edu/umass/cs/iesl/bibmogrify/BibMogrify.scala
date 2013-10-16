@@ -15,7 +15,7 @@ class Conf(args:Seq[String]) extends ScallopConf(args) {
            |""".stripMargin)
   footer("\nFor all other tricks, consult the documentation!")
   
-  val transforms : ScallopOption[List[String] ] = opt[List[String]]("xform",'x',"transforms (" + BibMogrify.pm.transformers.keys.mkString(", ") + ")")
+  val transforms : ScallopOption[List[String] ] = opt[List[String]]("xform",'x',"transforms (" + BibMogrify.pm.transformers.keys.mkString(", ") + ")", required=true)
   val sink : ScallopOption[String] =  opt[String]("sink",'s',"sinks (" + BibMogrify.pm.sinks.keys.mkString(", ") + ")")
 
   val inputs : ScallopOption[List[String]] = trailArg[List[String]](required = false)
@@ -42,7 +42,7 @@ class BibMogrify extends Logging
 	  }*/
 	def run(cl: Conf)
 		{
-
+      
 		// the most basic input is a string.  Likely a filename, but could be a URL, a pubmed ID, etc.
 		val inputStrings = if (cl.inputs().isEmpty)
 			{
