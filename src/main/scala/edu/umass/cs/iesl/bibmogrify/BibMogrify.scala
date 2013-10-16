@@ -47,8 +47,8 @@ class BibMogrify extends Logging
 		val inputStrings = cl.inputs.get.getOrElse(
 			io.Source.stdin.getLines())
 			
-
-		val transforms = cl.transforms()
+    // scallop parses lists as space-delimited (?) but we've already specified the xforms list as comma-delimited; just accept both.
+		val transforms = cl.transforms().flatMap(_ split ",")
 		                 .map(name => BibMogrify.pm.transformers.getOrElse(name, throw new BibMogrifyException(name + " not found")))
 		val pipeline = transforms.reduce((a: Transformer[Any, Any], b: Transformer[Any, Any]) => new CompositeTransformer(a, b))
 
