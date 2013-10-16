@@ -44,11 +44,9 @@ class BibMogrify extends Logging
 		{
       
 		// the most basic input is a string.  Likely a filename, but could be a URL, a pubmed ID, etc.
-		val inputStrings = if (cl.inputs().isEmpty)
-			{
-			io.Source.stdin.getLines()
-			}
-		else cl.inputs()
+		val inputStrings = cl.inputs.get.getOrElse(
+			io.Source.stdin.getLines())
+			
 
 		val transforms = cl.transforms()
 		                 .map(name => BibMogrify.pm.transformers.getOrElse(name, throw new BibMogrifyException(name + " not found")))
