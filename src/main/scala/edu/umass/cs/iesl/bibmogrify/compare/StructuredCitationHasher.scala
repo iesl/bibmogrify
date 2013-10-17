@@ -140,7 +140,7 @@ object AuthorsWithSubjects extends Transformer[StructuredCitation, (PersonNameWi
 }
 
 
-object AminoAcidAuthorsHash extends Transformer[(PersonNameWithDerivations,Integer,StructuredCitation), NonemptyString] with NamedPlugin with Logging {
+object AminoAcidAuthorsHash extends Transformer[(PersonNameWithDerivations,Integer,StructuredCitation), String] with NamedPlugin with Logging {
   import AminoAcidUtils._
 
 
@@ -168,7 +168,7 @@ object AminoAcidAuthorsHash extends Transformer[(PersonNameWithDerivations,Integ
         // fasta transformation will happen downstream
         // Some(">" + nameId + "\n" + hash + "\n")
         val result = Seq(nameId, namePart, hash).mkString("\t")
-        Some(result.n)
+        Some(result)
       }
     }
   }
