@@ -15,7 +15,7 @@ class Conf(args:Seq[String]) extends ScallopConf(args) {
            |""".stripMargin)
   footer("\nFor all other tricks, consult the documentation!")
   
-  val transforms : ScallopOption[List[String] ] = opt[List[String]]("xform",'x',"transforms (" + BibMogrify.pm.transformers.keys.mkString(", ") + ")", required=true)
+  val transforms : ScallopOption[String] = opt[String]("xform",'x',"transforms (" + BibMogrify.pm.transformers.keys.mkString(", ") + ")", required=true)
   val sink : ScallopOption[String] =  opt[String]("sink",'s',"sinks (" + BibMogrify.pm.sinks.keys.mkString(", ") + ")")
 
   val inputs : ScallopOption[List[String]] = trailArg[List[String]](required = false)
@@ -48,7 +48,8 @@ class BibMogrify extends Logging
 			io.Source.stdin.getLines())
 			
     // scallop parses lists as space-delimited (?) but we've already specified the xforms list as comma-delimited; just accept both.
-		val transforms = cl.transforms().flatMap(_ split ",")
+      // oops, easier to just accept comma-delimited, because allowing the space-delimited version also eats the trailing args for inputs. 
+		val transforms = cl.transforms().split(",") //.flatMap(_ split ",")
 		                 .map(name => BibMogrify.pm.transformers.getOrElse(name, throw new BibMogrifyException(name + " not found")))
 		val pipeline = transforms.reduce((a: Transformer[Any, Any], b: Transformer[Any, Any]) => new CompositeTransformer(a, b))
 
