@@ -80,7 +80,8 @@ class WosXmlReaderTestSuite extends FunSuite with BeforeAndAfter with Logging {
 
 	test("amino-acid version includes all fields") {
 		                                               assert(AminoAcidTitleHash.apply(c).head.s ===
-		                                               "NVRSLNNQLBRMPHNMNTSBMCRMTRCSRFCSNDNTRFCSCRNSMRPNPHYSCLARNLSPCLTPCSWAWBWC")
+		                                               //"NVRSLNNQLBRMPHNMNTSBMCRMTRCSRFCSNDNTRFCSCRNSMRPNPHYSCLARNLSPCLTPCSWAWBWC")
+    "NVRSLNNQLFRMPHNMNTSFMCRMTRCSRFCSNDNTRFCSCRNSMRPNPHYSCLPRNLSPCLTPCSWAWFWC")
 	                                               }
   test("Keywords end up in BibTex note field") {
     val s = BibTexWriter(c)

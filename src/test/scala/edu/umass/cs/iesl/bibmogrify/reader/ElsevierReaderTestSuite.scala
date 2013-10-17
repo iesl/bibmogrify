@@ -83,6 +83,7 @@ class ElsevierReaderTestSuite extends FunSuite with BeforeAndAfter with Logging 
 
 	test("amino-acid version includes all fields") {
 		                                               assert(AminoAcidTitleHash.apply(c).head.s ===
-		                                                      "FFCTSFXCSSVCKCNSMPTNNGRBGCNDWLLNGSHGBSTSFRGSMCTSSMVSVTVZ")
+		                                                     // "FFCTSFXCSSVCKCNSMPTNNGRBGCNDWLLNGSHGBSTSFRGSMCTSSMVSVTVZ")
+    "FFCTSFGCSSVCKCNSMPTNNGRFGCNDWLLNGSHGFSTSFRGSMCTSSMVSVTVW")
 	                                               }
 }
