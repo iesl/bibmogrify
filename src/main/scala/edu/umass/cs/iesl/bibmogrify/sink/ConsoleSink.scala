@@ -5,6 +5,8 @@ import java.io.{OutputStreamWriter, BufferedWriter}
 import edu.umass.cs.iesl.bibmogrify.pipeline.{TransformerMetadata, Sink}
 import com.typesafe.scalalogging.slf4j.Logging
 import scala.Some
+import edu.umass.cs.iesl.scalacommons.NonemptyString
+import edu.umass.cs.iesl.bibmogrify.model.StructuredCitation
 
 /**
  * @author <a href="mailto:dev@davidsoergel.com">David Soergel</a>
