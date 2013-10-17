@@ -21,12 +21,49 @@ class StringZipTransformer(trans: Transformer[StructuredCitation, NonemptyString
 }
 
 object AminoAcidUtils extends Logging {
-   def aaize(s: String): String = s.toUpperCase.deAccent.stripWhitespace.replaceAll("[^A-Z]", "").stripVowels.replaceAll("J", "A")
+   def aaizeNoVowels(s: String): String = s.toUpperCase.deAccent.stripWhitespace.replaceAll("[^A-Z]", "").stripVowels.replaceAll("B", "F").replaceAll("J", "P").replaceAll("O", "Q").replaceAll("U", "W").replaceAll("X", "G").replaceAll("Z", "V")
 
+  def aaizeComplete(s: String): String = s.toUpperCase.deAccent.stripWhitespace.replaceAll("[^A-Z]", "").replaceAll("B", "F").replaceAll("J", "P").replaceAll("O", "Q").replaceAll("U", "W").replaceAll("X", "G").replaceAll("Z", "V")
+
+    /*
+    A - Alanine (Ala)
+    C - Cysteine (Cys)
+    D - Aspartic Acid (Asp)
+    E - Glutamic Acid (Glu)
+    F - Phenylalanine (Phe)
+    G - Glycine (Gly)
+    H - Histidine (His)
+    I - Isoleucine (Ile)
+    K - Lysine (Lys)
+    L - Leucine (Leu)
+    M - Methionine (Met)
+    N - Asparagine (Asn)
+    P - Proline (Pro)
+    Q - Glutamine (Gln)
+    R - Arginine (Arg)
+    S - Serine (Ser)
+    T - Threonine (Thr)
+    V - Valine (Val)
+    W - Tryptophan (Trp)
+    Y - Tyrosine (Tyr)
+    
+    
+    // repurpose low-frequency letters
+    B -> F
+    J -> P
+    O -> Q
+    U -> W
+    X -> G
+    Z -> V
+       */
+   
   def aaizeChar(c: Char): Char = c match {
-    case 'J' => 'X'
-    case 'O' => 'Y'
-    case 'U' => 'Z'
+    case 'B' => 'F'
+    case 'J' => 'P'
+    case 'O' => 'Q'
+    case 'U' => 'W'
+    case 'X' => 'G'
+    case 'Z' => 'V'
     case x => x
   }
 
@@ -90,7 +127,7 @@ object AminoAcidTitleHash extends Transformer[StructuredCitation, NonemptyString
 		val yearRange = cm.year.map(aaizeYearRange).getOrElse("")
 
 		// implicit emptyStringToNone didn't work right; just be verbose
-		val result: Option[NonemptyString] = aaize(title + author + venue) + yearRange
+		val result: Option[NonemptyString] = aaizeNoVowels(title + author + venue) + yearRange
 		result
 	}
 }
@@ -161,7 +198,7 @@ object AminoAcidAuthorsHash extends Transformer[(PersonNameWithDerivations,Integ
 
         // we're going to bin by first initial and last name before doing the hash-based clustering anyway, so they don't need to be included in the hash.
           
-        val hash: NonemptyString = (aaize(subjectCodes.mkString("") + sc.authorFirstInitialLastNamesSorted.mkString("") + venue.getOrElse("")) + yearRange).n
+        val hash: NonemptyString = (aaizeComplete(subjectCodes.mkString("") + sc.authorFirstInitialLastNamesSorted.mkString("") + venue.getOrElse("")) + yearRange).n
 
         val nameId = sc.primaryId + "-" + position
         
