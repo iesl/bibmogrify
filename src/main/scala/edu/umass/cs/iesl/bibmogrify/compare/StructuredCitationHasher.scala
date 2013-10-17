@@ -152,7 +152,7 @@ object AminoAcidAuthorsHash extends Transformer[(PersonNameWithDerivations,Integ
       case (pname, position, sc) => {
         val n = pname.inferFully
         val lastName = n.longestSurName.getOrElse(throw new BibMogrifyException("Dropping author with no surname"))
-        val namePart = Seq(n.firstInitial, n.firstName, n.middleInitials, n.middleNames, n.lastInitial, lastName).mkString("\t")
+        val namePart = Seq(n.firstInitial.getOrElse(""), n.firstName.getOrElse(""), n.middleInitials.getOrElse(""), n.middleNames.mkString(" "), n.lastInitial.getOrElse(""), lastName).mkString("\t")
         val subjectCodes = sc.allKeywords.map(_.word).toSeq.seq.sorted
         
         val yearRange = sc.year.map(aaizeYearRange(_, 5, 10)).getOrElse("")
@@ -168,7 +168,7 @@ object AminoAcidAuthorsHash extends Transformer[(PersonNameWithDerivations,Integ
         // fasta transformation will happen downstream
         // Some(">" + nameId + "\n" + hash + "\n")
         val result = Seq(nameId, namePart, hash).mkString("\t")
-        Some(result)
+        Some(result+"\n")
       }
     }
   }
