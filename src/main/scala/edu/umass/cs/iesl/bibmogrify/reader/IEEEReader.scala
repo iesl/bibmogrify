@@ -55,7 +55,7 @@ object IEEEReader extends Transformer[NamedInputStream, StructuredCitation] with
 
                 // name inference will either confirm that normname is compatible, or reconcile the two
                 // have to unwap the Option[NonemptyString] values explicitly to avoid "Some(foobar)"
-                override val fullNames: Set[NonemptyString] = Set(norm, (first.getOrElse("") + " " + last.getOrElse("")).trim.opt).flatten
+                override val originalFullNames: Set[NonemptyString] = Set(norm, (first.getOrElse("") + " " + last.getOrElse("")).trim.opt).flatten
               })
             }
           }

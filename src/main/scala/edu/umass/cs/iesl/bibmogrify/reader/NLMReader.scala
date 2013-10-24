@@ -204,7 +204,7 @@ object NLMReader extends Transformer[NamedInputStream, StructuredCitation] with 
 
             override val surNames: Set[NonemptyString] = last.just
 
-            override val fullNames: Set[NonemptyString] = (first + " " + last).just
+            override val originalFullNames: Set[NonemptyString] = (first + " " + last).just
           })
         })).map(new AuthorInRole(_, Nil))
 

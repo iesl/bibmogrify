@@ -11,6 +11,7 @@ import edu.umass.cs.iesl.bibmogrify.model.RichStructuredCitation._
 
 import edu.umass.cs.iesl.scalacommons.NonemptyString
 import edu.umass.cs.iesl.scalacommons.StringUtils._
+import edu.umass.cs.iesl.scalacommons.util.Hash
 
 /**
  * @author <a href="mailto:dev@davidsoergel.com">David Soergel</a>
@@ -58,22 +59,31 @@ object AminoAcidAuthorsHash extends Transformer[(PersonNameWithDerivations,Int,S
   }
 }
 
-object AllAuthorNames extends Transformer[StructuredCitation, (String,Int,StructuredCitation)]  with NamedPlugin with Logging {
+object AllAuthorNames extends Transformer[StructuredCitation, (String, String,Int,StructuredCitation)]  with NamedPlugin with Logging {
   val name = "AllAuthorNames"
   def apply(cm: StructuredCitation) = {
-    cm.authors.map(_.agent).zipWithIndex.collect({case (x:Person,position:Int)=>(x,position)}).map({case  (x:Person,position:Int) if x.name.isDefined => (x.name.get.bestFullName.get.s, position, cm) })
+    cm.authors.map(_.agent).zipWithIndex.collect({
+      case (x:Person,position:Int)=>(x,position)
+    }).map({
+      case  (x:Person,position:Int) if x.name.isDefined => {
+        val n = x.name.get
+        val binId = n.firstInitial + n.longestSurName.map(_.s).getOrElse("NONE")
+        val binCode = Hash.toHex(Hash("SHA-1",binId)).take(2)
+        (binCode, x.name.get.bestFullName.get.s, position, cm)
+      } 
+    })
   }
 }
 
-object AuthorNamesWithLength extends Transformer[(String,Int,StructuredCitation), String] with NamedPlugin with Logging {
+object AuthorNamesWithLength extends Transformer[(String, String,Int,StructuredCitation), String] with NamedPlugin with Logging {
 
   val name = "AuthorNamesWithLength"
 
-  def apply(x: (String, Int,StructuredCitation)) = {
+  def apply(x: (String,String, Int,StructuredCitation)) = {
     x match {
-      case (name, position, sc) => {
+      case (binCode, personName, position, sc) => {
         val nameId = sc.primaryId + "-" + position
-        val result = Seq(name.length, nameId, name).mkString("\t")
+        val result = Seq(binCode, personName.length, nameId, personName).mkString("\t")
         Some(result+"\n")
       }
     }
