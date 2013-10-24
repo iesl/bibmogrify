@@ -30,8 +30,7 @@ class WosXmlReaderTestSuite extends FunSuite with BeforeAndAfter with Logging {
 		                           assert(c.authors.size === 5)
 		                           assert(c.authors.head.roles.size == 1)
 		                           assert(c.authors.head.roles.head == FirstAuthor)
-		                           assert(c.authors.head.agent.toString ===
-		                                  "RoTEST Cuerno") // note Q. initial is missing -> given names merging is not done yet
+		                           assert(c.authors.head.agent.toString === "RoTEST Q. Cuerno")
 	                           }
 
 
