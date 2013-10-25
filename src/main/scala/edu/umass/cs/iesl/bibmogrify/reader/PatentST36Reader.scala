@@ -204,7 +204,7 @@ object PatentST36Reader extends Transformer[NamedInputStream, StructuredPatent] 
 			override val sourceLanguage                           = Language.get((doc \ "bibliographic-data" \ "language-of-filing").text.trim)
 			override val language                                 = Language.get((doc \ "bibliographic-data" \ "language-of-publication").text.trim)
 
-			def parseReferenceGroup(seq: NodeSeq): Seq[StructuredPatent] = {
+			def parsePatentCitationGroup(seq: NodeSeq): Seq[StructuredPatent] = {
 				seq map ((n: Node) => {
 					val (id, event) = parseIdentifierAndDate(Some(n), Published) // ** Hmm: do priority claims refer to the filing date?
 					new StructuredPatent {
@@ -213,6 +213,10 @@ object PatentST36Reader extends Transformer[NamedInputStream, StructuredPatent] 
 					}
 				})
 			}
+      
+      def parseNonPatentCitationGroup(seq: NodeSeq): Seq[String] = {
+        seq map ((n: Node) => (n \ "text").text)
+      }
 
 			def parseFamily(seq: NodeSeq): Seq[StructuredPatent] = {
 				(seq \ "family-member") map ((n: Node) => {
@@ -259,10 +263,21 @@ object PatentST36Reader extends Transformer[NamedInputStream, StructuredPatent] 
 				result
 			}
 
-			override val priorityClaims         = parseReferenceGroup(doc \ "bibliographic-data" \ "priority-claims" \ "priority-claim")
-			override val references             = parseReferenceGroup(doc \\ "bibliographic-data" \\ "patcit") ++
-			                                      parseReferenceGroup(doc \\ "description" \\ "patcit")
-			override val searchReportReferences = parseReferenceGroup(doc \\ "srep-citations" \\ "patcit")
+			override val priorityClaims         = parsePatentCitationGroup(doc \ "bibliographic-data" \ "priority-claims" \ "priority-claim")
+      
+			override val patentCitations             = parsePatentCitationGroup(doc \\ "bibliographic-data" \\ "patcit") ++
+			                                      parsePatentCitationGroup(doc \\ "description" \\ "patcit")
+      override val nonPatentCitations             = parseNonPatentCitationGroup(doc \\ "bibliographic-data" \\ "nplcit") ++
+        parseNonPatentCitationGroup(doc \\ "description" \\ "nplcit")
+
+      lazy val forwardCitations             = parsePatentCitationGroup(doc \\ "bibliographic-data" \\ "fwdcit") ++
+        parsePatentCitationGroup(doc \\ "description" \\ "fwdcit")
+      
+      override val references = patentCitations //++ nonPatentCitations
+      
+			override val searchReportPatentCitations = parsePatentCitationGroup(doc \\ "srep-citations" \\ "patcit")
+
+      override val searchReportNonPatentCitations = parseNonPatentCitationGroup(doc \\ "srep-citations" \\ "nplcit")
 			override val mainFamily             = parseFamily(doc \ "bibliographic-data" \ "patent-family" \ "main-family")
 			override val completeFamily         = parseFamily(doc \ "bibliographic-data" \ "patent-family" \ "complete-family")
 

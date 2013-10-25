@@ -17,7 +17,7 @@ object PatentStatsWriter extends Transformer[StructuredPatent, String] with Name
 	override def metadata: Option[TransformerMetadata] =
 		{
 		val fields = Seq("location", "id", "year", "orig lang", "pub lang", "abstract langs", "num priority claims", "num main family", "num complete family",
-		                 "num references", "num search refs", "keywords per authority")
+		                 "num patent references",  "num nonpatent references", "num search patent citations", "num search nonpatent citations", "keywords per authority")
 		Some(new StringMetadata(fields.mkString("\t") + "\n"))
 		}
 
@@ -25,8 +25,8 @@ object PatentStatsWriter extends Transformer[StructuredPatent, String] with Name
 		{
 
 		val fields = Seq(cm.locations.headOption.map(_.toString), Some(cm.primaryId), cm.year, cm.sourceLanguage, cm.language, Some(cm.listAbstractLanguages),
-		                 Some(cm.priorityClaims.length), Some(cm.mainFamily.length), Some(cm.completeFamily.length), Some(cm.references.length),
-		                 Some(cm.searchReportReferences.length), Some(cm.allKeywordsCountByAuthority))
+		                 Some(cm.priorityClaims.length), Some(cm.mainFamily.length), Some(cm.completeFamily.length), Some(cm.patentCitations.length),Some(cm.nonPatentCitations.length),
+		                 Some(cm.searchReportPatentCitations.length), Some(cm.searchReportNonPatentCitations.length), Some(cm.allKeywordsCountByAuthority))
 		val fieldsUnpacked = fields.map(_.getOrElse(""))
 		Some(fieldsUnpacked.mkString("\t") + "\n")
 		}

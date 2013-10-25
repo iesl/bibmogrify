@@ -122,7 +122,10 @@ trait StructuredPatent extends StructuredCitation {
 	val priorityClaims        : Seq[StructuredCitation] = Nil
 	val mainFamily            : Seq[StructuredCitation] = Nil
 	val completeFamily        : Seq[StructuredCitation] = Nil
-	val searchReportReferences: Seq[StructuredCitation] = Nil
+	val searchReportPatentCitations: Seq[StructuredCitation] = Nil
+  val searchReportNonPatentCitations: Seq[String] = Nil
+  val patentCitations: Seq[StructuredCitation] = Nil
+  val nonPatentCitations: Seq[String] = Nil
 }
 
 trait BodyTextSection {
