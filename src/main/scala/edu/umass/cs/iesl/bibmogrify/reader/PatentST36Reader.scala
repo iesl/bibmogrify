@@ -234,8 +234,9 @@ object PatentST36Reader extends Transformer[NamedInputStream, StructuredPatent] 
           }
         })
       }
-
-      override val authors = (doc \\ "inventors" \ "inventor").map {
+      
+      private val inventorNodes = (doc \\ "inventors" \ "inventor") ++ (doc \\ "applicants" \ "applicant" filter { _ \\ "@app-type" exists (_.text == "applicant-inventor") })
+      override val authors = inventorNodes.map {
         inventorNode =>
           new AuthorInRole(new Person() {
             override val name = "%s %s".format((inventorNode \\ "first-name").text, (inventorNode \\ "last-name").text).opt.map {
@@ -423,7 +424,9 @@ object PatentST36AuthorsReader extends Transformer[NamedInputStream, StructuredP
 
       override val (identifiers, dates) = getIdentifiersAndDates
 
-      override val authors = (doc \\ "inventors" \ "inventor").map {
+      
+      private val inventorNodes = (doc \\ "inventors" \ "inventor") ++ (doc \\ "applicants" \ "applicant" filter { _ \\ "@app-type" exists (_.text == "applicant-inventor") })
+      override val authors = inventorNodes.map {
         inventorNode =>
           new AuthorInRole(new Person() {
             override val name = "%s %s".format((inventorNode \\ "first-name").text, (inventorNode \\ "last-name").text).opt.map {
