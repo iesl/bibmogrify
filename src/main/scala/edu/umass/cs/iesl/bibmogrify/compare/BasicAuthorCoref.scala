@@ -68,21 +68,17 @@ object AllAuthorNames extends Transformer[StructuredCitation, (String, String, I
   val name = "AllAuthorNames"
 
   def apply(cm: StructuredCitation) = {
-    // apparently Nil.zipWithIndex == Seq((null,0)) ??
 
     val a = cm.authors
-    if (a.isEmpty) {
-      Nil
-    } else {}
-    a.map(_.agent).zipWithIndex.collect({
-      case (x: Person, position: Int) => (x, position)
-    }).map({
+  
+    a.map(_.agent).zipWithIndex.flatMap({
       case (x: Person, position: Int) if x.name.isDefined => {
         val n = x.name.get
         val binId = n.firstInitial + n.longestSurName.map(_.s).getOrElse("NONE")
         val binCode = Hash.toHex(Hash("SHA-1", binId)).take(2)
-        (binCode, x.name.get.bestFullName.get.s, position, cm)
+        Some(binCode, x.name.get.bestFullName.get.s, position, cm)
       }
+      case _ => None
     })
   }
 }
