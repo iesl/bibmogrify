@@ -84,7 +84,7 @@ Some of the provided plugins normalize author names using [NameJuggler](https://
 Extending
 ---------
 
-You can write your own Transformers.  Just create objects implementing `Transformer[From, To]` and `NamedPlugin`, and place the resulting classes on the classpath.  You can confirm that Bibmogrify picks up your plugins by checking the help message.
+You can write your own Transformers in Scala.  Just create objects implementing `Transformer[From, To]` and `NamedPlugin`.
 
 For example, here's a simple filter plugin:
 
@@ -99,6 +99,17 @@ object RequireTitle extends Transformer[StructuredCitation, StructuredCitation] 
     }
 
 ```
+
+Compile those; then point the plugin loader to the resulting classes via a java system property on the command line in the `bibmogrify` launch script, like this: 
+
+```sh
+java -DPluginClasspath=/home/soergel/bibmogrify/MyCoolPlugin.jar \
+    -cp $par/target/bibmogrify-assembly-1.0.jar \
+    ...
+```
+
+You can then confirm that Bibmogrify picks up your plugins by checking the help message.
+
 
 Building
 --------
