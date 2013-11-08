@@ -7,9 +7,9 @@ _High-volume format translation and processing of scholarly citations and patent
 
 BibMogrify is a general framework for translating and processing bibliographic data, including scholarly citations and patents. 
 
-BibMogrify reads various input formats (such as BibTex, various XML formats, etc,) into a common internal representation.  It can then write these records in a variety of formats, including BibTeX, Mallet, and a host of tab-delimited formats.  Outputs may include computed fields such as word counts and citation counts, as well as text that has been processed in some way (e.g. lowercasing, punctuation removal, etc.).  BibMogrify is easily extensible with additional format readers, writers, and data-massaging functions.
+BibMogrify reads various input formats (such as BibTeX, various XML formats, etc,) into a common internal representation.  It can then write these records in a variety of formats, including BibTeX, Mallet, and a host of tab-delimited formats.  Outputs may include computed fields such as word counts and citation counts, as well as text that has been processed in some way (e.g. lowercasing, punctuation removal, etc.).  BibMogrify is easily extensible with additional format readers, writers, and data-massaging functions.
 
-BibMogrify decompresses archive files on the fly in a streaming manner, avoiding performance bottlenecks due to i/o and memory limitations.  We commonly use this tool to rapidly process tens of millions of records.
+BibMogrify decompresses archive files on the fly in a streaming manner, avoiding performance bottlenecks due to i/o and memory limitations.  It can also take full advantage of multicore processors.  We commonly use this tool to rapidly process tens of millions of records.
 
 
 Principle of Operation
@@ -43,7 +43,7 @@ Running `bibmogrify --help` will show a list of available transformers.
 Example
 -------
 
-Imagine that we have a large number of compressed files containing citation data in Medline format, and we'd like to convert these all to BibTex.  Here's how:
+Imagine that we have a large number of compressed files containing citation data in Medline format, and we'd like to convert these all to BibTeX.  Here's how:
 
 ```sh
 bibmogrify --xform toUrl,byLinePar,toUrl,extract,medline,bibtex /home/soergel/bibmogrify/example/allfiles | gzip > allfiles.bibtex.gz
@@ -51,7 +51,7 @@ bibmogrify --xform toUrl,byLinePar,toUrl,extract,medline,bibtex /home/soergel/bi
 
 That works as follows:
 
-* /home/soergel/bibmogrify/example/allfiles is a list of all the files to be imported (i.e., probably generated with "find").
+* `/home/soergel/bibmogrify/example/allfiles` is a list of all the files to be imported (i.e., probably generated with "find").
 * The first `toUrl` interprets that command-line argument as a filename.
 * `byLinePar` says to process the lines of that file in parallel, to take advantage of a multicore machine.  (`byLine` would read the lines of the file without providing concurrency)
 * the second `toUrl` says that the lines from the first file are also filenames.
@@ -90,13 +90,13 @@ For example, here's a simple filter plugin:
 
 ```scala
 object RequireTitle extends Transformer[StructuredCitation, StructuredCitation] with NamedPlugin with Logging
-	{
-	val name = "requireTitle"
-  val fromType = "StructuredCitation"
-  val toType = "StructuredCitation"
-  
-	def apply(cm: StructuredCitation) = cm.title.map(q => cm)
-	}
+    {
+    val name = "requireTitle"
+    val fromType = "StructuredCitation"
+    val toType = "StructuredCitation"
+    
+    def apply(cm: StructuredCitation) = cm.title.map(q => cm)
+    }
 
 ```
 
