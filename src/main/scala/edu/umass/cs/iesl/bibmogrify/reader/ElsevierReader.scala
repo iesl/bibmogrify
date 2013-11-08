@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2013  University of Massachusetts Amherst
+ * Licensed under the Apache License, Version 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ */
+
 package edu.umass.cs.iesl.bibmogrify.reader
 
 import com.typesafe.scalalogging.slf4j.Logging
@@ -21,6 +27,8 @@ object ElsevierReader extends Transformer[NamedInputStream, StructuredCitation] 
 
 	val name = "elsevier"
 
+  val fromType = "NamedInputStream"
+  val toType = "StructuredCitation"
 	//def apply(s: InputStream): TraversableOnce[CitationMention] = XmlUtils.firstLevelNodes(s).flatMap(node => (node \ "publication").flatMap
 	// (parsePublication(_)))
 	def apply(nis: NamedInputStream): TraversableOnce[StructuredCitation] = {

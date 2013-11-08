@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2013  University of Massachusetts Amherst
+ * Licensed under the Apache License, Version 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ */
+
 package edu.umass.cs.iesl.bibmogrify.reader
 
 import com.typesafe.scalalogging.slf4j.Logging
@@ -30,6 +36,8 @@ object MedlineReader extends Transformer[NamedInputStream, StructuredCitation] w
 
   val name = "medline"
 
+  val fromType = "NamedInputStream"
+  val toType = "StructuredCitation"
   def apply(nis: NamedInputStream): TraversableOnce[StructuredCitation] = {
     val s = nis.getInputStream
     val inLocation = new BasicStringLocation(nis.name, Nil)

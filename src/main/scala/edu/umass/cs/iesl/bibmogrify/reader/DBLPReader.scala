@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2013  University of Massachusetts Amherst
+ * Licensed under the Apache License, Version 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ */
+
 package edu.umass.cs.iesl.bibmogrify.reader
 
 import edu.umass.cs.iesl.scalacommons.DateUtils._
@@ -18,7 +24,9 @@ object DBLPReader extends Transformer[NamedInputStream, StructuredCitation] with
 	import StringUtils._
 
 	val name    = "dblp"
-	val baseUrl = "http://www.informatik.uni-trier.de/∼ley/db/"
+  val fromType = "NamedInputStream"
+  val toType = "StructuredCitation"
+  val baseUrl = "http://www.informatik.uni-trier.de/∼ley/db/"
 
 	def parse(inLocation: Location, doc: Node): StructuredCitation =
 		{

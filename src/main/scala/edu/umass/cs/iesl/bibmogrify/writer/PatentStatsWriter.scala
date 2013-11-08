@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2013  University of Massachusetts Amherst
+ * Licensed under the Apache License, Version 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ */
+
 package edu.umass.cs.iesl.bibmogrify.writer
 
 import edu.umass.cs.iesl.bibmogrify.NamedPlugin
@@ -5,6 +11,11 @@ import edu.umass.cs.iesl.bibmogrify.model.RichStructuredCitation._
 import edu.umass.cs.iesl.bibmogrify.pipeline.{StringMetadata, TransformerMetadata, Transformer}
 import collection.Iterable
 import edu.umass.cs.iesl.bibmogrify.model._
+import edu.umass.cs.iesl.bibmogrify.pipeline.StringMetadata
+import scala.Some
+import scala.Predef._
+import edu.umass.cs.iesl.bibmogrify.pipeline.StringMetadata
+import scala.Some
 
 /**
  * @author <a href="mailto:dev@davidsoergel.com">David Soergel</a>
@@ -14,7 +25,10 @@ object PatentStatsWriter extends Transformer[StructuredPatent, String] with Name
 	{
 	val name = "patentstats"
 
-	override def metadata: Option[TransformerMetadata] =
+  val fromType = "StructuredPatent"
+  val toType = "String"
+
+  override def metadata: Option[TransformerMetadata] =
 		{
 		val fields = Seq("location", "id", "year", "orig lang", "pub lang", "abstract langs", "num priority claims", "num main family", "num complete family",
 		                 "num patent references",  "num nonpatent references", "num search patent citations", "num search nonpatent citations", "keywords per authority")
@@ -36,7 +50,11 @@ object PatentMultiLanguageAbstractsWriter extends Transformer[StructuredPatent, 
 	{
 	val name = "patentabstractlangs"
 
-	override def metadata: Option[TransformerMetadata] =
+  val fromType = "StructuredPatent"
+  val toType = "String"
+
+
+  override def metadata: Option[TransformerMetadata] =
 		{
 		val fields = Seq("location", "id", "year", "keywords per authority", "english abstract", "other lang", "other abstract")
 		Some(new StringMetadata(fields.mkString("\t") + "\n"))
@@ -70,6 +88,9 @@ object PatentTokensPerSectionWriter extends Transformer[StructuredPatent, String
 	{
 	val name = "patenttokens"
 
+  val fromType = "StructuredPatent"
+  val toType = "String"
+  
 	override def metadata: Option[TransformerMetadata] =
 		{
 		val fields = Seq("location", "id", "year", "english abstract", "summary", "claims", "fulltext", "total tokens", "abstract tokens", "summary tokens",

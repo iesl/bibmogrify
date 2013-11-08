@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2013  University of Massachusetts Amherst
+ * Licensed under the Apache License, Version 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ */
+
 package edu.umass.cs.iesl.bibmogrify.writer
 
 import edu.umass.cs.iesl.bibmogrify.pipeline.Transformer
@@ -12,6 +18,9 @@ import edu.umass.cs.iesl.bibmogrify.model.RichStructuredCitation._
  */
 object FastaWriter extends Transformer[(NonemptyString, StructuredCitation), String] with NamedPlugin {
   val name = "fasta"
+
+  val fromType = "(NonemptyString, StructuredCitation)"
+  val toType = "String"
 
   def apply(x: (NonemptyString, StructuredCitation)) = {
     x match {

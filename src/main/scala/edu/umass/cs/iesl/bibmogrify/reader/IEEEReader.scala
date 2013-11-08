@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2013  University of Massachusetts Amherst
+ * Licensed under the Apache License, Version 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ */
+
 package edu.umass.cs.iesl.bibmogrify.reader
 
 import edu.umass.cs.iesl.scalacommons.StringUtils._
@@ -19,6 +25,8 @@ object IEEEReader extends Transformer[NamedInputStream, StructuredCitation] with
 
   val name = "ieee"
 
+  val fromType = "NamedInputStream"
+  val toType = "StructuredCitation"
   def parse(inLocation: Location, doc: Node, journalMention: StructuredCitation, volume: Option[NonemptyString], date: Some[BasicPartialDate]): StructuredCitation = {
     val c = new StructuredCitation() {
       // todo interpret pubtype field

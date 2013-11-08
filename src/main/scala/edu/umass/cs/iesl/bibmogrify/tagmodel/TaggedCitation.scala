@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2013  University of Massachusetts Amherst
+ * Licensed under the Apache License, Version 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ */
+
 package edu.umass.cs.iesl.bibmogrify.tagmodel
 
 import edu.umass.cs.iesl.bibmogrify.model.StructuredCitation
@@ -64,6 +70,9 @@ object toStructured extends Transformer[TaggedCitation, StructuredCitation] with
 	def apply(v1: TaggedCitation) = Some(v1.toStructuredCitation)
 
 	val name = "tagToStruct"
+
+  val fromType = "TaggedCitation"
+  val toType = "StructuredCitation"
 	}
 
 object toString extends Transformer[TaggedCitation, String] with NamedPlugin
@@ -85,4 +94,6 @@ object toString extends Transformer[TaggedCitation, String] with NamedPlugin
 		}
 		yield (label + " -> {" + values.mkString("}, {") + "}")).mkString("\n") + "\n")*/
 	val name = "tagToString"
+  val fromType = "TaggedCitation"
+  val toType = "String"
 	}

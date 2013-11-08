@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2013  University of Massachusetts Amherst
+ * Licensed under the Apache License, Version 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ */
+
 package edu.umass.cs.iesl.bibmogrify.reader
 
 import edu.umass.cs.iesl.scalacommons.DateUtils._
@@ -16,6 +22,8 @@ object PatentST36Reader extends Transformer[NamedInputStream, StructuredPatent] 
 
   val name = "st36"
 
+  val fromType = "NamedInputStream"
+  val toType = "StructuredPatent"
   /*
       private def parseLanguage(s: String): Option[Language] = {
       // ** since these are standardized, they should go in some more general place
@@ -343,6 +351,9 @@ object PatentST36AuthorsReader extends Transformer[NamedInputStream, StructuredP
 
   val name = "st36authors"
 
+  val fromType = "NamedInputStream"
+  val toType = "StructuredPatent"
+  
   def apply(nis: NamedInputStream): TraversableOnce[StructuredPatent] = {
     //val xml = scala.xml.XML.load(f)
     // val xml = XMLIgnoreDTD.load(f)  // can't, because we need the entity declarations

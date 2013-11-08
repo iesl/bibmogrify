@@ -1,29 +1,8 @@
 <!--
-	DBLP XML Records are available from
-
-        ftp://ftp.informatik.uni-trier.de/pub/users/Ley/bib/records.tar.gz 
-
-	To use this simple DTD you have to concat the records and
-        to enclose them into
-
-          <?xml version="1.0"?>
-          <!DOCTYPE dblp SYSTEM "dblp.dtd">
-          <dblp>
-
-              ... records ...
-
-          </dblp>
-
-
-	Copyright 2001 by Michael Ley (ley@uni-trier.de)
-
-        Copying of the "DBLP" bibliography collection is permitted provided that
-        the copies are not made or distributed for direct commercial advantage and
-        credit for the source is given. To copy or republish otherwise requires
-        specific permission. ACM, IEEE Computer Society, and The VLDB Endowment
-        have the permission to publish DBLP on CDROM/DVD and on their Web servers. 
-
--->
+  ~ Copyright (c) 2013  University of Massachusetts Amherst
+  ~ Licensed under the Apache License, Version 2.0
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  -->
 
 <!ELEMENT dblp (article|inproceedings|proceedings|book|incollection|
                 phdthesis|mastersthesis|www)*>

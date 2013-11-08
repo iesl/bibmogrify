@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2013  University of Massachusetts Amherst
+ * Licensed under the Apache License, Version 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ */
+
 package edu.umass.cs.iesl.bibmogrify.compare
 
 import edu.umass.cs.iesl.bibmogrify.model.RichStructuredCitation._
@@ -18,6 +24,9 @@ class StringZipTransformer(trans: Transformer[StructuredCitation, NonemptyString
 	// with NamedPlugin
 	//val name = "zip("+trans.name+")"
 	def apply(cm: StructuredCitation) = trans(cm).toSeq.map(((_, cm)))
+
+  val fromType = "StructuredCitation"
+  val toType = "NonemptyString"
 }
 
 object AminoAcidUtils extends Logging {
@@ -111,6 +120,8 @@ object AminoAcidTitleHash extends Transformer[StructuredCitation, NonemptyString
   import AminoAcidUtils._
   
 	val name = "AAHash"
+  val fromType = "StructuredCitation"
+  val toType = "NonemptyString"
 
 	// could also remove stopwords, etc.
 	// AA codes are all uppercase letters except J, O, and U.
@@ -145,6 +156,8 @@ class FUSEPaperCorefBundle(val entityId: String, val mentionId: String, val cita
  */
 object FUSEPaperCorefHash extends Transformer[StructuredCitation, NonemptyString] with NamedPlugin {
 	val name = "FPCHash"
+  val fromType = "StructuredCitation"
+  val toType = "NonemptyString"
 
 	def apply(cm: StructuredCitation) = {
 		def limit(s: String, len: Int): String = s.substring(0, math.min(s.length, len))

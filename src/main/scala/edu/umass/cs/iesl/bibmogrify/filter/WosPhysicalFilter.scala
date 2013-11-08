@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2013  University of Massachusetts Amherst
+ * Licensed under the Apache License, Version 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ */
+
 package edu.umass.cs.iesl.bibmogrify.filter
 
 import edu.umass.cs.iesl.bibmogrify.model.StructuredCitation
@@ -9,6 +15,9 @@ import edu.umass.cs.iesl.bibmogrify.model.RichStructuredCitation._
 object WosPhysicalFilter extends Transformer[StructuredCitation, StructuredCitation] with NamedPlugin with Logging {
   val name = "wosphysical"
 
+  val fromType = "StructuredCitation"
+  val toType = "StructuredCitation"
+  
   val okKeywords = List(
     "AA", "BU", "AC", "DA", "EA", "DW", "EC", "DX", "DY", "EE", "EI", "EP", "ER", "ES", "ET", "EV", "EW", "EX", "FA", "FI", "GU", "HQ", "ID", "AI", "IG", "II", "IM", "IQ", "IH", "IX", "IJ",
     "IK", "IL", "IU", "IF", "IO", "IP", "JA", "JB", "JY", "KA", "GC", "KU", "KV", "KY", "LE", "UE", "NU", "OA", "OY", "OU", "OT", "QE", "PK", "QF", "QG", "QH", "PM", "PJ", "QJ", "PQ", "PN",

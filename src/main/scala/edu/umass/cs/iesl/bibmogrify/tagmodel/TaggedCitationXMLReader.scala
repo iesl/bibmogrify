@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2013  University of Massachusetts Amherst
+ * Licensed under the Apache License, Version 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ */
+
 package edu.umass.cs.iesl.bibmogrify.tagmodel
 
 import java.net.URL
@@ -15,6 +21,9 @@ import xml.{Elem, Text, Node}
 
 class TaggedCitationXMLReader(labels: LabelSet) extends Transformer[URL, TaggedCitationWithReferences ] with Logging {
 
+  val fromType = "URL"
+  val toType = "TaggedCitationWithReferences"
+  
   def apply(url: URL): TraversableOnce[TaggedCitationWithReferences ] = {
     val s = url.openStream()
     try {

@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2013  University of Massachusetts Amherst
+ * Licensed under the Apache License, Version 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ */
+
 package edu.umass.cs.iesl.bibmogrify.filter
 
 import edu.umass.cs.iesl.bibmogrify.model._
@@ -8,6 +14,9 @@ import edu.umass.cs.iesl.bibmogrify.pipeline.Transformer
 object ArticleTypeFilter extends Transformer[StructuredCitation, StructuredCitation] with NamedPlugin with Logging {
 	val name = "wosphysical"
 
+  val fromType = "StructuredCitation"
+  val toType = "StructuredCitation"
+  
 	/*
 	case object JournalArticle extends DocType
 	case object ResearchArticle extends DocType(Some(JournalArticle))

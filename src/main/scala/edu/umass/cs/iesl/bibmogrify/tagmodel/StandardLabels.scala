@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2013  University of Massachusetts Amherst
+ * Licensed under the Apache License, Version 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ */
+
 package edu.umass.cs.iesl.bibmogrify.tagmodel
 
 import edu.umass.cs.iesl.bibmogrify.pipeline.Transformer
@@ -15,7 +21,7 @@ import edu.umass.cs.iesl.scalacommons.StringUtils._
  */
 object StandardLabels extends LabelSet with Logging {
 	val validLabels = Seq("authors", "author", "date", "title", "volume", "pages", "booktitle", "editor", "institution", "conference", "journal", "location",
-	                      "note", "publisher", "tech");
+	                      "note", "publisher", "tech")
 
 	val headerSectionLabels    = Seq()
 	val referenceSectionLabels = Seq()
@@ -72,15 +78,22 @@ object StandardLabels extends LabelSet with Logging {
 // with Transformer[URL, TaggedCitation] needs to be explicit for the sake of the plugin discovery
 object StandardLabelXMLReader extends TaggedCitationXMLReader(StandardLabels) with Transformer[URL, TaggedCitation] with NamedPlugin {
 	val name = "standardLabels"
+
+  override val fromType = "URL"
+  override val toType = "TaggedCitation"
 }
 
 object ExtendedLabelXMLReader extends TaggedCitationXMLReader(new ExtendedLabels()) with Transformer[URL, TaggedCitation] with NamedPlugin {
 	val name = "extendedLabels"
+  override val fromType = "URL"
+  override val toType = "TaggedCitation"
 }
 
 object ExtendedLabelXMLReaderHlabeled
 		extends TaggedCitationXMLReader(new ExtendedLabels(Seq("reference-hlabeled"))) with Transformer[URL, TaggedCitation] with NamedPlugin {
 	val name = "extendedLabels"
+  override val fromType = "URL"
+  override val toType = "TaggedCitation"
 }
 
 // todo abstract away cut-and-paste

@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2013  University of Massachusetts Amherst
+ * Licensed under the Apache License, Version 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ */
+
 package edu.umass.cs.iesl.bibmogrify.compare
 
 import edu.umass.cs.iesl.bibmogrify.pipeline.Transformer
@@ -19,6 +25,9 @@ import edu.umass.cs.iesl.scalacommons.util.Hash
 object AuthorsWithSubjects extends Transformer[StructuredCitation, (PersonNameWithDerivations, Int, StructuredCitation)] with NamedPlugin with Logging {
   val name = "AuthorsWithSubjects"
 
+  val fromType = "StructuredCitation"
+  val toType = "(PersonNameWithDerivations, Int, StructuredCitation)"
+  
   def apply(cm: StructuredCitation) = {
     cm.authors.map(_.agent).zipWithIndex.collect({
       case (x: Person, position: Int) => (x, position)
@@ -36,6 +45,8 @@ object AminoAcidAuthorsHash extends Transformer[(PersonNameWithDerivations, Int,
 
   val name = "AAAuthorHash"
 
+  val fromType = "(PersonNameWithDerivations, Int, StructuredCitation)"
+  val toType = "String"
 
   def apply(x: (PersonNameWithDerivations, Int, StructuredCitation)) = {
     x match {
@@ -66,7 +77,10 @@ object AminoAcidAuthorsHash extends Transformer[(PersonNameWithDerivations, Int,
 
 object AllAuthorNames extends Transformer[StructuredCitation, (String, String, Int, StructuredCitation)] with NamedPlugin with Logging {
   val name = "AllAuthorNames"
-
+  val fromType = "StructuredCitation"
+  val toType = "(String, String, Int, StructuredCitation)"
+  
+  
   def apply(cm: StructuredCitation) = {
 
     val a = cm.authors
@@ -86,7 +100,9 @@ object AllAuthorNames extends Transformer[StructuredCitation, (String, String, I
 object AuthorNamesWithLength extends Transformer[(String, String, Int, StructuredCitation), String] with NamedPlugin with Logging {
 
   val name = "AuthorNamesWithLength"
-
+  val fromType = "(String, String, Int, StructuredCitation)"
+  val toType = "String"
+  
   def apply(x: (String, String, Int, StructuredCitation)) = {
     x match {
       case (binCode, personName, position, sc) => {

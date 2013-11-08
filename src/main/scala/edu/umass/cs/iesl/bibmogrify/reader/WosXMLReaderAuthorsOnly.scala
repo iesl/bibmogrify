@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2013  University of Massachusetts Amherst
+ * Licensed under the Apache License, Version 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ */
+
 package edu.umass.cs.iesl.bibmogrify.reader
 
 import edu.umass.cs.iesl.scalacommons.DateUtils._
@@ -29,6 +35,9 @@ object WosXMLReaderAuthorsOnly extends Transformer[NamedInputStream, StructuredC
 
 	val name = "wosxmlauthors"
 
+  val fromType = "NamedInputStream"
+  val toType = "StructuredCitation"
+  
 	def apply(nis: NamedInputStream): TraversableOnce[StructuredCitation] = new Traversable[StructuredCitation] {
 		def foreach[U](f: (StructuredCitation) => U) {
 

@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2013  University of Massachusetts Amherst
+ * Licensed under the Apache License, Version 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ */
+
 package edu.umass.cs.iesl.bibmogrify.pipeline
 
 import com.typesafe.scalalogging.slf4j.Logging
@@ -9,6 +15,10 @@ import collection.GenTraversableOnce
  */
 trait Transformer[S, +T] extends ((S) => GenTraversableOnce[T]) {
   def metadata: Option[TransformerMetadata] = None
+
+  // introspecting the types is a mess; just hardcode the strings
+  val fromType: String  // S
+  val toType: String  // T
 }
 
 trait TransformerMetadata
@@ -106,6 +116,9 @@ class CompositeTransformer[T, U, V](first: Transformer[T, U], second: Transforme
       }
     }
   }
+
+  val fromType = "T"
+  val toType = "V"
 }
 
 class CompositeMetadata(a: Option[TransformerMetadata], b: Option[TransformerMetadata]) extends TransformerMetadata {

@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2013  University of Massachusetts Amherst
+ * Licensed under the Apache License, Version 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ */
+
 package edu.umass.cs.iesl.bibmogrify
 
 import pipeline.Transformer
@@ -25,11 +31,15 @@ object StringToUrl extends Transformer[String, URL] with NamedPlugin {
 	}
 
 	val name = "toUrl"
+  val fromType = "String"
+  val toType = "URL"
 }
 
 object AnyToString extends Transformer[Any, String] with NamedPlugin {
 
 	val name = "toString"
+  val fromType = "Any"
+  val toType = "String"
 
 	def apply(v1: Any) = Some(v1.toString + "\n")
 }
@@ -38,22 +48,33 @@ object LineReader extends Transformer[URL, String] with NamedPlugin {
 	def apply(u: URL): TraversableOnce[String] = io.Source.fromURL(u).getLines().toStream.view
 
 	val name = "byLine"
+  val fromType = "URL"
+  val toType = "String"
 }
 
 object ParallelLineReader extends Transformer[URL, String] with NamedPlugin {
 	def apply(u: URL): GenTraversableOnce[String] = io.Source.fromURL(u).getLines().toStream.view.par
 
 	val name = "byLinePar"
+
+  val fromType = "URL"
+  val toType = "String"
 }
 
 object UrlToStream extends Transformer[URL, NamedInputStream] with NamedPlugin {
 	def apply(u: URL): TraversableOnce[NamedInputStream] = Some(new UrlNamedInputStream(u.toExternalForm.n, u))
 
 	val name = "urlToStream"
+
+  val fromType = "URL"
+  val toType = "NamedInputStream"
 }
 
 object Identity extends Transformer[TraversableOnce[String], String] {
 	def apply(u: TraversableOnce[String]): TraversableOnce[String] = u
+
+  val fromType = "TraversableOnce[String]"
+  val toType = "String"
 }
 
 /*
@@ -123,6 +144,9 @@ object ArchiveToInputStreams extends Transformer[URL, NamedInputStream] with Nam
 
 	val name = "extract"
 
+  val fromType = "URL"
+  val toType = "NamedInputStream"
+  
 	def getAllInputStreams(nis: NamedInputStream): TraversableOnce[NamedInputStream] = {
 
 		val name = nis.name

@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2013  University of Massachusetts Amherst
+ * Licensed under the Apache License, Version 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ */
+
 package edu.umass.cs.iesl.bibmogrify
 
 import pipeline._
@@ -8,14 +14,27 @@ import com.typesafe.scalalogging.slf4j.Logging
 import org.rogach.scallop._;
 
 class Conf(args:Seq[String]) extends ScallopConf(args) {
-  version("bibmogrify")
-  banner("""Usage:  bibmogrify [options] <path1 path2 ...>
+  version("bibmogrify v1.0.  (c) 2013  University of Massachusetts Amherst.")
+  banner("""
+           |High-volume format translation and processing of scholarly citations and patents.
+           |
+           |More Info: https://github.com/iesl/bibmogrify
+           |  Contact: David Soergel <soergel@cs.umass.edu>
+           |  License: Apache License, Version 2.0
+           |
+           |    Usage:  bibmogrify [options] <input1 input2 ...>
            |    
-           |Options:
+           |  Options:
            |""".stripMargin)
-  footer("\nFor all other tricks, consult the documentation!")
-  
-  val transforms : ScallopOption[String] = opt[String]("xform",'x',"transforms (" + BibMogrify.pm.transformers.keys.mkString(", ") + ")", required=true)
+  footer("""
+           |
+           | Available Transforms
+           | ====================
+           |
+           |""".stripMargin + BibMogrify.pm.transformers.values.collect({case t :Transformer[_,_] with NamedPlugin => TransformerIntrospector.describeTransformerPlugin(t)}).mkString("\n") + "\n\n")
+
+  //val transforms : ScallopOption[String] = opt[String]("xform",'x',"transforms (" + BibMogrify.pm.transformers.keys.mkString(", ") + ")", required=true)
+  val transforms : ScallopOption[String] = opt[String]("xform",'x',"transforms, comma separated (see below)", required=true)
   val sink : ScallopOption[String] =  opt[String]("sink",'s',"sinks (" + BibMogrify.pm.sinks.keys.mkString(", ") + ")")
 
   val inputs : ScallopOption[List[String]] = trailArg[List[String]](required = false)
@@ -70,6 +89,7 @@ class BibMogrify extends Logging
 			{*/
 		Pump(p2(inputStrings), sink.asInstanceOf[Sink[Any]])
 		//	}
+      
 		sink.close()
 		}
 	}
